@@ -1,0 +1,60 @@
+// app/page.tsx
+import React from 'react';
+
+const Page = () => {
+  return (
+    <div>
+      <section id="home" className="mx-auto max-w-[1200px] px-4 pt-32 pb-20">
+        <div className="grid grid-cols-1 gap-10 sm:[grid-template-columns:3fr_7fr] items-stretch">
+          {/* Hero content here */}
+        </div>
+      </section>
+      <div className="mx-auto max-w-[1200px] px-4">
+        {/* Main content here */}
+      </div>
+      <div className="mx-auto max-w-[1200px] px-4">
+        {/* Additional content here */}
+      </div>
+      <section id="contact">
+        <div className="mx-auto max-w-[1200px] px-4">
+          {/* Contact content here */}
+        </div>
+      </section>
+    </div>
+  );
+};
+
+export default Page;
+
+// components/navbar.tsx
+import React from 'react';
+
+const Navbar = () => {
+  return (
+    <div className="mx-auto max-w-[1200px] px-4">
+      {/* Navbar content here */}
+    </div>
+  );
+};
+
+export default Navbar;
+
+// components/services.tsx
+import React from 'react';
+
+const Services = () => {
+  return (
+    <div className="relative overflow-x-hidden overflow-y-visible">
+      {/* Carousel content here */}
+    </div>
+  );
+};
+
+export default Services;
+
+// app/globals.css
+@layer base {
+  html, body {
+    overflow-x: hidden;
+  }
+}

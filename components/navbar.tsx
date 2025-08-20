@@ -94,32 +94,32 @@ export function Navbar() {
 						Carlos S. Cantanzaro
 					</Link>
 
-					{/* Desktop Navigation */}
-					<div className='hidden lg:flex items-center space-x-8'>
-						<Link
-							href='#services'
-							className={navLinkClasses('services')}
-							aria-current={active === 'services' ? 'location' : undefined}>
-							Serviços
-						</Link>
-						<Link
-							href='#works'
-							className={navLinkClasses('works')}
-							aria-current={active === 'works' ? 'location' : undefined}>
-							Projetos
-						</Link>
-						<Link
-							href='#skills'
-							className={navLinkClasses('skills')}
-							aria-current={active === 'skills' ? 'location' : undefined}>
-							Habilidades
-						</Link>
+{/* Desktop Navigation */}
+<div className='hidden lg:flex items-center space-x-8'>
+<Link
+href='#services'
+className={navLinkClasses('services')}
+aria-current={active === 'services' ? 'location' : undefined}>
+Serviços
+</Link>
+<Link
+href='#works'
+className={navLinkClasses('works')}
+aria-current={active === 'works' ? 'location' : undefined}>
+Projetos
+</Link>
+<Link
+href='#skills'
+className={navLinkClasses('skills')}
+aria-current={active === 'skills' ? 'location' : undefined}>
+Habilidades
+</Link>
 
-						<Link
-							href='/blog'
-							className='text-white hover:text-primary transition-colors'>
-							Blog
-						</Link>
+<Link
+href='/blog'
+className='text-white hover:text-primary transition-colors'>
+Blog
+</Link>
 						<div
 							className='flex items-center gap-2 mr-2'
 							aria-label='Language selector'>
@@ -197,48 +197,48 @@ export function Navbar() {
 									</button>
 								))}
 							</div>
-							<Link
-								href='#services'
-								className={navLinkClasses('services')}
-								aria-current={active === 'services' ? 'location' : undefined}
-								onClick={() => setIsOpen(false)}>
-								Services
-							</Link>
-							<Link
-								href='#works'
-								className={navLinkClasses('works')}
-								aria-current={active === 'works' ? 'location' : undefined}
-								onClick={() => setIsOpen(false)}>
-								Works
-							</Link>
-							<Link
-								href='#skills'
-								className={navLinkClasses('skills')}
-								aria-current={active === 'skills' ? 'location' : undefined}
-								onClick={() => setIsOpen(false)}>
-								Skills
-							</Link>
-							<Link
-								href='#testimonials'
-								className={navLinkClasses('testimonials')}
-								aria-current={
-									active === 'testimonials' ? 'location' : undefined
-								}
-								onClick={() => setIsOpen(false)}>
-								Testimonials
-							</Link>
-							<Link
-								href='/blog'
-								className='text-white hover:text-primary transition-colors'
-								onClick={() => setIsOpen(false)}>
-								Blog
-							</Link>
-							<Button
-								className='w-full'
-								asChild
-								onClick={() => setIsOpen(false)}>
-								<a href='#contact'>Contact</a>
-							</Button>
+<Link
+href='#services'
+className={navLinkClasses('services')}
+aria-current={active === 'services' ? 'location' : undefined}
+onClick={() => setIsOpen(false)}>
+Serviços
+</Link>
+<Link
+href='#works'
+className={navLinkClasses('works')}
+aria-current={active === 'works' ? 'location' : undefined}
+onClick={() => setIsOpen(false)}>
+Projetos
+</Link>
+<Link
+href='#skills'
+className={navLinkClasses('skills')}
+aria-current={active === 'skills' ? 'location' : undefined}
+onClick={() => setIsOpen(false)}>
+Habilidades
+</Link>
+<Link
+href='#testimonials'
+className={navLinkClasses('testimonials')}
+aria-current={
+active === 'testimonials' ? 'location' : undefined
+}
+onClick={() => setIsOpen(false)}>
+Depoimentos
+</Link>
+<Link
+href='/blog'
+className='text-white hover:text-primary transition-colors'
+onClick={() => setIsOpen(false)}>
+Blog
+</Link>
+<Button
+className='w-full touch-target'
+asChild
+onClick={() => setIsOpen(false)}>
+<a href='#contact'>Contato</a>
+</Button>
 						</div>
 					</div>
 				)}

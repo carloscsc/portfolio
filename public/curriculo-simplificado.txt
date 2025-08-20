@@ -1,0 +1,27 @@
+CURRÍCULO SIMPLIFICADO - CARLOS S. CANTANZARO
+
+=== INFORMAÇÕES PESSOAIS ===
+Nome: Carlos S. Cantanzaro
+Email: dev.lukmansk@gmail.com
+Telefone: +91 7074399354
+Localização: Murshidabad, West Bengal, India
+
+=== RESUMO PROFISSIONAL ===
+Desenvolvedor Full Stack | Tech Lead | Consultor
+Especialista em criar produtos e experiências digitais acessíveis e inclusivas.
+
+=== EXPERIÊNCIA ===
+• Desenvolvimento Full Stack
+• Liderança Técnica
+• Consultoria em Tecnologia
+
+=== HABILIDADES ===
+• JavaScript/TypeScript
+• React/Next.js
+• Node.js
+• Bancos de Dados
+• UI/UX Design
+
+=== CONTATO ===
+Email: dev.lukmansk@gmail.com
+Telefone: +91 7074399354

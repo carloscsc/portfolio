@@ -8,6 +8,7 @@ import Image from 'next/image'
 import { Navbar } from '@/components/navbar'
 import { ResumeDownload } from '@/components/resume-download'
 import { Phone, Mail, MapPin } from 'lucide-react'
+import { FeaturedPosts } from '@/components/featured-posts'
 
 export default function Home() {
 	return (
@@ -61,7 +62,7 @@ export default function Home() {
 				<Projects />
 				<Skills />
 				{/* <Testimonials /> */}
-
+				<FeaturedPosts />
 				{/* Contato */}
 				<section
 					className='py-16 scroll-mt-24'

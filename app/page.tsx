@@ -19,7 +19,7 @@ export default function Home() {
 				id='home'
 				className='responsive-container spacing-responsive-lg'>
 				<div className='grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-10 items-stretch'>
-					<div className='lg:col-span-5 relative rounded-2xl overflow-hidden min-h-[360px] lg:min-h-[520px] order-2 lg:order-1'>
+					<div className='lg:col-span-5 relative rounded-2xl overflow-hidden min-h-[360px] lg:min-h-[520px]  lg:order-1'>
 						<Image
 							src='https://media.licdn.com/dms/image/v2/C4E03AQHipCurSx0GVQ/profile-displayphoto-shrink_800_800/profile-displayphoto-shrink_800_800/0/1516935311991?e=1757548800&v=beta&t=cV-Vp-VRYpr9N_LQHR0FrRoZm32NBY-38VIfs9qPQZE'
 							alt='Profile'
@@ -41,7 +41,7 @@ export default function Home() {
 							Eu ajudo empresas a resolver problemas, criando produtos e
 							experiências digitais acessíveis e inclusivas.
 						</p>
-						<div className='flex flex-col sm:flex-row gap-4 mb-8 relative'>
+						<div className='flex flex-row gap-4 mb-8 relative.'>
 							<Button
 								size='lg'
 								className='bg-primary hover:bg-primary/90 hover:ring-2 hover:ring-primary hover:ring-offset-2 hover:ring-offset-black transition-all duration-300 touch-target'

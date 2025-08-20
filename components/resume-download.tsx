@@ -4,27 +4,9 @@ import { useState, useRef, useEffect } from 'react'
 import { Button } from '@/components/ui/button'
 import { Download, FileText, Sparkles } from 'lucide-react'
 
-// Custom hook for 500px breakpoint
-function useIsMobile500() {
-	const [isMobile, setIsMobile] = useState<boolean | undefined>(undefined)
-
-	useEffect(() => {
-		const mql = window.matchMedia(`(max-width: 499px)`)
-		const onChange = () => {
-			setIsMobile(window.innerWidth < 500)
-		}
-		mql.addEventListener('change', onChange)
-		setIsMobile(window.innerWidth < 500)
-		return () => mql.removeEventListener('change', onChange)
-	}, [])
-
-	return !!isMobile
-}
-
 export function ResumeDownload() {
-	const [isOpen, setIsOpen] = useState(false)
-	const dropdownRef = useRef<HTMLDivElement>(null)
-	const isMobile = useIsMobile500()
+const [isOpen, setIsOpen] = useState(false)
+const dropdownRef = useRef<HTMLDivElement>(null)
 
 	const handleDownload = (type: 'simplified' | 'formatted') => {
 		// Create download link based on type
@@ -60,18 +42,18 @@ export function ResumeDownload() {
 		<div
 			className='relative'
 			ref={dropdownRef}>
-			<Button
-				size='lg'
-				variant='outline'
-				className='border-primary text-primary hover:bg-primary hover:text-black bg-transparent'
-				onClick={() => setIsOpen(!isOpen)}>
-				<Download className='mr-2 h-4 w-4' />
-				Baixe meu currículo
-			</Button>
+<Button
+size='lg'
+variant='outline'
+className='border-primary text-primary hover:bg-primary hover:text-black bg-transparent hover:ring-2 hover:ring-primary hover:ring-offset-2 hover:ring-offset-black transition-all duration-300 touch-target'
+onClick={() => setIsOpen(!isOpen)}>
+<Download className='mr-2 h-4 w-4' />
+Baixe meu currículo
+</Button>
 
-			{isOpen && (
-				<div className='absolute top-full left-0 mt-1 z-50 overflow-hidden rounded-md border bg-popover p-2 text-popover-foreground shadow-md max-w-[calc(100vw-16px)]'>
-					<div className={isMobile ? 'flex flex-col gap-1' : 'flex flex-row gap-1'}>
+{isOpen && (
+<div className='absolute top-full left-0 mt-1 z-50 overflow-hidden rounded-md border bg-popover p-2 text-popover-foreground shadow-md max-w-[calc(100vw-16px)] animate-in fade-in-0 zoom-in-95 slide-in-from-top-2 duration-200'>
+					<div className='flex flex-col gap-1'>
 <div
 onClick={() => handleDownload('simplified')}
 className='flex flex-1 min-w-0 cursor-pointer select-none items-center gap-1 rounded-sm px-3 py-2 text-sm outline-none transition-colors hover:bg-accent hover:text-accent-foreground'>

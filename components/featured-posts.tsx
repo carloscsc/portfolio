@@ -16,7 +16,7 @@ export function FeaturedPosts({ count = 3 }: { count?: number }) {
 				<h2
 					id='featured-posts-title'
 					className='text-responsive-xl font-bold mb-2'>
-					Posts em destaque
+					Posts em destaquei
 				</h2>
 				<p className='text-gray-400 max-w-2xl mx-auto text-responsive-base leading-relaxed'>
 					Destaques do blog com artigos selecionados para compartilhar

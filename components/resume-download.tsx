@@ -52,11 +52,11 @@ Baixe meu currículo
 </Button>
 
 {isOpen && (
-<div className='absolute top-full left-0 mt-1 z-50 overflow-hidden rounded-md border bg-popover p-2 text-popover-foreground shadow-md max-w-[calc(100vw-16px)] animate-in fade-in-0 zoom-in-95 slide-in-from-top-2 duration-200'>
+<div className='absolute top-full left-0 mt-1 z-50 overflow-hidden rounded-md border border-white/20 bg-black/90 backdrop-blur-md p-2 text-white shadow-2xl max-w-[calc(100vw-16px)] animate-in fade-in-0 zoom-in-95 slide-in-from-top-2 duration-200'>
 					<div className='flex flex-col gap-1'>
 <div
 onClick={() => handleDownload('simplified')}
-className='flex flex-1 min-w-0 cursor-pointer select-none items-center gap-1 rounded-sm px-3 py-2 text-sm outline-none transition-colors hover:bg-accent hover:text-accent-foreground'>
+className='flex flex-1 min-w-0 cursor-pointer select-none items-center gap-1 rounded-sm px-3 py-2 text-sm outline-none transition-colors hover:bg-white/10 hover:text-white'>
 <FileText className='h-4 w-4 flex-shrink-0' />
               <div className='flex flex-col min-w-0'>
                 <span className='font-medium truncate'>Versão Simplificada</span>
@@ -68,7 +68,7 @@ className='flex flex-1 min-w-0 cursor-pointer select-none items-center gap-1 rou
 
 <div
 onClick={() => handleDownload('formatted')}
-className='flex flex-1 min-w-0 cursor-pointer select-none items-center gap-1 rounded-sm px-3 py-2 text-sm outline-none transition-colors hover:bg-accent hover:text-accent-foreground'>
+className='flex flex-1 min-w-0 cursor-pointer select-none items-center gap-1 rounded-sm px-3 py-2 text-sm outline-none transition-colors hover:bg-white/10 hover:text-white'>
 <Sparkles className='h-4 w-4 flex-shrink-0' />
               <div className='flex flex-col min-w-0'>
                 <span className='font-medium truncate'>Formatado</span>

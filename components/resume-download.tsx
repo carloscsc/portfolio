@@ -69,32 +69,32 @@ export function ResumeDownload() {
 				Baixe meu currículo
 			</Button>
 
-{isOpen && (
-<div className='absolute top-full left-0 mt-1 z-50 overflow-hidden rounded-md border bg-popover p-2 text-popover-foreground shadow-md'>
-<div className='flex flex-wrap gap-2'>
-						<div
-							onClick={() => handleDownload('simplified')}
-							className='flex cursor-pointer select-none items-center gap-2 rounded-sm px-3 py-2 text-sm outline-none transition-colors hover:bg-accent hover:text-accent-foreground'>
-							<FileText className='h-4 w-4 flex-shrink-0' />
-							<div className='flex flex-col'>
-								<span className='font-medium'>Versão Simplificada</span>
-								<span className='text-xs text-muted-foreground'>
-									Formato conciso
-								</span>
-							</div>
-						</div>
+			{isOpen && (
+				<div className='absolute top-full left-0 mt-1 z-50 overflow-hidden rounded-md border bg-popover p-2 text-popover-foreground shadow-md max-w-[calc(100vw-16px)]'>
+					<div className={isMobile ? 'flex flex-col gap-1' : 'flex flex-row gap-1'}>
+<div
+onClick={() => handleDownload('simplified')}
+className='flex flex-1 min-w-0 cursor-pointer select-none items-center gap-1 rounded-sm px-3 py-2 text-sm outline-none transition-colors hover:bg-accent hover:text-accent-foreground'>
+<FileText className='h-4 w-4 flex-shrink-0' />
+              <div className='flex flex-col min-w-0'>
+                <span className='font-medium truncate'>Versão Simplificada</span>
+                <span className='text-xs text-muted-foreground truncate'>
+                  Formato conciso
+                </span>
+              </div>
+</div>
 
-						<div
-							onClick={() => handleDownload('formatted')}
-							className='flex cursor-pointer select-none items-center gap-2 rounded-sm px-3 py-2 text-sm outline-none transition-colors hover:bg-accent hover:text-accent-foreground'>
-							<Sparkles className='h-4 w-4 flex-shrink-0' />
-							<div className='flex flex-col'>
-								<span className='font-medium'>Formatado</span>
-								<span className='text-xs text-muted-foreground'>
-									Design completo
-								</span>
-							</div>
-						</div>
+<div
+onClick={() => handleDownload('formatted')}
+className='flex flex-1 min-w-0 cursor-pointer select-none items-center gap-1 rounded-sm px-3 py-2 text-sm outline-none transition-colors hover:bg-accent hover:text-accent-foreground'>
+<Sparkles className='h-4 w-4 flex-shrink-0' />
+              <div className='flex flex-col min-w-0'>
+                <span className='font-medium truncate'>Formatado</span>
+                <span className='text-xs text-muted-foreground truncate'>
+                  Design completo
+                </span>
+              </div>
+</div>
 					</div>
 				</div>
 			)}

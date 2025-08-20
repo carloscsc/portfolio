@@ -260,6 +260,7 @@ overflow-x: hidden;
     }
   }
   
+  
   /* Line clamping utilities */
   .line-clamp-2 {
     display: -webkit-box;
@@ -273,5 +274,22 @@ overflow-x: hidden;
     -webkit-line-clamp: 3;
     -webkit-box-orient: vertical;
     overflow: hidden;
+  }
+  
+  /* Remove all dropdown animations */
+  [data-radix-dropdown-menu-content] {
+    animation: none !important;
+    transition: none !important;
+    transform: none !important;
+  }
+  
+  [data-radix-dropdown-menu-content][data-state="open"] {
+    animation: none !important;
+    transition: none !important;
+  }
+  
+  [data-radix-dropdown-menu-content][data-state="closed"] {
+    animation: none !important;
+    transition: none !important;
   }
 }

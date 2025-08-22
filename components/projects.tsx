@@ -18,12 +18,12 @@ interface ProjectProps {
 }
 
 function ProjectCard({
-title,
-description,
-image,
-demoLink,
-githubLink,
-slug,
+ title,
+ description,
+ image,
+ demoLink,
+ githubLink,
+ slug,
 }: ProjectProps) {
   const [imageLoading, setImageLoading] = useState(true)
   const [imageError, setImageError] = useState(false)
@@ -40,42 +40,52 @@ slug,
 
   return (
     <CardWrapper className='overflow-hidden group h-full flex flex-col hover:border-primary/40 transition-all duration-300'>
-      {/* Enhanced image container with loading states */}
-      <div className='relative h-48 sm:h-52 mb-4 bg-muted/20 rounded-lg overflow-hidden'>
-        {imageLoading && (
-          <div className='absolute inset-0 flex items-center justify-center bg-muted/10 animate-pulse'>
-            <ImageIcon className='h-8 w-8 text-muted-foreground/50' />
-          </div>
-        )}
-        
-        {imageError ? (
-          <div className='absolute inset-0 flex items-center justify-center bg-muted/10'>
-            <div className='text-center'>
-              <ImageIcon className='h-8 w-8 text-muted-foreground/50 mx-auto mb-2' />
-              <p className='text-xs text-muted-foreground'>Imagem indisponível</p>
+      {/* Enhanced image container with loading states and link to details */}
+      <Link
+        href={`/projects/${slug}`}
+        aria-label={`Ver detalhes de ${title}`}
+        className='block group/image'>
+        <div className='relative h-48 sm:h-52 mb-4 bg-muted/20 rounded-lg overflow-hidden'>
+          {imageLoading && (
+            <div className='absolute inset-0 flex items-center justify-center bg-muted/10 animate-pulse'>
+              <ImageIcon className='h-8 w-8 text-muted-foreground/50' />
             </div>
-          </div>
-        ) : (
-          <Image
-            src={image || '/placeholder.svg'}
-            alt={title}
-            fill
-            sizes='(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw'
-            className={`object-cover transition-all duration-300 ${
-              imageLoading ? 'opacity-0' : 'opacity-100'
-            } ${isMobile ? 'hover:scale-105' : 'group-hover:scale-110'}`}
-            onLoad={handleImageLoad}
-            onError={handleImageError}
-            priority={false}
-            loading='lazy'
-          />
-        )}
-      </div>
+          )}
+          
+          {imageError ? (
+            <div className='absolute inset-0 flex items-center justify-center bg-muted/10'>
+              <div className='text-center'>
+                <ImageIcon className='h-8 w-8 text-muted-foreground/50 mx-auto mb-2' />
+                <p className='text-xs text-muted-foreground'>Imagem indisponível</p>
+              </div>
+            </div>
+          ) : (
+            <Image
+              src={image || '/placeholder.svg'}
+              alt={title}
+              fill
+              sizes='(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw'
+              className={`object-cover transition-all duration-300 ${
+                imageLoading ? 'opacity-0' : 'opacity-100'
+              } ${isMobile ? 'hover:scale-105' : 'group-hover:scale-110'}`}
+              onLoad={handleImageLoad}
+              onError={handleImageError}
+              priority={false}
+              loading='lazy'
+            />
+          )}
+        </div>
+      </Link>
 
       {/* Content container with flex-grow for equal height cards */}
       <div className='flex-grow flex flex-col'>
         <h3 className='text-lg font-semibold group-hover:text-primary transition-colors mb-2 line-clamp-2'>
-          {title}
+          <Link
+            href={`/projects/${slug}`}
+            aria-label={`Ver detalhes de ${title}`}
+            className='hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/40'>
+            {title}
+          </Link>
         </h3>
         <p className='text-gray-400 text-sm mb-4 flex-grow line-clamp-3 leading-relaxed'>
           {description}

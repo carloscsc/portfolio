@@ -40,7 +40,7 @@ export default function Home() {
               Eu ajudo empresas a resolver problemas, criando produtos e
               experiências digitais acessíveis e inclusivas.
             </p>
-            <div className="flex flex-row gap-4 mb-8 relative.">
+            <div className="flex flex-col md:flex-row gap-4 mb-8 relative">
               <Button
                 size="lg"
                 className="bg-primary hover:bg-primary/90 hover:ring-2 hover:ring-primary hover:ring-offset-2 hover:ring-offset-black transition-all duration-300 touch-target"

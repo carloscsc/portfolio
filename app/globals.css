@@ -169,13 +169,13 @@ body {
     @apply ring-2 ring-primary ring-offset-2 ring-offset-background;
   }
 
-  /* Smooth transitions for reduced motion users */
-  @media (prefers-reduced-motion: no-preference) {
+  /* Smooth transitions for reduced motion users - DISABLED FOR PERFORMANCE */
+  /* @media (prefers-reduced-motion: no-preference) {
     * {
       transition-duration: 150ms;
       transition-timing-function: ease-out;
     }
-  }
+  } */
 
   /* Respect reduced motion preferences */
   @media (prefers-reduced-motion: reduce) {
@@ -275,20 +275,63 @@ body {
     overflow: hidden;
   }
 
-  /* Remove all dropdown animations */
-  [data-radix-dropdown-menu-content] {
+  /* Remove ALL dropdown and popover animations - GLOBAL OVERRIDE */
+  [data-radix-dropdown-menu-content],
+  [data-radix-popover-content],
+  [data-radix-select-content],
+  [data-radix-hover-card-content],
+  [data-radix-tooltip-content],
+  [data-radix-context-menu-content],
+  [data-radix-menubar-content],
+  [data-radix-navigation-menu-content] {
     animation: none !important;
     transition: none !important;
     transform: none !important;
+    opacity: 1 !important;
   }
 
-  [data-radix-dropdown-menu-content][data-state="open"] {
+  [data-radix-dropdown-menu-content][data-state="open"],
+  [data-radix-popover-content][data-state="open"],
+  [data-radix-select-content][data-state="open"],
+  [data-radix-hover-card-content][data-state="open"],
+  [data-radix-tooltip-content][data-state="open"],
+  [data-radix-context-menu-content][data-state="open"],
+  [data-radix-menubar-content][data-state="open"],
+  [data-radix-navigation-menu-content][data-state="open"] {
     animation: none !important;
     transition: none !important;
+    transform: none !important;
+    opacity: 1 !important;
   }
 
-  [data-radix-dropdown-menu-content][data-state="closed"] {
+  [data-radix-dropdown-menu-content][data-state="closed"],
+  [data-radix-popover-content][data-state="closed"],
+  [data-radix-select-content][data-state="closed"],
+  [data-radix-hover-card-content][data-state="closed"],
+  [data-radix-tooltip-content][data-state="closed"],
+  [data-radix-context-menu-content][data-state="closed"],
+  [data-radix-menubar-content][data-state="closed"],
+  [data-radix-navigation-menu-content][data-state="closed"] {
     animation: none !important;
     transition: none !important;
+    transform: none !important;
+    opacity: 1 !important;
+  }
+
+  /* Remove ALL Tailwind animation classes */
+  .animate-in,
+  .animate-out,
+  .fade-in-0,
+  .fade-out-0,
+  .zoom-in-95,
+  .zoom-out-95,
+  .slide-in-from-top-2,
+  .slide-in-from-bottom-2,
+  .slide-in-from-left-2,
+  .slide-in-from-right-2 {
+    animation: none !important;
+    transition: none !important;
+    transform: none !important;
+    opacity: 1 !important;
   }
 }

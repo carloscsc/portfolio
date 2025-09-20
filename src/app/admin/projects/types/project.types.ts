@@ -1,4 +1,5 @@
 import z from 'zod'
-import { ProjectsSchema } from './project.schema'
+import { ProjectSchema, StoreProjectSchema } from './project.schema'
 
-type ProjectTypes = z.infer<typeof ProjectsSchema>
+type ProjectTypes = z.infer<typeof ProjectSchema>
+type StoreProjectTypes = z.infer<typeof StoreProjectSchema>

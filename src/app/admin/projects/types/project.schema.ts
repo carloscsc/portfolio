@@ -1,6 +1,6 @@
 import { z } from 'zod'
 
-export const ProjectsSchema = z.object({
+export const ProjectSchema = z.object({
 	id: z.string(),
 	title: z.string().min(1, 'O título é obrigatório'),
 	description: z
@@ -26,3 +26,9 @@ export const ProjectsSchema = z.object({
 	createdAt: z.date().default(() => new Date()),
 	updatedAt: z.date().default(() => new Date()),
 })
+
+export const StoreProjectSchema = ProjectSchema.omit({
+	id: true,
+	createdAt: true,
+	updatedAt: true,
+}).extend({})

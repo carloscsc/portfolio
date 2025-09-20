@@ -1,7 +1,7 @@
 import mongoose, { Model, Schema } from 'mongoose'
-import { StoreProjectTypes } from './project.types'
+import { ProjectTypes, StoreProjectTypes } from './project.types'
 
-const ProjectMongooseSchema = new Schema<StoreProjectTypes>(
+const ProjectMongooseSchema = new Schema<ProjectTypes>(
 	{
 		title: { type: String, required: true },
 		description: { type: String, required: true },
@@ -23,11 +23,16 @@ const ProjectMongooseSchema = new Schema<StoreProjectTypes>(
 	},
 	{
 		timestamps: true,
+		toJSON: {
+			transform: function (doc, ret: any) {
+				ret._id = ret._id.toString()
+				delete ret.__v
+				return ret
+			},
+		},
 	}
 )
 
-const Project: Model<StoreProjectTypes> =
+export const Project: Model<ProjectTypes> =
 	mongoose.models.Project ||
-	mongoose.model<StoreProjectTypes>('Project', ProjectMongooseSchema)
-
-export default Project
+	mongoose.model<ProjectTypes>('Project', ProjectMongooseSchema)

@@ -1,8 +1,36 @@
+'use client'
 import { Button } from '@/components/ui/button'
 import { ArrowLeftFromLineIcon, LogOut } from 'lucide-react'
 import Link from 'next/link'
+import { useCallback } from 'react'
+import { store } from '../actions/project.controller'
 
 const cadastrarProjeto = () => {
+	const handleSubmit = useCallback(async () => {
+		const request = await store({
+			title: 'Projeto de Teste',
+			description: 'Descrição do projeto de teste',
+			client_name: 'Cliente de Teste',
+			client_description: 'Descrição do cliente de teste',
+			client_location: 'Localização do cliente de teste',
+			duration: '3 meses',
+			year: 2023,
+			cover: 'caminho/para/imagem.jpg',
+			about_project: 'Detalhes sobre o projeto de teste',
+			technologies: ['React', 'Node.js'],
+			functionalities: ['Funcionalidade 1', 'Funcionalidade 2'],
+			challenges: ['Desafio 1', 'Desafio 2'],
+			results: ['Resultado 1', 'Resultado 2'],
+			status: 'ativo',
+		})
+
+		if (request.project) {
+			console.log(request.project)
+			console.log(request.project.createdAt.toString())
+			alert('Projeto cadastrado com sucesso!')
+		}
+	}, [])
+
 	return (
 		<>
 			<div className='flex flex-row justify-between items-center mx-auto w-full max-w-4xl'>
@@ -22,6 +50,8 @@ const cadastrarProjeto = () => {
 						</Link>
 					</Button>
 				</div>
+
+				<Button onClick={handleSubmit}>Salvar Projeto de Teste</Button>
 			</div>
 
 			<footer className='mt-5 mb-4 text-center text-sm text-gray-500'>

@@ -1,7 +1,7 @@
 import { z } from 'zod'
 
 export const ProjectSchema = z.object({
-	id: z.string(),
+	_id: z.string(),
 	title: z.string().min(1, 'O título é obrigatório'),
 	description: z
 		.string()
@@ -28,7 +28,7 @@ export const ProjectSchema = z.object({
 })
 
 export const StoreProjectSchema = ProjectSchema.omit({
-	id: true,
+	_id: true,
 	createdAt: true,
 	updatedAt: true,
 }).extend({})

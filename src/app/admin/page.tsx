@@ -1,5 +1,5 @@
 import { LogOut } from 'lucide-react'
-import AdminTabs from './components/admin-tabs'
+import AdminTabs from './admin-tabs'
 
 const AdminPage = () => {
 	return (
@@ -9,6 +9,11 @@ const AdminPage = () => {
 				<LogOut className='cursor-pointer' />
 			</div>
 			<AdminTabs />
+
+			<footer className='mt-5 mb-4 text-center text-sm text-gray-500'>
+				{new Date().getFullYear()}&copy; Carlos Sabo Cantanzaro - Todos os
+				direitos reservados.
+			</footer>
 		</>
 	)
 }

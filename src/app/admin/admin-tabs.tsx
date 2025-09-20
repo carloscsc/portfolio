@@ -7,8 +7,8 @@ const AdminTabs = () => {
 		<div className='mx-auto w-full max-w-4xl border border-white/10 p-5'>
 			<Tabs
 				defaultValue='projetos'
-				className='flex flex-row gap-10'>
-				<TabsList className='w-[150px] flex-col h-screen justify-start'>
+				className='flex flex-row gap-4'>
+				<TabsList className='flex-col h-screen justify-start w-[200px]'>
 					<TabsTrigger
 						className='w-full gap-2 justify-start'
 						value='projetos'>
@@ -20,10 +20,16 @@ const AdminTabs = () => {
 						<Lock className='w-4 h-4' /> Password
 					</TabsTrigger>
 				</TabsList>
-				<TabsContent value='projetos'>
+				<TabsContent
+					value='projetos'
+					className='w-full m-0'>
 					<ProjectsList />
 				</TabsContent>
-				<TabsContent value='password'>Change your password here.</TabsContent>
+				<TabsContent
+					value='password'
+					className='w-full m-0'>
+					Change your password here.
+				</TabsContent>
 			</Tabs>
 		</div>
 	)

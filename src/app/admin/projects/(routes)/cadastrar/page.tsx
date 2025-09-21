@@ -48,12 +48,10 @@ const cadastrarProjeto = () => {
 	})
 
 	const handleSubmit = useCallback(async (data: StoreProjectTypes) => {
-		console.log('Submitting data:', data)
-
-		// const request = await store(data)
-		// if (request.isSuccess && request.project) {
-		// 	alert('Projeto cadastrado com sucesso!')
-		// }
+		const request = await store(data)
+		if (request.isSuccess && request.project) {
+			alert('Projeto cadastrado com sucesso!')
+		}
 	}, [])
 
 	return (
@@ -338,7 +336,7 @@ const cadastrarProjeto = () => {
 						/>
 					</div>
 
-					<Button type='submit'>Salvar Projeto de Teste</Button>
+					<Button type='submit'>Salvar Projeto</Button>
 				</form>
 			</Form>
 		</>

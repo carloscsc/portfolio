@@ -10,6 +10,7 @@ export async function store(
 	const validate = StoreProjectSchema.safeParse(ProjectData)
 
 	if (!validate.success) {
+		console.log(validate.error)
 		return {
 			isSuccess: false,
 			message: {
@@ -19,13 +20,15 @@ export async function store(
 		}
 	}
 
-	await connect()
+	// TODO: fazer upload das imagens
 
-	const project = new Project(ProjectData)
-	const savedProject = await project.save()
+	// await connect()
+
+	// const project = new Project(ProjectData)
+	// const savedProject = await project.save()
 
 	return {
 		isSuccess: true,
-		project: savedProject.toJSON(),
+		// project: savedProject.toJSON(),
 	}
 }

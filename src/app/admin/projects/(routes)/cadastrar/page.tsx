@@ -18,10 +18,10 @@ import {
 } from '@/components/ui/form'
 import { store } from '../../src/actions/project.actions'
 import { Input } from '@/components/ui/input'
-import { RepeatableTextField } from '@/components/ui/repeatable-field'
+import { RepeatableTextField } from '@/components/ui/custom/repeatable-field'
 import { Textarea } from '@/components/ui/textarea'
 import { Separator } from '@/components/ui/separator'
-import { FileUpload } from '@/components/ui/file-upload'
+import { FileUpload } from '@/components/ui/custom/file-upload'
 
 const cadastrarProjeto = () => {
 	const form = useForm<StoreProjectTypes>({

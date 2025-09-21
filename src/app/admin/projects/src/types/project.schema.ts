@@ -15,13 +15,19 @@ export const ProjectSchema = z.object({
 	repo_link: z.url().optional(),
 	cover: z.string(),
 	about_project: z.string(),
-	technologies: z.array(z.string()).min(1, 'Adicione ao menos uma tecnologia'),
+	technologies: z
+		.array(z.string().min(1, 'Tecnologia não pode estar vazia'))
+		.min(1, 'Adicione ao menos uma tecnologia'),
 	functionalities: z
-		.array(z.string())
+		.array(z.string().min(1, 'Funcionalidade não pode estar vazia'))
 		.min(1, 'Adicione ao menos uma funcionalidade'),
 	gallery: z.array(z.string()).optional(),
-	challenges: z.array(z.string()).min(1, 'Adicione ao menos um desafio'),
-	results: z.array(z.string()).min(1, 'Adicione ao menos um resultado'),
+	challenges: z
+		.array(z.string().min(1, 'Desafio não pode estar vazio'))
+		.min(1, 'Adicione ao menos um desafio'),
+	results: z
+		.array(z.string().min(1, 'Resultado não pode estar vazio'))
+		.min(1, 'Adicione ao menos um resultado'),
 	status: z.enum(['ativo', 'inativo']).default('ativo'),
 	createdAt: z.date().default(() => new Date()),
 	updatedAt: z.date().default(() => new Date()),

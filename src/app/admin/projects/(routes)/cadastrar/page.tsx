@@ -18,6 +18,7 @@ import {
 } from '@/components/ui/form'
 import { store } from '../../src/actions/project.actions'
 import { Input } from '@/components/ui/input'
+import { RepeatableTextField } from '@/components/ui/repeatable-field'
 
 const cadastrarProjeto = () => {
 	const form = useForm<StoreProjectTypes>({
@@ -34,11 +35,11 @@ const cadastrarProjeto = () => {
 			repo_link: 'https://github.com',
 			cover: 'https://picsum.photos/200/300',
 			about_project: 'Projeto de teste, foi muito legal fazer ele',
-			technologies: ['react', 'nodejs'],
-			functionalities: ['Funcionalidade 1', 'Funcionalidade 2'],
+			technologies: [],
+			functionalities: [],
 			gallery: [],
-			challenges: ['Desafio 1', 'Desafio 2'],
-			results: ['Resultado 1', 'Resultado 2'],
+			challenges: [],
+			results: [],
 			status: 'ativo',
 		},
 	})
@@ -85,6 +86,42 @@ const cadastrarProjeto = () => {
 								<FormMessage />
 							</FormItem>
 						)}
+					/>
+
+					<RepeatableTextField
+						control={form.control}
+						name='technologies'
+						label='Tecnologias'
+						placeholder='Ex: React, TypeScript, Node.js'
+						minItems={1}
+						maxItems={15}
+					/>
+
+					<RepeatableTextField
+						control={form.control}
+						name='functionalities'
+						label='Funcionalidades'
+						placeholder='Ex: Login, Cadastro, Painel de Controle'
+						minItems={1}
+						maxItems={15}
+					/>
+
+					<RepeatableTextField
+						control={form.control}
+						name='challenges'
+						label='Desafios'
+						placeholder='Ex: Desafio 1, Desafio 2'
+						minItems={1}
+						maxItems={15}
+					/>
+
+					<RepeatableTextField
+						control={form.control}
+						name='results'
+						label='Resultados'
+						placeholder='Ex: Resultado 1, Resultado 2'
+						minItems={1}
+						maxItems={15}
 					/>
 
 					<Button type='submit'>Salvar Projeto de Teste</Button>

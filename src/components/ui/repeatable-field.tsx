@@ -1,7 +1,7 @@
 'use client'
 
 import * as React from 'react'
-import { useFieldArray, Control } from 'react-hook-form'
+import { useFieldArray, Control, useFormContext } from 'react-hook-form'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import {
@@ -45,28 +45,32 @@ export function RepeatableTextField({
 		name,
 	})
 
+	// Acessar os erros de forma mais direta
+	const { formState } = useFormContext()
+	const arrayError = formState.errors[name]
+
 	return (
-		<div className={cn('space-y-4', className)}>
-			<div>
-				<div className='flex items-center justify-between mb-2'>
-					<FormLabel className='text-base font-medium'>{label}</FormLabel>
-					<Button
-						type='button'
-						variant='outline'
-						size='sm'
-						onClick={() => append('')}
-						disabled={fields.length >= maxItems}
-						className='flex items-center gap-2'>
-						<Plus className='w-4 h-4' />
-						Adicionar
-					</Button>
-				</div>
-				{description && (
-					<FormDescription className='mb-4'>{description}</FormDescription>
-				)}
+		<div className={cn('space-y-4 ', className)}>
+			{/* Header com label e botão */}
+			<div className='flex items-center justify-between mb-2'>
+				<FormLabel className='text-base font-medium'>{label}</FormLabel>
+				<Button
+					type='button'
+					variant='outline'
+					size='icon'
+					onClick={() => append('')}
+					disabled={fields.length >= maxItems}
+					className='flex items-center gap-2'>
+					<Plus className='w-4 h-4' />
+				</Button>
 			</div>
 
-			<div className='space-y-3'>
+			{description && (
+				<FormDescription className='mb-4'>{description}</FormDescription>
+			)}
+
+			{/* Itens do array */}
+			<div className='space-y-3 border-2 border-dashed rounded-md p-4'>
 				{fields.map((field, index) => (
 					<div
 						key={field.id}
@@ -102,16 +106,16 @@ export function RepeatableTextField({
 				))}
 
 				{fields.length === 0 && (
-					<div className='text-center py-8 text-muted-foreground border-2 border-dashed rounded-md'>
+					<div className='text-center py-8 text-muted-foreground'>
 						<p>Nenhum {label.toLowerCase().slice(0, -1)} adicionado</p>
 						<p className='text-sm'>Clique em "Adicionar" para começar</p>
 					</div>
 				)}
 			</div>
 
-			{minItems > 0 && fields.length < minItems && (
-				<p className='text-sm text-destructive'>
-					Adicione pelo menos {minItems} {label.toLowerCase()}
+			{arrayError && (
+				<p className='text-sm font-medium text-destructive'>
+					{String(arrayError.message || 'Erro de validação')}
 				</p>
 			)}
 		</div>

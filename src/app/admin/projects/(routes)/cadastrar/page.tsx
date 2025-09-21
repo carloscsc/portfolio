@@ -19,22 +19,25 @@ import {
 import { store } from '../../src/actions/project.actions'
 import { Input } from '@/components/ui/input'
 import { RepeatableTextField } from '@/components/ui/repeatable-field'
+import { Textarea } from '@/components/ui/textarea'
+import { Separator } from '@/components/ui/separator'
+import { FileUpload } from '@/components/ui/file-upload'
 
 const cadastrarProjeto = () => {
 	const form = useForm<StoreProjectTypes>({
 		resolver: zodResolver(StoreProjectSchema),
 		defaultValues: {
 			title: '',
-			description: 'Descrição de teste',
-			client_name: 'Jairo',
-			client_description: 'Maior empresa do mundo',
-			client_location: 'São Paulo',
-			duration: '3 meses',
+			description: '',
+			client_name: '',
+			client_description: '',
+			client_location: '',
+			duration: '',
 			year: new Date().getFullYear(),
-			demo_link: 'https://google.com',
-			repo_link: 'https://github.com',
-			cover: 'https://picsum.photos/200/300',
-			about_project: 'Projeto de teste, foi muito legal fazer ele',
+			demo_link: '',
+			repo_link: '',
+			cover: undefined,
+			about_project: '',
 			technologies: [],
 			functionalities: [],
 			gallery: [],
@@ -70,59 +73,270 @@ const cadastrarProjeto = () => {
 			<Form {...form}>
 				<form
 					onSubmit={form.handleSubmit(handleSubmit)}
-					className='space-y-4 mt-4'>
-					<FormField
-						control={form.control}
-						name='title'
-						render={({ field }) => (
-							<FormItem>
-								<FormLabel>Título do Projeto</FormLabel>
-								<FormControl>
-									<Input
-										placeholder='Digite o título...'
-										{...field}
-									/>
-								</FormControl>
-								<FormMessage />
-							</FormItem>
-						)}
-					/>
+					className='space-y-8 mt-4'>
+					{/* Projeto */}
+					<div className='border-dashed border-2 p-4 rounded-md space-y-6'>
+						<h2>Dados Básicos do Projeto</h2>
+						<Separator />
+						<FormField
+							control={form.control}
+							name='title'
+							render={({ field }) => (
+								<FormItem>
+									<FormLabel>Título do Projeto</FormLabel>
+									<FormControl>
+										<Input
+											placeholder='Digite o título...'
+											{...field}
+										/>
+									</FormControl>
+									<FormMessage />
+								</FormItem>
+							)}
+						/>
 
-					<RepeatableTextField
-						control={form.control}
-						name='technologies'
-						label='Tecnologias'
-						placeholder='Ex: React, TypeScript, Node.js'
-						minItems={1}
-						maxItems={15}
-					/>
+						{/* Description */}
+						<FormField
+							control={form.control}
+							name='description'
+							render={({ field }) => (
+								<FormItem>
+									<FormLabel>Descrição curta do Projeto</FormLabel>
+									<FormControl>
+										<Textarea
+											placeholder='Digite a descrição...'
+											{...field}
+										/>
+									</FormControl>
+									<FormMessage />
+								</FormItem>
+							)}
+						/>
 
-					<RepeatableTextField
-						control={form.control}
-						name='functionalities'
-						label='Funcionalidades'
-						placeholder='Ex: Login, Cadastro, Painel de Controle'
-						minItems={1}
-						maxItems={15}
-					/>
+						{/* Long Description */}
+						<FormField
+							control={form.control}
+							name='about_project'
+							render={({ field }) => (
+								<FormItem>
+									<FormLabel>Descrição completa do Projeto</FormLabel>
+									<FormControl>
+										<Textarea
+											placeholder='Digite a descrição...'
+											rows={20}
+											{...field}
+										/>
+									</FormControl>
+									<FormMessage />
+								</FormItem>
+							)}
+						/>
 
-					<RepeatableTextField
-						control={form.control}
-						name='challenges'
-						label='Desafios'
-						placeholder='Ex: Desafio 1, Desafio 2'
-						minItems={1}
-						maxItems={15}
-					/>
+						<Separator />
 
-					<RepeatableTextField
-						control={form.control}
-						name='results'
-						label='Resultados'
-						placeholder='Ex: Resultado 1, Resultado 2'
-						minItems={1}
-						maxItems={15}
-					/>
+						{/* Duration */}
+						<FormField
+							control={form.control}
+							name='duration'
+							render={({ field }) => (
+								<FormItem>
+									<FormLabel>Duração do Projeto</FormLabel>
+									<FormControl>
+										<Input
+											placeholder='Informe a duração...'
+											{...field}
+										/>
+									</FormControl>
+									<FormMessage />
+								</FormItem>
+							)}
+						/>
+
+						<FormField
+							control={form.control}
+							name='year'
+							render={({ field }) => (
+								<FormItem>
+									<FormLabel>Ano do Projeto</FormLabel>
+									<FormControl>
+										<Input
+											placeholder='Informe o ano...'
+											{...field}
+										/>
+									</FormControl>
+									<FormMessage />
+								</FormItem>
+							)}
+						/>
+
+						<Separator />
+						<FormField
+							control={form.control}
+							name='demo_link'
+							render={({ field }) => (
+								<FormItem>
+									<FormLabel>Link de demonstração</FormLabel>
+									<FormControl>
+										<Input
+											placeholder='Informe o link...'
+											{...field}
+										/>
+									</FormControl>
+									<FormMessage />
+								</FormItem>
+							)}
+						/>
+
+						<FormField
+							control={form.control}
+							name='repo_link'
+							render={({ field }) => (
+								<FormItem>
+									<FormLabel>Link do repositório</FormLabel>
+									<FormControl>
+										<Input
+											placeholder='Informe o link...'
+											{...field}
+										/>
+									</FormControl>
+									<FormMessage />
+								</FormItem>
+							)}
+						/>
+						<Separator />
+
+						<RepeatableTextField
+							control={form.control}
+							name='technologies'
+							label='Tecnologias'
+							placeholder='Ex: React, TypeScript, Node.js'
+							minItems={1}
+							maxItems={15}
+						/>
+
+						<RepeatableTextField
+							control={form.control}
+							name='functionalities'
+							label='Funcionalidades'
+							placeholder='Ex: Login, Cadastro, Painel de Controle'
+							minItems={1}
+							maxItems={15}
+						/>
+
+						<RepeatableTextField
+							control={form.control}
+							name='challenges'
+							label='Desafios'
+							placeholder='Ex: Desafio 1, Desafio 2'
+							minItems={1}
+							maxItems={15}
+						/>
+
+						<RepeatableTextField
+							control={form.control}
+							name='results'
+							label='Resultados'
+							placeholder='Ex: Resultado 1, Resultado 2'
+							minItems={1}
+							maxItems={15}
+						/>
+					</div>
+
+					{/* Cliente */}
+					<div className='border-dashed border-2 p-4 rounded-md space-y-6'>
+						<h2>Dados do Cliente</h2>
+						<Separator />
+						<FormField
+							control={form.control}
+							name='client_name'
+							render={({ field }) => (
+								<FormItem>
+									<FormLabel>Nome do cliente</FormLabel>
+									<FormControl>
+										<Input
+											placeholder='Digite o nome do cliente...'
+											{...field}
+										/>
+									</FormControl>
+									<FormMessage />
+								</FormItem>
+							)}
+						/>
+
+						<FormField
+							control={form.control}
+							name='client_description'
+							render={({ field }) => (
+								<FormItem>
+									<FormLabel>Descrição do cliente</FormLabel>
+									<FormControl>
+										<Textarea
+											placeholder='Digite a descrição do cliente...'
+											{...field}
+										/>
+									</FormControl>
+									<FormMessage />
+								</FormItem>
+							)}
+						/>
+
+						<FormField
+							control={form.control}
+							name='client_location'
+							render={({ field }) => (
+								<FormItem>
+									<FormLabel>Localização do cliente</FormLabel>
+									<FormControl>
+										<Input
+											placeholder='Digite a localização do cliente...'
+											{...field}
+										/>
+									</FormControl>
+									<FormMessage />
+								</FormItem>
+							)}
+						/>
+					</div>
+
+					<div className='border-dashed border-2 p-4 rounded-md space-y-6'>
+						<h2>Imagens</h2>
+						{/* Cover */}
+						<FormField
+							control={form.control}
+							name='cover'
+							render={({ field }) => (
+								<FormItem>
+									<FormLabel>Imagem de Capa</FormLabel>
+									<FormControl>
+										<FileUpload
+											accept='image/*'
+											{...field}
+										/>
+									</FormControl>
+									<FormMessage />
+								</FormItem>
+							)}
+						/>
+
+						{/* Gallery */}
+						<FormField
+							control={form.control}
+							name='gallery'
+							render={({ field }) => (
+								<FormItem>
+									<FormLabel>Galeria</FormLabel>
+									<FormControl>
+										<FileUpload
+											accept='image/*'
+											multiple
+											{...field}
+										/>
+									</FormControl>
+									<FormMessage />
+								</FormItem>
+							)}
+						/>
+					</div>
 
 					<Button type='submit'>Salvar Projeto de Teste</Button>
 				</form>

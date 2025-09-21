@@ -6,15 +6,15 @@ export const ProjectSchema = z.object({
 	description: z
 		.string()
 		.min(10, 'A descrição deve ter pelo menos 10 caracteres'),
-	client_name: z.string(),
-	client_description: z.string(),
-	client_location: z.string(),
-	duration: z.string(),
+	client_name: z.string().min(1, 'O nome do cliente é obrigatório'),
+	client_description: z.string().min(1, 'A descrição do cliente é obrigatória'),
+	client_location: z.string().min(1, 'A localização do cliente é obrigatória'),
+	duration: z.string().min(1, 'A duração do projeto é obrigatória'),
 	year: z.number().min(1900).max(new Date().getFullYear()),
 	demo_link: z.url().optional(),
 	repo_link: z.url().optional(),
 	cover: z.string(),
-	about_project: z.string(),
+	about_project: z.string().min(30, 'A descrição do projeto é obrigatória'),
 	technologies: z
 		.array(z.string().min(1, 'Tecnologia não pode estar vazia'))
 		.min(1, 'Adicione ao menos uma tecnologia'),
@@ -33,8 +33,23 @@ export const ProjectSchema = z.object({
 	updatedAt: z.date().default(() => new Date()),
 })
 
+const fileSchema = z
+	.instanceof(File, { message: 'Arquivo é obrigatório' })
+	.refine((file) => file.size <= 5 * 1024 * 1024, {
+		message: 'Arquivo deve ter no máximo 5MB',
+	})
+	.refine(
+		(file) => ['image/jpeg', 'image/png', 'image/webp'].includes(file.type),
+		{ message: 'Apenas imagens JPEG, PNG ou WebP são permitidas' }
+	)
+
 export const StoreProjectSchema = ProjectSchema.omit({
 	_id: true,
 	createdAt: true,
 	updatedAt: true,
-}).extend({})
+	cover: true,
+	gallery: true,
+}).extend({
+	cover: fileSchema,
+	gallery: z.array(fileSchema).optional(),
+})

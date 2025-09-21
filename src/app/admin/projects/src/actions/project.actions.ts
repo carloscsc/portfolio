@@ -3,6 +3,7 @@ import ResponseType from '@/shared/types/response.type'
 import { StoreProjectTypes, StoreProjectSchema } from '../types'
 import { Project } from '../types/project.model'
 import connect from '@/lib/db'
+import { upload } from '@/lib/upload'
 
 export async function store(
 	ProjectData: StoreProjectTypes
@@ -20,15 +21,45 @@ export async function store(
 		}
 	}
 
-	// TODO: fazer upload das imagens
+	const { cover, gallery, ...data } = validate.data
+	const uploadedGallery: string[] = []
 
-	// await connect()
+	try {
+		// Upload cover image
+		const uploadedCover = await upload('portfolio/projects', cover)
 
-	// const project = new Project(ProjectData)
-	// const savedProject = await project.save()
+		// upload galaery
+		if (gallery && gallery.length > 1) {
+			const galleryUploadQueue = await Promise.all(
+				gallery.map((image) => upload('portfolio/projects', image))
+			)
+			galleryUploadQueue.forEach((imagem) => uploadedGallery.push(imagem))
+		}
 
-	return {
-		isSuccess: true,
-		// project: savedProject.toJSON(),
+		//build the projectObject
+		const formattedProjectData = {
+			...data,
+			cover: uploadedCover,
+			gallery: uploadedGallery,
+		}
+
+		await connect()
+
+		const project = new Project(formattedProjectData)
+		const savedProject = await project.save()
+
+		return {
+			isSuccess: true,
+			project: savedProject.toJSON(),
+		}
+	} catch (error) {
+		console.log(error)
+		return {
+			isSuccess: false,
+			message: {
+				type: 'error',
+				text: 'Error ao cadastrar novo projeto',
+			},
+		}
 	}
 }

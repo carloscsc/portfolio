@@ -23,6 +23,10 @@ import { Textarea } from '@/components/ui/textarea'
 import { Separator } from '@/components/ui/separator'
 import { FileUpload } from '@/components/ui/custom/file-upload'
 
+// TODO: apagar campos depois de enviar
+// TODO: Adicionar TanStackQuery
+// TODO: Adicionar Rich Editor
+
 const cadastrarProjeto = () => {
 	const form = useForm<StoreProjectTypes>({
 		resolver: zodResolver(StoreProjectSchema),

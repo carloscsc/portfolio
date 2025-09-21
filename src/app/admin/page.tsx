@@ -1,21 +1,22 @@
 import { LogOut } from 'lucide-react'
-import AdminTabs from './admin-tabs'
 
 const AdminPage = () => {
 	return (
-		<>
-			<div className='flex flex-row justify-between items-center mx-auto w-full max-w-4xl'>
-				<h1 className='text-center text-4xl p-4 ps-0'>&lt;Admin /&gt;</h1>
-				<LogOut className='cursor-pointer' />
-			</div>
-			<AdminTabs />
+		<div>
+			<div className='w-full flex flex-row justify-between items-center border-b pb-2'>
+				<h2 className='text-center text-lg'>Dashboard</h2>
 
-			<footer className='mt-5 mb-4 text-center text-sm text-gray-500'>
-				{new Date().getFullYear()}&copy; Carlos Sabo Cantanzaro - Todos os
-				direitos reservados.
-			</footer>
-		</>
+				{/* <Button
+					size='icon'
+					asChild>
+					<Link href='/admin/projects/cadastrar'>
+						<Plus className='w-4 h-4' />
+					</Link>
+				</Button> */}
+			</div>
+
+			{/* Render the list of projects here */}
+		</div>
 	)
 }
-
 export default AdminPage

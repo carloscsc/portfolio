@@ -20,7 +20,7 @@ export default function AdminLayout({
 				<LogOut className='cursor-pointer' />
 			</div>
 
-			<div className='mx-auto w-full max-w-4xl border border-white/10 p-5 flex gap-6'>
+			<div className='mx-auto w-full max-w-4xl border border-white/10 p-5 flex-row md:flex gap-6'>
 				<SidebarLinks />
 
 				<div className='w-full'>{children}</div>

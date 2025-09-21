@@ -37,7 +37,7 @@ const MenuLink = ({
 
 const sidebarLinks = () => {
 	return (
-		<nav className='w-[200px]'>
+		<nav className='w-full mb-6 md:w-[200px]'>
 			<ul className='bg-[#2b2b2b] rounded-md overflow-hidden p-2'>
 				<MenuLink
 					href='/admin'

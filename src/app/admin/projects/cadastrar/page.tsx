@@ -3,7 +3,7 @@ import { Button } from '@/components/ui/button'
 import { ArrowLeftFromLineIcon, LogOut } from 'lucide-react'
 import Link from 'next/link'
 import { useCallback } from 'react'
-import { store } from '../actions/project.controller'
+import { store } from '../src/actions/project.controller'
 
 const cadastrarProjeto = () => {
 	const handleSubmit = useCallback(async () => {
@@ -39,13 +39,15 @@ const cadastrarProjeto = () => {
 				<Button
 					size='icon'
 					asChild>
-					<Link href='/admin'>
+					<Link href='/admin/projects'>
 						<ArrowLeftFromLineIcon className='w-4 h-4' />
 					</Link>
 				</Button>
 			</div>
 
-			<Button onClick={handleSubmit}>Salvar Projeto de Teste</Button>
+			<div className='mt-4'>
+				<Button onClick={handleSubmit}>Salvar Projeto de Teste</Button>
+			</div>
 		</>
 	)
 }

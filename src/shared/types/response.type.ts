@@ -1,4 +1,4 @@
-import { ProjectTypes } from '@/app/admin/projects/types'
+import { ProjectTypes } from '@/app/admin/projects/src/types'
 
 export default interface ResponseType {
 	isSuccess: boolean

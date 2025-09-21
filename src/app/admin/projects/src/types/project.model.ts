@@ -1,5 +1,5 @@
 import mongoose, { Model, Schema } from 'mongoose'
-import { ProjectTypes, StoreProjectTypes } from './project.types'
+import { ProjectTypes } from './project.types'
 
 const ProjectMongooseSchema = new Schema<ProjectTypes>(
 	{

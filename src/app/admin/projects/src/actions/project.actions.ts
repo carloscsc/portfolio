@@ -1,7 +1,7 @@
 'use server'
 import ResponseType from '@/shared/types/response.type'
-import { StoreProjectTypes, Project, StoreProjectSchema } from '../types'
-
+import { StoreProjectTypes, StoreProjectSchema } from '../types'
+import { Project } from '../types/project.model'
 import connect from '@/lib/db'
 
 export async function store(
@@ -10,7 +10,6 @@ export async function store(
 	const validate = StoreProjectSchema.safeParse(ProjectData)
 
 	if (!validate.success) {
-		console.log(validate.error)
 		return {
 			isSuccess: false,
 			message: {
@@ -24,15 +23,6 @@ export async function store(
 
 	const project = new Project(ProjectData)
 	const savedProject = await project.save()
-
-	// const savedProjectObj = savedProject.toObject()
-
-	// const { __v, _id, ...projectWithoutV } = savedProjectObj
-
-	// const returnedProjectObj = {
-	// 	...projectWithoutV,
-	// 	_id: _id.toString(),
-	// }
 
 	return {
 		isSuccess: true,

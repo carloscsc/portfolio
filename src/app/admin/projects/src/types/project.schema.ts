@@ -33,6 +33,7 @@ export const ProjectSchema = z.object({
 	updatedAt: z.date().default(() => new Date()),
 })
 
+// TODO: separar
 const fileSchema = z
 	.instanceof(File, { message: 'Arquivo é obrigatório' })
 	.refine((file) => file.size <= 5 * 1024 * 1024, {

@@ -28,7 +28,7 @@ export const ProjectSchema = z.object({
 	results: z
 		.array(z.string().min(1, 'Resultado não pode estar vazio'))
 		.min(1, 'Adicione ao menos um resultado'),
-	status: z.enum(['ativo', 'inativo']).default('ativo'),
+	status: z.enum(['ativo', 'inativo']),
 	createdAt: z.date().default(() => new Date()),
 	updatedAt: z.date().default(() => new Date()),
 })

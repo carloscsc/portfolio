@@ -1,65 +1,65 @@
-'use server'
-import ResponseType from '@/shared/types/response.type'
-import { StoreProjectTypes, StoreProjectSchema } from '../types'
-import { Project } from '../types/project.model'
-import connect from '@/lib/db'
-import { upload } from '@/lib/upload'
+"use server";
+import ResponseType from "@/shared/types/response.type";
+import { StoreProjectTypes, StoreProjectSchema } from "../types";
+import { Project } from "../types/project.model";
+import connect from "@/lib/db";
+import { upload } from "@/lib/upload";
 
 export async function store(
-	ProjectData: StoreProjectTypes
+  ProjectData: StoreProjectTypes
 ): Promise<ResponseType> {
-	const validate = StoreProjectSchema.safeParse(ProjectData)
+  const validate = StoreProjectSchema.safeParse(ProjectData);
 
-	if (!validate.success) {
-		console.log(validate.error)
-		return {
-			isSuccess: false,
-			message: {
-				type: 'error',
-				text: 'Dados inválidos. Verifique as informações e tente novamente.',
-			},
-		}
-	}
+  if (!validate.success) {
+    console.log(validate.error);
+    return {
+      isSuccess: false,
+      message: {
+        type: "error",
+        text: "Dados inválidos. Verifique as informações e tente novamente.",
+      },
+    };
+  }
 
-	const { cover, gallery, ...data } = validate.data
-	const uploadedGallery: string[] = []
+  const { cover, gallery, ...data } = validate.data;
+  const uploadedGallery: string[] = [];
 
-	try {
-		// Upload cover image
-		const uploadedCover = await upload('portfolio/projects', cover)
+  try {
+    // Upload cover image
+    const uploadedCover = await upload("portfolio/projects", cover);
 
-		// upload galaery
-		if (gallery && gallery.length > 1) {
-			const galleryUploadQueue = await Promise.all(
-				gallery.map((image) => upload('portfolio/projects', image))
-			)
-			galleryUploadQueue.forEach((imagem) => uploadedGallery.push(imagem))
-		}
+    // upload gallery
+    if (gallery && gallery.length > 1) {
+      const galleryUploadQueue = await Promise.all(
+        gallery.map((image) => upload("portfolio/projects", image))
+      );
+      galleryUploadQueue.forEach((imagem) => uploadedGallery.push(imagem));
+    }
 
-		//build the projectObject
-		const formattedProjectData = {
-			...data,
-			cover: uploadedCover,
-			gallery: uploadedGallery,
-		}
+    //build the projectObject
+    const formattedProjectData = {
+      ...data,
+      cover: uploadedCover,
+      gallery: uploadedGallery,
+    };
 
-		await connect()
+    await connect();
 
-		const project = new Project(formattedProjectData)
-		const savedProject = await project.save()
+    const project = new Project(formattedProjectData);
+    const savedProject = await project.save();
 
-		return {
-			isSuccess: true,
-			project: savedProject.toJSON(),
-		}
-	} catch (error) {
-		console.log(error)
-		return {
-			isSuccess: false,
-			message: {
-				type: 'error',
-				text: 'Error ao cadastrar novo projeto',
-			},
-		}
-	}
+    return {
+      isSuccess: true,
+      project: savedProject.toJSON(),
+    };
+  } catch (error) {
+    console.log(error);
+    return {
+      isSuccess: false,
+      message: {
+        type: "error",
+        text: "Error ao cadastrar novo projeto",
+      },
+    };
+  }
 }

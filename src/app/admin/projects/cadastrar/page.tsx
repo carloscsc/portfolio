@@ -7,29 +7,34 @@ import { useCallback } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 
-import { StoreProjectSchema, StoreProjectTypes } from "../../src/types";
+import {
+  StoreProjectSchema,
+  StoreProjectTypes,
+} from "@/_domain/projects/types";
 import {
   Form,
   FormControl,
-  FormDescription,
   FormField,
   FormItem,
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
-import { store } from "../../src/actions/project.actions";
+import { store } from "@/_domain/projects/actions/project.actions";
 import { Input } from "@/components/ui/input";
 import { RepeatableTextField } from "@/components/ui/custom/repeatable-field";
 import { Textarea } from "@/components/ui/textarea";
 import { Separator } from "@/components/ui/separator";
 import { FileUpload } from "@/components/ui/custom/file-upload";
 import { RichTextEditor } from "@/components/ui/custom/rich-editor";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 // TODO: apagar campos depois de enviar
 // TODO: Adicionar TanStackQuery
 // TODO: Adicionar Rich Editor
 
-const cadastrarProjeto = () => {
+const CadastrarProjeto = () => {
+  const queryClient = useQueryClient();
+
   const form = useForm<StoreProjectTypes>({
     resolver: zodResolver(StoreProjectSchema),
     defaultValues: {
@@ -53,12 +58,17 @@ const cadastrarProjeto = () => {
     },
   });
 
-  const handleSubmit = useCallback(async (data: StoreProjectTypes) => {
-    const request = await store(data);
-    if (request.isSuccess && request.project) {
-      alert("Projeto cadastrado com sucesso!");
-    }
-  }, []);
+  const mutation = useMutation({
+    mutationFn: async (data: StoreProjectTypes) => {
+      const request = await store(data);
+      if (request.isSuccess && request.project) {
+        alert("Projeto cadastrado com sucesso!");
+      }
+    },
+    onSuccess: () => queryClient.invalidateQueries({ queryKey: ["projetos"] }),
+  });
+
+  const handleSubmit = (data: StoreProjectTypes) => mutation.mutate(data);
 
   return (
     <>
@@ -341,4 +351,4 @@ const cadastrarProjeto = () => {
   );
 };
 
-export default cadastrarProjeto;
+export default CadastrarProjeto;

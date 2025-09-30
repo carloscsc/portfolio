@@ -1,7 +1,7 @@
-import ProjectsList from './src/components/projects-list'
+import ProjectsList from "./components/projects-list";
 
 const ProjectPage = () => {
-	return <ProjectsList />
-}
+  return <ProjectsList />;
+};
 
-export default ProjectPage
+export default ProjectPage;

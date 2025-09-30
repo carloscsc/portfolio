@@ -1,5 +1,5 @@
 "use server";
-import ResponseType from "@/shared/types/response.type";
+import ResponseType from "@/_domain/shared/types/response.type";
 import { StoreProjectTypes, StoreProjectSchema } from "../types";
 import { Project } from "../types/project.model";
 import connect from "@/lib/db";
@@ -61,5 +61,19 @@ export async function store(
         text: "Error ao cadastrar novo projeto",
       },
     };
+  }
+}
+
+export async function read() {
+  try {
+    await connect();
+    const projects = await Project.find().lean();
+
+    return {
+      projects,
+    };
+  } catch (e) {
+    console.log(e);
+    throw new Error("Erro ao buscar dados dos projetos");
   }
 }

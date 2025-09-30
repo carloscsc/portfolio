@@ -28,7 +28,7 @@ import { RichTextEditor } from "@/components/ui/custom/rich-editor";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 // TODO: apagar campos depois de enviar
-// TODO: Adicionar TanStackQuery
+
 // TODO: Adicionar Rich Editor
 
 const CadastrarProjeto = () => {

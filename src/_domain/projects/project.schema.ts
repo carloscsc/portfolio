@@ -54,3 +54,7 @@ export const StoreProjectSchema = ProjectSchema.omit({
   cover: fileSchema,
   gallery: z.array(fileSchema).optional(),
 });
+
+/** Types */
+export type ProjectTypes = z.infer<typeof ProjectSchema>;
+export type StoreProjectTypes = z.infer<typeof StoreProjectSchema>;

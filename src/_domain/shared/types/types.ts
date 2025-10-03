@@ -1,4 +1,4 @@
-import { ProjectTypes } from "@/_domain/projects/types";
+import { ProjectTypes } from "@/_domain/projects/project.schema";
 
 export default interface ResponseType {
   isSuccess: boolean;

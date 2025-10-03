@@ -1,7 +1,10 @@
 "use server";
-import ResponseType from "@/_domain/shared/types/response.type";
-import { StoreProjectTypes, StoreProjectSchema } from "../types";
-import { Project } from "../types/project.model";
+import ResponseType from "@/_domain/shared/types/types";
+import {
+  StoreProjectTypes,
+  StoreProjectSchema,
+} from "../projects/project.schema";
+import { Project } from "./project.model";
 import connect from "@/lib/db";
 import { upload } from "@/lib/upload";
 

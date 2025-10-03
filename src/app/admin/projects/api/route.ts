@@ -1,4 +1,4 @@
-import { read } from "@/_domain/projects/actions/project.actions";
+import { read } from "@/_domain/projects/project.actions";
 
 export async function GET() {
   const getProjects = await read();

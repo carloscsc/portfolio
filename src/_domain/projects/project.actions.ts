@@ -70,11 +70,12 @@ export async function store(
 export async function read() {
   try {
     await connect();
-    const projects = await Project.find().lean();
+    const projects = await Project.find().select("-__v").lean();
 
-    return {
-      projects,
-    };
+    return projects.map((project) => ({
+      ...project,
+      _id: project._id.toString(),
+    }));
   } catch (e) {
     console.log(e);
     throw new Error("Erro ao buscar dados dos projetos");

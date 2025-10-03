@@ -1,6 +1,7 @@
 "use client";
 
-import { ProjectTypes } from "@/_domain/projects/types";
+import { read } from "@/_domain/projects/project.actions";
+import { ProjectTypes } from "@/_domain/projects/project.schema";
 import { Button } from "@/components/ui/button";
 import { useQuery } from "@tanstack/react-query";
 import { Plus } from "lucide-react";
@@ -9,7 +10,7 @@ import Link from "next/link";
 const ProjectsList = () => {
   const query = useQuery({
     queryKey: ["projetos"],
-    queryFn: async () => (await fetch("projects/api")).json(),
+    queryFn: async () => await read(),
   });
 
   return (
@@ -26,7 +27,7 @@ const ProjectsList = () => {
 
       <div>
         {query.data &&
-          query.data?.map((p: ProjectTypes) => (
+          query?.data.map((p: ProjectTypes) => (
             <div key={p._id}>
               <h2>{p.title}</h2>
             </div>

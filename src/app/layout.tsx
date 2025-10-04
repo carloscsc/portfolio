@@ -29,6 +29,15 @@ export default function RootLayout({
       >
         <body className="bg-gradient-to-r from-[#0b0b0b] to-[#1d1f20]">
           {children}
+          <footer className="bg-card mt-20">
+            <div className="container mx-auto px-4">
+              <p className="mt-12 py-8 text-center text-gray-400 text-sm">
+                C2 Media & Tech Lab © 2014 - {new Date().getFullYear()}. Todos
+                os direitos reservados. <br />
+                Consolação - São Paulo/SP
+              </p>
+            </div>
+          </footer>
         </body>
       </html>
     </Providers>

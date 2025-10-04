@@ -1,7 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { projects } from "@/lib/projects-data";
+
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Navbar } from "@/components/navbar";
@@ -14,21 +14,28 @@ import {
   User,
   MapPin,
 } from "lucide-react";
+import connect from "@/lib/db";
+import { Project } from "@/_domain/projects/project.model";
+import { getBlobURL } from "@/lib/utils";
+import WhatsappIcon from "@/components/whatsapp.icon";
 
 type Props = {
   params: { slug: string };
 };
 
-export function generateStaticParams() {
-  return projects.map((p) => ({ slug: p.slug }));
-}
+// export function generateStaticParams() {
+//   return projects.map((p) => ({ slug: p.slug }));
+// }
 
-export default function ProjectPage({ params }: Props) {
-  const project = projects.find((p) => p.slug === params.slug);
+export default async function ProjectPage({ params }: Props) {
+  const { slug } = params;
+
+  await connect();
+  const project = await Project.findOne({ slug }).lean();
   if (!project) return notFound();
 
   return (
-    <main className="min-h-screen bg-black text-white">
+    <main className="min-h-screen  text-white">
       <Navbar />
       <article className="container mx-auto px-4 pt-28 pb-20 max-w-4xl">
         <Link
@@ -51,7 +58,7 @@ export default function ProjectPage({ params }: Props) {
           <div className="flex flex-wrap gap-4 mb-6">
             <Button asChild>
               <a
-                href={project.demoLink}
+                href={project.demo_link}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="flex items-center gap-2"
@@ -61,7 +68,7 @@ export default function ProjectPage({ params }: Props) {
             </Button>
             <Button variant="outline" asChild>
               <a
-                href={project.githubLink}
+                href={project.repo_link}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="flex items-center gap-2"
@@ -75,7 +82,7 @@ export default function ProjectPage({ params }: Props) {
         {/* Imagem Principal */}
         <div className="relative aspect-[16/9] w-full overflow-hidden rounded-xl bg-card mb-8">
           <Image
-            src={project.image || "/placeholder.svg"}
+            src={getBlobURL(project.cover) || "/placeholder.svg"}
             alt={project.title}
             fill
             className="object-cover"
@@ -89,14 +96,7 @@ export default function ProjectPage({ params }: Props) {
           <div className="lg:col-span-2">
             <h2 className="text-2xl font-bold mb-4">Sobre o Projeto</h2>
             <div className="prose prose-invert max-w-none">
-              {project.fullDescription.map((paragraph, i) => (
-                <p
-                  key={i}
-                  className="mb-4 text-muted-foreground leading-relaxed"
-                >
-                  {paragraph}
-                </p>
-              ))}
+              {project.description}
             </div>
           </div>
 
@@ -108,14 +108,24 @@ export default function ProjectPage({ params }: Props) {
                 Cliente
               </h3>
               <div className="space-y-2">
-                <p className="font-medium">{project.client.name}</p>
+                <div className="font-medium flex justify-start items-center gap-2">
+                  <div className="relative w-[32px] h-[32px] border">
+                    <Image
+                      src={getBlobURL(project.client_logo)}
+                      alt={project.client_name}
+                      fill
+                      className="object-fill object-center"
+                    ></Image>
+                  </div>
+                  <p>{project.client_name}</p>
+                </div>
                 <p className="text-sm text-muted-foreground">
-                  {project.client.type}
+                  {project.client_description}
                 </p>
-                {project.client.location && (
+                {project.client_location && (
                   <p className="text-sm text-muted-foreground flex items-center gap-1">
                     <MapPin className="h-3 w-3" />
-                    {project.client.location}
+                    {project.client_location}
                   </p>
                 )}
               </div>
@@ -162,7 +172,7 @@ export default function ProjectPage({ params }: Props) {
             Principais Funcionalidades
           </h2>
           <ul className="grid grid-cols-1 md:grid-cols-2 gap-3">
-            {project.features.map((feature, i) => (
+            {project.functionalities.map((feature, i) => (
               <li key={i} className="flex items-start gap-3">
                 <div className="w-2 h-2 bg-primary rounded-full mt-2 flex-shrink-0" />
                 <span className="text-muted-foreground">{feature}</span>
@@ -182,7 +192,7 @@ export default function ProjectPage({ params }: Props) {
                   className="relative aspect-[4/3] overflow-hidden rounded-lg bg-card"
                 >
                   <Image
-                    src={image || "/placeholder.svg"}
+                    src={getBlobURL(image) || "/placeholder.svg"}
                     alt={`${project.title} - Imagem ${i + 1}`}
                     fill
                     className="object-cover hover:scale-110 transition-transform duration-300"
@@ -233,8 +243,14 @@ export default function ProjectPage({ params }: Props) {
             Entre em contato para discutirmos como posso ajudar a transformar
             sua ideia em realidade.
           </p>
-          <Button asChild size="lg">
-            <Link href="/#contact">Entrar em Contato</Link>
+          <Button
+            size="lg"
+            className="bg-[#27d366] hover:bg-[#28a71a]  text-white"
+            asChild
+          >
+            <a href="#contact" className="text-responsive-lg">
+              <WhatsappIcon /> Agende uma consultoria grátis!
+            </a>
           </Button>
         </div>
       </article>

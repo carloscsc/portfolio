@@ -8,25 +8,26 @@ export const ProjectSchema = z.object({
     .string()
     .min(10, "A descrição deve ter pelo menos 10 caracteres"),
   client_name: z.string().min(1, "O nome do cliente é obrigatório"),
-  client_description: z.string().min(1, "A descrição do cliente é obrigatória"),
+  client_description: z.string().optional(),
   client_location: z.string().min(1, "A localização do cliente é obrigatória"),
   client_logo: z.string(),
+  client_link: z.string().optional(),
   duration: z.string().min(1, "A duração do projeto é obrigatória"),
   year: z.coerce.number<number>().min(1900).max(new Date().getFullYear()),
-  demo_link: z.url().optional(),
-  repo_link: z.url().optional(),
+  demo_link: z.string().optional(),
+  repo_link: z.string().optional(),
   cover: z.string(),
   about_project: z.string().min(30, "A descrição do projeto é obrigatória"),
   technologies: z
     .array(z.string().min(1, "Tecnologia não pode estar vazia"))
-    .min(1, "Adicione ao menos uma tecnologia"),
+    .optional(),
   functionalities: z
     .array(z.string().min(1, "Funcionalidade não pode estar vazia"))
     .min(1, "Adicione ao menos uma funcionalidade"),
   gallery: z.array(z.string()).optional(),
   challenges: z
     .array(z.string().min(1, "Desafio não pode estar vazio"))
-    .min(1, "Adicione ao menos um desafio"),
+    .optional(),
   results: z
     .array(z.string().min(1, "Resultado não pode estar vazio"))
     .min(1, "Adicione ao menos um resultado"),
@@ -60,6 +61,9 @@ export const StoreProjectSchema = ProjectSchema.omit({
   gallery: z.array(fileSchema).optional(),
 });
 
+export const UpdateProjectSchema = ProjectSchema.partial();
+
 /** Types */
 export type ProjectTypes = z.infer<typeof ProjectSchema>;
 export type StoreProjectTypes = z.infer<typeof StoreProjectSchema>;
+export type UpdateProjectTypes = z.infer<typeof UpdateProjectSchema>;

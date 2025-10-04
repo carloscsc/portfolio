@@ -22,19 +22,21 @@ import WhatsappIcon from "@/components/whatsapp.icon";
 import parse from "html-react-parser";
 
 type Props = {
-  params: { slug: string };
+  params: Promise<{ slug: string }>;
 };
 
-// export function generateStaticParams() {
-//   return projects.map((p) => ({ slug: p.slug }));
-// }
+export async function generateStaticParams() {
+  await connect();
+  const projects = await Project.find().select("slug").lean();
+  return projects.map((p) => ({ slug: p.slug }));
+}
 
 export default async function ProjectPage({ params }: Props) {
-  const { slug } = params;
+  const { slug } = await params;
 
   await connect();
-  const project = await Project.findOne({ slug }).lean();
-  if (!project) return notFound();
+  const p = await Project.findOne({ slug }).lean();
+  if (!p) return notFound();
 
   return (
     <main className="min-h-screen text-white">
@@ -50,42 +52,42 @@ export default async function ProjectPage({ params }: Props) {
 
         {/* Header do Projeto */}
         <div className="mb-8">
-          <h1 className="text-3xl md:text-5xl font-bold mb-4">
-            {project.title}
-          </h1>
-          <p className="text-xl text-muted-foreground mb-6">
-            {project.description}
-          </p>
+          <h1 className="text-3xl md:text-5xl font-bold mb-4">{p.title}</h1>
+          <p className="text-xl text-muted-foreground mb-6">{p.description}</p>
 
           <div className="flex flex-wrap gap-4 mb-6">
-            <Button asChild>
-              <a
-                href={project.demo_link}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex items-center gap-2"
-              >
-                <ExternalLink size={16} /> Ver Demo
-              </a>
-            </Button>
-            <Button variant="outline" asChild>
-              <a
-                href={project.repo_link}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex items-center gap-2"
-              >
-                <Github size={16} /> Ver Código
-              </a>
-            </Button>
+            {p.demo_link && (
+              <Button asChild>
+                <a
+                  href={p.demo_link}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-2"
+                >
+                  <ExternalLink size={16} /> Acessar o projeto
+                </a>
+              </Button>
+            )}
+            {p.repo_link && (
+              <Button variant="outline" asChild>
+                <a
+                  href={p.repo_link}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-2"
+                >
+                  <Github size={16} /> Ver Código fonte
+                </a>
+              </Button>
+            )}
           </div>
         </div>
 
         {/* Imagem Principal */}
         <div className="relative aspect-[16/9] w-full overflow-hidden rounded-xl bg-card mb-8">
           <Image
-            src={getBlobURL(project.cover) || "/placeholder.svg"}
-            alt={project.title}
+            src={getBlobURL(p.cover) || "/placeholder.svg"}
+            alt={p.title}
             fill
             className="object-cover"
             sizes="(min-width: 768px) 768px, 100vw"
@@ -98,13 +100,13 @@ export default async function ProjectPage({ params }: Props) {
           <div className="lg:col-span-2">
             <h2 className="text-2xl font-bold mb-4">Sobre o Projeto</h2>
             <div className="prose prose-invert max-w-none">
-              {parse(project.about_project)}
+              {parse(p.about_project)}
             </div>
           </div>
 
           <div className="space-y-6">
             {/* Informações do Cliente */}
-            <div className="bg-card rounded-lg p-6">
+            <div className="bg-card rounded-lg p-6 space-y-4">
               <h3 className="text-lg font-semibold mb-4 flex items-center gap-2">
                 <User className="h-5 w-5 text-primary" />
                 Cliente
@@ -113,22 +115,37 @@ export default async function ProjectPage({ params }: Props) {
                 <div className="font-medium flex justify-start items-center gap-2">
                   <div className="relative w-[32px] h-[32px] border">
                     <Image
-                      src={getBlobURL(project.client_logo)}
-                      alt={project.client_name}
+                      src={getBlobURL(p.client_logo)}
+                      alt={p.client_name}
                       fill
                       className="object-fill object-center"
                     ></Image>
                   </div>
-                  <p>{project.client_name}</p>
+                  <p>{p.client_name}</p>
                 </div>
-                <p className="text-sm text-muted-foreground">
-                  {project.client_description}
-                </p>
-                {project.client_location && (
+                {p.client_description && (
+                  <p className="text-sm text-muted-foreground">
+                    {p.client_description}
+                  </p>
+                )}
+                {p.client_location && (
                   <p className="text-sm text-muted-foreground flex items-center gap-1">
                     <MapPin className="h-3 w-3" />
-                    {project.client_location}
+                    {p.client_location}
                   </p>
+                )}
+
+                {p.client_link && (
+                  <Button className="w-full" asChild>
+                    <a
+                      href={p.demo_link}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex items-center gap-2"
+                    >
+                      <ExternalLink size={16} /> Acessar
+                    </a>
+                  </Button>
                 )}
               </div>
             </div>
@@ -140,12 +157,12 @@ export default async function ProjectPage({ params }: Props) {
                 <div className="flex items-center gap-2 text-sm">
                   <Clock className="h-4 w-4 text-primary" />
                   <span className="text-muted-foreground">Duração:</span>
-                  <span>{project.duration}</span>
+                  <span>{p.duration}</span>
                 </div>
                 <div className="flex items-center gap-2 text-sm">
                   <Calendar className="h-4 w-4 text-primary" />
                   <span className="text-muted-foreground">Ano:</span>
-                  <span>{project.year}</span>
+                  <span>{p.year}</span>
                 </div>
               </div>
             </div>
@@ -153,20 +170,22 @@ export default async function ProjectPage({ params }: Props) {
         </div>
 
         {/* Tecnologias */}
-        <div className="mb-8">
-          <h2 className="text-2xl font-bold mb-4">Tecnologias Utilizadas</h2>
-          <div className="flex flex-wrap gap-2">
-            {project.technologies.map((tech) => (
-              <Badge
-                key={tech}
-                variant="secondary"
-                className="bg-primary/10 text-primary border-primary/20"
-              >
-                {tech}
-              </Badge>
-            ))}
+        {p.technologies && p.technologies.length > 0 && (
+          <div className="mb-8">
+            <h2 className="text-2xl font-bold mb-4">Tecnologias Utilizadas</h2>
+            <div className="flex flex-wrap gap-2">
+              {p.technologies.map((tech) => (
+                <Badge
+                  key={tech}
+                  variant="secondary"
+                  className="bg-primary/10 text-primary border-primary/20"
+                >
+                  {tech}
+                </Badge>
+              ))}
+            </div>
           </div>
-        </div>
+        )}
 
         {/* Funcionalidades */}
         <div className="mb-8">
@@ -174,7 +193,7 @@ export default async function ProjectPage({ params }: Props) {
             Principais Funcionalidades
           </h2>
           <ul className="grid grid-cols-1 md:grid-cols-2 gap-3">
-            {project.functionalities.map((feature, i) => (
+            {p.functionalities.map((feature, i) => (
               <li key={i} className="flex items-start gap-3">
                 <div className="w-2 h-2 bg-primary rounded-full mt-2 flex-shrink-0" />
                 <span className="text-muted-foreground">{feature}</span>
@@ -184,18 +203,18 @@ export default async function ProjectPage({ params }: Props) {
         </div>
 
         {/* Galeria */}
-        {project.gallery && project.gallery.length > 0 && (
+        {p.gallery && p.gallery.length > 0 && (
           <div className="mb-8">
             <h2 className="text-2xl font-bold mb-4">Galeria</h2>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-              {project.gallery.map((image, i) => (
+              {p.gallery.map((image, i) => (
                 <div
                   key={i}
                   className="relative aspect-[4/3] overflow-hidden rounded-lg bg-card"
                 >
                   <Image
                     src={getBlobURL(image) || "/placeholder.svg"}
-                    alt={`${project.title} - Imagem ${i + 1}`}
+                    alt={`${p.title} - Imagem ${i + 1}`}
                     fill
                     className="object-cover hover:scale-110 transition-transform duration-300"
                     sizes="(min-width: 1024px) 300px, (min-width: 768px) 350px, 100vw"
@@ -207,11 +226,11 @@ export default async function ProjectPage({ params }: Props) {
         )}
 
         {/* Desafios */}
-        {project.challenges && project.challenges.length > 0 && (
+        {p.challenges && p.challenges.length > 0 && (
           <div className="mb-8">
             <h2 className="text-2xl font-bold mb-4">Desafios Enfrentados</h2>
             <ul className="space-y-3">
-              {project.challenges.map((challenge, i) => (
+              {p.challenges.map((challenge, i) => (
                 <li key={i} className="flex items-start gap-3">
                   <div className="w-2 h-2 bg-yellow-500 rounded-full mt-2 flex-shrink-0" />
                   <span className="text-muted-foreground">{challenge}</span>
@@ -222,19 +241,18 @@ export default async function ProjectPage({ params }: Props) {
         )}
 
         {/* Resultados */}
-        {project.results && project.results.length > 0 && (
-          <div className="mb-8">
-            <h2 className="text-2xl font-bold mb-4">Resultados Alcançados</h2>
-            <ul className="space-y-3">
-              {project.results.map((result, i) => (
-                <li key={i} className="flex items-start gap-3">
-                  <div className="w-2 h-2 bg-green-500 rounded-full mt-2 flex-shrink-0" />
-                  <span className="text-muted-foreground">{result}</span>
-                </li>
-              ))}
-            </ul>
-          </div>
-        )}
+
+        <div className="mb-8">
+          <h2 className="text-2xl font-bold mb-4">Resultados Alcançados</h2>
+          <ul className="space-y-3">
+            {p.results.map((result, i) => (
+              <li key={i} className="flex items-start gap-3">
+                <div className="w-2 h-2 bg-green-500 rounded-full mt-2 flex-shrink-0" />
+                <span className="text-muted-foreground">{result}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
 
         {/* CTA Final */}
         <div className="bg-card rounded-lg p-8 text-center">

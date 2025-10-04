@@ -19,6 +19,8 @@ import { Project } from "@/_domain/projects/project.model";
 import { getBlobURL } from "@/lib/utils";
 import WhatsappIcon from "@/components/whatsapp.icon";
 
+import parse from "html-react-parser";
+
 type Props = {
   params: { slug: string };
 };
@@ -35,9 +37,9 @@ export default async function ProjectPage({ params }: Props) {
   if (!project) return notFound();
 
   return (
-    <main className="min-h-screen  text-white">
+    <main className="min-h-screen text-white">
       <Navbar />
-      <article className="container mx-auto px-4 pt-28 pb-20 max-w-4xl">
+      <article className="container mx-auto px-4 pt-28  max-w-4xl">
         <Link
           href="/#works"
           className="inline-flex items-center gap-2 text-muted-foreground hover:text-primary transition-colors mb-6"
@@ -92,11 +94,11 @@ export default async function ProjectPage({ params }: Props) {
         </div>
 
         {/* Informações do Projeto */}
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-8">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
           <div className="lg:col-span-2">
             <h2 className="text-2xl font-bold mb-4">Sobre o Projeto</h2>
             <div className="prose prose-invert max-w-none">
-              {project.description}
+              {parse(project.about_project)}
             </div>
           </div>
 

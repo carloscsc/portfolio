@@ -15,5 +15,5 @@ export function clearFileName(fileName: string): string {
   fileName = fileName.replace(/\s+/g, "-");
   fileName = fileName.replace(/\./g, "-");
   fileName = fileName.replace(/[^a-zA-Z0-9.-]/g, "");
-  return fileName;
+  return fileName.toLowerCase();
 }

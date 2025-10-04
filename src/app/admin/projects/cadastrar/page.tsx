@@ -43,10 +43,11 @@ const CadastrarProjeto = () => {
       client_description: "",
       client_location: "",
       duration: "",
-      year: new Date().getFullYear(),
+      year: String(new Date().getFullYear()),
       demo_link: "",
       repo_link: "",
       cover: undefined,
+      client_logo: undefined,
       about_project: "",
       technologies: [],
       functionalities: [],
@@ -180,7 +181,11 @@ const CadastrarProjeto = () => {
                 <FormItem>
                   <FormLabel>Ano do Projeto</FormLabel>
                   <FormControl>
-                    <Input placeholder="Informe o ano..." {...field} />
+                    <Input
+                      type="number"
+                      placeholder="Informe o ano..."
+                      {...field}
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -303,6 +308,22 @@ const CadastrarProjeto = () => {
                       placeholder="Digite a localização do cliente..."
                       {...field}
                     />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+
+            <h2>Logo do Cliente</h2>
+            {/* Cover */}
+            <FormField
+              control={form.control}
+              name="client_logo"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>logo do cliente</FormLabel>
+                  <FormControl>
+                    <FileUpload accept="image/*" {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>

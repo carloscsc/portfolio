@@ -4,7 +4,7 @@ import Link from "next/link";
 import { useState } from "react";
 import { CardWrapper } from "./ui/card-wrapper";
 import { Button } from "./ui/button";
-import { Info, ImageIcon } from "lucide-react";
+import { Info, ImageIcon, ExternalLink } from "lucide-react";
 import { useResponsive } from "@/hooks/use-responsive";
 import { useQuery } from "@tanstack/react-query";
 import { read } from "@/_domain/projects/project.actions";
@@ -83,18 +83,18 @@ function ProjectCard(data: ProjectTypes) {
         </p>
 
         {/* Enhanced button layout for mobile */}
-        <div className="flex gap-2 flex-wrap mt-auto mx-auto">
+        <div className="flex gap-2 flex-wrap mt-auto mx-auto w-full">
           <Button
             variant="outline"
             size={isMobile ? "sm" : "sm"}
             asChild
-            className="text-primary border-primary hover:bg-primary hover:text-white active:bg-primary/90 bg-transparent touch-target-small w-full sm:w-auto sm:flex-none min-w-[100px]"
+            className="text-primary border-primary  hover:text-white bg-transparent touch-target-small w-full"
           >
             <Link
-              href={`/projects/${data._id}`}
+              href={`/projects/${data.slug}`}
               className="flex items-center justify-center gap-2"
             >
-              <Info size={14} />
+              <ExternalLink size={14} />
               <span>ver detalhes</span>
             </Link>
           </Button>

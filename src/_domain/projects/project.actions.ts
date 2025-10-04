@@ -7,6 +7,7 @@ import {
 import { Project } from "./project.model";
 import connect from "@/lib/db";
 import { upload } from "@/lib/upload";
+import { clearFileName } from "@/lib/utils";
 
 export async function store(
   ProjectData: StoreProjectTypes
@@ -24,7 +25,7 @@ export async function store(
     };
   }
 
-  const { cover, gallery, ...data } = validate.data;
+  const { cover, client_logo, gallery, ...data } = validate.data;
   const uploadedGallery: string[] = [];
 
   try {
@@ -39,11 +40,15 @@ export async function store(
       galleryUploadQueue.forEach((imagem) => uploadedGallery.push(imagem));
     }
 
+    const uploadedClientLogo = await upload("portfolio/projects", client_logo);
+
     //build the projectObject
     const formattedProjectData = {
       ...data,
       cover: uploadedCover,
       gallery: uploadedGallery,
+      client_logo: uploadedClientLogo,
+      slug: clearFileName(data.title),
     };
 
     await connect();

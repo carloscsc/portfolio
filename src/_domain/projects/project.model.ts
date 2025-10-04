@@ -4,12 +4,14 @@ import { ProjectTypes } from "./project.schema";
 const ProjectMongooseSchema = new Schema<ProjectTypes>(
   {
     title: { type: String, required: true },
+    slug: { type: String, required: true, unique: true },
     description: { type: String, required: true },
     client_name: { type: String, required: true },
     client_description: { type: String, required: true },
     client_location: { type: String, required: true },
+    client_logo: { type: String, required: true },
     duration: { type: String, required: true },
-    year: { type: Number, required: true },
+    year: { type: String, required: true },
     demo_link: { type: String },
     repo_link: { type: String },
     cover: { type: String, required: true },

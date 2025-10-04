@@ -137,15 +137,6 @@ export function Navbar() {
             >
               Projetos
             </Link>
-            <Link
-              href={getNavLinkHref("skills")}
-              className={navLinkClasses("skills")}
-              aria-current={
-                isHome && active === "skills" ? "location" : undefined
-              }
-            >
-              Habilidades
-            </Link>
 
             {/* <Link
 							href={getBlogHref()}

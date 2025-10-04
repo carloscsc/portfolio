@@ -2,7 +2,6 @@ import { Button } from "@/components/ui/button";
 import { Stats } from "@/components/stats";
 import { Services } from "@/components/services";
 import { Projects } from "@/components/projects";
-import { Skills } from "@/components/skills";
 
 import Image from "next/image";
 import { Navbar } from "@/components/navbar";

@@ -105,7 +105,7 @@ function ProjectCard(data: ProjectTypes) {
 }
 
 export function Projects() {
-  const { isMobile, isTablet } = useResponsive();
+  const { isMobile } = useResponsive();
 
   const { isLoading, data } = useQuery({
     queryKey: ["projetos"],

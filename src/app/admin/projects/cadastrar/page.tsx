@@ -43,7 +43,7 @@ const CadastrarProjeto = () => {
       client_description: "",
       client_location: "",
       duration: "",
-      year: String(new Date().getFullYear()),
+      year: new Date().getFullYear(),
       demo_link: "",
       repo_link: "",
       cover: undefined,

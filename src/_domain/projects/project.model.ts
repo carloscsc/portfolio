@@ -11,7 +11,7 @@ const ProjectMongooseSchema = new Schema<ProjectTypes>(
     client_location: { type: String, required: true },
     client_logo: { type: String, required: true },
     duration: { type: String, required: true },
-    year: { type: String, required: true },
+    year: { type: Number, required: true },
     demo_link: { type: String },
     repo_link: { type: String },
     cover: { type: String, required: true },

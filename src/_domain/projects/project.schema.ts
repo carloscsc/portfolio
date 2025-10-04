@@ -12,10 +12,7 @@ export const ProjectSchema = z.object({
   client_location: z.string().min(1, "A localização do cliente é obrigatória"),
   client_logo: z.string(),
   duration: z.string().min(1, "A duração do projeto é obrigatória"),
-  year: z
-    .string()
-    .min(1, "Adicione a data do projeto")
-    .max(4, "O ano deve ter no máximo 4 digitos"),
+  year: z.coerce.number<number>().min(1900).max(new Date().getFullYear()),
   demo_link: z.url().optional(),
   repo_link: z.url().optional(),
   cover: z.string(),

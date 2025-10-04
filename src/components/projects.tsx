@@ -4,8 +4,7 @@ import Link from "next/link";
 import { useState } from "react";
 import { CardWrapper } from "./ui/card-wrapper";
 import { Button } from "./ui/button";
-import { ExternalLink, Github, Info, ImageIcon } from "lucide-react";
-import { projects } from "@/lib/projects-data";
+import { Info, ImageIcon } from "lucide-react";
 import { useResponsive } from "@/hooks/use-responsive";
 import { useQuery } from "@tanstack/react-query";
 import { read } from "@/_domain/projects/project.actions";
@@ -84,41 +83,7 @@ function ProjectCard(data: ProjectTypes) {
         </p>
 
         {/* Enhanced button layout for mobile */}
-        <div className="flex gap-2 flex-wrap mt-auto">
-          <Button
-            variant="outline"
-            size={isMobile ? "sm" : "sm"}
-            asChild
-            className="text-primary border-primary hover:bg-primary hover:text-white active:bg-primary/90 bg-transparent touch-target-small flex-1 sm:flex-none min-w-[80px]"
-          >
-            <a
-              href={data.demo_link}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex items-center justify-center gap-2"
-            >
-              <ExternalLink size={14} />
-              <span className="hidden xs:inline">Demo</span>
-            </a>
-          </Button>
-
-          <Button
-            variant="outline"
-            size={isMobile ? "sm" : "sm"}
-            asChild
-            className="text-primary border-primary hover:bg-primary hover:text-white active:bg-primary/90 bg-transparent touch-target-small flex-1 sm:flex-none min-w-[80px]"
-          >
-            <a
-              href={data.repo_link}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex items-center justify-center gap-2"
-            >
-              <Github size={14} />
-              <span className="hidden xs:inline">Code</span>
-            </a>
-          </Button>
-
+        <div className="flex gap-2 flex-wrap mt-auto mx-auto">
           <Button
             variant="outline"
             size={isMobile ? "sm" : "sm"}
@@ -130,7 +95,7 @@ function ProjectCard(data: ProjectTypes) {
               className="flex items-center justify-center gap-2"
             >
               <Info size={14} />
-              <span>Saber mais</span>
+              <span>ver detalhes</span>
             </Link>
           </Button>
         </div>
@@ -153,11 +118,6 @@ export function Projects() {
         <h2 className="text-responsive-xl font-bold mb-4">
           Projetos em Destaque
         </h2>
-        <p className="text-gray-400 max-w-2xl mx-auto text-responsive-base leading-relaxed px-4">
-          Explore meus projetos de desenvolvimento web mais recentes. Cada
-          projeto demonstra meu comprometimento em criar soluções digitais
-          inovadoras e centradas no usuário.
-        </p>
       </div>
 
       {/* Enhanced responsive grid with better spacing */}
@@ -177,15 +137,6 @@ export function Projects() {
             </div>
           ))}
       </div>
-
-      {/* Mobile load more hint if many projects */}
-      {projects.length > 6 && isMobile && (
-        <div className="text-center mt-8">
-          <p className="text-xs text-muted-foreground">
-            Deslize para ver mais projetos
-          </p>
-        </div>
-      )}
     </section>
   );
 }

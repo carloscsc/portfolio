@@ -61,7 +61,17 @@ export const StoreProjectSchema = ProjectSchema.omit({
   gallery: z.array(fileSchema).optional(),
 });
 
-export const UpdateProjectSchema = ProjectSchema.partial();
+export const UpdateProjectSchema = ProjectSchema.partial()
+  .omit({
+    cover: true,
+    gallery: true,
+    client_logo: true,
+  })
+  .extend({
+    cover: fileSchema,
+    client_logo: fileSchema,
+    gallery: z.array(fileSchema).optional(),
+  });
 
 /** Types */
 export type ProjectTypes = z.infer<typeof ProjectSchema>;

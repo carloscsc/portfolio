@@ -3,6 +3,7 @@ import ResponseType from "@/_domain/shared/types/types";
 import {
   StoreProjectTypes,
   StoreProjectSchema,
+  ProjectTypes,
 } from "../projects/project.schema";
 import { Project } from "./project.model";
 import connect from "@/lib/db";
@@ -85,4 +86,22 @@ export async function read() {
     console.log(e);
     throw new Error("Erro ao buscar dados dos projetos");
   }
+}
+
+export async function findOne(projectId: string): Promise<ProjectTypes | null> {
+  if (!projectId) return null;
+
+  await connect();
+  const request = await Project.findById({ _id: projectId })
+    .select("-__v")
+    .lean();
+
+  if (!request) return null;
+
+  const { _id, ...project } = request;
+
+  return {
+    _id: _id.toString(),
+    ...project,
+  };
 }

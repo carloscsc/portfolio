@@ -28,9 +28,13 @@ const ProjectsList = () => {
       <div>
         {query.data &&
           query?.data.map((p: ProjectTypes) => (
-            <div key={p._id}>
+            <Link
+              key={p._id}
+              href={`/admin/projects/${p._id}/edit`}
+              className="border p-4 w-full flex"
+            >
               <h2>{p.title}</h2>
-            </div>
+            </Link>
           ))}
       </div>
       {/* Render the list of projects here */}

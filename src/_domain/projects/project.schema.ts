@@ -56,8 +56,8 @@ export const StoreProjectSchema = ProjectSchema.omit({
   gallery: true,
   client_logo: true,
 }).extend({
-  cover: fileSchema,
-  client_logo: fileSchema,
+  cover: fileSchema.optional(),
+  client_logo: fileSchema.optional(),
   gallery: z.array(fileSchema).optional(),
 });
 
@@ -68,9 +68,12 @@ export const UpdateProjectSchema = ProjectSchema.partial()
     client_logo: true,
   })
   .extend({
-    cover: fileSchema,
-    client_logo: fileSchema,
+    cover: fileSchema.optional(),
+    client_logo: fileSchema.optional(),
     gallery: z.array(fileSchema).optional(),
+    _cover: z.string().optional(),
+    _client_logo: z.string().optional(),
+    _gallery: z.array(z.string()).optional(),
   });
 
 /** Types */

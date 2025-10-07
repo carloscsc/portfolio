@@ -91,17 +91,22 @@ export async function read() {
 export async function findOne(projectId: string): Promise<ProjectTypes | null> {
   if (!projectId) return null;
 
-  await connect();
-  const request = await Project.findById({ _id: projectId })
-    .select("-__v")
-    .lean();
+  try {
+    await connect();
+    const request = await Project.findById({ _id: projectId })
+      .select("-__v")
+      .lean();
 
-  if (!request) return null;
+    if (!request) return null;
 
-  const { _id, ...project } = request;
+    const { _id, ...project } = request;
 
-  return {
-    _id: _id.toString(),
-    ...project,
-  };
+    return {
+      _id: _id.toString(),
+      ...project,
+    };
+  } catch (error) {
+    console.log(error);
+    return null;
+  }
 }

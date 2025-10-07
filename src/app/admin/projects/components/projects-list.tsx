@@ -8,7 +8,7 @@ import { Plus } from "lucide-react";
 import Link from "next/link";
 
 const ProjectsList = () => {
-  const query = useQuery({
+  const { data, isLoading } = useQuery({
     queryKey: ["projetos"],
     queryFn: async () => await read(),
   });
@@ -26,16 +26,23 @@ const ProjectsList = () => {
       </div>
 
       <div>
-        {query.data &&
-          query?.data.map((p: ProjectTypes) => (
-            <Link
-              key={p._id}
-              href={`/admin/projects/${p._id}/edit`}
-              className="border p-4 w-full flex"
-            >
-              <h2>{p.title}</h2>
-            </Link>
-          ))}
+        {isLoading ? (
+          "aguarde..."
+        ) : (
+          <>
+            {data &&
+              data.length > 0 &&
+              data.map((p: ProjectTypes) => (
+                <Link
+                  key={p._id}
+                  href={`/admin/projects/${p._id}/edit`}
+                  className="border p-4 w-full flex"
+                >
+                  <h2>{p.title}</h2>
+                </Link>
+              ))}
+          </>
+        )}
       </div>
       {/* Render the list of projects here */}
     </div>

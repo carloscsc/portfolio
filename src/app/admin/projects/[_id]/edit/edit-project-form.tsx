@@ -84,6 +84,7 @@ const EditProjectForm = ({ data }: { data: ProjectTypes }) => {
 
   const mutation = useMutation({
     mutationFn: async (data: UpdateProjectTypes) => {
+      console.log(data);
       // const request = await store(data);
       // if (request.isSuccess && request.project) {
       //   alert("Projeto cadastrado com sucesso!");
@@ -384,8 +385,9 @@ const EditProjectForm = ({ data }: { data: ProjectTypes }) => {
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>Galeria</FormLabel>
-                  {_gallery && _gallery?.length > 0 && (
-                    <div className="grid grid-cols-2 md:grid-cols-3 gap-4 w-full min-h-[400px]">
+                  {((_gallery && _gallery?.length > 0) ||
+                    (gallery && gallery.length > 0)) && (
+                    <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
                       {_gallery &&
                         _gallery.length > 0 &&
                         _gallery.map((image, _) => (
@@ -393,8 +395,9 @@ const EditProjectForm = ({ data }: { data: ProjectTypes }) => {
                             <Image
                               src={getBlobURL(image)}
                               alt=""
-                              fill
-                              className="h-auto max-w-full rounded-lg"
+                              width={300}
+                              height={200}
+                              className="h-auto w-full rounded-lg object-cover"
                             />
                             <Button
                               className="border bg-white w-8 h-8 absolute right-2 top-2"
@@ -412,8 +415,9 @@ const EditProjectForm = ({ data }: { data: ProjectTypes }) => {
                             <Image
                               src={URL.createObjectURL(image)}
                               alt=""
-                              fill
-                              className="h-auto max-w-full rounded-lg"
+                              width={300}
+                              height={200}
+                              className="h-auto w-full rounded-lg object-cover"
                             />
                             <Button
                               className="border bg-white w-8 h-8 absolute right-2 top-2"

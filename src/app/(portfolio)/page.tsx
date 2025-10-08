@@ -6,7 +6,6 @@ import { Projects } from "@/components/projects";
 import Image from "next/image";
 import { Navbar } from "@/components/navbar";
 
-import ProfilePicture from "@public/perfil.jpg";
 import WhatsappIcon from "@/components/whatsapp.icon";
 import Contact from "@/components/contact";
 
@@ -20,7 +19,10 @@ export default function Home() {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-10 items-stretch">
           <div className="lg:col-span-5 relative rounded-2xl overflow-hidden min-h-[360px] lg:min-h-[520px]  lg:order-1">
             <Image
-              src={ProfilePicture.src}
+              src={
+                process.env.NEXT_PUBLIC_PROFILE_PICTURE ||
+                "https://placehold.co/600x600"
+              }
               alt="Profile"
               fill
               className="object-cover"

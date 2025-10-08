@@ -32,6 +32,7 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useState } from "react";
 import Image from "next/image";
 import { getBlobURL } from "@/lib/utils";
+import { update } from "@/_domain/projects/project.actions";
 
 const EditProjectForm = ({ data }: { data: ProjectTypes }) => {
   const [_gallery, setGallery] = useState<string[]>(data.gallery || []);
@@ -40,6 +41,7 @@ const EditProjectForm = ({ data }: { data: ProjectTypes }) => {
   const form = useForm<UpdateProjectTypes>({
     resolver: zodResolver(UpdateProjectSchema),
     defaultValues: {
+      _id: data._id,
       title: data.title,
       description: data.description,
       client_name: data.client_name,
@@ -56,7 +58,7 @@ const EditProjectForm = ({ data }: { data: ProjectTypes }) => {
       technologies: data.technologies,
       functionalities: data.functionalities,
       gallery: [],
-      _gallery: [],
+      _gallery: data.gallery || [],
       challenges: data.challenges,
       results: data.results,
       status: data.status || "ativo",
@@ -84,11 +86,10 @@ const EditProjectForm = ({ data }: { data: ProjectTypes }) => {
 
   const mutation = useMutation({
     mutationFn: async (data: UpdateProjectTypes) => {
-      console.log(data);
-      // const request = await store(data);
-      // if (request.isSuccess && request.project) {
-      //   alert("Projeto cadastrado com sucesso!");
-      // }
+      const request = await update(data);
+      if (request.isSuccess) {
+        alert("Projeto atualizado com sucesso!");
+      }
     },
     onSuccess: () => queryClient.invalidateQueries({ queryKey: ["projetos"] }),
   });
@@ -400,6 +401,7 @@ const EditProjectForm = ({ data }: { data: ProjectTypes }) => {
                               className="h-auto w-full rounded-lg object-cover"
                             />
                             <Button
+                              type="button"
                               className="border bg-white w-8 h-8 absolute right-2 top-2"
                               onClick={() => onRemove(image)}
                             >
@@ -420,6 +422,7 @@ const EditProjectForm = ({ data }: { data: ProjectTypes }) => {
                               className="h-auto w-full rounded-lg object-cover"
                             />
                             <Button
+                              type="button"
                               className="border bg-white w-8 h-8 absolute right-2 top-2"
                               onClick={() => onRemoveGalery(_)}
                             >

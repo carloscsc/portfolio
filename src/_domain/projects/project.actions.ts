@@ -4,6 +4,8 @@ import {
   StoreProjectTypes,
   StoreProjectSchema,
   ProjectTypes,
+  UpdateProjectTypes,
+  UpdateProjectSchema,
 } from "../projects/project.schema";
 import { Project } from "./project.model";
 import connect from "@/lib/db";
@@ -68,6 +70,86 @@ export async function store(
       message: {
         type: "error",
         text: "Error ao cadastrar novo projeto",
+      },
+    };
+  }
+}
+
+export async function update(data: UpdateProjectTypes): Promise<ResponseType> {
+  const validate = UpdateProjectSchema.safeParse(data);
+
+  if (!validate.success) {
+    console.log(validate.error);
+    return {
+      message: {
+        type: "error",
+        text: "Erro ao atualizar projeto verifique todos os campos",
+      },
+    };
+  }
+
+  const { _id, _gallery, gallery, cover, client_logo, ...rest } = validate.data;
+  const uploadedGallery: string[] = [];
+  let uploadedCover = null;
+  let uploadedClientLogo = null;
+
+  // update cover
+  if (cover) {
+    uploadedCover = await upload("portfolio/projects", cover);
+  }
+
+  // update logo
+  if (client_logo) {
+    uploadedClientLogo = await upload("portfolio/projects", client_logo);
+  }
+
+  // upload gallery
+  if (gallery && gallery.length > 0) {
+    const galleryUploadQueue = await Promise.all(
+      gallery.map((image) => upload("portfolio/projects", image))
+    );
+    galleryUploadQueue.forEach((imagem) => uploadedGallery.push(imagem));
+  }
+  const newGallery = [...uploadedGallery, ...(_gallery || [])];
+
+  try {
+    await connect();
+    const project = await Project.findById({ _id });
+
+    if (!project) {
+      return {
+        message: {
+          type: "error",
+          text: "Erro ao atualizar projeto verifique todos os campos",
+        },
+      };
+    }
+
+    const newData = {
+      ...rest,
+      gallery: newGallery,
+      cover: uploadedCover || project.cover,
+      client_logo: uploadedClientLogo || project.client_logo,
+    };
+
+    // monta o dado
+    Object.assign(project, newData);
+
+    await project.save();
+
+    return {
+      isSuccess: true,
+      message: {
+        type: "error",
+        text: "Projeto atualizado com sucesso",
+      },
+    };
+  } catch (error) {
+    console.log(error);
+    return {
+      message: {
+        type: "error",
+        text: "Erro ao atualizar projeto verifique todos os campos",
       },
     };
   }

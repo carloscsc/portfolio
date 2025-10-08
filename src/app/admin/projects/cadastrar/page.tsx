@@ -387,6 +387,7 @@ const CadastrarProjeto = () => {
                               className="h-auto w-full rounded-lg object-cover"
                             />
                             <Button
+                              type="button"
                               className="border bg-white w-8 h-8 absolute right-2 top-2"
                               onClick={() => onRemoveGalery(_)}
                             >

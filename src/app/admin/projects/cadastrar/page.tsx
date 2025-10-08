@@ -1,6 +1,6 @@
 "use client";
 import { Button } from "@/components/ui/button";
-import { ArrowLeftFromLineIcon } from "lucide-react";
+import { ArrowLeftFromLineIcon, X } from "lucide-react";
 import Link from "next/link";
 
 import { useForm } from "react-hook-form";
@@ -26,6 +26,8 @@ import { Separator } from "@/components/ui/separator";
 import { FileUpload } from "@/components/ui/custom/file-upload";
 import { RichTextEditor } from "@/components/ui/custom/rich-editor";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { useState } from "react";
+import Image from "next/image";
 
 // TODO: apagar campos depois de enviar
 
@@ -59,6 +61,12 @@ const CadastrarProjeto = () => {
     },
   });
 
+  const [cover, client_logo, gallery] = form.watch([
+    "cover",
+    "client_logo",
+    "gallery",
+  ]);
+
   const mutation = useMutation({
     mutationFn: async (data: StoreProjectTypes) => {
       const request = await store(data);
@@ -70,6 +78,13 @@ const CadastrarProjeto = () => {
   });
 
   const handleSubmit = (data: StoreProjectTypes) => mutation.mutate(data);
+
+  const onRemoveGalery = (index: number) => {
+    if (gallery) {
+      const newArray = gallery.filter((image, _) => _ !== index);
+      form.setValue("gallery", newArray);
+    }
+  };
 
   return (
     <>
@@ -120,25 +135,6 @@ const CadastrarProjeto = () => {
                 </FormItem>
               )}
             />
-
-            {/* Long Description */}
-            {/* <FormField
-              control={form.control}
-              name="about_project"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Descrição completa do Projeto</FormLabel>
-                  <FormControl>
-                    <Textarea
-                      placeholder="Digite a descrição..."
-                      rows={20}
-                      {...field}
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            /> */}
 
             <FormField
               control={form.control}
@@ -323,6 +319,17 @@ const CadastrarProjeto = () => {
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>logo do cliente</FormLabel>
+                  {client_logo && (
+                    <div className="relative w-full h-[400px]">
+                      <Image
+                        src={URL.createObjectURL(client_logo)}
+                        alt=""
+                        fill
+                        className="object-cover"
+                      />
+                    </div>
+                  )}
+
                   <FormControl>
                     <FileUpload accept="image/*" {...field} />
                   </FormControl>
@@ -341,6 +348,16 @@ const CadastrarProjeto = () => {
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>Imagem de Capa</FormLabel>
+                  {cover && (
+                    <div className="relative w-full h-[400px]">
+                      <Image
+                        src={URL.createObjectURL(cover)}
+                        alt=""
+                        fill
+                        className="object-cover"
+                      />
+                    </div>
+                  )}
                   <FormControl>
                     <FileUpload accept="image/*" {...field} />
                   </FormControl>
@@ -356,6 +373,29 @@ const CadastrarProjeto = () => {
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>Galeria</FormLabel>
+                  {gallery && gallery.length > 0 && (
+                    <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
+                      {gallery &&
+                        gallery.length > 0 &&
+                        gallery.map((image, _) => (
+                          <div key={_} className="relative">
+                            <Image
+                              src={URL.createObjectURL(image)}
+                              alt=""
+                              width={300}
+                              height={200}
+                              className="h-auto w-full rounded-lg object-cover"
+                            />
+                            <Button
+                              className="border bg-white w-8 h-8 absolute right-2 top-2"
+                              onClick={() => onRemoveGalery(_)}
+                            >
+                              <X />
+                            </Button>
+                          </div>
+                        ))}
+                    </div>
+                  )}
                   <FormControl>
                     <FileUpload accept="image/*" multiple {...field} />
                   </FormControl>

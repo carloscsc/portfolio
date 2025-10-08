@@ -26,7 +26,7 @@ import { Separator } from "@/components/ui/separator";
 import { FileUpload } from "@/components/ui/custom/file-upload";
 import { RichTextEditor } from "@/components/ui/custom/rich-editor";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { useState } from "react";
+
 import Image from "next/image";
 
 // TODO: apagar campos depois de enviar
@@ -47,8 +47,8 @@ const CadastrarProjeto = () => {
       client_link: "",
       duration: "",
       year: new Date().getFullYear(),
-      demo_link: undefined,
-      repo_link: undefined,
+      demo_link: "",
+      repo_link: "",
       cover: undefined,
       client_logo: undefined,
       about_project: "",

@@ -335,3 +335,12 @@ body {
 		opacity: 1 !important;
 	}
 }
+
+@layer base {
+  * {
+    @apply border-border;
+	}
+  body {
+    @apply bg-background text-foreground;
+	}
+}

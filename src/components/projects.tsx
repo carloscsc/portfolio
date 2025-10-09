@@ -4,7 +4,7 @@ import Link from "next/link";
 import { useState } from "react";
 import { CardWrapper } from "./ui/card-wrapper";
 import { Button } from "./ui/button";
-import { Info, ImageIcon, ExternalLink } from "lucide-react";
+import { ImageIcon, ExternalLink } from "lucide-react";
 import { useResponsive } from "@/hooks/use-responsive";
 import { useQuery } from "@tanstack/react-query";
 import { read } from "@/_domain/projects/project.actions";
@@ -107,7 +107,7 @@ function ProjectCard(data: ProjectTypes) {
 export function Projects() {
   const { isMobile } = useResponsive();
 
-  const { isLoading, data } = useQuery({
+  const { data } = useQuery({
     queryKey: ["projetos"],
     queryFn: async () => await read(),
   });

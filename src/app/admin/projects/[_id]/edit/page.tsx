@@ -8,6 +8,7 @@ const CadastrarProjeto = async ({
   params: Promise<{ _id: string }>;
 }) => {
   const { _id } = await params;
+
   const data = await findOne(_id as string);
 
   if (!data) {

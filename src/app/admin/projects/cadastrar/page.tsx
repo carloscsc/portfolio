@@ -88,7 +88,7 @@ const CadastrarProjeto = () => {
 
   return (
     <>
-      <div className="w-full flex flex-row justify-between items-center border-b pb-2">
+      <div className="w-full flex flex-row justify-between items-center border-b pb-4">
         <h2 className="text-center text-lg">Adicionar Projeto</h2>
 
         <Button size="icon" asChild>

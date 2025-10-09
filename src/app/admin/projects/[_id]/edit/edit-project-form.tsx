@@ -30,6 +30,7 @@ import {
 } from "@/components/ui/button-group";
 
 import { Input } from "@/components/ui/input";
+import TextInput from "@/components/ui/custom/TextInput";
 import { RepeatableTextField } from "@/components/ui/custom/repeatable-field";
 import { Textarea } from "@/components/ui/textarea";
 import { Separator } from "@/components/ui/separator";
@@ -132,18 +133,11 @@ const EditProjectForm = ({ data }: { data: ProjectTypes }) => {
           <div className="border-dashed border-2 p-4 rounded-md space-y-6">
             <h2>Dados Básicos do Projeto</h2>
             <Separator />
-            <FormField
+            <TextInput
               control={form.control}
               name="title"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Título do Projeto</FormLabel>
-                  <FormControl>
-                    <Input placeholder="Digite o título..." {...field} />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
+              label="Título do Projeto"
+              placeholder="Digite o título..."
             />
 
             {/* Description */}
@@ -182,18 +176,11 @@ const EditProjectForm = ({ data }: { data: ProjectTypes }) => {
             <Separator />
 
             {/* Duration */}
-            <FormField
+            <TextInput
               control={form.control}
               name="duration"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Duração do Projeto</FormLabel>
-                  <FormControl>
-                    <Input placeholder="Informe a duração..." {...field} />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
+              label="Duração do Projeto"
+              placeholder="Informe a duração..."
             />
 
             <FormField
@@ -215,32 +202,18 @@ const EditProjectForm = ({ data }: { data: ProjectTypes }) => {
             />
 
             <Separator />
-            <FormField
+            <TextInput
               control={form.control}
               name="demo_link"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Link de demonstração</FormLabel>
-                  <FormControl>
-                    <Input placeholder="Informe o link..." {...field} />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
+              label="Link de demonstração"
+              placeholder="Informe o link..."
             />
 
-            <FormField
+            <TextInput
               control={form.control}
               name="repo_link"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Link do repositório</FormLabel>
-                  <FormControl>
-                    <Input placeholder="Informe o link..." {...field} />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
+              label="Link do repositório"
+              placeholder="Informe o link..."
             />
             <Separator />
 
@@ -285,21 +258,11 @@ const EditProjectForm = ({ data }: { data: ProjectTypes }) => {
           <div className="border-dashed border-2 p-4 rounded-md space-y-6">
             <h2>Dados do Cliente</h2>
             <Separator />
-            <FormField
+            <TextInput
               control={form.control}
               name="client_name"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Nome do cliente</FormLabel>
-                  <FormControl>
-                    <Input
-                      placeholder="Digite o nome do cliente..."
-                      {...field}
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
+              label="Nome do cliente"
+              placeholder="Digite o nome do cliente..."
             />
 
             <FormField
@@ -319,21 +282,11 @@ const EditProjectForm = ({ data }: { data: ProjectTypes }) => {
               )}
             />
 
-            <FormField
+            <TextInput
               control={form.control}
               name="client_location"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Localização do cliente</FormLabel>
-                  <FormControl>
-                    <Input
-                      placeholder="Digite a localização do cliente..."
-                      {...field}
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
+              label="Localização do cliente"
+              placeholder="Digite a localização do cliente..."
             />
 
             {/* Cover */}

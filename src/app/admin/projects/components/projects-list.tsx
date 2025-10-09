@@ -4,11 +4,6 @@ import {
   Item,
   ItemActions,
   ItemContent,
-  ItemMedia,
-  // ItemDescription,
-  // ItemFooter,
-  // ItemHeader,
-  // ItemMedia,
   ItemTitle,
 } from "@/components/ui/item";
 
@@ -16,10 +11,8 @@ import { read } from "@/_domain/projects/project.actions";
 import { ProjectTypes } from "@/_domain/projects/project.schema";
 import { Button } from "@/components/ui/button";
 import { useQuery } from "@tanstack/react-query";
-import { BadgeCheckIcon, ChevronRightIcon, Plus } from "lucide-react";
 import Link from "next/link";
-import { Avatar, AvatarFallback, AvatarImage } from "@radix-ui/react-avatar";
-import { getBlobURL } from "@/lib/utils";
+import { ChevronRightIcon, Plus } from "lucide-react";
 
 const ProjectsList = () => {
   const { data, isLoading } = useQuery({

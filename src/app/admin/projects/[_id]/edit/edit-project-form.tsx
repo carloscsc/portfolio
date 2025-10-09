@@ -1,7 +1,9 @@
 "use client";
 
+// TODO: change regular inputs for TextField
+
 import { Button } from "@/components/ui/button";
-import { ArrowLeftFromLineIcon, X } from "lucide-react";
+import { ArrowLeftFromLineIcon, ExternalLink, X } from "lucide-react";
 import Link from "next/link";
 
 import { useForm } from "react-hook-form";
@@ -20,6 +22,12 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
+
+import {
+  ButtonGroup,
+  ButtonGroupSeparator,
+  ButtonGroupText,
+} from "@/components/ui/button-group";
 
 import { Input } from "@/components/ui/input";
 import { RepeatableTextField } from "@/components/ui/custom/repeatable-field";
@@ -100,12 +108,19 @@ const EditProjectForm = ({ data }: { data: ProjectTypes }) => {
     <>
       <div className="w-full flex flex-row justify-between items-center border-b pb-2">
         <h2 className="text-center text-lg">Adicionar Projeto</h2>
-
-        <Button size="icon" asChild>
-          <Link href="/admin/projects">
-            <ArrowLeftFromLineIcon className="w-4 h-4" />
-          </Link>
-        </Button>
+        <ButtonGroup>
+          <Button size="icon" asChild>
+            <Link href="/admin/projects">
+              <ArrowLeftFromLineIcon className="w-4 h-4" />
+            </Link>
+          </Button>
+          <ButtonGroupSeparator />
+          <Button size="default" asChild>
+            <Link href={`/projects/${data.slug}`}>
+              <ExternalLink className="w-4 h-4" /> Ver projeto
+            </Link>
+          </Button>
+        </ButtonGroup>
       </div>
 
       <Form {...form}>

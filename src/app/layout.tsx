@@ -1,7 +1,7 @@
 import type React from "react";
 import type { Metadata } from "next";
 import "./globals.css";
-import { JetBrains_Mono } from "next/font/google";
+import { JetBrains_Mono, Open_Sans } from "next/font/google";
 import Providers from "./providers";
 
 export const metadata: Metadata = {
@@ -16,6 +16,12 @@ const jetbrainsMono = JetBrains_Mono({
   weight: ["400", "500", "700"],
 });
 
+const openSans = Open_Sans({
+  subsets: ["latin"],
+  variable: "--open-sans",
+  weight: ["400", "500", "700"],
+});
+
 export default function RootLayout({
   children,
 }: {
@@ -25,7 +31,7 @@ export default function RootLayout({
     <Providers>
       <html
         lang="pt-BR"
-        className={`${jetbrainsMono.variable} dark antialiased`}
+        className={`${jetbrainsMono.variable} ${openSans.variable} dark antialiased`}
       >
         <body className="bg-gradient-to-r from-[#0b0b0b] to-[#1d1f20]">
           {children}

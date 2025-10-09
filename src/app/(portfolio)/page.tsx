@@ -44,8 +44,8 @@ export default function Home() {
               personalizados, automações de atendimento e integrações com
               ferramentas de marketing digital....{" "}
               <strong className="text-white">
-                Não importa o desafio, meu trabalho é encontrar a solução certa,
-                no tamanho do seu bolso.
+                Não importa o desafio, meu trabalho é encontrar a solução certa
+                para seu problema.
               </strong>
             </p>
             <div className="flex flex-col md:flex-row gap-4 mb-8 relative">

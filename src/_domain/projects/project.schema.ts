@@ -1,4 +1,5 @@
 import { z } from "zod";
+import { fileSchema } from "../shared/types/types";
 
 export const ProjectSchema = z.object({
   _id: z.string(),
@@ -35,17 +36,6 @@ export const ProjectSchema = z.object({
   createdAt: z.date().default(() => new Date()),
   updatedAt: z.date().default(() => new Date()),
 });
-
-// TODO: separar
-const fileSchema = z
-  .instanceof(File, { message: "Arquivo é obrigatório" })
-  .refine((file) => file.size <= 5 * 1024 * 1024, {
-    message: "Arquivo deve ter no máximo 5MB",
-  })
-  .refine(
-    (file) => ["image/jpeg", "image/png", "image/webp"].includes(file.type),
-    { message: "Apenas imagens JPEG, PNG ou WebP são permitidas" }
-  );
 
 export const StoreProjectSchema = ProjectSchema.omit({
   _id: true,

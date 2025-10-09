@@ -111,7 +111,7 @@ export function Navbar() {
         <div className="flex items-center justify-between h-16">
           <Link
             href="/"
-            className="flex-shrink-0 text-2xl font-bold "
+            className="flex-shrink-0 text-2xl font-bold font-mono"
             aria-label="Inicio"
           >
             &lt;CarlosSC /&gt;

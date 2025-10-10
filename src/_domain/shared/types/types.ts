@@ -1,3 +1,4 @@
+import { ProfileTypes } from "@/_domain/profile/profile.schema";
 import { ProjectTypes } from "@/_domain/projects/project.schema";
 import z from "zod";
 
@@ -21,6 +22,7 @@ export const phoneSchema = z
 export interface ResponseType {
   isSuccess?: boolean;
   project?: ProjectTypes;
+  profile?: ProfileTypes;
   message?: {
     type: "success" | "error" | "info";
     text: string;

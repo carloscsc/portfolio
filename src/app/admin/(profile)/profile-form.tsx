@@ -1,6 +1,8 @@
 "use client";
 
+import { UpdateOrCreate } from "@/_domain/profile/profile.actions";
 import {
+  ProfileTypes,
   StoreProfileSchema,
   storeProfileTypes,
 } from "@/_domain/profile/profile.schema";
@@ -18,36 +20,48 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import { getBlobURL } from "@/lib/utils";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import Image from "next/image";
 import { useForm } from "react-hook-form";
 
-const ProfileForm = () => {
+const ProfileForm = ({ data }: { data: ProfileTypes }) => {
+  const queryClient = useQueryClient();
   const form = useForm<storeProfileTypes>({
     resolver: zodResolver(StoreProfileSchema),
     defaultValues: {
-      name: "Carlos",
-      title: "Engenheiro de Software",
-      description:
-        "Desenvolvo sistemas que ajudam empresas a crescerem: plataformas de sorteios e promoções, landing pages, sites institucionais, CRMs personalizados, automações de atendimento e integrações com ferramentas de marketing digital.... Não importa o desafio, meu trabalho é encontrar a solução certa para seu problema.",
-      phone: "11989631661",
+      name: data.name,
+      title: data.title,
+      description: data.description,
+      phone: data.phone,
       cover: undefined,
-      _cover:
-        "https://media.licdn.com/dms/image/v2/C4E03AQHipCurSx0GVQ/profile-displayphoto-shrink_400_400/profile-displayphoto-shrink_400_400/0/1516935311308?e=1762992000&v=beta&t=Cv4KV41Ck8Qwi1U8VD3s9ljLJmDMNadSTcIOlzPYhEQ",
-      highlights: [
-        { header: "15+", text: "Anos de Experiência" },
-        { header: "50+", text: "Projetos Concluidos" },
-      ],
+      _cover: data.cover,
+      highlights: data.highlights,
+      profile_count: 1,
     },
   });
 
   const [cover, _cover] = form.watch(["cover", "_cover"]);
 
-  const submit = () => {};
+  const mutation = useMutation({
+    mutationFn: async (data: storeProfileTypes) => {
+      const request = await UpdateOrCreate(data);
+      if (request.isSuccess) {
+        alert("Projeto atualizado com sucesso!");
+      }
+    },
+    onSuccess: () => queryClient.invalidateQueries({ queryKey: ["profile"] }),
+  });
+
+  const handleSubmit = (data: storeProfileTypes) => mutation.mutate(data);
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(submit)} className="space-y-8 mt-4">
+      <form
+        onSubmit={form.handleSubmit(handleSubmit)}
+        className="space-y-8 mt-4"
+      >
         <TextInput
           control={form.control}
           name="name"
@@ -96,7 +110,11 @@ const ProfileForm = () => {
               <FormLabel>Foto de perfil</FormLabel>
               <div className="relative w-full h-[400px]">
                 <Image
-                  src={cover ? URL.createObjectURL(cover) : (_cover as string)}
+                  src={
+                    cover
+                      ? URL.createObjectURL(cover)
+                      : getBlobURL(_cover as string)
+                  }
                   alt=""
                   fill
                   className="object-cover"

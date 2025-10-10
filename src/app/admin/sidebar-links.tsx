@@ -38,7 +38,7 @@ const MenuLink = ({
 
 const sidebarLinks = () => {
   return (
-    <nav className="bg-[#2b2b2b] w-full md:w-[200px] mb-6 md:min-h-screen border rounded-sm">
+    <nav className="bg-[#2b2b2b] w-full md:w-[200px]  md:min-h-screen border rounded-sm mb-5 md:mb-0">
       <ul className="rounded-md overflow-hidden p-2">
         <MenuLink href="/admin" icon={<PenSquareIcon />} text="Perfil" />
         <MenuLink

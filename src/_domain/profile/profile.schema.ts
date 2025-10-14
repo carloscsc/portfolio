@@ -26,6 +26,7 @@ export const ProfileSchema = z.object({
   createdAt: z.date().default(() => new Date()),
   updatedAt: z.date().default(() => new Date()),
   profile_count: z.coerce.number<number>(),
+  footer: z.string().min(1, "Informe um rodapé valido"),
 });
 
 export const StoreProfileSchema = ProfileSchema.omit({

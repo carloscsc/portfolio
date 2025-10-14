@@ -15,6 +15,7 @@ const ProfileMongooseSchema = new Schema<ProfileTypes>(
     ],
     phone: { type: String, required: true, unique: true },
     profile_count: { type: Number, required: true, unique: true },
+    footer: { type: String, required: true },
   },
   {
     timestamps: true,

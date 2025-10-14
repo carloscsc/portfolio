@@ -343,4 +343,7 @@ body {
   body {
     @apply bg-background text-foreground;
   }
+  strong {
+    @apply text-white;
+  }
 }

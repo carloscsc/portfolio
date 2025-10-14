@@ -1,7 +1,7 @@
 import { Button } from "./ui/button";
 import WhatsappIcon from "./whatsapp.icon";
 
-const Contact = () => {
+const Contact = ({ phone }: { phone: string }) => {
   return (
     <section className="py-16 scroll-mt-24" id="contact">
       <div className="text-center  space-y-6">
@@ -15,7 +15,10 @@ const Contact = () => {
           className="bg-[#27d366] hover:bg-[#28a71a]  text-white"
           asChild
         >
-          <a href="#contact" className="text-responsive-lg">
+          <a
+            href={`https://api.whatsapp.com/send?phone=55${phone}`}
+            className="text-responsive-lg"
+          >
             <WhatsappIcon /> Agende uma consultoria grátis!
           </a>
         </Button>

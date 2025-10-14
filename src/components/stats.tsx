@@ -4,13 +4,13 @@ import { cn } from "@/lib/utils";
 import { useResponsive, useReducedMotion } from "@/hooks/use-responsive";
 
 interface StatProps {
-  value: string;
-  label: string;
+  header: string;
+  text: string;
   index: number;
   isVisible: boolean;
 }
 
-function StatItem({ value, label, index, isVisible }: StatProps) {
+function StatItem({ header, text, index, isVisible }: StatProps) {
   const [animatedValue, setAnimatedValue] = useState("0");
   const { isMobile } = useResponsive();
   const prefersReducedMotion = useReducedMotion();
@@ -18,16 +18,16 @@ function StatItem({ value, label, index, isVisible }: StatProps) {
   useEffect(() => {
     if (isVisible) {
       if (prefersReducedMotion) {
-        setAnimatedValue(value);
+        setAnimatedValue(header);
       } else {
         const timer = setTimeout(() => {
-          setAnimatedValue(value);
+          setAnimatedValue(header);
         }, index * 200);
 
         return () => clearTimeout(timer);
       }
     }
-  }, [isVisible, value, index, prefersReducedMotion]);
+  }, [isVisible, header, index, prefersReducedMotion]);
 
   return (
     <div
@@ -50,21 +50,22 @@ function StatItem({ value, label, index, isVisible }: StatProps) {
           isMobile ? "text-xs sm:text-sm" : "text-sm"
         }`}
       >
-        {label}
+        {text}
       </div>
     </div>
   );
 }
 
-export function Stats({ className = "" }: { className?: string }) {
+export function Stats({
+  itens,
+  className = "",
+}: {
+  itens: Partial<StatProps>[];
+  className?: string;
+}) {
   const [isVisible, setIsVisible] = useState(false);
   const sectionRef = useRef<HTMLDivElement>(null);
   const { isMobile } = useResponsive();
-
-  const stats = [
-    { value: "15+", label: "Anos de Experiência" },
-    { value: "50+", label: "Projetos Concluídos" },
-  ];
 
   // Intersection Observer for animation trigger
   useEffect(() => {
@@ -102,11 +103,11 @@ export function Stats({ className = "" }: { className?: string }) {
         className
       )}
     >
-      {stats.map((stat, index) => (
+      {itens.map((stat, index) => (
         <StatItem
-          key={stat.label}
-          value={stat.value}
-          label={stat.label}
+          key={index}
+          header={stat.header as string}
+          text={stat.text as string}
           index={index}
           isVisible={isVisible}
         />

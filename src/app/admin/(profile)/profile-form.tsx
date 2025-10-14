@@ -39,8 +39,7 @@ const ProfileForm = ({ data }: { data: ProfileTypes }) => {
       _cover: data.cover,
       highlights: data.highlights,
       profile_count: 1,
-      footer:
-        "C2 Media & Tech Lab © 2014 - 2025. Todos os direitos reservados </br> Consolação - São Paulo/SP",
+      footer: data.footer,
     },
   });
 

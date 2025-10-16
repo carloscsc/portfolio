@@ -114,7 +114,7 @@ export function Navbar() {
             className="flex-shrink-0 text-2xl font-bold font-mono"
             aria-label="Inicio"
           >
-            &lt;IamCSC /&gt;
+            Carlos S. Cantanzaro
           </Link>
 
           {/* Desktop Navigation */}

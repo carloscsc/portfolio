@@ -5,7 +5,7 @@ import { JetBrains_Mono, Open_Sans } from "next/font/google";
 import Providers from "./providers";
 
 export const metadata: Metadata = {
-  title: "Portfolio",
+  title: "I'm Carlos S. Cantanzaro - Engenheiro de Software",
   description: "Personal portfolio",
 };
 

@@ -192,3 +192,23 @@ export async function findOne(projectId: string): Promise<ProjectTypes | null> {
     return null;
   }
 }
+
+export async function deleteProject(_id: string): Promise<ResponseType> {
+  try {
+    await connect();
+
+    await Project.findByIdAndDelete({ _id });
+
+    return {
+      isSuccess: true,
+    };
+  } catch (error) {
+    console.log(error);
+    return {
+      message: {
+        type: "error",
+        content: "Erro ao excluir projeto",
+      },
+    };
+  }
+}

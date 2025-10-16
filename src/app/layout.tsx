@@ -7,7 +7,6 @@ import Providers from "./providers";
 export const metadata: Metadata = {
   title: "Portfolio",
   description: "Personal portfolio",
-  generator: "v0.dev",
 };
 
 const jetbrainsMono = JetBrains_Mono({

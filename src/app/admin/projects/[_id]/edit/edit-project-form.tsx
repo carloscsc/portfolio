@@ -3,7 +3,7 @@
 // TODO: change regular inputs for TextField
 
 import { Button } from "@/components/ui/button";
-import { ArrowLeftFromLineIcon, ExternalLink, X } from "lucide-react";
+import { ArrowLeftFromLineIcon, ExternalLink, Trash, X } from "lucide-react";
 import Link from "next/link";
 
 import { useForm } from "react-hook-form";
@@ -41,9 +41,11 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useState } from "react";
 import Image from "next/image";
 import { getBlobURL } from "@/lib/utils";
-import { update } from "@/_domain/projects/project.actions";
+import { deleteProject, update } from "@/_domain/projects/project.actions";
+import { useRouter } from "next/navigation";
 
 const EditProjectForm = ({ data }: { data: ProjectTypes }) => {
+  const router = useRouter();
   const [_gallery, setGallery] = useState<string[]>(data.gallery || []);
   const queryClient = useQueryClient();
 
@@ -104,7 +106,22 @@ const EditProjectForm = ({ data }: { data: ProjectTypes }) => {
   });
 
   const handleSubmit = (data: UpdateProjectTypes) => mutation.mutate(data);
-  //
+
+  /**
+   * DELETE
+   */
+  const deleteMutation = useMutation({
+    mutationFn: async () => {
+      const request = await deleteProject(data._id);
+      if (request.isSuccess) {
+        router.replace("/admin/projects/");
+      }
+    },
+    onSuccess: () => queryClient.invalidateQueries({ queryKey: ["projetos"] }),
+  });
+
+  const handleDelete = () => deleteMutation.mutate();
+
   return (
     <>
       <div className="w-full flex flex-row justify-between items-center border-b pb-2">
@@ -115,6 +132,7 @@ const EditProjectForm = ({ data }: { data: ProjectTypes }) => {
               <ArrowLeftFromLineIcon className="w-4 h-4" />
             </Link>
           </Button>
+
           <ButtonGroupSeparator />
           <Button size="default" asChild>
             <Link href={`/projects/${data.slug}`}>
@@ -409,7 +427,12 @@ const EditProjectForm = ({ data }: { data: ProjectTypes }) => {
             />
           </div>
 
-          <Button type="submit">Salvar Projeto</Button>
+          <div className="flex justify-between">
+            <Button type="submit">Salvar Projeto</Button>
+            <Button type="button" variant="destructive" onClick={handleDelete}>
+              <Trash className="w-4 h-4" /> Apagar
+            </Button>
+          </div>
         </form>
       </Form>
     </>

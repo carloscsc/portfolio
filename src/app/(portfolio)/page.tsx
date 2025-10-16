@@ -13,6 +13,7 @@ import { notFound } from "next/navigation";
 
 import parse from "html-react-parser";
 import { getBlobURL } from "@/lib/utils";
+import { Skills } from "@/components/skills";
 
 export default async function Home() {
   const profile = await read();
@@ -80,7 +81,7 @@ export default async function Home() {
         <div className="container mx-auto px-4">
           <Services />
           <Projects />
-          {/* <Skills /> */}
+          <Skills />
           <Contact phone={profile.phone} />
         </div>
       </main>

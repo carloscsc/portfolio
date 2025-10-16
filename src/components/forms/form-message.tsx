@@ -26,8 +26,8 @@ const FormMessage = ({ message, className }: FormMessageProps) => {
         {message.type === "error"
           ? "Erro!"
           : message.type === "success"
-          ? "Sucesso!"
-          : "Atenção!"}{" "}
+            ? "Sucesso!"
+            : "Atenção!"}{" "}
       </AlertTitle>
       <AlertDescription>{message.content}</AlertDescription>
     </Alert>

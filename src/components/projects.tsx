@@ -29,7 +29,7 @@ function ProjectCard(data: ProjectTypes) {
     <CardWrapper className="overflow-hidden group h-full flex flex-col hover:border-primary/40 transition-all duration-300">
       {/* Enhanced image container with loading states and link to details */}
       <Link
-        href={`/projects/${data._id}`}
+        href={`/projects/${data.slug}`}
         aria-label={`Ver detalhes de ${data.title}`}
         className="block group/image"
       >
@@ -71,7 +71,7 @@ function ProjectCard(data: ProjectTypes) {
       <div className="flex-grow flex flex-col">
         <h3 className="text-lg font-semibold group-hover:text-primary transition-colors mb-2 line-clamp-2">
           <Link
-            href={`/projects/${data._id}`}
+            href={`/projects/${data.slug}`}
             aria-label={`Ver detalhes de ${data.title}`}
             className="hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/40"
           >
@@ -125,7 +125,7 @@ export function Projects() {
         {data &&
           data.map((project, index) => (
             <div
-              key={project._id}
+              key={project.slug}
               className={`${
                 isMobile && index >= 3 ? "opacity-0 animate-fade-in" : ""
               }`}

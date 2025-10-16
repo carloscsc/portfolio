@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { fileSchema } from "../shared/types/types";
+import { fileSchema } from "../shared/types";
 
 export const ProjectSchema = z.object({
   _id: z.string(),

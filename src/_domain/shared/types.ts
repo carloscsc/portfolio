@@ -1,5 +1,7 @@
 import { ProfileTypes } from "@/_domain/profile/profile.schema";
 import { ProjectTypes } from "@/_domain/projects/project.schema";
+import { JWTPayload } from "jose";
+import { Types } from "mongoose";
 import z from "zod";
 
 export const fileSchema = z
@@ -24,7 +26,12 @@ export interface ResponseType {
   project?: ProjectTypes;
   profile?: ProfileTypes;
   message?: {
-    type: "success" | "error" | "info";
-    text: string;
+    type: "success" | "error" | "alert";
+    content: string;
   };
+}
+
+export interface SessionPayload extends JWTPayload {
+  _id: Types.ObjectId | string;
+  role?: string;
 }

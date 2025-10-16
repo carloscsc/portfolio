@@ -1,5 +1,5 @@
 "use server";
-import { ResponseType } from "@/_domain/shared/types/types";
+import { ResponseType } from "@/_domain/shared/types";
 import {
   StoreProjectTypes,
   StoreProjectSchema,
@@ -9,7 +9,6 @@ import { upload } from "@/lib/upload";
 import { clearFileName } from "@/lib/utils";
 import { StoreProfileSchema, storeProfileTypes } from "./profile.schema";
 import { Profile } from "./profile.model";
-import { text } from "stream/consumers";
 
 export async function UpdateOrCreate(
   ProjectData: storeProfileTypes
@@ -22,7 +21,7 @@ export async function UpdateOrCreate(
       isSuccess: false,
       message: {
         type: "error",
-        text: "Dados inválidos. Verifique as informações e tente novamente.",
+        content: "Dados inválidos. Verifique as informações e tente novamente.",
       },
     };
   }
@@ -62,7 +61,7 @@ export async function UpdateOrCreate(
       isSuccess: false,
       message: {
         type: "error",
-        text: "Error ao cadastrar novo projeto",
+        content: "Error ao cadastrar novo projeto",
       },
     };
   }
@@ -86,7 +85,7 @@ export async function read() {
       _id: _id.toString(),
       highlights: highlights.map((h) => ({
         header: h.header,
-        text: h.text,
+        content: h.text,
       })),
     };
   } catch (e) {

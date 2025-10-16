@@ -1,5 +1,5 @@
 "use server";
-import ResponseType from "@/_domain/shared/types/types";
+import { ResponseType } from "@/_domain/shared/types";
 import {
   StoreProjectTypes,
   StoreProjectSchema,
@@ -23,7 +23,7 @@ export async function store(
       isSuccess: false,
       message: {
         type: "error",
-        text: "Dados inválidos. Verifique as informações e tente novamente.",
+        content: "Dados inválidos. Verifique as informações e tente novamente.",
       },
     };
   }
@@ -69,7 +69,7 @@ export async function store(
       isSuccess: false,
       message: {
         type: "error",
-        text: "Error ao cadastrar novo projeto",
+        content: "Error ao cadastrar novo projeto",
       },
     };
   }
@@ -83,7 +83,7 @@ export async function update(data: UpdateProjectTypes): Promise<ResponseType> {
     return {
       message: {
         type: "error",
-        text: "Erro ao atualizar projeto verifique todos os campos",
+        content: "Erro ao atualizar projeto verifique todos os campos",
       },
     };
   }
@@ -120,7 +120,7 @@ export async function update(data: UpdateProjectTypes): Promise<ResponseType> {
       return {
         message: {
           type: "error",
-          text: "Erro ao atualizar projeto verifique todos os campos",
+          content: "Erro ao atualizar projeto verifique todos os campos",
         },
       };
     }
@@ -141,7 +141,7 @@ export async function update(data: UpdateProjectTypes): Promise<ResponseType> {
       isSuccess: true,
       message: {
         type: "error",
-        text: "Projeto atualizado com sucesso",
+        content: "Projeto atualizado com sucesso",
       },
     };
   } catch (error) {
@@ -149,7 +149,7 @@ export async function update(data: UpdateProjectTypes): Promise<ResponseType> {
     return {
       message: {
         type: "error",
-        text: "Erro ao atualizar projeto verifique todos os campos",
+        content: "Erro ao atualizar projeto verifique todos os campos",
       },
     };
   }

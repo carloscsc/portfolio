@@ -1,6 +1,7 @@
 "use client";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ReactNode } from "react";
+import { SessionProvider } from "@/contexts/SessionContext";
 
 const queryClient = new QueryClient();
 

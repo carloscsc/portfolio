@@ -39,7 +39,6 @@ const ProfileForm = ({ data }: { data: ProfileTypes }) => {
       _cover: data.cover,
       highlights: data.highlights,
       profile_count: 1,
-      footer: data.footer,
     },
   });
 
@@ -135,24 +134,6 @@ const ProfileForm = ({ data }: { data: ProfileTypes }) => {
           label="Highlights"
           minItems={1}
           maxItems={4}
-        />
-
-        <FormField
-          control={form.control}
-          name="footer"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Footer</FormLabel>
-              <FormControl>
-                <RichTextEditor
-                  placeholder="Informe o rodapé do site"
-                  value={field.value}
-                  onChange={field.onChange}
-                />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
         />
 
         <Button type="submit">Salvar</Button>

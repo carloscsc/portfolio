@@ -84,13 +84,6 @@ export default async function Home() {
           <Contact phone={profile.phone} />
         </div>
       </main>
-      <footer className="bg-card mt-20">
-        <div className="container mx-auto px-4">
-          <div className="mt-12 py-8 text-center text-gray-400 text-sm">
-            {parse(profile.footer)}
-          </div>
-        </div>
-      </footer>
     </>
   );
 }

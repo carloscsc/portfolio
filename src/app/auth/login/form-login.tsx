@@ -24,8 +24,6 @@ import {
 } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import AuthForget from "../mudar-senha/auth-forget-pass";
-import AuthToken from "../reenviar-token/form-resend-token";
-import AuthChangeEmail from "../mudar-email/form-change-email";
 import { cn } from "@/lib/utils";
 import { AuthLoginSchema, authLoginType } from "@/_domain/auth/auth.schema";
 import { authLoginAction } from "@/_domain/auth/auth.actions";
@@ -42,8 +40,6 @@ const AuthLogin = ({ variant }: AuthLoginProps) => {
   const [message, setMessage] = useState<ResponseType["message"] | null>(null);
 
   const [forgotPasswordOpen, setForgotPasswordOpen] = useState(false);
-  const [resendCodeOpen, setResendCodeOpen] = useState(false);
-  const [wrongEmailOpen, setWrongEmailOpen] = useState(false);
 
   const { handleSubmit, control } = useForm<authLoginType>({
     resolver: zodResolver(AuthLoginSchema),
@@ -79,7 +75,7 @@ const AuthLogin = ({ variant }: AuthLoginProps) => {
   return (
     <>
       <form onSubmit={handleSubmit(onSubmit)}>
-        <div className="space-y-4">
+        <div className="space-y-4 border w-[400px] p-4 rounded-md">
           <TextInput
             control={control}
             name="email"
@@ -102,12 +98,6 @@ const AuthLogin = ({ variant }: AuthLoginProps) => {
                 <DropdownMenuItem onSelect={() => setForgotPasswordOpen(true)}>
                   Esqueci minha senha
                 </DropdownMenuItem>
-                <DropdownMenuItem onSelect={() => setResendCodeOpen(true)}>
-                  Reenviar código de verificação
-                </DropdownMenuItem>
-                <DropdownMenuItem onSelect={() => setWrongEmailOpen(true)}>
-                  Cadastrei o email errado
-                </DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>
           </div>
@@ -127,28 +117,6 @@ const AuthLogin = ({ variant }: AuthLoginProps) => {
           </DialogHeader>
           <div className="space-y-4 py-4">
             <AuthForget />
-          </div>
-        </DialogContent>
-      </Dialog>
-
-      <Dialog open={resendCodeOpen} onOpenChange={setResendCodeOpen}>
-        <DialogContent>
-          <DialogHeader>
-            <DialogTitle>Reenviar código de verificação</DialogTitle>
-          </DialogHeader>
-          <div className="space-y-4 py-4">
-            <AuthToken />
-          </div>
-        </DialogContent>
-      </Dialog>
-
-      <Dialog open={wrongEmailOpen} onOpenChange={setWrongEmailOpen}>
-        <DialogContent>
-          <DialogHeader>
-            <DialogTitle>Cadastrei o email errado</DialogTitle>
-          </DialogHeader>
-          <div className="space-y-4 py-4">
-            <AuthChangeEmail />
           </div>
         </DialogContent>
       </Dialog>

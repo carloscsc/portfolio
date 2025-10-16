@@ -14,12 +14,12 @@ import {
   updatePasswordType,
 } from "@/_domain/user/user.schema";
 import { userUpdatePassAction } from "@/_domain/user/user.actions";
-import { responseType } from "@/_domain/shared/types";
+import { ResponseType } from "@/_domain/shared/types";
 
 const AuthChange = () => {
   const [isPending, startTransition] = useTransition();
   const [isSuccess, setIsSuccess] = useState(false);
-  const [message, setMessage] = useState<responseType["message"] | null>(null);
+  const [message, setMessage] = useState<ResponseType["message"] | null>(null);
 
   const searchParams = useSearchParams();
   const token = searchParams.get("token") || "";

@@ -93,13 +93,6 @@
   }
 }
 
-/* Evitar qualquer overflow horizontal global */
-html,
-body {
-  max-width: 100vw;
-  overflow-x: hidden;
-}
-
 /* Responsive utility classes */
 @layer utilities {
   .responsive-container {
@@ -273,66 +266,6 @@ body {
     -webkit-line-clamp: 3;
     -webkit-box-orient: vertical;
     overflow: hidden;
-  }
-
-  /* Remove ALL dropdown and popover animations - GLOBAL OVERRIDE */
-  [data-radix-dropdown-menu-content],
-  [data-radix-popover-content],
-  [data-radix-select-content],
-  [data-radix-hover-card-content],
-  [data-radix-tooltip-content],
-  [data-radix-context-menu-content],
-  [data-radix-menubar-content],
-  [data-radix-navigation-menu-content] {
-    animation: none !important;
-    transition: none !important;
-    transform: none !important;
-    opacity: 1 !important;
-  }
-
-  [data-radix-dropdown-menu-content][data-state="open"],
-  [data-radix-popover-content][data-state="open"],
-  [data-radix-select-content][data-state="open"],
-  [data-radix-hover-card-content][data-state="open"],
-  [data-radix-tooltip-content][data-state="open"],
-  [data-radix-context-menu-content][data-state="open"],
-  [data-radix-menubar-content][data-state="open"],
-  [data-radix-navigation-menu-content][data-state="open"] {
-    animation: none !important;
-    transition: none !important;
-    transform: none !important;
-    opacity: 1 !important;
-  }
-
-  [data-radix-dropdown-menu-content][data-state="closed"],
-  [data-radix-popover-content][data-state="closed"],
-  [data-radix-select-content][data-state="closed"],
-  [data-radix-hover-card-content][data-state="closed"],
-  [data-radix-tooltip-content][data-state="closed"],
-  [data-radix-context-menu-content][data-state="closed"],
-  [data-radix-menubar-content][data-state="closed"],
-  [data-radix-navigation-menu-content][data-state="closed"] {
-    animation: none !important;
-    transition: none !important;
-    transform: none !important;
-    opacity: 1 !important;
-  }
-
-  /* Remove ALL Tailwind animation classes */
-  .animate-in,
-  .animate-out,
-  .fade-in-0,
-  .fade-out-0,
-  .zoom-in-95,
-  .zoom-out-95,
-  .slide-in-from-top-2,
-  .slide-in-from-bottom-2,
-  .slide-in-from-left-2,
-  .slide-in-from-right-2 {
-    animation: none !important;
-    transition: none !important;
-    transform: none !important;
-    opacity: 1 !important;
   }
 }
 

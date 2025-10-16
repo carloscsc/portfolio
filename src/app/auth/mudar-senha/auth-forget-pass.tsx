@@ -12,12 +12,12 @@ import {
   authForgetPassFormType,
 } from "@/_domain/auth/auth.schema";
 import { authForgetpassAction } from "@/_domain/auth/auth.actions";
-import { responseType } from "@/_domain/shared/types";
+import { ResponseType } from "@/_domain/shared/types";
 
 const AuthForget = () => {
   const [isPending, startTransition] = useTransition();
   const [isSuccess, setIsSuccess] = useState<boolean>(false);
-  const [message, setMessage] = useState<responseType["message"] | null>(null);
+  const [message, setMessage] = useState<ResponseType["message"] | null>(null);
 
   const { handleSubmit, control, reset } = useForm<authForgetPassFormType>({
     resolver: zodResolver(AuthForgetPassFormSchema),

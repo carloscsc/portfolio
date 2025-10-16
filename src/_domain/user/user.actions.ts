@@ -3,7 +3,7 @@
 "use server";
 import { decrypt, encrypt, getSession } from "@/lib/session";
 import argon2 from "argon2";
-import { responseType, SessionPayload } from "../shared/types";
+import { ResponseType, SessionPayload } from "../shared/types";
 import {
   UpdatePasswordSchema,
   updatePasswordType,
@@ -15,7 +15,7 @@ import {
   UserStoreType,
 } from "./user.schema";
 import { User } from "./user.model";
-import { connect } from "@/lib/db";
+import connect from "@/lib/db";
 
 import { UpdateDataTableProps } from "@/components/tables/data-table";
 import { QueryOptions } from "mongoose";

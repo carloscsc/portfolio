@@ -19,7 +19,7 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
-import { Input } from "@/components/ui/input";
+
 import { getBlobURL } from "@/lib/utils";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
@@ -41,6 +41,8 @@ const ProfileForm = ({ data }: { data: ProfileTypes }) => {
       profile_count: 1,
     },
   });
+
+  console.log(data);
 
   const [cover, _cover] = form.watch(["cover", "_cover"]);
 

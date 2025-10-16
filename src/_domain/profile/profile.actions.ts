@@ -85,7 +85,7 @@ export async function read() {
       _id: _id.toString(),
       highlights: highlights.map((h) => ({
         header: h.header,
-        content: h.text,
+        text: h.text,
       })),
     };
   } catch (e) {

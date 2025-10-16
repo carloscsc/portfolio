@@ -9,7 +9,7 @@ const Login = () => {
         description=""
         footer={{
           title: "Lembrou sua senha? Faça login",
-          href: "/login",
+          href: "/auth/login",
         }}
       >
         <AuthChange />

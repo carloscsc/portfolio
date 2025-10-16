@@ -79,7 +79,7 @@ const AuthChange = () => {
 
         {isSuccess && (
           <Button asChild className="w-full">
-            <Link href="/login">Faça Login</Link>
+            <Link href="/auth/login">Faça Login</Link>
           </Button>
         )}
       </div>

@@ -32,7 +32,8 @@ export const authLoginAction = async (
     return {
       message: {
         type: "error",
-        text: "Dados de login inválidos, verifique todos os campos e tente novamente",
+        content:
+          "Dados de login inválidos, verifique todos os campos e tente novamente",
       },
     };
   }
@@ -51,7 +52,7 @@ export const authLoginAction = async (
       return {
         message: {
           type: "error",
-          text: "Usuário ou senha incorretos, verifique os dados",
+          content: "Usuário ou senha incorretos, verifique os dados",
         },
       };
     }
@@ -62,23 +63,13 @@ export const authLoginAction = async (
       return {
         message: {
           type: "error",
-          text: "Usuário ou senha incorretos, verifique os dados",
-        },
-      };
-    }
-
-    // verify user status
-    if (user.status !== "verified") {
-      return {
-        message: {
-          type: "info",
-          text: 'Sua conta precisa ser verificada antes de realizar o login. Confira seu e-mail ou clique em "Problemas para logar" para gerar um novo link de verificação',
+          content: "Usuário ou senha incorretos, verifique os dados",
         },
       };
     }
 
     //create the token
-    const token = await encrypt({ _id: user._id.toString(), role: user.role });
+    const token = await encrypt({ _id: user._id.toString() });
     await createSession(token);
 
     return {
@@ -89,7 +80,7 @@ export const authLoginAction = async (
     return {
       message: {
         type: "error",
-        text: "Erro ao logar, por favor, entre em contato com o suporte",
+        content: "Erro ao logar, por favor, entre em contato com o suporte",
       },
     };
   }
@@ -107,7 +98,8 @@ export const authForgetpassAction = async (
     return {
       message: {
         type: "error",
-        text: "Erro ao solicitar alteração de senha, verifique todos os dados",
+        content:
+          "Erro ao solicitar alteração de senha, verifique todos os dados",
       },
     };
   }
@@ -126,7 +118,7 @@ export const authForgetpassAction = async (
       return {
         message: {
           type: "error",
-          text: "Usuário não encontrado",
+          content: "Usuário não encontrado",
         },
       };
     }
@@ -134,10 +126,10 @@ export const authForgetpassAction = async (
     // create the token
     const token = await encrypt({ _id: user._id.toString() });
     // cria a URL
-    const tokenURL = `${process.env.NEXT_PUBLIC_BASE_URL}/mudar-senha?token=${token}`;
+    const tokenURL = `${process.env.NEXT_PUBLIC_BASE_URL}/auth/mudar-senha?token=${token}`;
 
     await sendEmailForgotPasswordLink(lowerCaseEmail, {
-      name: user.name,
+      name: "Usuário",
       token: tokenURL,
     });
 
@@ -145,7 +137,8 @@ export const authForgetpassAction = async (
       isSuccess: true,
       message: {
         type: "success",
-        text: "Link de redefinição enviado com sucesso, siga o passo a passo no seu e-mail",
+        content:
+          "Link de redefinição enviado com sucesso, siga o passo a passo no seu e-mail",
       },
     };
   } catch (e) {
@@ -153,78 +146,8 @@ export const authForgetpassAction = async (
     return {
       message: {
         type: "error",
-        text: "Erro ao recuperar senha, entre em contato com o nosso suporte",
-      },
-    };
-  }
-};
-
-/**
- * RESEND TOKEN
- */
-export const authResendToken = async (
-  data: authResendTokenType
-): Promise<ResponseType> => {
-  const validate = AuthResendTokenSchema.safeParse(data);
-
-  if (!validate.success) {
-    return {
-      message: {
-        type: "error",
-        text: "Erro ao reenviar token, confira todos os dados",
-      },
-    };
-  }
-
-  const { email } = validate.data;
-
-  try {
-    await connect();
-
-    const user = await User.findOne({ email }).select("_id name status").lean();
-
-    if (!user) {
-      return {
-        message: {
-          type: "error",
-          text: "Nenhum usuário encontrado, verifique os dados",
-        },
-      };
-    }
-
-    if (user.status === "verified") {
-      console.log("sim");
-      return {
-        isSuccess: true,
-        message: {
-          type: "info",
-          text: "Usuário já verificado, faça login",
-        },
-      };
-    }
-
-    const { _id, name } = user;
-
-    // create the token
-    const jwt = await encrypt({ _id: _id.toString() });
-    const token = `${process.env.NEXT_PUBLIC_BASE_URL}/verificacao?token=${jwt}`;
-
-    // send e-mail
-    await sendEmailVerifyAccount(email, { name, token });
-
-    return {
-      message: {
-        type: "success",
-        text: "Código de verificação enviado com sucesso, confira seu e-mail e a caixa de spam",
-      },
-    };
-  } catch (error) {
-    console.log(error);
-
-    return {
-      message: {
-        type: "error",
-        text: "Erro ao reenviar token, entre em contato com nosso suporte",
+        content:
+          "Erro ao recuperar senha, entre em contato com o nosso suporte",
       },
     };
   }
@@ -233,7 +156,6 @@ export const authResendToken = async (
 /**
  * LOGOUT
  */
-
 export const logout = async (): Promise<boolean> => {
   await deleteSession();
   revalidatePath("/");

@@ -65,7 +65,7 @@ const AuthLogin = ({ variant }: AuthLoginProps) => {
         // TODO: mudar para uma maneira mais segura
         if (auth?.isSuccess) {
           updateSession();
-          router.replace("/perfil");
+          router.replace("/admin");
         }
       });
     },

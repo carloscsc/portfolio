@@ -3,6 +3,7 @@ import { ProjectTypes } from "@/_domain/projects/project.schema";
 import { JWTPayload } from "jose";
 import { Types } from "mongoose";
 import z from "zod";
+import { userTableType } from "../user/user.schema";
 
 export const fileSchema = z
   .instanceof(File, { message: "Arquivo é obrigatório" })
@@ -25,6 +26,7 @@ export interface ResponseType {
   isSuccess?: boolean;
   project?: ProjectTypes;
   profile?: ProfileTypes;
+  user?: userTableType;
   message?: {
     type: "success" | "error" | "alert";
     content: string;

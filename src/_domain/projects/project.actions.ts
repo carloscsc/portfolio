@@ -11,6 +11,7 @@ import { Project } from "./project.model";
 import connect from "@/lib/db";
 import { upload } from "@/lib/r2-blob";
 import { clearFileName } from "@/lib/utils";
+import { revalidatePath } from "next/cache";
 
 export async function store(
   ProjectData: StoreProjectTypes
@@ -140,6 +141,9 @@ export async function update(data: UpdateProjectTypes): Promise<ResponseType> {
     Object.assign(project, newData);
 
     await project.save();
+
+    revalidatePath("/projects");
+    revalidatePath(`/projects/${project.slug}`);
 
     return {
       isSuccess: true,

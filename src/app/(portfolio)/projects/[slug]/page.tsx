@@ -99,7 +99,7 @@ export default async function ProjectPage({ params }: Props) {
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
           <div className="lg:col-span-2">
             <h2 className="text-2xl font-bold mb-4">Sobre o Projeto</h2>
-            <div className="prose prose-invert max-w-none">
+            <div className="prose prose-invert max-w-none space-y-4">
               {parse(p.about_project)}
             </div>
           </div>
@@ -171,7 +171,7 @@ export default async function ProjectPage({ params }: Props) {
 
         {/* Tecnologias */}
         {p.technologies && p.technologies.length > 0 && (
-          <div className="mb-8">
+          <div className="mb-8 mt-8">
             <h2 className="text-2xl font-bold mb-4">Tecnologias Utilizadas</h2>
             <div className="flex flex-wrap gap-2">
               {p.technologies.map((tech) => (

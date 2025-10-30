@@ -84,7 +84,7 @@ export default async function ProjectPage({ params }: Props) {
         </div>
 
         {/* Imagem Principal */}
-        <div className="relative aspect-[16/9] w-full overflow-hidden rounded-xl bg-card mb-8">
+        <div className="relative aspect-[4/3] w-full overflow-hidden rounded-xl bg-card mb-8">
           <Image
             src={getBlobURL(p.cover) || "/placeholder.svg"}
             alt={p.title}

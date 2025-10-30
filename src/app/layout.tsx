@@ -3,6 +3,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 import { JetBrains_Mono, Open_Sans } from "next/font/google";
 import Providers from "./providers";
+import { Analytics } from "@vercel/analytics/next";
 
 export const metadata: Metadata = {
   title: "I'm Carlos S. Cantanzaro - Engenheiro de Software",
@@ -32,6 +33,7 @@ export default function RootLayout({
       className={`${jetbrainsMono.variable} ${openSans.variable} dark antialiased`}
     >
       <body className="bg-gradient-to-r from-[#0b0b0b] to-[#1d1f20]">
+        <Analytics />
         <Providers>
           {children}
 

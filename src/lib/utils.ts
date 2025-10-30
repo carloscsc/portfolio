@@ -6,7 +6,7 @@ export function cn(...inputs: ClassValue[]) {
 }
 
 export function getBlobURL(filePath: string): string {
-  return `${process.env.NEXT_PUBLIC_BLOB_URL}/${filePath}`;
+  return `${process.env.NEXT_PUBLIC_ASSETS_URL}/${filePath}`;
 }
 
 export function clearFileName(fileName: string): string {

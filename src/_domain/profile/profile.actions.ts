@@ -5,7 +5,7 @@ import {
   StoreProjectSchema,
 } from "../projects/project.schema";
 import connect from "@/lib/db";
-import { upload } from "@/lib/upload";
+import { upload } from "@/lib/r2-blob";
 import { clearFileName } from "@/lib/utils";
 import { StoreProfileSchema, storeProfileTypes } from "./profile.schema";
 import { Profile } from "./profile.model";

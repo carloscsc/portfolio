@@ -198,7 +198,7 @@ export function Navbar() {
         {isOpen && (
           <div className="lg:hidden">
             <div className="flex flex-col space-y-4 px-2 pt-2 pb-4">
-              <div className="flex items-center gap-3 px-2 pb-2">
+              {/* <div className="flex items-center gap-3 px-2 pb-2">
                 {languages.map((l) => (
                   <button
                     key={l.code}
@@ -226,7 +226,7 @@ export function Navbar() {
                     />
                   </button>
                 ))}
-              </div>
+              </div> */}
               <Link
                 href={getNavLinkHref("services")}
                 className={navLinkClasses("services")}
@@ -258,13 +258,13 @@ export function Navbar() {
                 Habilidades
               </Link>
 
-              <Link
+              {/* <Link
                 href={getBlogHref()}
                 className={navLinkClasses("blog")}
                 onClick={() => setIsOpen(false)}
               >
                 Blog
-              </Link>
+              </Link> */}
               <Button
                 className="w-full touch-target"
                 asChild

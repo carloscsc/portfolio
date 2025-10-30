@@ -9,7 +9,7 @@ import {
 } from "../projects/project.schema";
 import { Project } from "./project.model";
 import connect from "@/lib/db";
-import { upload } from "@/lib/upload";
+import { upload } from "@/lib/r2-blob";
 import { clearFileName } from "@/lib/utils";
 
 export async function store(
@@ -40,7 +40,9 @@ export async function store(
       const galleryUploadQueue = await Promise.all(
         gallery.map((image) => upload("portfolio/projects", image))
       );
-      galleryUploadQueue.forEach((imagem) => uploadedGallery.push(imagem));
+      galleryUploadQueue.forEach((imagem) =>
+        uploadedGallery.push(imagem as string)
+      );
     }
 
     const uploadedClientLogo = await upload("portfolio/projects", client_logo);
@@ -108,7 +110,9 @@ export async function update(data: UpdateProjectTypes): Promise<ResponseType> {
     const galleryUploadQueue = await Promise.all(
       gallery.map((image) => upload("portfolio/projects", image))
     );
-    galleryUploadQueue.forEach((imagem) => uploadedGallery.push(imagem));
+    galleryUploadQueue.forEach((imagem) =>
+      uploadedGallery.push(imagem as string)
+    );
   }
   const newGallery = [...uploadedGallery, ...(_gallery || [])];
 

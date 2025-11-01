@@ -43,6 +43,10 @@ import { getBlobURL } from "@/lib/utils";
 import { deleteProject, update } from "@/_domain/projects/project.actions";
 import { useRouter } from "next/navigation";
 
+import { Spinner } from "@/components/ui/shadcn-io/spinner";
+
+import { toast } from "sonner";
+
 const EditProjectForm = ({ data }: { data: ProjectTypes }) => {
   const router = useRouter();
   const [_gallery, setGallery] = useState<string[]>(data.gallery || []);
@@ -59,7 +63,7 @@ const EditProjectForm = ({ data }: { data: ProjectTypes }) => {
       client_location: data.client_location,
       client_link: data.client_link,
       duration: data.duration,
-      year: data.year,
+      year: data.year || "",
       demo_link: data.demo_link,
       repo_link: data.repo_link,
       cover: undefined,
@@ -98,7 +102,9 @@ const EditProjectForm = ({ data }: { data: ProjectTypes }) => {
     mutationFn: async (data: UpdateProjectTypes) => {
       const request = await update(data);
       if (request.isSuccess) {
-        alert("Projeto atualizado com sucesso!");
+        toast.success("Projeto atualizado com sucesso", {
+          position: "top-center",
+        });
       }
     },
     onSuccess: () => queryClient.invalidateQueries({ queryKey: ["projetos"] }),
@@ -208,7 +214,7 @@ const EditProjectForm = ({ data }: { data: ProjectTypes }) => {
                   <FormLabel>Ano do Projeto</FormLabel>
                   <FormControl>
                     <Input
-                      type="number"
+                      type="text"
                       placeholder="Informe o ano..."
                       {...field}
                     />
@@ -314,7 +320,8 @@ const EditProjectForm = ({ data }: { data: ProjectTypes }) => {
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>logo do cliente</FormLabel>
-                  <div className="relative w-full h-[400px]">
+
+                  <div className="relative aspect-[1/1] w-full overflow-hidden rounded-xl bg-card mb-8">
                     <Image
                       src={
                         client_logo
@@ -324,6 +331,8 @@ const EditProjectForm = ({ data }: { data: ProjectTypes }) => {
                       alt={data?.client_name || ""}
                       fill
                       className="object-cover"
+                      sizes="(min-width: 768px) 768px, 100vw"
+                      priority
                     />
                   </div>
                   <FormControl>
@@ -344,7 +353,8 @@ const EditProjectForm = ({ data }: { data: ProjectTypes }) => {
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>Imagem de Capa</FormLabel>
-                  <div className="relative w-full h-[400px]">
+
+                  <div className="relative aspect-[4/3] w-full overflow-hidden rounded-xl bg-card mb-8">
                     <Image
                       src={
                         cover
@@ -354,6 +364,8 @@ const EditProjectForm = ({ data }: { data: ProjectTypes }) => {
                       alt={data?.client_name || ""}
                       fill
                       className="object-cover"
+                      sizes="(min-width: 768px) 768px, 100vw"
+                      priority
                     />
                   </div>
                   <FormControl>
@@ -427,11 +439,26 @@ const EditProjectForm = ({ data }: { data: ProjectTypes }) => {
           </div>
 
           <div className="flex justify-between gap-2">
-            <Button type="submit" className="w-full">
-              Salvar Projeto
+            <Button
+              type="submit"
+              className="w-full"
+              disabled={mutation.isPending}
+            >
+              {mutation.isPending ? <Spinner /> : "Salvar Projeto"}
             </Button>
-            <Button type="button" variant="destructive" onClick={handleDelete}>
-              <Trash className="w-4 h-4" /> Apagar
+            <Button
+              type="button"
+              variant="destructive"
+              onClick={handleDelete}
+              disabled={deleteMutation.isPending}
+            >
+              {deleteMutation.isPending ? (
+                <Spinner />
+              ) : (
+                <>
+                  <Trash className="w-4 h-4" /> Apagar
+                </>
+              )}
             </Button>
           </div>
         </form>

@@ -10,28 +10,29 @@ export const ProjectSchema = z.object({
     .min(10, "A descrição deve ter pelo menos 10 caracteres"),
   client_name: z.string().min(1, "O nome do cliente é obrigatório"),
   client_description: z.string().optional(),
-  client_location: z.string().min(1, "A localização do cliente é obrigatória"),
+  client_location: z.string(),
   client_logo: z.string(),
   client_link: z.string().optional(),
-  duration: z.string().min(1, "A duração do projeto é obrigatória"),
-  year: z.coerce.number<number>().min(1900).max(new Date().getFullYear()),
+  duration: z.string().optional(),
+  year: z
+    .string()
+    .optional()
+    .refine(
+      (val) => {
+        if (!val) return true;
+        return Number(val) > 2000;
+      },
+      { error: "Data precisa ser superir a 2000" }
+    ),
   demo_link: z.string().optional(),
   repo_link: z.string().optional(),
   cover: z.string(),
   about_project: z.string().min(30, "A descrição do projeto é obrigatória"),
-  technologies: z
-    .array(z.string().min(1, "Tecnologia não pode estar vazia"))
-    .optional(),
-  functionalities: z
-    .array(z.string().min(1, "Funcionalidade não pode estar vazia"))
-    .min(1, "Adicione ao menos uma funcionalidade"),
+  technologies: z.array(z.string()).optional(),
+  functionalities: z.array(z.string()).optional(),
   gallery: z.array(z.string()).optional(),
-  challenges: z
-    .array(z.string().min(1, "Desafio não pode estar vazio"))
-    .optional(),
-  results: z
-    .array(z.string().min(1, "Resultado não pode estar vazio"))
-    .min(1, "Adicione ao menos um resultado"),
+  challenges: z.array(z.string()).optional(),
+  results: z.array(z.string()).optional(),
   status: z.enum(["ativo", "inativo"]),
   createdAt: z.date().default(() => new Date()),
   updatedAt: z.date().default(() => new Date()),

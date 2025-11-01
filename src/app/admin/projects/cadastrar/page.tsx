@@ -31,6 +31,9 @@ import { RichTextEditor } from "@/components/ui/custom/rich-editor";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 import Image from "next/image";
+import { toast } from "sonner";
+import { Spinner } from "@/components/ui/shadcn-io/spinner";
+import { useRouter } from "next/navigation";
 
 // TODO: apagar campos depois de enviar
 
@@ -38,6 +41,7 @@ import Image from "next/image";
 
 const CadastrarProjeto = () => {
   const queryClient = useQueryClient();
+  const router = useRouter();
 
   const form = useForm<StoreProjectTypes>({
     resolver: zodResolver(StoreProjectSchema),
@@ -49,7 +53,7 @@ const CadastrarProjeto = () => {
       client_location: "",
       client_link: "",
       duration: "",
-      year: new Date().getFullYear(),
+      year: String(new Date().getFullYear()),
       demo_link: "",
       repo_link: "",
       cover: undefined,
@@ -74,7 +78,11 @@ const CadastrarProjeto = () => {
     mutationFn: async (data: StoreProjectTypes) => {
       const request = await store(data);
       if (request.isSuccess && request.project) {
-        alert("Projeto cadastrado com sucesso!");
+        toast.success("Projeto criado com sucesso", {
+          position: "top-center",
+        });
+        form.reset();
+        router.replace("/admin/projects/");
       }
     },
     onSuccess: () => queryClient.invalidateQueries({ queryKey: ["projetos"] }),
@@ -275,12 +283,14 @@ const CadastrarProjeto = () => {
                 <FormItem>
                   <FormLabel>logo do cliente</FormLabel>
                   {client_logo && (
-                    <div className="relative w-full h-[400px]">
+                    <div className="relative aspect-[1/1] w-full overflow-hidden rounded-xl bg-card mb-8">
                       <Image
                         src={URL.createObjectURL(client_logo)}
                         alt=""
                         fill
                         className="object-cover"
+                        sizes="(min-width: 768px) 768px, 100vw"
+                        priority
                       />
                     </div>
                   )}
@@ -304,12 +314,14 @@ const CadastrarProjeto = () => {
                 <FormItem>
                   <FormLabel>Imagem de Capa</FormLabel>
                   {cover && (
-                    <div className="relative w-full h-[400px]">
+                    <div className="relative aspect-[4/3] w-full overflow-hidden rounded-xl bg-card mb-8">
                       <Image
-                        src={URL.createObjectURL(cover)}
+                        src={cover && URL.createObjectURL(cover)}
                         alt=""
                         fill
                         className="object-cover"
+                        sizes="(min-width: 768px) 768px, 100vw"
+                        priority
                       />
                     </div>
                   )}
@@ -361,8 +373,12 @@ const CadastrarProjeto = () => {
             />
           </div>
 
-          <Button type="submit" className="w-full">
-            Salvar Projeto
+          <Button
+            type="submit"
+            className="w-full"
+            disabled={mutation.isPending}
+          >
+            {mutation.isPending ? <Spinner /> : "Salvar Projeto"}
           </Button>
         </form>
       </Form>

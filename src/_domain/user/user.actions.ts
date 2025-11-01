@@ -1,7 +1,7 @@
 // TODO: Melhorar segurança
 
 "use server";
-import { decrypt, encrypt, getSession } from "@/lib/session";
+import { decrypt, getSession } from "@/lib/session";
 import argon2 from "argon2";
 import { ResponseType, SessionPayload } from "../shared/types";
 import { UpdatePasswordSchema, updatePasswordType } from "./user.schema";

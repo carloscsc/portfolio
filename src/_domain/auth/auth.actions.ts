@@ -5,8 +5,6 @@ import {
   authForgetPassFormType,
   AuthLoginSchema,
   authLoginType,
-  AuthResendTokenSchema,
-  authResendTokenType,
 } from "./auth.schema";
 import { ResponseType } from "../shared/types";
 import connect from "@/lib/db";
@@ -15,10 +13,7 @@ import argon2 from "argon2";
 import { createSession, deleteSession, encrypt } from "@/lib/session";
 
 import { revalidatePath } from "next/cache";
-import {
-  sendEmailForgotPasswordLink,
-  sendEmailVerifyAccount,
-} from "@/lib/email";
+import { sendEmailForgotPasswordLink } from "@/lib/email";
 
 /**
  * LOGIN

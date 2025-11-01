@@ -19,12 +19,14 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
+import { Spinner } from "@/components/ui/shadcn-io/spinner";
 
 import { getBlobURL } from "@/lib/utils";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import Image from "next/image";
 import { useForm } from "react-hook-form";
+import { toast } from "sonner";
 
 const ProfileForm = ({ data }: { data: ProfileTypes }) => {
   const queryClient = useQueryClient();
@@ -42,15 +44,15 @@ const ProfileForm = ({ data }: { data: ProfileTypes }) => {
     },
   });
 
-  console.log(data);
-
   const [cover, _cover] = form.watch(["cover", "_cover"]);
 
   const mutation = useMutation({
     mutationFn: async (data: storeProfileTypes) => {
       const request = await UpdateOrCreate(data);
       if (request.isSuccess) {
-        alert("Projeto atualizado com sucesso!");
+        toast.success("Perfil salvo com sucesso", {
+          position: "top-center",
+        });
       }
     },
     onSuccess: () => queryClient.invalidateQueries({ queryKey: ["profile"] }),
@@ -138,7 +140,9 @@ const ProfileForm = ({ data }: { data: ProfileTypes }) => {
           maxItems={4}
         />
 
-        <Button type="submit">Salvar</Button>
+        <Button type="submit" className="w-full" disabled={mutation.isPending}>
+          {mutation.isPending ? <Spinner /> : "Salvar Perfil"}
+        </Button>
       </form>
     </Form>
   );

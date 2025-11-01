@@ -151,27 +151,34 @@ export default async function ProjectPage({ params }: Props) {
             </div>
 
             {/* Detalhes do Projeto */}
-            <div className="bg-card rounded-lg p-6">
-              <h3 className="text-lg font-semibold mb-4">Detalhes</h3>
-              <div className="space-y-3">
-                <div className="flex items-center gap-2 text-sm">
-                  <Clock className="h-4 w-4 text-primary" />
-                  <span className="text-muted-foreground">Duração:</span>
-                  <span>{p.duration}</span>
-                </div>
-                <div className="flex items-center gap-2 text-sm">
-                  <Calendar className="h-4 w-4 text-primary" />
-                  <span className="text-muted-foreground">Ano:</span>
-                  <span>{p.year}</span>
+            {(p.duration || Number(p.year) > 0) && (
+              <div className="bg-card rounded-lg p-6">
+                <h3 className="text-lg font-semibold mb-4">Detalhes</h3>
+
+                <div className="space-y-3">
+                  {p.duration && (
+                    <div className="flex items-center gap-2 text-sm">
+                      <Clock className="h-4 w-4 text-primary" />
+                      <span className="text-muted-foreground">Duração:</span>
+                      <span>{p.duration}</span>
+                    </div>
+                  )}
+                  {p.year && (
+                    <div className="flex items-center gap-2 text-sm">
+                      <Calendar className="h-4 w-4 text-primary" />
+                      <span className="text-muted-foreground">Ano:</span>
+                      <span>{p.year}</span>
+                    </div>
+                  )}
                 </div>
               </div>
-            </div>
+            )}
           </div>
         </div>
 
         {/* Tecnologias */}
         {p.technologies && p.technologies.length > 0 && (
-          <div className="mb-8 mt-8">
+          <div className="mt-8">
             <h2 className="text-2xl font-bold mb-4">Tecnologias Utilizadas</h2>
             <div className="flex flex-wrap gap-2">
               {p.technologies.map((tech) => (
@@ -188,23 +195,25 @@ export default async function ProjectPage({ params }: Props) {
         )}
 
         {/* Funcionalidades */}
-        <div className="mb-8">
-          <h2 className="text-2xl font-bold mb-4">
-            Principais Funcionalidades
-          </h2>
-          <ul className="grid grid-cols-1 md:grid-cols-2 gap-3">
-            {p.functionalities.map((feature, i) => (
-              <li key={i} className="flex items-start gap-3">
-                <div className="w-2 h-2 bg-primary rounded-full mt-2 flex-shrink-0" />
-                <span className="text-muted-foreground">{feature}</span>
-              </li>
-            ))}
-          </ul>
-        </div>
+        {p.functionalities && p.functionalities.length > 0 && (
+          <div className="mt-8">
+            <h2 className="text-2xl font-bold mb-4">
+              Principais Funcionalidades
+            </h2>
+            <ul className="grid grid-cols-1 md:grid-cols-2 gap-3">
+              {p.functionalities.map((feature, i) => (
+                <li key={i} className="flex items-start gap-3">
+                  <div className="w-2 h-2 bg-primary rounded-full mt-2 flex-shrink-0" />
+                  <span className="text-muted-foreground">{feature}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+        )}
 
         {/* Galeria */}
         {p.gallery && p.gallery.length > 0 && (
-          <div className="mb-8">
+          <div className="mt-8">
             <h2 className="text-2xl font-bold mb-4">Galeria</h2>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
               {p.gallery.map((image, i) => (
@@ -227,7 +236,7 @@ export default async function ProjectPage({ params }: Props) {
 
         {/* Desafios */}
         {p.challenges && p.challenges.length > 0 && (
-          <div className="mb-8">
+          <div className="mt-8">
             <h2 className="text-2xl font-bold mb-4">Desafios Enfrentados</h2>
             <ul className="space-y-3">
               {p.challenges.map((challenge, i) => (
@@ -241,21 +250,22 @@ export default async function ProjectPage({ params }: Props) {
         )}
 
         {/* Resultados */}
-
-        <div className="mb-8">
-          <h2 className="text-2xl font-bold mb-4">Resultados Alcançados</h2>
-          <ul className="space-y-3">
-            {p.results.map((result, i) => (
-              <li key={i} className="flex items-start gap-3">
-                <div className="w-2 h-2 bg-green-500 rounded-full mt-2 flex-shrink-0" />
-                <span className="text-muted-foreground">{result}</span>
-              </li>
-            ))}
-          </ul>
-        </div>
+        {p.results && p.results.length > 0 && (
+          <div className="mt-8">
+            <h2 className="text-2xl font-bold mb-4">Resultados Alcançados</h2>
+            <ul className="space-y-3">
+              {p.results.map((result, i) => (
+                <li key={i} className="flex items-start gap-3">
+                  <div className="w-2 h-2 bg-green-500 rounded-full mt-2 flex-shrink-0" />
+                  <span className="text-muted-foreground">{result}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+        )}
 
         {/* CTA Final */}
-        <div className="bg-card rounded-lg p-8 text-center">
+        <div className="bg-card rounded-lg p-8 text-center mt-8">
           <h3 className="text-xl font-bold mb-4">
             Interessado em um projeto similar?
           </h3>

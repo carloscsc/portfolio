@@ -4,6 +4,7 @@ import "./globals.css";
 import { JetBrains_Mono, Open_Sans } from "next/font/google";
 import Providers from "./providers";
 import { Analytics } from "@vercel/analytics/next";
+import { Toaster } from "sonner";
 
 export const metadata: Metadata = {
   title: "I'm Carlos S. Cantanzaro - Engenheiro de Software",
@@ -47,6 +48,7 @@ export default function RootLayout({
             </div>
           </footer>
         </Providers>
+        <Toaster richColors />
       </body>
     </html>
   );

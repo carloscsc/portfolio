@@ -5,7 +5,6 @@ import { usePathname } from "next/navigation";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { Menu, X } from "lucide-react";
 import { Button } from "./ui/button";
-import Image from "next/image";
 
 export function Navbar() {
   const pathname = usePathname();
@@ -13,19 +12,6 @@ export function Navbar() {
 
   const [isOpen, setIsOpen] = useState(false);
   const [active, setActive] = useState<string>("");
-  const [lang, setLang] = useState<"pt-BR" | "en" | "nl">("pt-BR");
-  const languages = useMemo(
-    () => [
-      {
-        code: "pt-BR" as const,
-        label: "Português (Brasil)",
-        src: "/images/flags/br.png",
-      },
-      { code: "en" as const, label: "English", src: "/images/flags/us.png" },
-      { code: "nl" as const, label: "Dutch", src: "/images/flags/nl.png" },
-    ],
-    []
-  );
 
   const sectionIds = useMemo(
     () => ["home", "services", "works", "skills", "blog", "contact"],
@@ -67,6 +53,7 @@ export function Navbar() {
   }, [sectionIds, isHome]);
 
   useEffect(() => {
+    setTimeout(() => computeActive(), 0);
     const onScroll = () => {
       if (ticking.current) return;
       ticking.current = true;
@@ -78,7 +65,6 @@ export function Navbar() {
     const onResize = () => computeActive();
     window.addEventListener("scroll", onScroll, { passive: true });
     window.addEventListener("resize", onResize);
-    computeActive();
     return () => {
       window.removeEventListener("scroll", onScroll);
       window.removeEventListener("resize", onResize);
@@ -91,10 +77,6 @@ export function Navbar() {
     } else {
       return `/#${sectionId}`;
     }
-  };
-
-  const getBlogHref = () => {
-    return "/blog";
   };
 
   const navLinkClasses = (id: string) =>

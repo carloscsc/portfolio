@@ -14,7 +14,6 @@ interface PostItemProps {
 }
 
 function PostItem({ post, index, isVisible }: PostItemProps) {
-	const { isMobile } = useResponsive()
 	const prefersReducedMotion = useReducedMotion()
 
 	return (
@@ -50,13 +49,14 @@ export function FeaturedPosts({ count = 3 }: { count?: number }) {
 			}
 		)
 
-		if (sectionRef.current) {
-			observer.observe(sectionRef.current)
+		const element = sectionRef.current
+		if (element) {
+			observer.observe(element)
 		}
 
 		return () => {
-			if (sectionRef.current) {
-				observer.unobserve(sectionRef.current)
+			if (element) {
+				observer.unobserve(element)
 			}
 		}
 	}, [])

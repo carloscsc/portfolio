@@ -48,7 +48,7 @@ export function Testimonials() {
       <div className="text-center mb-12">
         <h2 className="text-3xl font-bold mb-4">Client Testimonials</h2>
         <p className="text-gray-400 max-w-2xl mx-auto">
-          Don't just take my word for it. Here's what my clients have to say about their experiences working with me.
+          Don&apos;t just take my word for it. Here&apos;s what my clients have to say about their experiences working with me.
         </p>
       </div>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">

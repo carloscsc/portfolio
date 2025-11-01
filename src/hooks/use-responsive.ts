@@ -61,11 +61,13 @@ export function useResponsive(): ResponsiveState {
 
 // Hook for checking if user prefers reduced motion
 export function useReducedMotion(): boolean {
-  const [prefersReducedMotion, setPrefersReducedMotion] = useState(false)
+  const [prefersReducedMotion, setPrefersReducedMotion] = useState(() => {
+    if (typeof window === 'undefined') return false
+    return window.matchMedia('(prefers-reduced-motion: reduce)').matches
+  })
 
   useEffect(() => {
     const mediaQuery = window.matchMedia('(prefers-reduced-motion: reduce)')
-    setPrefersReducedMotion(mediaQuery.matches)
 
     const handler = (e: MediaQueryListEvent) => {
       setPrefersReducedMotion(e.matches)
@@ -80,20 +82,15 @@ export function useReducedMotion(): boolean {
 
 // Hook for touch device detection
 export function useTouchDevice(): boolean {
-  const [isTouchDevice, setIsTouchDevice] = useState(false)
-
-  useEffect(() => {
-    const checkTouchDevice = () => {
-      return (
-        'ontouchstart' in window ||
-        navigator.maxTouchPoints > 0 ||
-        // @ts-ignore
-        navigator.msMaxTouchPoints > 0
-      )
-    }
-
-    setIsTouchDevice(checkTouchDevice())
-  }, [])
+  const [isTouchDevice] = useState(() => {
+    if (typeof window === 'undefined') return false
+    return (
+      'ontouchstart' in window ||
+      navigator.maxTouchPoints > 0 ||
+      // @ts-expect-error - msMaxTouchPoints is legacy IE property
+      navigator.msMaxTouchPoints > 0
+    )
+  })
 
   return isTouchDevice
 }

@@ -1,7 +1,6 @@
 'use client'
 import { useState, useEffect, useRef } from 'react'
 import { useResponsive, useReducedMotion } from '@/hooks/use-responsive'
-import { FeaturedPosts } from '@/components/featured-posts'
 
 interface SkillProps {
 	name: string
@@ -16,14 +15,13 @@ function SkillItem({ name, percentage, index, isVisible }: SkillProps) {
 	const prefersReducedMotion = useReducedMotion()
 
 	useEffect(() => {
-		if (isVisible && !prefersReducedMotion) {
+		if (isVisible) {
+			const delay = prefersReducedMotion ? 0 : index * 150
 			const timer = setTimeout(() => {
 				setAnimatedPercentage(percentage)
-			}, index * 150) // Stagger animations
+			}, delay)
 
 			return () => clearTimeout(timer)
-		} else if (isVisible && prefersReducedMotion) {
-			setAnimatedPercentage(percentage)
 		}
 	}, [isVisible, percentage, index, prefersReducedMotion])
 
@@ -116,13 +114,14 @@ export function Skills() {
 			}
 		)
 
-		if (sectionRef.current) {
-			observer.observe(sectionRef.current)
+		const element = sectionRef.current
+		if (element) {
+			observer.observe(element)
 		}
 
 		return () => {
-			if (sectionRef.current) {
-				observer.unobserve(sectionRef.current)
+			if (element) {
+				observer.unobserve(element)
 			}
 		}
 	}, [])

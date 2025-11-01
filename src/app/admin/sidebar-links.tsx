@@ -1,11 +1,10 @@
 "use client";
 
 import { cn } from "@/lib/utils";
-import { BriefcaseIcon, LayoutDashboard, PenSquareIcon } from "lucide-react";
+import { BriefcaseIcon, PenSquareIcon } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { ReactNode } from "react";
-import { text } from "stream/consumers";
 
 const MenuLink = ({
   href,

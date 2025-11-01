@@ -1,7 +1,7 @@
 "use client";
 
 import * as React from "react";
-import { useFieldArray, Control, useFormContext, Path } from "react-hook-form";
+import { useFieldArray, Control, useFormContext } from "react-hook-form";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import {
@@ -107,7 +107,7 @@ export function RepeatableTextField({
         {fields.length === 0 && (
           <div className="text-center py-8 text-muted-foreground">
             <p>Nenhum {label.toLowerCase().slice(0, -1)} adicionado</p>
-            <p className="text-sm">Clique em "Adicionar" para começar</p>
+            <p className="text-sm">Clique em &quot;Adicionar&quot; para começar</p>
           </div>
         )}
       </div>

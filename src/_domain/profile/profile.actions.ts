@@ -1,12 +1,7 @@
 "use server";
 import { ResponseType } from "@/_domain/shared/types";
-import {
-  StoreProjectTypes,
-  StoreProjectSchema,
-} from "../projects/project.schema";
 import connect from "@/lib/db";
 import { upload } from "@/lib/r2-blob";
-import { clearFileName } from "@/lib/utils";
 import { StoreProfileSchema, storeProfileTypes } from "./profile.schema";
 import { Profile } from "./profile.model";
 
@@ -36,7 +31,7 @@ export async function UpdateOrCreate(
 
     await connect();
 
-    const profile = await Profile.findOneAndUpdate(
+    await Profile.findOneAndUpdate(
       { profile_count: 1 },
       {
         $set: {

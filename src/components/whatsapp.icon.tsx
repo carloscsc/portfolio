@@ -1,5 +1,3 @@
-import { Color } from "@tiptap/extension-text-style";
-
 const WhatsappIcon = ({ color = "#ffffff" }) => {
   return (
     <svg

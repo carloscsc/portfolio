@@ -17,15 +17,12 @@ function StatItem({ header, text, index, isVisible }: StatProps) {
 
   useEffect(() => {
     if (isVisible) {
-      if (prefersReducedMotion) {
+      const delay = prefersReducedMotion ? 0 : index * 200;
+      const timer = setTimeout(() => {
         setAnimatedValue(header);
-      } else {
-        const timer = setTimeout(() => {
-          setAnimatedValue(header);
-        }, index * 200);
+      }, delay);
 
-        return () => clearTimeout(timer);
-      }
+      return () => clearTimeout(timer);
     }
   }, [isVisible, header, index, prefersReducedMotion]);
 

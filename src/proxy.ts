@@ -10,7 +10,7 @@ import { getSession, updateSession } from "./lib/session";
 const onlyAdminRoutes = ["/admin"];
 const authRoutes = ["/auth"];
 
-export default async function middleware(req: NextRequest) {
+export default async function proxy(req: NextRequest) {
   const path = req.nextUrl.pathname;
   const session = await getSession();
 

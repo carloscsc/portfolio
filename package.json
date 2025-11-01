@@ -5,7 +5,7 @@
   "scripts": {
     "build": "next build",
     "dev": "next dev",
-    "lint": "next lint",
+    "lint": "eslint .",
     "start": "next start"
   },
   "dependencies": {
@@ -64,12 +64,12 @@
     "jose": "^6.1.0",
     "lucide-react": "^0.552.0",
     "mongoose": "^8.18.1",
-    "next": "15.2.4",
+    "next": "16.0.1",
     "next-themes": "^0.4.6",
     "nodemailer": "^7.0.9",
-    "react": "^19",
+    "react": "19.2.0",
     "react-day-picker": "9.8.0",
-    "react-dom": "^19",
+    "react-dom": "19.2.0",
     "react-hook-form": "^7.63.0",
     "react-resizable-panels": "^2.1.7",
     "recharts": "2.15.0",
@@ -77,17 +77,21 @@
     "tailwind-merge": "^2.6.0",
     "tailwindcss-animate": "^1.0.7",
     "use-mask-input": "^3.5.2",
-    "vaul": "^0.9.6",
+    "vaul": "^0.9.9",
     "zod": "^4.1.11"
   },
   "devDependencies": {
     "@types/node": "^22",
-    "@types/react": "^19",
-    "@types/react-dom": "^19",
+    "@types/react": "19.2.2",
+    "@types/react-dom": "19.2.2",
     "eslint": "^9.36.0",
-    "eslint-config-next": "^15.5.4",
+    "eslint-config-next": "16.0.1",
     "postcss": "^8.5",
     "tailwindcss": "^3.4.17",
     "typescript": "^5"
+  },
+  "overrides": {
+    "@types/react": "19.2.2",
+    "@types/react-dom": "19.2.2"
   }
 }

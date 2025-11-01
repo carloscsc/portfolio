@@ -1,9 +1,8 @@
 import type React from "react";
 import type { Metadata } from "next";
-import { ExternalLink, LogOut } from "lucide-react";
+import { ExternalLink } from "lucide-react";
 import SidebarLinks from "./sidebar-links";
-import { logout } from "@/_domain/auth/auth.actions";
-import { updateSession } from "@/lib/session";
+
 import Logout from "./logout";
 import { SessionProvider } from "@/contexts/SessionContext";
 import { Button } from "@/components/ui/button";

@@ -21,7 +21,7 @@ const Logout = () => {
       variant="ghost"
       size="icon"
       onClick={handleLogout}
-      className="cursor-pointer ml-auto"
+      className="cursor-pointer"
     >
       <LogOut />
     </Button>

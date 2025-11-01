@@ -1,11 +1,13 @@
 import type React from "react";
 import type { Metadata } from "next";
-import { LogOut } from "lucide-react";
+import { ExternalLink, LogOut } from "lucide-react";
 import SidebarLinks from "./sidebar-links";
 import { logout } from "@/_domain/auth/auth.actions";
 import { updateSession } from "@/lib/session";
 import Logout from "./logout";
 import { SessionProvider } from "@/contexts/SessionContext";
+import { Button } from "@/components/ui/button";
+import Link from "next/link";
 
 export const metadata: Metadata = {
   title: "Admin - Portfolio",
@@ -24,7 +26,20 @@ export default function AdminLayout({
           <h1 className="text-center text-4xl p-4 ps-0 font-mono">
             &lt;Admin /&gt;
           </h1>
-          <Logout />
+          <div className="ml-auto">
+            <Button
+              variant="ghost"
+              size="icon"
+              className="cursor-pointer ml-auto"
+              asChild
+            >
+              <Link href="/" title="Home">
+                {" "}
+                <ExternalLink />{" "}
+              </Link>
+            </Button>
+            <Logout />
+          </div>
         </div>
       </div>
 

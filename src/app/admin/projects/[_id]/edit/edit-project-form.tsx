@@ -427,8 +427,10 @@ const EditProjectForm = ({ data }: { data: ProjectTypes }) => {
             />
           </div>
 
-          <div className="flex justify-between">
-            <Button type="submit">Salvar Projeto</Button>
+          <div className="flex justify-between gap-2">
+            <Button type="submit" className="w-full">
+              Salvar Projeto
+            </Button>
             <Button type="button" variant="destructive" onClick={handleDelete}>
               <Trash className="w-4 h-4" /> Apagar
             </Button>

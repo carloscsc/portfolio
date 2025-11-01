@@ -361,7 +361,9 @@ const CadastrarProjeto = () => {
             />
           </div>
 
-          <Button type="submit">Salvar Projeto</Button>
+          <Button type="submit" className="w-full">
+            Salvar Projeto
+          </Button>
         </form>
       </Form>
     </>

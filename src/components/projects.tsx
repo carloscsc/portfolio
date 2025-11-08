@@ -33,7 +33,7 @@ function ProjectCard(data: ProjectTypes) {
         aria-label={`Ver detalhes de ${data.title}`}
         className="block group/image"
       >
-        <div className="relative h-48 sm:h-52 mb-4 bg-muted/20 rounded-lg overflow-hidden">
+        <div className="aspect-[4/3] relative   mb-4 bg-muted/20 rounded-lg overflow-hidden">
           {imageLoading && (
             <div className="absolute inset-0 flex items-center justify-center bg-muted/10 animate-pulse">
               <ImageIcon className="h-8 w-8 text-muted-foreground/50" />

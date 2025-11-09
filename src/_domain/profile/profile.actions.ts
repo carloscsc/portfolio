@@ -4,7 +4,7 @@ import connect from "@/lib/db";
 import { upload } from "@/lib/r2-blob";
 import { StoreProfileSchema, storeProfileTypes } from "./profile.schema";
 import { Profile } from "./profile.model";
-import { revalidatePath, revalidateTag, updateTag } from "next/cache";
+import { updateTag } from "next/cache";
 
 export async function UpdateOrCreate(
   ProjectData: storeProfileTypes

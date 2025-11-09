@@ -21,9 +21,7 @@ export default async function Home() {
     {}
   );
 
-  if (!request.ok) {
-    notFound();
-  }
+  console.log(request);
 
   const data = await request.json();
   const profile = ProfileSchema.parse(data);

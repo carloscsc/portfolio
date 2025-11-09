@@ -9,6 +9,9 @@ import { Toaster } from "sonner";
 export const metadata: Metadata = {
   title: "I'm Carlos S. Cantanzaro - Engenheiro de Software",
   description: "Personal portfolio",
+  icons: {
+    icon: "/favicon.png",
+  },
 };
 
 const jetbrainsMono = JetBrains_Mono({

@@ -178,12 +178,14 @@ export async function read() {
   }
 }
 
-export async function findOne(projectId: string): Promise<ProjectTypes | null> {
-  if (!projectId) return null;
+export async function findOne(slug: string): Promise<ProjectTypes | null> {
+  if (!slug) return null;
 
   try {
     await connect();
-    const request = await Project.findById({ _id: projectId })
+    const request = await Project.findOne({
+      slug,
+    })
       .select("-__v")
       .lean();
 

@@ -139,6 +139,8 @@ export const userDTO = async (): Promise<ResponseType | null> => {
       .select("-password -__v")
       .lean();
 
+    console.log(session._id);
+
     if (!user) {
       return null;
     }

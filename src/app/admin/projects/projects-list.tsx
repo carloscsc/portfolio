@@ -7,7 +7,6 @@ import {
   ItemTitle,
 } from "@/components/ui/item";
 
-import { read } from "@/_domain/projects/project.actions";
 import { ProjectTypes } from "@/_domain/projects/project.schema";
 import { Button } from "@/components/ui/button";
 import { useQuery } from "@tanstack/react-query";
@@ -17,7 +16,13 @@ import { ChevronRightIcon, Plus } from "lucide-react";
 const ProjectsList = () => {
   const { data, isLoading } = useQuery({
     queryKey: ["projetos"],
-    queryFn: async () => await read(),
+    queryFn: async () => {
+      const request = await fetch(
+        `${process.env.NEXT_PUBLIC_BASE_URL}/api/project`
+      );
+      const data = await request.json();
+      return data as ProjectTypes[];
+    },
   });
 
   return (
@@ -48,7 +53,7 @@ const ProjectsList = () => {
                 //   <h2>{p.title}</h2>
                 // </Link>
                 <Item variant="muted" asChild key={p._id}>
-                  <Link href={`projects/${p._id}/edit`} title={p.title}>
+                  <Link href={`projects/${p.slug}/edit`} title={p.title}>
                     <ItemContent>
                       <ItemTitle>{p.title}</ItemTitle>
                     </ItemContent>

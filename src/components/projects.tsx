@@ -7,7 +7,6 @@ import { Button } from "./ui/button";
 import { ImageIcon, ExternalLink } from "lucide-react";
 import { useResponsive } from "@/hooks/use-responsive";
 import { useQuery } from "@tanstack/react-query";
-import { read } from "@/_domain/projects/project.actions";
 import { ProjectTypes } from "@/_domain/projects/project.schema";
 import { getBlobURL } from "@/lib/utils";
 
@@ -109,7 +108,13 @@ export function Projects() {
 
   const { data } = useQuery({
     queryKey: ["projetos"],
-    queryFn: async () => await read(),
+    queryFn: async () => {
+      const request = await fetch(
+        `${process.env.NEXT_PUBLIC_BASE_URL}/api/project`
+      );
+      const data = await request.json();
+      return data as ProjectTypes[];
+    },
   });
 
   return (

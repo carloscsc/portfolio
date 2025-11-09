@@ -1,19 +1,22 @@
-import { findOne } from "@/_domain/projects/project.actions";
 import { notFound } from "next/navigation";
 import EditProjectForm from "./edit-project-form";
 
 const CadastrarProjeto = async ({
   params,
 }: {
-  params: Promise<{ _id: string }>;
+  params: Promise<{ slug: string }>;
 }) => {
-  const { _id } = await params;
+  const { slug } = await params;
 
-  const data = await findOne(_id as string);
+  const request = await fetch(
+    `${process.env.NEXT_PUBLIC_BASE_URL}/api/project/${slug}`
+  );
 
-  if (!data) {
+  if (!request.ok) {
     notFound();
   }
+
+  const data = await request.json();
 
   return <EditProjectForm data={data} />;
 };

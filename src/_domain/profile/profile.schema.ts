@@ -23,8 +23,8 @@ export const ProfileSchema = z.object({
   cover: z.string(),
   highlights: z.array(badges).min(2, "Informe ao menos 2 Highlights"),
   phone: phoneSchema,
-  createdAt: z.date().default(() => new Date()),
-  updatedAt: z.date().default(() => new Date()),
+  createdAt: z.string(),
+  updatedAt: z.string(),
   profile_count: z.coerce.number<number>(),
 });
 

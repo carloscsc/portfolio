@@ -8,19 +8,25 @@ import { Navbar } from "@/components/navbar";
 
 import WhatsappIcon from "@/components/whatsapp.icon";
 import Contact from "@/components/contact";
-import { read } from "@/_domain/profile/profile.actions";
 import { notFound } from "next/navigation";
 
 import parse from "html-react-parser";
 import { getBlobURL } from "@/lib/utils";
 import { Skills } from "@/components/skills";
+import { ProfileSchema } from "@/_domain/profile/profile.schema";
 
 export default async function Home() {
-  const profile = await read();
+  const request = await fetch(
+    `${process.env.NEXT_PUBLIC_BASE_URL}/api/profile`,
+    {}
+  );
 
-  if (!profile) {
+  if (!request.ok) {
     notFound();
   }
+
+  const data = await request.json();
+  const profile = ProfileSchema.parse(data);
 
   return (
     <>

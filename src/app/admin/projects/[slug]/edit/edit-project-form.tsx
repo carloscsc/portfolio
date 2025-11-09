@@ -50,6 +50,7 @@ import { toast } from "sonner";
 const EditProjectForm = ({ data }: { data: ProjectTypes }) => {
   const router = useRouter();
   const [_gallery, setGallery] = useState<string[]>(data.gallery || []);
+
   const queryClient = useQueryClient();
 
   const form = useForm<UpdateProjectTypes>({

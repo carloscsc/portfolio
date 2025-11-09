@@ -34,8 +34,8 @@ export const ProjectSchema = z.object({
   challenges: z.array(z.string()).optional(),
   results: z.array(z.string()).optional(),
   status: z.enum(["ativo", "inativo"]),
-  createdAt: z.date().default(() => new Date()),
-  updatedAt: z.date().default(() => new Date()),
+  createdAt: z.string(),
+  updatedAt: z.string(),
 });
 
 export const StoreProjectSchema = ProjectSchema.omit({

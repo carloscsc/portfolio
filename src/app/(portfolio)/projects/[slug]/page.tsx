@@ -14,29 +14,29 @@ import {
   User,
   MapPin,
 } from "lucide-react";
-import connect from "@/lib/db";
-import { Project } from "@/_domain/projects/project.model";
 import { getBlobURL } from "@/lib/utils";
 import WhatsappIcon from "@/components/whatsapp.icon";
 
 import parse from "html-react-parser";
+import { ProjectSchema } from "@/_domain/projects/project.schema";
 
 type Props = {
   params: Promise<{ slug: string }>;
 };
 
-export async function generateStaticParams() {
-  await connect();
-  const projects = await Project.find().select("slug").lean();
-  return projects.map((p) => ({ slug: p.slug }));
-}
-
 export default async function ProjectPage({ params }: Props) {
   const { slug } = await params;
 
-  await connect();
-  const p = await Project.findOne({ slug }).lean();
-  if (!p) return notFound();
+  const request = await fetch(
+    `${process.env.NEXT_PUBLIC_BASE_URL}/api/project/${slug}`
+  );
+
+  if (!request.ok) {
+    notFound();
+  }
+
+  const data = await request.json();
+  const p = ProjectSchema.parse(data);
 
   return (
     <main className="min-h-screen text-white">

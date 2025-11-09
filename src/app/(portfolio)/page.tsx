@@ -18,10 +18,12 @@ import { ProfileSchema } from "@/_domain/profile/profile.schema";
 export default async function Home() {
   const request = await fetch(
     `${process.env.NEXT_PUBLIC_BASE_URL}/api/profile`,
-    {}
+    { next: { tags: ["profile"] } }
   );
 
-  console.log(request);
+  if (!request.ok) {
+    return notFound();
+  }
 
   const data = await request.json();
   const profile = ProfileSchema.parse(data);

@@ -1,13 +1,19 @@
-import { read } from "@/_domain/profile/profile.actions";
 import ProfileForm from "./(profile)/profile-form";
 import { notFound } from "next/navigation";
+import { ProfileSchema } from "@/_domain/profile/profile.schema";
 
 const AdminPage = async () => {
-  const profile = await read();
+  const request = await fetch(
+    `${process.env.NEXT_PUBLIC_BASE_URL}/api/profile`,
+    { next: { tags: ["profile"] } }
+  );
 
-  if (!profile) {
-    notFound();
+  if (!request.ok) {
+    return notFound();
   }
+
+  const data = await request.json();
+  const profile = ProfileSchema.parse(data);
 
   return (
     <div>

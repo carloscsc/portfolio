@@ -4,6 +4,7 @@ import connect from "@/lib/db";
 import { upload } from "@/lib/r2-blob";
 import { StoreProfileSchema, storeProfileTypes } from "./profile.schema";
 import { Profile } from "./profile.model";
+import { revalidateTag } from "next/cache";
 
 export async function UpdateOrCreate(
   ProjectData: storeProfileTypes
@@ -46,6 +47,8 @@ export async function UpdateOrCreate(
         runValidators: true,
       }
     );
+
+    revalidateTag("profile", "max");
 
     return {
       isSuccess: true,

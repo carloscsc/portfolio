@@ -85,8 +85,6 @@ export const userUpdatePassAction = async (
     _id = token;
   }
 
-  console.log(_id);
-
   try {
     await connect();
 
@@ -138,8 +136,6 @@ export const userDTO = async (): Promise<ResponseType | null> => {
     const user = await User.findById({ _id: session._id })
       .select("-password -__v")
       .lean();
-
-    console.log(session._id);
 
     if (!user) {
       return null;

@@ -115,7 +115,7 @@ export function Skills() {
     <section ref={sectionRef} className="py-16 scroll-mt-24" id="skills">
       <div className="text-center mb-12">
         <h2 className="text-responsive-xl font-bold mb-4">
-          Minhas Habilidades
+          Principais Habilidades
         </h2>
         <p className="text-gray-400 max-w-2xl mx-auto text-responsive-base leading-relaxed px-4">
           Desenvolvi minha expertise ao longo dos anos em desenvolvimento web.

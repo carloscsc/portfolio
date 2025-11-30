@@ -10,7 +10,7 @@ import {
 import { ProjectTypes } from "@/_domain/projects/project.schema";
 import { Button } from "@/components/ui/button";
 import { useQuery } from "@tanstack/react-query";
-import Link from "next/link";
+import { Link } from "@/i18n/navigation";
 import { ChevronRightIcon, Plus } from "lucide-react";
 
 const ProjectsList = () => {

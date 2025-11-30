@@ -2,7 +2,7 @@
 
 import { cn } from "@/lib/utils";
 import { BriefcaseIcon, PenSquareIcon } from "lucide-react";
-import Link from "next/link";
+import { Link } from "@/i18n/navigation";
 import { usePathname } from "next/navigation";
 import { ReactNode } from "react";
 

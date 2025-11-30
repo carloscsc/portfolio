@@ -1,6 +1,6 @@
 "use client";
 import Image from "next/image";
-import Link from "next/link";
+import { Link } from "@/i18n/navigation";
 import { useState } from "react";
 import { CardWrapper } from "./ui/card-wrapper";
 import { Button } from "./ui/button";

@@ -6,7 +6,7 @@ import SidebarLinks from "./sidebar-links";
 import Logout from "./logout";
 import { SessionProvider } from "@/contexts/SessionContext";
 import { Button } from "@/components/ui/button";
-import Link from "next/link";
+import { Link } from "@/i18n/navigation";
 
 export const metadata: Metadata = {
   title: "Admin - Portfolio",

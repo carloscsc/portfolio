@@ -3,7 +3,7 @@
 "use client";
 import { Button } from "@/components/ui/button";
 import { ArrowLeftFromLineIcon, X } from "lucide-react";
-import Link from "next/link";
+import { Link } from "@/i18n/navigation";
 
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";

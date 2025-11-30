@@ -7,7 +7,7 @@ import PasswordInput from "@/components/forms/PasswordInput";
 import FormMessage from "@/components/forms/form-message";
 import { LoadingButton } from "@/components/ui/loading-button";
 import { Button } from "@/components/ui/button";
-import Link from "next/link";
+import { Link } from "@/i18n/navigation";
 
 import {
   UpdatePasswordSchema,

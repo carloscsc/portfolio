@@ -19,6 +19,7 @@ import WhatsappIcon from "@/components/whatsapp.icon";
 
 import parse from "html-react-parser";
 import { ProjectSchema } from "@/_domain/projects/project.schema";
+import { getTranslations } from "next-intl/server";
 
 type Props = {
   params: Promise<{ slug: string }>;
@@ -37,6 +38,7 @@ export default async function ProjectPage({ params }: Props) {
 
   const data = await request.json();
   const p = ProjectSchema.parse(data);
+  const t = await getTranslations("ProjectDetailPage");
 
   return (
     <main className="min-h-screen text-white">
@@ -47,7 +49,7 @@ export default async function ProjectPage({ params }: Props) {
           className="inline-flex items-center gap-2 text-muted-foreground hover:text-primary transition-colors mb-6"
         >
           <ArrowLeft className="h-4 w-4" />
-          Voltar aos Projetos
+          {t("navigation.backToProjects")}
         </Link>
 
         {/* Header do Projeto */}
@@ -64,7 +66,7 @@ export default async function ProjectPage({ params }: Props) {
                   rel="noopener noreferrer"
                   className="flex items-center gap-2"
                 >
-                  <ExternalLink size={16} /> Acessar o projeto
+                  <ExternalLink size={16} /> {t("buttons.viewProject")}
                 </a>
               </Button>
             )}
@@ -76,7 +78,7 @@ export default async function ProjectPage({ params }: Props) {
                   rel="noopener noreferrer"
                   className="flex items-center gap-2"
                 >
-                  <Github size={16} /> Ver Código fonte
+                  <Github size={16} /> {t("buttons.viewSourceCode")}
                 </a>
               </Button>
             )}
@@ -98,7 +100,7 @@ export default async function ProjectPage({ params }: Props) {
         {/* Informações do Projeto */}
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
           <div className="lg:col-span-2">
-            <h2 className="text-2xl font-bold mb-4">Sobre o Projeto</h2>
+            <h2 className="text-2xl font-bold mb-4">{t("sections.aboutProject")}</h2>
             <div className="prose prose-invert max-w-none space-y-4">
               {parse(p.about_project)}
             </div>
@@ -109,7 +111,7 @@ export default async function ProjectPage({ params }: Props) {
             <div className="bg-card rounded-lg p-6 space-y-4">
               <h3 className="text-lg font-semibold mb-4 flex items-center gap-2">
                 <User className="h-5 w-5 text-primary" />
-                Cliente
+                {t("sections.client")}
               </h3>
               <div className="space-y-2">
                 <div className="font-medium flex justify-start items-center gap-2">
@@ -143,7 +145,7 @@ export default async function ProjectPage({ params }: Props) {
                       rel="noopener noreferrer"
                       className="flex items-center gap-2"
                     >
-                      <ExternalLink size={16} /> Acessar
+                      <ExternalLink size={16} /> {t("buttons.access")}
                     </a>
                   </Button>
                 )}
@@ -153,20 +155,20 @@ export default async function ProjectPage({ params }: Props) {
             {/* Detalhes do Projeto */}
             {(p.duration || Number(p.year) > 0) && (
               <div className="bg-card rounded-lg p-6">
-                <h3 className="text-lg font-semibold mb-4">Detalhes</h3>
+                <h3 className="text-lg font-semibold mb-4">{t("sections.details")}</h3>
 
                 <div className="space-y-3">
                   {p.duration && (
                     <div className="flex items-center gap-2 text-sm">
                       <Clock className="h-4 w-4 text-primary" />
-                      <span className="text-muted-foreground">Duração:</span>
+                      <span className="text-muted-foreground">{t("labels.duration")}</span>
                       <span>{p.duration}</span>
                     </div>
                   )}
                   {p.year && (
                     <div className="flex items-center gap-2 text-sm">
                       <Calendar className="h-4 w-4 text-primary" />
-                      <span className="text-muted-foreground">Ano:</span>
+                      <span className="text-muted-foreground">{t("labels.year")}</span>
                       <span>{p.year}</span>
                     </div>
                   )}
@@ -179,7 +181,7 @@ export default async function ProjectPage({ params }: Props) {
         {/* Tecnologias */}
         {p.technologies && p.technologies.length > 0 && (
           <div className="mt-8">
-            <h2 className="text-2xl font-bold mb-4">Tecnologias Utilizadas</h2>
+            <h2 className="text-2xl font-bold mb-4">{t("sections.technologies")}</h2>
             <div className="flex flex-wrap gap-2">
               {p.technologies.map((tech) => (
                 <Badge
@@ -198,7 +200,7 @@ export default async function ProjectPage({ params }: Props) {
         {p.functionalities && p.functionalities.length > 0 && (
           <div className="mt-8">
             <h2 className="text-2xl font-bold mb-4">
-              Principais Funcionalidades
+              {t("sections.features")}
             </h2>
             <ul className="grid grid-cols-1 md:grid-cols-2 gap-3">
               {p.functionalities.map((feature, i) => (
@@ -214,7 +216,7 @@ export default async function ProjectPage({ params }: Props) {
         {/* Galeria */}
         {p.gallery && p.gallery.length > 0 && (
           <div className="mt-8">
-            <h2 className="text-2xl font-bold mb-4">Galeria</h2>
+            <h2 className="text-2xl font-bold mb-4">{t("sections.gallery")}</h2>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
               {p.gallery.map((image, i) => (
                 <div
@@ -223,7 +225,7 @@ export default async function ProjectPage({ params }: Props) {
                 >
                   <Image
                     src={getBlobURL(image) || "/placeholder.svg"}
-                    alt={`${p.title} - Imagem ${i + 1}`}
+                    alt={`${p.title} - ${t("gallery.imageAlt", { index: i + 1 })}`}
                     fill
                     className="object-cover hover:scale-110 transition-transform duration-300"
                     sizes="(min-width: 1024px) 300px, (min-width: 768px) 350px, 100vw"
@@ -237,7 +239,7 @@ export default async function ProjectPage({ params }: Props) {
         {/* Desafios */}
         {p.challenges && p.challenges.length > 0 && (
           <div className="mt-8">
-            <h2 className="text-2xl font-bold mb-4">Desafios Enfrentados</h2>
+            <h2 className="text-2xl font-bold mb-4">{t("sections.challenges")}</h2>
             <ul className="space-y-3">
               {p.challenges.map((challenge, i) => (
                 <li key={i} className="flex items-start gap-3">
@@ -252,7 +254,7 @@ export default async function ProjectPage({ params }: Props) {
         {/* Resultados */}
         {p.results && p.results.length > 0 && (
           <div className="mt-8">
-            <h2 className="text-2xl font-bold mb-4">Resultados Alcançados</h2>
+            <h2 className="text-2xl font-bold mb-4">{t("sections.results")}</h2>
             <ul className="space-y-3">
               {p.results.map((result, i) => (
                 <li key={i} className="flex items-start gap-3">
@@ -267,11 +269,10 @@ export default async function ProjectPage({ params }: Props) {
         {/* CTA Final */}
         <div className="bg-card rounded-lg p-8 text-center mt-8">
           <h3 className="text-xl font-bold mb-4">
-            Interessado em um projeto similar?
+            {t("cta.heading")}
           </h3>
           <p className="text-muted-foreground mb-6">
-            Entre em contato para discutirmos como posso ajudar a transformar
-            sua ideia em realidade.
+            {t("cta.description")}
           </p>
           <Button
             size="lg"
@@ -279,7 +280,7 @@ export default async function ProjectPage({ params }: Props) {
             asChild
           >
             <a href="#contact" className="text-responsive-lg">
-              <WhatsappIcon /> Agende uma consultoria grátis!
+              <WhatsappIcon /> {t("cta.button")}
             </a>
           </Button>
         </div>

@@ -1,14 +1,119 @@
 {
   "HomePage": {
-    "greetings": "Hello, I'm"
+    "greetings": "Hi, I'm",
+    "cta": {
+      "scheduleConsultation": "Let's talk!"
+    }
   },
   "Nav": {
-    "service": "Service",
+    "service": "Services",
     "projects": "Projects",
     "skills": "Skills",
     "contact": "Get in Touch",
     "languageSwitcher": "Change language",
     "switchToEnglish": "Switch to English",
     "switchToPortuguese": "Switch to Portuguese"
+  },
+  "ServicesSection": {
+    "heading": "How can I help your business?",
+    "description": {
+      "intro": "From building your online presence to automating workflows - I've got you covered.",
+      "highlight": "No hidden fees. Ever.",
+      "outro": "Here's how I can help you grow faster."
+    },
+    "services": {
+      "institutional": {
+        "title": "Business Websites",
+        "description": "Modern, SEO-optimized websites that get found on Google."
+      },
+      "landingPages": {
+        "title": "Landing Pages",
+        "description": "High-converting pages that load fast and integrate with your marketing tools."
+      },
+      "promotionPlatforms": {
+        "title": "Giveaway Platforms",
+        "description": "Secure, scalable tools for running contests and promotions."
+      },
+      "crmErp": {
+        "title": "Custom CRM/ERP",
+        "description": "Tailor-made systems that automate your workflows and centralize your data."
+      },
+      "aiIntegration": {
+        "title": "AI Integration",
+        "description": "Smart automation with real-time analysis and contextual responses."
+      },
+      "tailormadeSystems": {
+        "title": "Custom Systems",
+        "description": "Built exactly how you need it - fast, reliable, and user-friendly."
+      },
+      "marketingAutomation": {
+        "title": "Marketing Automation",
+        "description": "Automated workflows that nurture leads and boost conversions - without the busy work."
+      },
+      "apiIntegration": {
+        "title": "API Integration",
+        "description": "Connect your systems and unify operations with stable integrations."
+      },
+      "maintenance": {
+        "title": "Maintenance & Support",
+        "description": "Ongoing monitoring, updates, and support to keep everything running smoothly."
+      }
+    },
+    "carousel": {
+      "goToSlide": "Go to slide {index}"
+    }
+  },
+  "ProjectsSection": {
+    "heading": "Featured Work",
+    "card": {
+      "imageUnavailable": "Image unavailable",
+      "viewDetails": "explore",
+      "viewDetailsOf": "Explore {title}"
+    }
+  },
+  "ProjectDetailPage": {
+    "navigation": {
+      "backToProjects": "Back to Projects"
+    },
+    "buttons": {
+      "viewProject": "See it live",
+      "viewSourceCode": "View code",
+      "access": "Visit"
+    },
+    "sections": {
+      "aboutProject": "About This Project",
+      "client": "Client",
+      "details": "Details",
+      "technologies": "Built With",
+      "features": "Key Features",
+      "gallery": "Gallery",
+      "challenges": "Challenges",
+      "results": "Results"
+    },
+    "labels": {
+      "duration": "Duration:",
+      "year": "Year:"
+    },
+    "gallery": {
+      "imageAlt": "Screenshot {index}"
+    },
+    "cta": {
+      "heading": "Want something like this?",
+      "description": "Let's talk about bringing your idea to life.",
+      "button": "Let's talk!"
+    }
+  },
+  "SkillsSection": {
+    "heading": "What I Bring to the Table",
+    "description": "Years of building for the web. Here's what I'm great at.",
+    "summary": {
+      "advanced": "advanced",
+      "intermediate": "intermediate+"
+    }
+  },
+  "ContactSection": {
+    "heading": "Let's Work Together!",
+    "description": "Got a project in mind? Let's make it happen.",
+    "button": "Let's talk!"
   }
 }

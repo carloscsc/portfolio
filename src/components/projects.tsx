@@ -9,11 +9,13 @@ import { useResponsive } from "@/hooks/use-responsive";
 import { useQuery } from "@tanstack/react-query";
 import { ProjectTypes } from "@/_domain/projects/project.schema";
 import { getBlobURL } from "@/lib/utils";
+import { useTranslations } from "next-intl";
 
 function ProjectCard(data: ProjectTypes) {
   const [imageLoading, setImageLoading] = useState(true);
   const [imageError, setImageError] = useState(false);
   const { isMobile } = useResponsive();
+  const t = useTranslations("ProjectsSection");
 
   const handleImageLoad = () => {
     setImageLoading(false);
@@ -29,7 +31,7 @@ function ProjectCard(data: ProjectTypes) {
       {/* Enhanced image container with loading states and link to details */}
       <Link
         href={`/projects/${data.slug}`}
-        aria-label={`Ver detalhes de ${data.title}`}
+        aria-label={t("card.viewDetailsOf", { title: data.title })}
         className="block group/image"
       >
         <div className="aspect-4/3 relative   mb-4 bg-muted/20 rounded-lg overflow-hidden">
@@ -44,7 +46,7 @@ function ProjectCard(data: ProjectTypes) {
               <div className="text-center">
                 <ImageIcon className="h-8 w-8 text-muted-foreground/50 mx-auto mb-2" />
                 <p className="text-xs text-muted-foreground">
-                  Imagem indisponível
+                  {t("card.imageUnavailable")}
                 </p>
               </div>
             </div>
@@ -71,7 +73,7 @@ function ProjectCard(data: ProjectTypes) {
         <h3 className="text-lg font-semibold group-hover:text-primary transition-colors mb-2 line-clamp-2">
           <Link
             href={`/projects/${data.slug}`}
-            aria-label={`Ver detalhes de ${data.title}`}
+            aria-label={t("card.viewDetailsOf", { title: data.title })}
             className="hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/40"
           >
             {data.title}
@@ -94,7 +96,7 @@ function ProjectCard(data: ProjectTypes) {
               className="flex items-center justify-center gap-2"
             >
               <ExternalLink size={14} />
-              <span>ver detalhes</span>
+              <span>{t("card.viewDetails")}</span>
             </Link>
           </Button>
         </div>
@@ -105,6 +107,7 @@ function ProjectCard(data: ProjectTypes) {
 
 export function Projects() {
   const { isMobile } = useResponsive();
+  const t = useTranslations("ProjectsSection");
 
   const { data } = useQuery({
     queryKey: ["projetos"],
@@ -121,7 +124,7 @@ export function Projects() {
     <section className="py-16 scroll-mt-24" id="works">
       <div className="text-center mb-12">
         <h2 className="text-responsive-xl font-bold mb-4">
-          Projetos em Destaque
+          {t("heading")}
         </h2>
       </div>
 

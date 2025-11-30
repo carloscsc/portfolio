@@ -2,6 +2,7 @@
 
 import React, { useEffect, useMemo, useState, useCallback } from "react";
 import Autoplay from "embla-carousel-autoplay";
+import { useTranslations } from "next-intl";
 import {
   Carousel,
   CarouselContent,
@@ -41,60 +42,53 @@ function ServiceCard({ title, description, icon }: Service) {
 }
 
 export function Services() {
+  const t = useTranslations("ServicesSection");
+
   const services: Service[] = [
     {
       icon: <Globe size={24} />,
-      title: "Sites Institucionais",
-      description:
-        "Sites modernos, focados em SEO e integrados às ferramentas do Google para máxima visibilidade.",
+      title: t("services.institutional.title"),
+      description: t("services.institutional.description"),
     },
     {
       icon: <Palette size={24} />,
-      title: "Landing Pages",
-      description:
-        "Alta conversão, carregamento rápido e prontas para integrações de marketing e automação.",
+      title: t("services.landingPages.title"),
+      description: t("services.landingPages.description"),
     },
     {
       icon: <Award size={24} />,
-      title: "Plataformas de Promoção",
-      description:
-        "Ferramentas para sorteios e concursos com segurança, escalabilidade e gestão centralizada.",
+      title: t("services.promotionPlatforms.title"),
+      description: t("services.promotionPlatforms.description"),
     },
     {
       icon: <Blocks size={24} />,
-      title: "CRM/ERP Personalizados",
-      description:
-        "Automação de processos e centralização de dados em soluções sob medida para o seu negócio.",
+      title: t("services.crmErp.title"),
+      description: t("services.crmErp.description"),
     },
     {
       icon: <Bot size={24} />,
-      title: "Integração com IA",
-      description:
-        "Automação inteligente, análise avançada e respostas contextuais em tempo real.",
+      title: t("services.aiIntegration.title"),
+      description: t("services.aiIntegration.description"),
     },
     {
       icon: <CodeXml size={24} />,
-      title: "Sistemas Tailormade",
-      description:
-        "Arquitetura construída para suas regras, com foco em robustez, performance e UX.",
+      title: t("services.tailormadeSystems.title"),
+      description: t("services.tailormadeSystems.description"),
     },
     {
       icon: <Rocket size={24} />,
-      title: "Automação de Marketing",
-      description:
-        "Fluxos inteligentes que nutrem leads e aumentam conversão com menos esforço manual.",
+      title: t("services.marketingAutomation.title"),
+      description: t("services.marketingAutomation.description"),
     },
     {
       icon: <Puzzle size={24} />,
-      title: "Integração / Criação de APIs",
-      description:
-        "Conecte sistemas e unifique operações com integrações estáveis e bem documentadas.",
+      title: t("services.apiIntegration.title"),
+      description: t("services.apiIntegration.description"),
     },
     {
       icon: <Wrench size={24} />,
-      title: "Manutenção",
-      description:
-        "Monitoramento, atualizações e suporte contínuo para estabilidade, segurança e performance.",
+      title: t("services.maintenance.title"),
+      description: t("services.maintenance.description"),
     },
   ];
 
@@ -153,15 +147,14 @@ export function Services() {
     <section className="py-16 scroll-mt-24" id="services">
       <div className="text-center mb-12 px-4">
         <h2 className="text-3xl font-bold mb-4">
-          Como posso ajudar sua empresa?
+          {t("heading")}
         </h2>
         <p className="text-gray-400 max-w-2xl mx-auto text-balance">
-          Ofereço serviços que cobrem desde presença digital até automação e
-          integração avançada.{" "}
+          {t("description.intro")}{" "}
           <strong className="text-white">
-            Sem custos escondidos ou taxas exageradas.
+            {t("description.highlight")}
           </strong>{" "}
-          Veja algumas maneiras de acelerar seus resultados.
+          {t("description.outro")}
         </p>
       </div>
 
@@ -201,7 +194,7 @@ export function Services() {
               return (
                 <button
                   key={i}
-                  aria-label={`Ir para slide ${i + 1}`}
+                  aria-label={t("carousel.goToSlide", { index: i + 1 })}
                   aria-current={isActive}
                   onClick={() => api?.scrollTo(i)}
                   className={cn(

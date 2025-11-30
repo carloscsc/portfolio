@@ -1,6 +1,7 @@
 "use client";
 import { useState, useEffect, useRef } from "react";
 import { useResponsive, useReducedMotion } from "@/hooks/use-responsive";
+import { useTranslations } from "next-intl";
 
 interface SkillProps {
   name: string;
@@ -65,6 +66,7 @@ export function Skills() {
   const [isVisible, setIsVisible] = useState(false);
   const sectionRef = useRef<HTMLElement>(null);
   const { isMobile } = useResponsive();
+  const t = useTranslations("SkillsSection");
 
   const skills = [
     { name: "React", percentage: 95 },
@@ -115,12 +117,10 @@ export function Skills() {
     <section ref={sectionRef} className="py-16 scroll-mt-24" id="skills">
       <div className="text-center mb-12">
         <h2 className="text-responsive-xl font-bold mb-4">
-          Principais Habilidades
+          {t("heading")}
         </h2>
         <p className="text-gray-400 max-w-2xl mx-auto text-responsive-base leading-relaxed px-4">
-          Desenvolvi minha expertise ao longo dos anos em desenvolvimento web.
-          Aqui está uma visão geral das minhas competências técnicas e níveis de
-          proficiência.
+          {t("description")}
         </p>
       </div>
 
@@ -148,13 +148,13 @@ export function Skills() {
         <div className="mt-8 text-center">
           <p className="text-xs text-muted-foreground">
             {skills.filter((skill) => skill.percentage >= 90).length}{" "}
-            habilidades avançadas •{" "}
+            {t("summary.advanced")} •{" "}
             {
               skills.filter(
                 (skill) => skill.percentage >= 75 && skill.percentage < 90
               ).length
             }{" "}
-            intermediárias+
+            {t("summary.intermediate")}
           </p>
         </div>
       )}

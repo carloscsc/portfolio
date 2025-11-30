@@ -1,6 +1,9 @@
 {
   "HomePage": {
-    "greetings": "Olá, eu sou"
+    "greetings": "Olá, eu sou",
+    "cta": {
+      "scheduleConsultation": "Agende uma consultoria grátis!"
+    }
   },
   "Nav": {
     "service": "Serviços",
@@ -10,5 +13,107 @@
     "languageSwitcher": "Mudar idioma",
     "switchToEnglish": "Mudar para inglês",
     "switchToPortuguese": "Mudar para português"
+  },
+  "ServicesSection": {
+    "heading": "Como posso ajudar sua empresa?",
+    "description": {
+      "intro": "Ofereço serviços que cobrem desde presença digital até automação e integração avançada.",
+      "highlight": "Sem custos escondidos ou taxas exageradas.",
+      "outro": "Veja algumas maneiras de acelerar seus resultados."
+    },
+    "services": {
+      "institutional": {
+        "title": "Sites Institucionais",
+        "description": "Sites modernos, focados em SEO e integrados às ferramentas do Google para máxima visibilidade."
+      },
+      "landingPages": {
+        "title": "Landing Pages",
+        "description": "Alta conversão, carregamento rápido e prontas para integrações de marketing e automação."
+      },
+      "promotionPlatforms": {
+        "title": "Plataformas de Promoção",
+        "description": "Ferramentas para sorteios e concursos com segurança, escalabilidade e gestão centralizada."
+      },
+      "crmErp": {
+        "title": "CRM/ERP Personalizados",
+        "description": "Automação de processos e centralização de dados em soluções sob medida para o seu negócio."
+      },
+      "aiIntegration": {
+        "title": "Integração com IA",
+        "description": "Automação inteligente, análise avançada e respostas contextuais em tempo real."
+      },
+      "tailormadeSystems": {
+        "title": "Sistemas Tailormade",
+        "description": "Arquitetura construída para suas regras, com foco em robustez, performance e UX."
+      },
+      "marketingAutomation": {
+        "title": "Automação de Marketing",
+        "description": "Fluxos inteligentes que nutrem leads e aumentam conversão com menos esforço manual."
+      },
+      "apiIntegration": {
+        "title": "Integração / Criação de APIs",
+        "description": "Conecte sistemas e unifique operações com integrações estáveis e bem documentadas."
+      },
+      "maintenance": {
+        "title": "Manutenção",
+        "description": "Monitoramento, atualizações e suporte contínuo para estabilidade, segurança e performance."
+      }
+    },
+    "carousel": {
+      "goToSlide": "Ir para slide {index}"
+    }
+  },
+  "ProjectsSection": {
+    "heading": "Projetos em Destaque",
+    "card": {
+      "imageUnavailable": "Imagem indisponível",
+      "viewDetails": "ver detalhes",
+      "viewDetailsOf": "Ver detalhes de {title}"
+    }
+  },
+  "ProjectDetailPage": {
+    "navigation": {
+      "backToProjects": "Voltar aos Projetos"
+    },
+    "buttons": {
+      "viewProject": "Acessar o projeto",
+      "viewSourceCode": "Ver Código fonte",
+      "access": "Acessar"
+    },
+    "sections": {
+      "aboutProject": "Sobre o Projeto",
+      "client": "Cliente",
+      "details": "Detalhes",
+      "technologies": "Tecnologias Utilizadas",
+      "features": "Principais Funcionalidades",
+      "gallery": "Galeria",
+      "challenges": "Desafios Enfrentados",
+      "results": "Resultados Alcançados"
+    },
+    "labels": {
+      "duration": "Duração:",
+      "year": "Ano:"
+    },
+    "gallery": {
+      "imageAlt": "Imagem {index}"
+    },
+    "cta": {
+      "heading": "Interessado em um projeto similar?",
+      "description": "Entre em contato para discutirmos como posso ajudar a transformar sua ideia em realidade.",
+      "button": "Agende uma consultoria grátis!"
+    }
+  },
+  "SkillsSection": {
+    "heading": "Principais Habilidades",
+    "description": "Desenvolvi minha expertise ao longo dos anos em desenvolvimento web. Aqui está uma visão geral das minhas competências técnicas e níveis de proficiência.",
+    "summary": {
+      "advanced": "habilidades avançadas",
+      "intermediate": "intermediárias+"
+    }
+  },
+  "ContactSection": {
+    "heading": "Vamos Conversar!",
+    "description": "Tem um projeto em mente ou quer discutir oportunidades?",
+    "button": "Agende uma consultoria grátis!"
   }
 }

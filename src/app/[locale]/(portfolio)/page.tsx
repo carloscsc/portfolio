@@ -73,7 +73,7 @@ export default async function Home() {
                     href={`https://api.whatsapp.com/send?phone=55${profile.phone}`}
                   >
                     <WhatsappIcon />
-                    Agende uma consultoria grátis!
+                    {t("cta.scheduleConsultation")}
                   </a>
                 </Button>
               </div>

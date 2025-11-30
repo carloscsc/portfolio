@@ -41,7 +41,7 @@ import { useState } from "react";
 import Image from "next/image";
 import { getBlobURL } from "@/lib/utils";
 import { deleteProject, update } from "@/_domain/projects/project.actions";
-import { useRouter } from "next/navigation";
+import { useRouter } from "@/i18n/navigation";
 
 import { Spinner } from "@/components/ui/shadcn-io/spinner";
 

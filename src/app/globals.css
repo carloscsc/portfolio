@@ -181,7 +181,7 @@
 /* Enhanced mobile touch targets */
 @layer utilities {
   .touch-target {
-    @apply min-h-[44px] min-w-[44px] flex items-center justify-center;
+    @apply min-h-11 min-w-11 flex items-center justify-center;
   }
 
   .mobile-text {
@@ -198,7 +198,7 @@
 
   /* Touch target improvements */
   .touch-target-small {
-    @apply min-h-[40px] min-w-[40px] flex items-center justify-center;
+    @apply min-h-10 min-w-10 flex items-center justify-center;
   }
 
   /* Animation utilities */

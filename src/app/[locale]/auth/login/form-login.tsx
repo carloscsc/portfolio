@@ -28,7 +28,7 @@ import { cn } from "@/lib/utils";
 import { AuthLoginSchema, authLoginType } from "@/_domain/auth/auth.schema";
 import { authLoginAction } from "@/_domain/auth/auth.actions";
 import { useSession } from "@/contexts/SessionContext";
-import { useRouter } from "next/navigation";
+import { useRouter } from "@/i18n/navigation";
 
 interface AuthLoginProps {
   variant?: "default" | "light";

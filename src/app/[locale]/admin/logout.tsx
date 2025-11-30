@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 import { useSession } from "@/contexts/SessionContext";
 import { LogOut } from "lucide-react";
 
-import { useRouter } from "next/navigation";
+import { useRouter } from "@/i18n/navigation";
 
 const Logout = () => {
   const router = useRouter();

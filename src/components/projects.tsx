@@ -32,7 +32,7 @@ function ProjectCard(data: ProjectTypes) {
         aria-label={`Ver detalhes de ${data.title}`}
         className="block group/image"
       >
-        <div className="aspect-[4/3] relative   mb-4 bg-muted/20 rounded-lg overflow-hidden">
+        <div className="aspect-4/3 relative   mb-4 bg-muted/20 rounded-lg overflow-hidden">
           {imageLoading && (
             <div className="absolute inset-0 flex items-center justify-center bg-muted/10 animate-pulse">
               <ImageIcon className="h-8 w-8 text-muted-foreground/50" />
@@ -67,7 +67,7 @@ function ProjectCard(data: ProjectTypes) {
       </Link>
 
       {/* Content container with flex-grow for equal height cards */}
-      <div className="flex-grow flex flex-col">
+      <div className="grow flex flex-col">
         <h3 className="text-lg font-semibold group-hover:text-primary transition-colors mb-2 line-clamp-2">
           <Link
             href={`/projects/${data.slug}`}
@@ -77,7 +77,7 @@ function ProjectCard(data: ProjectTypes) {
             {data.title}
           </Link>
         </h3>
-        <p className="text-gray-400 text-sm mb-4 flex-grow line-clamp-3 leading-relaxed">
+        <p className="text-gray-400 text-sm mb-4 grow line-clamp-3 leading-relaxed">
           {data.description}
         </p>
 

@@ -33,7 +33,7 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import Image from "next/image";
 import { toast } from "sonner";
 import { Spinner } from "@/components/ui/shadcn-io/spinner";
-import { useRouter } from "next/navigation";
+import { useRouter } from "@/i18n/navigation";
 
 // TODO: apagar campos depois de enviar
 

@@ -76,7 +76,6 @@ export default async function Home() {
                     Agende uma consultoria grátis!
                   </a>
                 </Button>
-                {/* <ResumeDownload /> */}
               </div>
               <Stats
                 itens={profile.highlights}

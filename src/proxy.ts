@@ -20,8 +20,9 @@ export default async function proxy(req: NextRequest) {
     await updateSession();
   }
 
-  const isProtectedAdmin = onlyAdminRoutes.some((route) =>
-    path.startsWith(route)
+  const isProtectedAdmin = onlyAdminRoutes.some(
+    (route) => path.includes(route)
+    // path.startsWith(route)
   );
 
   const isAuthRoutes = authRoutes.some((route) => path.startsWith(route));

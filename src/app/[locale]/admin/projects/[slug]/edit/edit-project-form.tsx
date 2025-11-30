@@ -1,7 +1,5 @@
 "use client";
 
-// TODO: change regular inputs for TextField
-
 import { Button } from "@/components/ui/button";
 import { ArrowLeftFromLineIcon, ExternalLink, Trash, X } from "lucide-react";
 import { Link } from "@/i18n/navigation";

@@ -6,6 +6,7 @@ import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { Menu, X } from "lucide-react";
 import { Button } from "./ui/button";
 import { useTranslations } from "next-intl";
+import { LanguageSwitcher } from "./language-switcher";
 
 export function Navbar() {
   const pathname = usePathname();
@@ -104,6 +105,8 @@ export function Navbar() {
 
           {/* Desktop Navigation */}
           <div className="hidden lg:flex items-center space-x-8">
+            <LanguageSwitcher variant="desktop" />
+
             <Link
               href={getNavLinkHref("services")}
               className={navLinkClasses("services")}
@@ -155,6 +158,8 @@ export function Navbar() {
         {isOpen && (
           <div className="lg:hidden">
             <div className="flex flex-col space-y-4 px-2 pt-2 pb-4">
+              <LanguageSwitcher variant="mobile" className="mb-2" />
+
               <Link
                 href={getNavLinkHref("services")}
                 className={navLinkClasses("services")}

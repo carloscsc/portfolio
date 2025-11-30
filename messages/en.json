@@ -6,6 +6,9 @@
     "service": "Service",
     "projects": "Projects",
     "skills": "Skills",
-    "contact": "Get in Touch"
+    "contact": "Get in Touch",
+    "languageSwitcher": "Change language",
+    "switchToEnglish": "Switch to English",
+    "switchToPortuguese": "Switch to Portuguese"
   }
 }

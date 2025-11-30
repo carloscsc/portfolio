@@ -14,8 +14,11 @@ import parse from "html-react-parser";
 import { getBlobURL } from "@/lib/utils";
 import { Skills } from "@/components/skills";
 import { ProfileSchema } from "@/_domain/profile/profile.schema";
+import { getTranslations } from "next-intl/server";
 
 export default async function Home() {
+  const t = await getTranslations("HomePage");
+
   const request = await fetch(
     `${process.env.NEXT_PUBLIC_BASE_URL}/api/profile`,
     { next: { tags: ["profile"] } }
@@ -52,7 +55,7 @@ export default async function Home() {
 
             <div className="lg:col-span-7 flex flex-col justify-center order-1 lg:order-2">
               <h1 className="text-responsive-xl font-bold mb-4 mobile-text">
-                Olá, eu sou {profile.name}
+                {t("greetings")} {profile.name}
                 <span className="block text-primary mt-2 text-responsive-md">
                   {profile.title}
                 </span>

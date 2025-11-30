@@ -50,7 +50,7 @@ function SkillItem({ name, percentage, index, isVisible }: SkillProps) {
         }`}
       >
         <div
-          className="h-full rounded-full bg-gradient-to-r from-primary to-primary/80 transition-all duration-1000 ease-out"
+          className="h-full rounded-full bg-linear-to-r from-primary to-primary/80 transition-all duration-1000 ease-out"
           style={{
             width: `${animatedPercentage}%`,
             transitionDelay: prefersReducedMotion ? "0ms" : `${index * 150}ms`,

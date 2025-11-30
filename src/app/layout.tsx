@@ -5,6 +5,7 @@ import { JetBrains_Mono, Open_Sans } from "next/font/google";
 import Providers from "./providers";
 import { Analytics } from "@vercel/analytics/next";
 import { Toaster } from "sonner";
+import { NextIntlClientProvider } from "next-intl";
 
 export const metadata: Metadata = {
   title: "I'm Carlos S. Cantanzaro - Engenheiro de Software",
@@ -36,22 +37,24 @@ export default function RootLayout({
       lang="pt-BR"
       className={`${jetbrainsMono.variable} ${openSans.variable} dark antialiased`}
     >
-      <body className="bg-gradient-to-r from-[#0b0b0b] to-[#1d1f20]">
-        <Analytics />
-        <Providers>
-          {children}
+      <body className="bg-linear-to-r from-[#0b0b0b] to-[#1d1f20]">
+        <NextIntlClientProvider>
+          <Analytics />
+          <Providers>
+            {children}
 
-          <footer className="bg-card mt-20">
-            <div className="container mx-auto px-4">
-              <p className="mt-12 py-8 text-center text-gray-400 text-sm">
-                C2 Media & Tech Lab © 2014 - {new Date().getFullYear()}. Todos
-                os direitos reservados. <br />
-                Consolação - São Paulo/SP
-              </p>
-            </div>
-          </footer>
-        </Providers>
-        <Toaster richColors />
+            <footer className="bg-card mt-20">
+              <div className="container mx-auto px-4">
+                <p className="mt-12 py-8 text-center text-gray-400 text-sm">
+                  C2 Media & Tech Lab © 2014 - {new Date().getFullYear()}. Todos
+                  os direitos reservados. <br />
+                  Consolação - São Paulo/SP
+                </p>
+              </div>
+            </footer>
+          </Providers>
+          <Toaster richColors />
+        </NextIntlClientProvider>
       </body>
     </html>
   );

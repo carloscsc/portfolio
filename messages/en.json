@@ -1,0 +1,11 @@
+{
+  "HomePage": {
+    "greetings": "Hello, I'm"
+  },
+  "Nav": {
+    "service": "Service",
+    "projects": "Projects",
+    "skills": "Skills",
+    "contact": "Get in Touch"
+  }
+}

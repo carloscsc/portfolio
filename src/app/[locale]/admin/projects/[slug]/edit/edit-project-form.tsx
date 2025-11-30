@@ -322,7 +322,7 @@ const EditProjectForm = ({ data }: { data: ProjectTypes }) => {
                 <FormItem>
                   <FormLabel>logo do cliente</FormLabel>
 
-                  <div className="relative aspect-[1/1] w-full overflow-hidden rounded-xl bg-card mb-8">
+                  <div className="relative aspect-square w-full overflow-hidden rounded-xl bg-card mb-8">
                     <Image
                       src={
                         client_logo
@@ -355,7 +355,7 @@ const EditProjectForm = ({ data }: { data: ProjectTypes }) => {
                 <FormItem>
                   <FormLabel>Imagem de Capa</FormLabel>
 
-                  <div className="relative aspect-[4/3] w-full overflow-hidden rounded-xl bg-card mb-8">
+                  <div className="relative aspect-4/3 w-full overflow-hidden rounded-xl bg-card mb-8">
                     <Image
                       src={
                         cover

@@ -25,7 +25,7 @@ export default async function proxy(req: NextRequest) {
     // path.startsWith(route)
   );
 
-  const isAuthRoutes = authRoutes.some((route) => path.startsWith(route));
+  const isAuthRoutes = authRoutes.some((route) => path.includes(route));
 
   /**
    * ADMIN

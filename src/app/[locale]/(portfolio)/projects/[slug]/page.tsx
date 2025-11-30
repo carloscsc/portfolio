@@ -84,7 +84,7 @@ export default async function ProjectPage({ params }: Props) {
         </div>
 
         {/* Imagem Principal */}
-        <div className="relative aspect-[4/3] w-full overflow-hidden rounded-xl bg-card mb-8">
+        <div className="relative aspect-4/3 w-full overflow-hidden rounded-xl bg-card mb-8">
           <Image
             src={getBlobURL(p.cover) || "/placeholder.svg"}
             alt={p.title}
@@ -113,7 +113,7 @@ export default async function ProjectPage({ params }: Props) {
               </h3>
               <div className="space-y-2">
                 <div className="font-medium flex justify-start items-center gap-2">
-                  <div className="relative w-[32px] h-[32px] border">
+                  <div className="relative w-8 h-8 border">
                     <Image
                       src={getBlobURL(p.client_logo)}
                       alt={p.client_name}
@@ -203,7 +203,7 @@ export default async function ProjectPage({ params }: Props) {
             <ul className="grid grid-cols-1 md:grid-cols-2 gap-3">
               {p.functionalities.map((feature, i) => (
                 <li key={i} className="flex items-start gap-3">
-                  <div className="w-2 h-2 bg-primary rounded-full mt-2 flex-shrink-0" />
+                  <div className="w-2 h-2 bg-primary rounded-full mt-2 shrink-0" />
                   <span className="text-muted-foreground">{feature}</span>
                 </li>
               ))}
@@ -219,7 +219,7 @@ export default async function ProjectPage({ params }: Props) {
               {p.gallery.map((image, i) => (
                 <div
                   key={i}
-                  className="relative aspect-[4/3] overflow-hidden rounded-lg bg-card"
+                  className="relative aspect-4/3 overflow-hidden rounded-lg bg-card"
                 >
                   <Image
                     src={getBlobURL(image) || "/placeholder.svg"}
@@ -241,7 +241,7 @@ export default async function ProjectPage({ params }: Props) {
             <ul className="space-y-3">
               {p.challenges.map((challenge, i) => (
                 <li key={i} className="flex items-start gap-3">
-                  <div className="w-2 h-2 bg-yellow-500 rounded-full mt-2 flex-shrink-0" />
+                  <div className="w-2 h-2 bg-yellow-500 rounded-full mt-2 shrink-0" />
                   <span className="text-muted-foreground">{challenge}</span>
                 </li>
               ))}
@@ -256,7 +256,7 @@ export default async function ProjectPage({ params }: Props) {
             <ul className="space-y-3">
               {p.results.map((result, i) => (
                 <li key={i} className="flex items-start gap-3">
-                  <div className="w-2 h-2 bg-green-500 rounded-full mt-2 flex-shrink-0" />
+                  <div className="w-2 h-2 bg-green-500 rounded-full mt-2 shrink-0" />
                   <span className="text-muted-foreground">{result}</span>
                 </li>
               ))}

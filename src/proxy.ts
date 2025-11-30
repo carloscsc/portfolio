@@ -1,10 +1,12 @@
 import "server-only";
 
-// TODO: criar guard para verificar senhas e funções
-// TODO: mudar sistema de roles
-
 import { NextRequest, NextResponse } from "next/server";
 import { getSession, updateSession } from "./lib/session";
+
+import createMiddleware from "next-intl/middleware";
+import { routing } from "./i18n/routing";
+
+const handleI18nRouting = createMiddleware(routing);
 
 // types of route
 const onlyAdminRoutes = ["/admin"];
@@ -41,10 +43,10 @@ export default async function proxy(req: NextRequest) {
     return NextResponse.redirect(new URL("/admin", req.nextUrl));
   }
 
-  return NextResponse.next();
+  return handleI18nRouting(req);
 }
 
 // Routes Middleware should not run on
 export const config = {
-  matcher: ["/((?!api|_next/static|_next/image|.*\\.png$).*)"],
+  matcher: "/((?!api|trpc|_next|_vercel|.*\\..*).*)",
 };

@@ -5,7 +5,9 @@ import { JetBrains_Mono, Open_Sans } from "next/font/google";
 import Providers from "./providers";
 import { Analytics } from "@vercel/analytics/next";
 import { Toaster } from "sonner";
-import { NextIntlClientProvider } from "next-intl";
+import { hasLocale, NextIntlClientProvider } from "next-intl";
+import { routing } from "@/i18n/routing";
+import { notFound } from "next/navigation";
 
 export const metadata: Metadata = {
   title: "I'm Carlos S. Cantanzaro - Engenheiro de Software",
@@ -31,6 +33,7 @@ export default function RootLayout({
   children,
 }: {
   children: React.ReactNode;
+  params: Promise<{ locale: string }>;
 }) {
   return (
     <html
@@ -40,19 +43,7 @@ export default function RootLayout({
       <body className="bg-linear-to-r from-[#0b0b0b] to-[#1d1f20]">
         <NextIntlClientProvider>
           <Analytics />
-          <Providers>
-            {children}
-
-            <footer className="bg-card mt-20">
-              <div className="container mx-auto px-4">
-                <p className="mt-12 py-8 text-center text-gray-400 text-sm">
-                  C2 Media & Tech Lab © 2014 - {new Date().getFullYear()}. Todos
-                  os direitos reservados. <br />
-                  Consolação - São Paulo/SP
-                </p>
-              </div>
-            </footer>
-          </Providers>
+          <Providers>{children}</Providers>
           <Toaster richColors />
         </NextIntlClientProvider>
       </body>

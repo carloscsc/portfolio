@@ -116,9 +116,7 @@ export function Skills() {
   return (
     <section ref={sectionRef} className="py-16 scroll-mt-24" id="skills">
       <div className="text-center mb-12">
-        <h2 className="text-responsive-xl font-bold mb-4">
-          {t("heading")}
-        </h2>
+        <h2 className="text-responsive-xl font-bold mb-4">{t("heading")}</h2>
         <p className="text-gray-400 max-w-2xl mx-auto text-responsive-base leading-relaxed px-4">
           {t("description")}
         </p>
@@ -142,22 +140,6 @@ export function Skills() {
           />
         ))}
       </div>
-
-      {/* Mobile skills summary */}
-      {isMobile && isVisible && (
-        <div className="mt-8 text-center">
-          <p className="text-xs text-muted-foreground">
-            {skills.filter((skill) => skill.percentage >= 90).length}{" "}
-            {t("summary.advanced")} •{" "}
-            {
-              skills.filter(
-                (skill) => skill.percentage >= 75 && skill.percentage < 90
-              ).length
-            }{" "}
-            {t("summary.intermediate")}
-          </p>
-        </div>
-      )}
     </section>
   );
 }

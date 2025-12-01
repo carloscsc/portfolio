@@ -2,7 +2,11 @@
 import { ResponseType } from "@/_domain/shared/types";
 import connect from "@/lib/db";
 import { upload } from "@/lib/r2-blob";
-import { StoreProfileSchema, storeProfileTypes } from "./profile.schema";
+import {
+  ProfileTypes,
+  StoreProfileSchema,
+  storeProfileTypes,
+} from "./profile.schema";
 import { Profile } from "./profile.model";
 import { updateTag } from "next/cache";
 
@@ -22,7 +26,7 @@ export async function UpdateOrCreate(
     };
   }
 
-  const { cover, _cover, ...data } = validate.data;
+  const { _id, cover, _cover, ...data } = validate.data;
   let uploadedCover;
 
   try {
@@ -32,8 +36,10 @@ export async function UpdateOrCreate(
 
     await connect();
 
+    const filter = _id ? { _id } : {};
+
     await Profile.findOneAndUpdate(
-      { profile_count: 1 },
+      filter,
       {
         $set: {
           cover: uploadedCover || _cover,
@@ -66,29 +72,23 @@ export async function UpdateOrCreate(
   }
 }
 
-export async function read() {
+export async function read(): Promise<ProfileTypes | null> {
   try {
     await connect();
-    const profile = await Profile.findOne({ profile_count: 1 })
-      .select("-__v")
-      .lean();
+
+    const profile = await Profile.findOne().select("-__v").lean();
 
     if (!profile) {
       return null;
     }
 
-    const { _id, highlights, ...data } = profile;
-
+    // Serialize ObjectId and Dates for client components
     return {
-      ...data,
-      _id: _id.toString(),
-      highlights: highlights.map((h) => ({
-        header: h.header,
-        text: h.text,
-      })),
-    };
+      ...profile,
+      _id: profile._id.toString(),
+    } as ProfileTypes;
   } catch (e) {
-    console.log(e);
-    throw new Error("Erro ao buscar dados dos projetos");
+    console.error("Error fetching profile:", e);
+    throw new Error("Erro ao buscar dados do perfil");
   }
 }

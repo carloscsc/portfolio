@@ -28,19 +28,34 @@ import Image from "next/image";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 
-const ProfileForm = ({ data }: { data: ProfileTypes }) => {
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Card, CardContent } from "@/components/ui/card";
+import { BRFlag, USFlag } from "@/components/icons/flags";
+import { Input } from "@/components/ui/input";
+
+const ProfileForm = ({ data }: { data: ProfileTypes | null }) => {
   const queryClient = useQueryClient();
   const form = useForm<storeProfileTypes>({
     resolver: zodResolver(StoreProfileSchema),
     defaultValues: {
-      name: data.name,
-      title: data.title,
-      description: data.description,
-      phone: data.phone,
+      _id: data?._id ?? "",
+      name: data?.name ?? "",
+      translations: {
+        en: {
+          title: data?.translations?.en.title ?? "",
+          description: data?.translations?.en.description ?? "",
+          phone: data?.translations?.en.phone ?? "",
+          highlights: data?.translations?.en.highlights ?? [],
+        },
+        br: {
+          title: data?.translations?.br.title ?? "",
+          description: data?.translations?.br.description ?? "",
+          phone: data?.translations?.br.phone ?? "",
+          highlights: data?.translations?.br.highlights ?? [],
+        },
+      },
       cover: undefined,
-      _cover: data.cover,
-      highlights: data.highlights,
-      profile_count: 1,
+      _cover: data?.cover,
     },
   });
 
@@ -69,42 +84,119 @@ const ProfileForm = ({ data }: { data: ProfileTypes }) => {
         <TextInput
           control={form.control}
           name="name"
-          label="Nome"
-          placeholder="Informe o nome"
+          label="Name"
+          placeholder="Enter your name"
         />
 
-        <TextInput
-          control={form.control}
-          name="title"
-          label="Titulo"
-          placeholder="Informe o titulo ou cargo"
-        />
+        {/* Language Tabs */}
+        <Tabs defaultValue="en" className="w-full">
+          <TabsList className="grid w-full grid-cols-2">
+            <TabsTrigger value="en" className="flex items-center gap-2">
+              <USFlag className="w-5 h-5" />
+              English
+            </TabsTrigger>
+            <TabsTrigger value="br" className="flex items-center gap-2">
+              <BRFlag className="w-5 h-5" />
+              Portugues
+            </TabsTrigger>
+          </TabsList>
 
-        <TextInput
-          control={form.control}
-          name="phone"
-          label="Informe o telefone"
-          mask="99 99999-9999"
-          placeholder="Informe o titulo ou cargo"
-        />
-
-        <FormField
-          control={form.control}
-          name="description"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Descrição completa do Projeto</FormLabel>
-              <FormControl>
-                <RichTextEditor
-                  placeholder="Digite a descrição completa"
-                  value={field.value}
-                  onChange={field.onChange}
+          {/* English Tab */}
+          <TabsContent value="en">
+            <Card>
+              <CardContent className="space-y-6 mt-5">
+                <TextInput
+                  control={form.control}
+                  name="translations.en.title"
+                  label="Title"
+                  placeholder="Enter your title or role"
                 />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
+
+                <TextInput
+                  control={form.control}
+                  name="translations.en.phone"
+                  label="Phone"
+                  mask="99 99999-9999"
+                  placeholder="Enter phone number"
+                />
+
+                <FormField
+                  control={form.control}
+                  name="translations.en.description"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Description</FormLabel>
+                      <FormControl>
+                        <RichTextEditor
+                          placeholder="Enter your description"
+                          value={field.value}
+                          onChange={field.onChange}
+                        />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+
+                <RepeatableHighlightField
+                  control={form.control}
+                  name="translations.en.highlights"
+                  label="Highlights"
+                  minItems={2}
+                  maxItems={4}
+                />
+              </CardContent>
+            </Card>
+          </TabsContent>
+
+          {/* Portuguese Tab */}
+          <TabsContent value="br">
+            <Card>
+              <CardContent className="space-y-6 mt-5">
+                <TextInput
+                  control={form.control}
+                  name="translations.br.title"
+                  label="Titulo"
+                  placeholder="Informe o titulo ou cargo"
+                />
+
+                <TextInput
+                  control={form.control}
+                  name="translations.br.phone"
+                  label="Telefone"
+                  mask="99 99999-9999"
+                  placeholder="Informe o telefone"
+                />
+
+                <FormField
+                  control={form.control}
+                  name="translations.br.description"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Descricao</FormLabel>
+                      <FormControl>
+                        <RichTextEditor
+                          placeholder="Digite a descricao completa"
+                          value={field.value}
+                          onChange={field.onChange}
+                        />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+
+                <RepeatableHighlightField
+                  control={form.control}
+                  name="translations.br.highlights"
+                  label="Highlights"
+                  minItems={2}
+                  maxItems={4}
+                />
+              </CardContent>
+            </Card>
+          </TabsContent>
+        </Tabs>
 
         <FormField
           control={form.control}
@@ -112,12 +204,14 @@ const ProfileForm = ({ data }: { data: ProfileTypes }) => {
           render={({ field }) => (
             <FormItem>
               <FormLabel>Foto de perfil</FormLabel>
-              <div className="relative w-full h-[400px]">
+              <div className="lg:col-span-5 relative rounded-2xl overflow-hidden min-h-[360px] lg:min-h-[520px]  lg:order-1 mt-3">
                 <Image
                   src={
                     cover
                       ? URL.createObjectURL(cover)
-                      : getBlobURL(_cover as string)
+                      : _cover
+                        ? getBlobURL(_cover as string)
+                        : "https://baconmockup.com/600/600/"
                   }
                   alt=""
                   fill
@@ -132,12 +226,10 @@ const ProfileForm = ({ data }: { data: ProfileTypes }) => {
           )}
         />
 
-        <RepeatableHighlightField
+        <FormField
           control={form.control}
-          name="highlights"
-          label="Highlights"
-          minItems={1}
-          maxItems={4}
+          name="_id"
+          render={({ field }) => <Input type="text" {...field} hidden />}
         />
 
         <Button type="submit" className="w-full" disabled={mutation.isPending}>

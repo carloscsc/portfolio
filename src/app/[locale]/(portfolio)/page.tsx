@@ -14,10 +14,11 @@ import parse from "html-react-parser";
 import { getBlobURL } from "@/lib/utils";
 import { Skills } from "@/components/skills";
 import { ProfileSchema } from "@/_domain/profile/profile.schema";
-import { getTranslations } from "next-intl/server";
+import { getLocale, getTranslations } from "next-intl/server";
 
 export default async function Home() {
   const t = await getTranslations("HomePage");
+  const locale = (await getLocale()) as "en" | "br";
 
   const request = await fetch(
     `${process.env.NEXT_PUBLIC_BASE_URL}/api/profile`,
@@ -29,7 +30,8 @@ export default async function Home() {
   }
 
   const data = await request.json();
-  const profile = ProfileSchema.parse(data);
+  const profile = data ? ProfileSchema.parse(data) : null;
+  const translation = profile?.translations?.[locale];
 
   return (
     <>
@@ -44,7 +46,7 @@ export default async function Home() {
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-10 items-stretch">
             <div className="lg:col-span-5 relative rounded-2xl overflow-hidden min-h-[360px] lg:min-h-[520px]  lg:order-1">
               <Image
-                src={getBlobURL(profile.cover)}
+                src={getBlobURL(profile?.cover ?? "")}
                 alt="Profile"
                 fill
                 className="object-cover"
@@ -55,13 +57,13 @@ export default async function Home() {
 
             <div className="lg:col-span-7 flex flex-col justify-center order-1 lg:order-2">
               <h1 className="text-responsive-xl font-bold mb-4 mobile-text">
-                {t("greetings")} {profile.name}
+                {t("greetings")} {data?.name}
                 <span className="block text-primary mt-2 text-responsive-md">
-                  {profile.title}
+                  {translation?.title}
                 </span>
               </h1>
               <div className="text-responsive-md text-gray-400 mb-8 max-w-2xl">
-                {parse(profile.description)}
+                {parse(translation?.description || "")}
               </div>
               <div className="flex flex-col md:flex-row gap-4 mb-8 relative">
                 <Button
@@ -70,7 +72,7 @@ export default async function Home() {
                   asChild
                 >
                   <a
-                    href={`https://api.whatsapp.com/send?phone=55${profile.phone}`}
+                    href={`https://api.whatsapp.com/send?phone=55${translation?.phone}`}
                   >
                     <WhatsappIcon />
                     {t("cta.scheduleConsultation")}
@@ -78,7 +80,7 @@ export default async function Home() {
                 </Button>
               </div>
               <Stats
-                itens={profile.highlights}
+                itens={translation?.highlights || []}
                 className="border-t border-white/10 pt-8"
               />
             </div>
@@ -90,7 +92,7 @@ export default async function Home() {
           <Services />
           <Projects />
           <Skills />
-          <Contact phone={profile.phone} />
+          <Contact phone={translation?.phone || ""} />
         </div>
       </main>
     </>

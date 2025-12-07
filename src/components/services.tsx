@@ -33,10 +33,11 @@ interface Service {
 
 function ServiceCard({ title, description, icon }: Service) {
   return (
-    <CardWrapper className="h-full hover:border-primary/40 transition-colors">
-      <div className="text-primary mb-4">{icon}</div>
-      <h3 className="text-lg font-semibold mb-2">{title}</h3>
-      <p className="text-gray-400 text-sm leading-relaxed">{description}</p>
+    <CardWrapper className="bg-accent h-full hover:border-primary transition-colors flex flex-col justify-center">
+      <h3 className="text-primary text-lg mb-2 font-medium flex items-center gap-2">
+        {icon} {title}
+      </h3>
+      <p className="text-secondary text-sm leading-relaxed">{description}</p>
     </CardWrapper>
   );
 }
@@ -146,14 +147,9 @@ export function Services() {
   return (
     <section className="py-16 scroll-mt-24" id="services">
       <div className="text-center mb-12 px-4">
-        <h2 className="text-3xl font-bold mb-4">
-          {t("heading")}
-        </h2>
-        <p className="text-gray-400 max-w-2xl mx-auto text-balance">
-          {t("description.intro")}{" "}
-          <strong className="text-white">
-            {t("description.highlight")}
-          </strong>{" "}
+        <h2 className="text-3xl mb-4 text-primary">{t("heading")}</h2>
+        <p className="text-secondary max-w-2xl mx-auto text-balance">
+          {t("description.intro")} <strong>{t("description.highlight")}</strong>
           {t("description.outro")}
         </p>
       </div>
@@ -181,8 +177,8 @@ export function Services() {
           </CarouselContent>
 
           <div className="flex gap-3 justify-center mt-8">
-            <CarouselPrevious className="-left-2 md:-left-10" />
-            <CarouselNext className="-right-2 md:-right-10" />
+            <CarouselPrevious className="-left-2 md:-left-10 text-secondary" />
+            <CarouselNext className="-right-2 md:-right-10 text-secondary" />
           </div>
         </Carousel>
 
@@ -201,7 +197,7 @@ export function Services() {
                     "h-2.5 rounded-full transition-all",
                     isActive
                       ? "w-6 bg-primary"
-                      : "w-2.5 bg-primary/30 hover:bg-primary/60"
+                      : "w-2.5 bg-border hover:bg-secondary"
                   )}
                 />
               );

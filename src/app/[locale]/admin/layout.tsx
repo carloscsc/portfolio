@@ -20,7 +20,7 @@ export default function AdminLayout({
 }) {
   return (
     <SessionProvider>
-      <div className=" bg-black">
+      <div className="bg-background">
         <div className="flex justify-center items-center  mx-auto w-full max-w-4xl  p-5 flex-row md:flex gap-6">
           <h1 className="text-center text-4xl p-4 ps-0 font-mono">
             &lt;Admin /&gt;
@@ -44,7 +44,6 @@ export default function AdminLayout({
 
       <div className="mx-auto w-full max-w-4xl  p-5 flex-row md:flex gap-6">
         <SidebarLinks />
-
         <div className="w-full">{children}</div>
       </div>
     </SessionProvider>

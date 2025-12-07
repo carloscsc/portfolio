@@ -28,7 +28,7 @@ function StatItem({ header, text, index, isVisible }: StatProps) {
 
   return (
     <div
-      className={`text-center p-4 rounded-lg bg-card/50 border border-border/50 transition-all duration-500 hover:bg-card/80 hover:border-primary/20 ${
+      className={`text-center p-4 rounded bg-accent border border-border transition-all duration-500 hover:border-primary ${
         isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
       }`}
       style={{
@@ -36,7 +36,7 @@ function StatItem({ header, text, index, isVisible }: StatProps) {
       }}
     >
       <div
-        className={`font-bold text-primary mb-2 transition-all duration-700 ${
+        className={`text-primary mb-2 transition-all duration-700 ${
           isMobile ? "text-2xl sm:text-3xl" : "text-3xl lg:text-4xl"
         }`}
       >

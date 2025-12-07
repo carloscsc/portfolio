@@ -24,7 +24,7 @@ export function Projects() {
   return (
     <section className="py-16 scroll-mt-24" id="works">
       <div className="text-center mb-12">
-        <h2 className="text-responsive-xl font-bold mb-4">{t("heading")}</h2>
+        <h2 className="text-3xl mb-4 text-primary">{t("heading")}</h2>
       </div>
 
       {/* Enhanced responsive grid with better spacing */}

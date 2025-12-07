@@ -6,7 +6,6 @@ import { Projects } from "@/app/[locale]/(portfolio)/projects/projects-list";
 import Image from "next/image";
 import { Navbar } from "@/components/navbar";
 
-import WhatsappIcon from "@/components/whatsapp.icon";
 import Contact from "@/components/contact";
 import { notFound } from "next/navigation";
 
@@ -15,6 +14,7 @@ import { getBlobURL } from "@/lib/utils";
 import { Skills } from "@/components/skills";
 import { ProfileSchema } from "@/_domain/profile/profile.schema";
 import { getLocale, getTranslations } from "next-intl/server";
+import { MessageSquareShare } from "lucide-react";
 
 export default async function Home() {
   const t = await getTranslations("HomePage");
@@ -35,7 +35,7 @@ export default async function Home() {
 
   return (
     <>
-      <main className="min-h-screen text-white">
+      <main className="min-h-screen">
         <Navbar />
 
         {/* Hero */}
@@ -56,33 +56,30 @@ export default async function Home() {
             </div>
 
             <div className="lg:col-span-7 flex flex-col justify-center order-1 lg:order-2">
-              <h1 className="text-responsive-xl font-bold mb-4 mobile-text">
+              <h1 className="text-responsive-xl mb-4 mobile-text">
                 {t("greetings")} {data?.name}
-                <span className="block text-primary mt-2 text-responsive-md">
+                <span className="block text-secondary mt-2 text-responsive-sm">
                   {translation?.title}
                 </span>
               </h1>
-              <div className="text-responsive-md text-gray-400 mb-8 max-w-2xl">
+              <div className="text-responsive-md text-secondary mb-8 max-w-2xl">
                 {parse(translation?.description || "")}
               </div>
               <div className="flex flex-col md:flex-row gap-4 mb-8 relative">
                 <Button
                   size="lg"
-                  className="bg-[#27d366] hover:bg-[#28a71a]  text-white"
+                  className="bg-highlight text-background rounded hover:bg-secondary"
                   asChild
                 >
                   <a
                     href={`https://api.whatsapp.com/send?phone=55${translation?.phone}`}
                   >
-                    <WhatsappIcon />
+                    <MessageSquareShare />
                     {t("cta.scheduleConsultation")}
                   </a>
                 </Button>
               </div>
-              <Stats
-                itens={translation?.highlights || []}
-                className="border-t border-white/10 pt-8"
-              />
+              <Stats itens={translation?.highlights || []} />
             </div>
           </div>
         </section>

@@ -8,6 +8,7 @@ import { Metadata } from "next";
 import { JetBrains_Mono, Open_Sans } from "next/font/google";
 
 import "../globals.css";
+import { ThemeProvider } from "@/components/theme-provider";
 
 export const metadata: Metadata = {
   title: "I'm Carlos S. Cantanzaro - Engenheiro de Software",
@@ -45,21 +46,29 @@ export default async function RootLayout({
   return (
     <html
       lang="pt-BR"
-      className={`${jetbrainsMono.variable} ${openSans.variable} dark antialiased`}
+      className={`${jetbrainsMono.variable} ${openSans.variable} antialiased`}
+      suppressHydrationWarning
     >
-      <body className="bg-linear-to-r from-[#0b0b0b] to-[#1d1f20]">
-        <NextIntlClientProvider>
-          <Analytics />
-          <Providers>{children}</Providers>
-          <Toaster richColors />
-        </NextIntlClientProvider>
-        <footer className="bg-card mt-20">
-          <div className="container mx-auto px-4">
-            <p className="mt-12 py-8 text-center text-gray-400 text-sm">
-              C2 Media & Tech Lab © 2014 - {new Date().getFullYear()}
-            </p>
-          </div>
-        </footer>
+      <body>
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="dark"
+          enableSystem
+          disableTransitionOnChange
+        >
+          <NextIntlClientProvider>
+            <Analytics />
+            <Providers>{children}</Providers>
+            <Toaster richColors />
+          </NextIntlClientProvider>
+          <footer className="bg-accent mt-20">
+            <div className="container mx-auto px-4">
+              <p className="mt-12 py-8 text-center text-secondary text-sm">
+                C2 Media & Tech Lab © 2014 - {new Date().getFullYear()}
+              </p>
+            </div>
+          </footer>
+        </ThemeProvider>
       </body>
     </html>
   );

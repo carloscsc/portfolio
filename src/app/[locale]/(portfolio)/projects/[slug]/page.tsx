@@ -13,9 +13,9 @@ import {
   Clock,
   User,
   MapPin,
+  MessageSquareShare,
 } from "lucide-react";
 import { getBlobURL } from "@/lib/utils";
-import WhatsappIcon from "@/components/whatsapp.icon";
 
 import parse from "html-react-parser";
 import { ProjectSchema } from "@/_domain/projects/project.schema";
@@ -48,7 +48,7 @@ export default async function ProjectPage({ params }: Props) {
       <article className="container mx-auto px-4 pt-28  max-w-4xl">
         <Link
           href="/#works"
-          className="inline-flex items-center gap-2 text-muted-foreground hover:text-primary transition-colors mb-6"
+          className="inline-flex items-center gap-2 text-secondary hover:text-primary transition-colors mb-6"
         >
           <ArrowLeft className="h-4 w-4" />
           {t("navigation.backToProjects")}
@@ -56,16 +56,17 @@ export default async function ProjectPage({ params }: Props) {
 
         {/* Header do Projeto */}
         <div className="mb-8">
-          <h1 className="text-3xl md:text-5xl font-bold mb-4">
+          <h1 className="text-3xl md:text-5xl text-primary mb-4">
             {translate.title}
           </h1>
-          <p className="text-xl text-muted-foreground mb-6">
-            {translate.description}
-          </p>
+          <p className="text-lg text-secondary mb-6">{translate.description}</p>
 
           <div className="flex flex-wrap gap-4 mb-6">
             {p.demo_link && (
-              <Button asChild>
+              <Button
+                asChild
+                className="rounded bg-highlight text-background hover:bg-secondary"
+              >
                 <a
                   href={p.demo_link}
                   target="_blank"
@@ -77,7 +78,11 @@ export default async function ProjectPage({ params }: Props) {
               </Button>
             )}
             {p.repo_link && (
-              <Button variant="outline" asChild>
+              <Button
+                variant="outline"
+                asChild
+                className="rounded bg-highlight text-background hover:bg-secondary"
+              >
                 <a
                   href={p.repo_link}
                   target="_blank"
@@ -106,32 +111,32 @@ export default async function ProjectPage({ params }: Props) {
         {/* Informações do Projeto */}
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
           <div className="lg:col-span-2">
-            <h2 className="text-2xl font-bold mb-4">
+            <h2 className="text-2xl text-primary mb-4">
               {t("sections.aboutProject")}
             </h2>
-            <div className="prose prose-invert max-w-none space-y-4">
+            <div className="prose max-w-none space-y-4 text-secondary">
               {parse(translate.about_project)}
             </div>
           </div>
 
           <div className="space-y-6">
             {/* Informações do Cliente */}
-            <div className="bg-card rounded-lg p-6 space-y-4">
-              <h3 className="text-lg font-semibold mb-4 flex items-center gap-2">
+            <div className="bg-accent rounded p-6 space-y-4">
+              <h3 className="text-lg text-primary mb-4 flex items-center gap-2">
                 <User className="h-5 w-5 text-primary" />
                 {t("sections.client")}
               </h3>
               <div className="space-y-2">
-                <div className="font-medium flex justify-start items-center gap-2">
-                  <div className="relative w-8 h-8 border">
+                <div className="flex justify-start items-center gap-2">
+                  <div className="relative w-8 h-8 ">
                     <Image
                       src={getBlobURL(p.client_logo)}
                       alt={p.client_name}
                       fill
-                      className="object-fill object-center"
+                      className="object-fill object-center rounded"
                     ></Image>
                   </div>
-                  <p>{p.client_name}</p>
+                  <p className="text-primary">{p.client_name}</p>
                 </div>
                 {translate.client_description && (
                   <p className="text-sm text-muted-foreground">
@@ -162,28 +167,26 @@ export default async function ProjectPage({ params }: Props) {
 
             {/* Detalhes do Projeto */}
             {(translate.duration || Number(p.year) > 0) && (
-              <div className="bg-card rounded-lg p-6">
-                <h3 className="text-lg font-semibold mb-4">
+              <div className="bg-accent rounded-lg p-6">
+                <h3 className="text-lg text-primary mb-4">
                   {t("sections.details")}
                 </h3>
 
                 <div className="space-y-3">
                   {translate.duration && (
                     <div className="flex items-center gap-2 text-sm">
-                      <Clock className="h-4 w-4 text-primary" />
-                      <span className="text-muted-foreground">
+                      <Clock className="h-4 w-4 text-secondary" />
+                      <span className="text-secondary">
                         {t("labels.duration")}
                       </span>
-                      <span>{translate.duration}</span>
+                      <span className="text-primary">{translate.duration}</span>
                     </div>
                   )}
                   {p.year && (
                     <div className="flex items-center gap-2 text-sm">
-                      <Calendar className="h-4 w-4 text-primary" />
-                      <span className="text-muted-foreground">
-                        {t("labels.year")}
-                      </span>
-                      <span>{p.year}</span>
+                      <Calendar className="h-4 w-4 text-secondary" />
+                      <span className="text-secondary">{t("labels.year")}</span>
+                      <span className="text-primary">{p.year}</span>
                     </div>
                   )}
                 </div>
@@ -195,7 +198,7 @@ export default async function ProjectPage({ params }: Props) {
         {/* Tecnologias */}
         {p.technologies && p.technologies.length > 0 && (
           <div className="mt-8">
-            <h2 className="text-2xl font-bold mb-4">
+            <h2 className="text-2xl text-primary mb-4">
               {t("sections.technologies")}
             </h2>
             <div className="flex flex-wrap gap-2">
@@ -203,7 +206,7 @@ export default async function ProjectPage({ params }: Props) {
                 <Badge
                   key={tech}
                   variant="secondary"
-                  className="bg-primary/10 text-primary border-primary/20"
+                  className="bg-toggle text-secondary border-border"
                 >
                   {tech}
                 </Badge>
@@ -215,14 +218,14 @@ export default async function ProjectPage({ params }: Props) {
         {/* Funcionalidades */}
         {translate.functionalities && translate.functionalities.length > 0 && (
           <div className="mt-8">
-            <h2 className="text-2xl font-bold mb-4">
+            <h2 className="text-2xl text-primary mb-4">
               {t("sections.features")}
             </h2>
             <ul className="grid grid-cols-1 md:grid-cols-2 gap-3">
               {translate.functionalities.map((feature, i) => (
                 <li key={i} className="flex items-start gap-3">
-                  <div className="w-2 h-2 bg-primary rounded-full mt-2 shrink-0" />
-                  <span className="text-muted-foreground">{feature}</span>
+                  <div className="w-2 h-2 bg-secondary rounded-full mt-2 shrink-0" />
+                  <span className="text-secondary">{feature}</span>
                 </li>
               ))}
             </ul>
@@ -232,7 +235,9 @@ export default async function ProjectPage({ params }: Props) {
         {/* Galeria */}
         {p.gallery && p.gallery.length > 0 && (
           <div className="mt-8">
-            <h2 className="text-2xl font-bold mb-4">{t("sections.gallery")}</h2>
+            <h2 className="text-2xl text-primary mb-4">
+              {t("sections.gallery")}
+            </h2>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
               {p.gallery.map((image, i) => (
                 <div
@@ -255,14 +260,14 @@ export default async function ProjectPage({ params }: Props) {
         {/* Desafios */}
         {translate.challenges && translate.challenges.length > 0 && (
           <div className="mt-8">
-            <h2 className="text-2xl font-bold mb-4">
+            <h2 className="text-2xl text-primary mb-4">
               {t("sections.challenges")}
             </h2>
             <ul className="space-y-3">
               {translate.challenges.map((challenge, i) => (
                 <li key={i} className="flex items-start gap-3">
-                  <div className="w-2 h-2 bg-yellow-500 rounded-full mt-2 shrink-0" />
-                  <span className="text-muted-foreground">{challenge}</span>
+                  <div className="w-2 h-2 bg-secondary rounded-full mt-2 shrink-0" />
+                  <span className="text-secondary">{challenge}</span>
                 </li>
               ))}
             </ul>
@@ -271,13 +276,15 @@ export default async function ProjectPage({ params }: Props) {
 
         {/* Resultados */}
         {translate.results && translate.results.length > 0 && (
-          <div className="mt-8">
-            <h2 className="text-2xl font-bold mb-4">{t("sections.results")}</h2>
+          <div className="mt-8 bg-accent p-6">
+            <h2 className="text-2xl text-highlight mb-4">
+              {t("sections.results")}
+            </h2>
             <ul className="space-y-3">
               {translate.results.map((result, i) => (
                 <li key={i} className="flex items-start gap-3">
-                  <div className="w-2 h-2 bg-green-500 rounded-full mt-2 shrink-0" />
-                  <span className="text-muted-foreground">{result}</span>
+                  <div className="w-2 h-2 bg-highlight rounded-full mt-2 shrink-0" />
+                  <span className="text-secondary">{result}</span>
                 </li>
               ))}
             </ul>
@@ -285,19 +292,28 @@ export default async function ProjectPage({ params }: Props) {
         )}
 
         {/* CTA Final */}
-        <div className="bg-card rounded-lg p-8 text-center mt-8">
-          <h3 className="text-xl font-bold mb-4">{t("cta.heading")}</h3>
-          <p className="text-muted-foreground mb-6">{t("cta.description")}</p>
-          <Button
-            size="lg"
-            className="bg-[#27d366] hover:bg-[#28a71a]  text-white"
-            asChild
-          >
-            <a href="#contact" className="text-responsive-lg">
-              <WhatsappIcon /> {t("cta.button")}
-            </a>
-          </Button>
-        </div>
+        <section className="py-16 scroll-mt-24" id="contact">
+          <div className="text-center space-y-6">
+            <h3 className="text-responsive-xl mb-4 text-primary">
+              {t("cta.heading")}
+            </h3>
+            <p className="text-secondary max-w-2xl mx-auto text-responsive-md leading-relaxed px-4">
+              {t("cta.description")}
+            </p>
+            <Button
+              size="lg"
+              className="bg-highlight hover:bg-secondary  text-background p-8 rounded"
+              asChild
+            >
+              <a
+                href={`https://api.whatsapp.com/send?phone=5511989631661`}
+                className="text-responsive-lg"
+              >
+                <MessageSquareShare /> {t("cta.button")}
+              </a>
+            </Button>
+          </div>
+        </section>
       </article>
     </main>
   );

@@ -36,22 +36,18 @@ function SkillItem({ name, percentage, index, isVisible }: SkillProps) {
       }}
     >
       <div className="flex justify-between mb-3">
-        <span
-          className={`font-medium text-foreground ${
-            isMobile ? "text-sm" : "text-base"
-          }`}
-        >
+        <span className={`text-primary ${isMobile ? "text-sm" : "text-base"}`}>
           {name}
         </span>
       </div>
 
       <div
-        className={`bg-muted rounded-full overflow-hidden ${
+        className={`bg-accent rounded-full overflow-hidden ${
           isMobile ? "h-2" : "h-3"
         }`}
       >
         <div
-          className="h-full rounded-full bg-linear-to-r from-primary to-primary/80 transition-all duration-1000 ease-out"
+          className="h-full rounded-full bg-secondary transition-all duration-1000 ease-out"
           style={{
             width: `${animatedPercentage}%`,
             transitionDelay: prefersReducedMotion ? "0ms" : `${index * 150}ms`,
@@ -116,8 +112,8 @@ export function Skills() {
   return (
     <section ref={sectionRef} className="py-16 scroll-mt-24" id="skills">
       <div className="text-center mb-12">
-        <h2 className="text-responsive-xl font-bold mb-4">{t("heading")}</h2>
-        <p className="text-gray-400 max-w-2xl mx-auto text-responsive-base leading-relaxed px-4">
+        <h2 className="text-responsive-xl  mb-4">{t("heading")}</h2>
+        <p className="text-primary max-w-2xl mx-auto text-responsive-base leading-relaxed px-4">
           {t("description")}
         </p>
       </div>

@@ -146,14 +146,22 @@ const EditProjectForm = ({ data }: { data: ProjectTypes }) => {
       <div className="w-full flex flex-row justify-between items-center border-b pb-2">
         <h2 className="text-center text-lg">Adicionar Projeto</h2>
         <ButtonGroup>
-          <Button size="icon" asChild>
+          <Button
+            size="icon"
+            asChild
+            className="bg-accent text-primary hover:bg-secondary"
+          >
             <Link href="/admin/projects">
               <ArrowLeftFromLineIcon className="w-4 h-4" />
             </Link>
           </Button>
 
           <ButtonGroupSeparator />
-          <Button size="default" asChild>
+          <Button
+            size="default"
+            asChild
+            className="bg-accent text-primary hover:bg-secondary"
+          >
             <Link href={`/projects/${data.slug}`}>
               <ExternalLink className="w-4 h-4" /> Ver projeto
             </Link>
@@ -167,7 +175,7 @@ const EditProjectForm = ({ data }: { data: ProjectTypes }) => {
           className="space-y-8 mt-4"
         >
           {/* Projeto */}
-          <div className="border-dashed border-2 p-4 rounded-md space-y-6">
+          <div className="space-y-6">
             <h2>Dados Básicos do Projeto</h2>
             <Separator />
 
@@ -543,14 +551,15 @@ const EditProjectForm = ({ data }: { data: ProjectTypes }) => {
           <div className="flex justify-between gap-2">
             <Button
               type="submit"
-              className="w-full"
+              className="w-full bg-highlight text-background"
               disabled={mutation.isPending}
             >
-              {mutation.isPending ? <Spinner /> : "Salvar Projeto"}
+              {mutation.isPending ? <Spinner /> : "ATUALIZAR O PROJETO"}
             </Button>
             <Button
               type="button"
               variant="destructive"
+              className="bg-accent"
               onClick={handleDelete}
               disabled={deleteMutation.isPending}
             >
@@ -558,7 +567,7 @@ const EditProjectForm = ({ data }: { data: ProjectTypes }) => {
                 <Spinner />
               ) : (
                 <>
-                  <Trash className="w-4 h-4" /> Apagar
+                  <Trash className="w-4 h-4" />
                 </>
               )}
             </Button>

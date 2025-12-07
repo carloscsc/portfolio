@@ -30,7 +30,7 @@ const ProjectsList = () => {
       <div className="w-full flex flex-row justify-between items-center border-b pb-4">
         <h2 className="text-center text-lg">Projetos</h2>
 
-        <Button size="icon" asChild>
+        <Button size="icon" asChild variant="outline">
           <Link href="/admin/projects/cadastrar">
             <Plus className="w-4 h-4" />
           </Link>
@@ -52,7 +52,7 @@ const ProjectsList = () => {
                 // >
                 //   <h2>{p.title}</h2>
                 // </Link>
-                <Item variant="muted" asChild key={p._id}>
+                <Item variant="outline" className="rounded" asChild key={p._id}>
                   <Link
                     href={`projects/${p.slug}/edit`}
                     title={p.translations.en.title}

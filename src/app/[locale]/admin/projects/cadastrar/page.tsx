@@ -116,7 +116,11 @@ const CadastrarProjeto = () => {
       <div className="w-full flex flex-row justify-between items-center border-b pb-4">
         <h2 className="text-center text-lg">Add a Project</h2>
 
-        <Button size="icon" asChild>
+        <Button
+          size="icon"
+          asChild
+          className="bg-accent hover:bg-secondary text-primary"
+        >
           <Link href="/admin/projects">
             <ArrowLeftFromLineIcon className="w-4 h-4" />
           </Link>
@@ -129,7 +133,7 @@ const CadastrarProjeto = () => {
           className="space-y-8 mt-4"
         >
           {/* Projeto */}
-          <div className="border-dashed border-2 p-4 rounded-md space-y-6">
+          <div className="space-y-6">
             <h2>Basic Infos about the Project</h2>
             <Separator />
 
@@ -477,7 +481,7 @@ const CadastrarProjeto = () => {
 
           <Button
             type="submit"
-            className="w-full"
+            className="w-full bg-accent text-primary hover:bg-secondary"
             disabled={mutation.isPending}
           >
             {mutation.isPending ? <Spinner /> : "Salvar Projeto"}

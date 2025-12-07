@@ -29,16 +29,16 @@ export function ProjectCard(data: ProjectTypes) {
   const translation = data.translations[locale];
 
   return (
-    <CardWrapper className="overflow-hidden group h-full flex flex-col hover:border-primary/40 transition-all duration-300">
+    <CardWrapper className="bg-accent overflow-hidden group h-full flex flex-col hover:border-primary transition-all duration-300">
       {/* Enhanced image container with loading states and link to details */}
       <Link
         href={`/projects/${data.slug}`}
         aria-label={t("card.viewDetailsOf", { title: translation.title })}
         className="block group/image"
       >
-        <div className="aspect-4/3 relative   mb-4 bg-muted/20 rounded-lg overflow-hidden">
+        <div className="aspect-4/3 relative   mb-4 bg-muted/20 rounded overflow-hidden">
           {imageLoading && (
-            <div className="absolute inset-0 flex items-center justify-center bg-muted/10 animate-pulse">
+            <div className="absolute inset-0 flex items-center justify-center animate-pulse">
               <ImageIcon className="h-8 w-8 text-muted-foreground/50" />
             </div>
           )}
@@ -76,12 +76,12 @@ export function ProjectCard(data: ProjectTypes) {
           <Link
             href={`/projects/${data.slug}`}
             aria-label={t("card.viewDetailsOf", { title: translation.title })}
-            className="hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/40"
+            className="hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary text-primary"
           >
             {translation.title}
           </Link>
         </h3>
-        <p className="text-gray-400 text-sm mb-4 grow line-clamp-3 leading-relaxed">
+        <p className="text-secondary text-sm mb-4 grow line-clamp-3 leading-relaxed">
           {translation.description}
         </p>
 
@@ -91,11 +91,11 @@ export function ProjectCard(data: ProjectTypes) {
             variant="outline"
             size={isMobile ? "sm" : "sm"}
             asChild
-            className="text-primary border-primary  hover:text-white bg-transparent touch-target-small w-full"
+            className="text-background border-border  hover:bg-secondary bg-highlight touch-target-small w-full"
           >
             <Link
               href={`/projects/${data.slug}`}
-              className="flex items-center justify-center gap-2"
+              className="flex items-center justify-center gap-2 hover:text-background"
             >
               <ExternalLink size={14} />
               <span>{t("card.viewDetails")}</span>

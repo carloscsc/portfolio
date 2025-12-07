@@ -7,6 +7,7 @@ import { Menu, X } from "lucide-react";
 import { Button } from "./ui/button";
 import { useTranslations } from "next-intl";
 import { LanguageSwitcher } from "./language-switcher";
+import { ModeToggle } from "./ui/custom/theme-toggle";
 
 export function Navbar() {
   const pathname = usePathname();
@@ -86,18 +87,18 @@ export function Navbar() {
   const navLinkClasses = (id: string) =>
     [
       "relative transition-colors duration-200",
-      isHome && active === id ? "text-primary" : "text-white",
-      "after:absolute after:left-0 after:-bottom-1 after:h-[2px] after:bg-primary after:transition-all after:duration-300",
+      "text-primary",
+      "after:absolute after:left-0 after:-bottom-1 after:h-[1px] after:bg-secondary after:transition-all after:duration-300",
       isHome && active === id ? "after:w-full" : "after:w-0 hover:after:w-full",
     ].join(" ");
 
   return (
-    <nav className="fixed top-0 left-0 right-0 z-50 bg-black/95 backdrop-blur supports-backdrop-filter:bg-black/60">
+    <nav className="fixed top-0 left-0 right-0 z-50 bg-accent">
       <div className="container mx-auto px-4">
         <div className="flex items-center justify-between h-16">
           <Link
             href="/"
-            className="shrink-0 text-2xl font-bold font-mono"
+            className="shrink-0 text-2xl font-mono text-primary"
             aria-label="Inicio"
           >
             Carlos S. Cantanzaro
@@ -137,16 +138,20 @@ export function Navbar() {
               {t("skills")}
             </Link>
 
-            <Button asChild>
+            <Button
+              asChild
+              className="rounded bg-highlight text-background hover:bg-secondary"
+            >
               <a href={getNavLinkHref("contact")}>{t("contact")}</a>
             </Button>
+            <ModeToggle />
           </div>
 
           {/* Mobile Navigation */}
           <div className="lg:hidden">
             <button
               onClick={() => setIsOpen(!isOpen)}
-              className="text-white p-2"
+              className="text-primary p-2"
               aria-label="Toggle menu"
             >
               {isOpen ? <X size={24} /> : <Menu size={24} />}
@@ -157,7 +162,7 @@ export function Navbar() {
         {/* Mobile Menu */}
         {isOpen && (
           <div className="lg:hidden">
-            <div className="flex flex-col space-y-4 px-2 pt-2 pb-4">
+            <div className="flex flex-col space-y-4 px-2 pt-2 pb-4 bg-accent">
               <LanguageSwitcher variant="mobile" className="mb-2" />
 
               <Link
@@ -192,12 +197,16 @@ export function Navbar() {
               </Link>
 
               <Button
-                className="w-full touch-target"
+                className="w-full touch-target rounded bg-highlight text-background hover:bg-secondary"
                 asChild
                 onClick={() => setIsOpen(false)}
               >
                 <a href={getNavLinkHref("contact")}>{t("contact")}</a>
               </Button>
+
+              <div className="mx-auto">
+                <ModeToggle />
+              </div>
             </div>
           </div>
         )}

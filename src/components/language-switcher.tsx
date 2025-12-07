@@ -38,23 +38,22 @@ export function LanguageSwitcher({
       className={cn(
         "gap-0.5",
         variant === "desktop" && "h-9",
-        variant === "mobile" && "w-full gap-2 h-11",
+        variant === "mobile" && "w-full h-11",
+        "ring-1 ring-border",
         className
       )}
       aria-label={t("languageSwitcher")}
       disabled={isPending}
-      variant="outline"
+      variant="default"
       size={variant === "desktop" ? "sm" : "default"}
     >
       <ToggleGroupItem
         value="en"
         aria-label={t("switchToEnglish")}
         className={cn(
-          "transition-colors duration-200",
-          variant === "desktop" &&
-            "w-10 h-9 p-0 hover:bg-white/10 data-[state=on]:bg-white/20 data-[state=on]:text-primary",
-          variant === "mobile" &&
-            "flex-1 h-11 justify-start px-4 hover:bg-white/10 data-[state=on]:bg-white/20 data-[state=on]:text-primary"
+          "transition-colors duration-200 hover:bg-toggle data-[state=on]:bg-toggle data-[state=on]:text-primary",
+          variant === "desktop" && "w-10 h-9 p-0 ",
+          variant === "mobile" && "flex-1 h-11 justify-start px-4 "
         )}
       >
         <USFlag className="w-5 h-5" />
@@ -64,11 +63,9 @@ export function LanguageSwitcher({
         value="br"
         aria-label={t("switchToPortuguese")}
         className={cn(
-          "transition-colors duration-200",
-          variant === "desktop" &&
-            "w-10 h-9 p-0 hover:bg-white/10 data-[state=on]:bg-white/20 data-[state=on]:text-primary",
-          variant === "mobile" &&
-            "flex-1 h-11 justify-start px-4 hover:bg-white/10 data-[state=on]:bg-white/20 data-[state=on]:text-primary"
+          "transition-colors duration-200 hover:bg-toggle data-[state=on]:bg-toggle data-[state=on]:text-primary",
+          variant === "desktop" && "w-10 h-9 p-0 ",
+          variant === "mobile" && "flex-1 h-11 justify-start px-4 "
         )}
       >
         <BRFlag className="w-5 h-5" />

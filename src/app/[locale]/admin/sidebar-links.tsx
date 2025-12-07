@@ -24,9 +24,9 @@ const MenuLink = ({
       <Link
         href={href}
         className={cn(
-          "p-2 mb-2 w-full rounded hover:bg-black flex justify-start items-center gap-2",
+          "p-2 mb-2 w-full rounded text-primary hover:bg-secondary flex justify-start items-center gap-2",
           "[&>svg]:w-4 [&>svg]:h-4",
-          isActive ? "bg-black" : ""
+          isActive ? "bg-primary text-background" : ""
         )}
       >
         {icon} {text}
@@ -37,7 +37,7 @@ const MenuLink = ({
 
 const sidebarLinks = () => {
   return (
-    <nav className="bg-[#2b2b2b] w-full md:w-[200px]  md:min-h-screen border rounded-sm mb-5 md:mb-0">
+    <nav className="bg-accent w-full md:w-[200px]  md:min-h-screen rounded mb-5 md:mb-0">
       <ul className="rounded-md overflow-hidden p-2">
         <MenuLink href="/admin" icon={<PenSquareIcon />} text="Perfil" />
         <MenuLink

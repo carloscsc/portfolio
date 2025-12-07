@@ -46,25 +46,39 @@ const CadastrarProjeto = () => {
   const form = useForm<StoreProjectTypes>({
     resolver: zodResolver(StoreProjectSchema),
     defaultValues: {
-      title: "",
-      description: "",
       client_name: "",
-      client_description: "",
       client_location: "",
       client_link: "",
-      duration: "",
       year: String(new Date().getFullYear()),
       demo_link: "",
       repo_link: "",
       cover: undefined,
       client_logo: undefined,
-      about_project: "",
       technologies: [],
-      functionalities: [],
       gallery: [],
-      challenges: [],
-      results: [],
       status: "ativo",
+      translations: {
+        en: {
+          title: "",
+          description: "",
+          client_description: "",
+          about_project: "",
+          functionalities: [],
+          challenges: [],
+          results: [],
+          duration: "",
+        },
+        br: {
+          title: "",
+          description: "",
+          client_description: "",
+          about_project: "",
+          functionalities: [],
+          challenges: [],
+          results: [],
+          duration: "",
+        },
+      },
     },
   });
 
@@ -100,7 +114,7 @@ const CadastrarProjeto = () => {
   return (
     <>
       <div className="w-full flex flex-row justify-between items-center border-b pb-4">
-        <h2 className="text-center text-lg">Adicionar Projeto</h2>
+        <h2 className="text-center text-lg">Add a Project</h2>
 
         <Button size="icon" asChild>
           <Link href="/admin/projects">
@@ -116,22 +130,29 @@ const CadastrarProjeto = () => {
         >
           {/* Projeto */}
           <div className="border-dashed border-2 p-4 rounded-md space-y-6">
-            <h2>Dados Básicos do Projeto</h2>
+            <h2>Basic Infos about the Project</h2>
             <Separator />
+
             <TextInput
               control={form.control}
-              name="title"
-              label="Título do Projeto"
+              name="translations.en.title"
+              label="Título do Projeto (en)"
+              placeholder="Digite o título..."
+            />
+            <TextInput
+              control={form.control}
+              name="translations.br.title"
+              label="Título do Projeto (br)"
               placeholder="Digite o título..."
             />
 
             {/* Description */}
             <FormField
               control={form.control}
-              name="description"
+              name="translations.en.description"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Descrição curta do Projeto</FormLabel>
+                  <FormLabel>Descrição curta do Projeto (en)</FormLabel>
                   <FormControl>
                     <Textarea placeholder="Digite a descrição..." {...field} />
                   </FormControl>
@@ -142,10 +163,42 @@ const CadastrarProjeto = () => {
 
             <FormField
               control={form.control}
-              name="about_project"
+              name="translations.br.description"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Descrição completa do Projeto</FormLabel>
+                  <FormLabel>Descrição curta do Projeto (br)</FormLabel>
+                  <FormControl>
+                    <Textarea placeholder="Digite a descrição..." {...field} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+
+            <FormField
+              control={form.control}
+              name="translations.en.about_project"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Descrição completa do Projeto (en)</FormLabel>
+                  <FormControl>
+                    <RichTextEditor
+                      placeholder="Digite a descrição completa do projeto..."
+                      value={field.value}
+                      onChange={field.onChange}
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+
+            <FormField
+              control={form.control}
+              name="translations.br.about_project"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Descrição completa do Projeto (br)</FormLabel>
                   <FormControl>
                     <RichTextEditor
                       placeholder="Digite a descrição completa do projeto..."
@@ -163,8 +216,14 @@ const CadastrarProjeto = () => {
             {/* Duration */}
             <TextInput
               control={form.control}
-              name="duration"
-              label="Duração do Projeto"
+              name="translations.en.duration"
+              label="Duração do Projeto (en)"
+              placeholder="Informe a duração..."
+            />
+            <TextInput
+              control={form.control}
+              name="translations.br.duration"
+              label="Duração do Projeto (br)"
               placeholder="Informe a duração..."
             />
 
@@ -213,8 +272,16 @@ const CadastrarProjeto = () => {
 
             <RepeatableTextField
               control={form.control}
-              name="functionalities"
-              label="Funcionalidades"
+              name="translations.en.functionalities"
+              label="Funcionalidades (en)"
+              placeholder="Ex: Login, Cadastro, Painel de Controle"
+              minItems={1}
+              maxItems={15}
+            />
+            <RepeatableTextField
+              control={form.control}
+              name="translations.br.functionalities"
+              label="Funcionalidades (br)"
               placeholder="Ex: Login, Cadastro, Painel de Controle"
               minItems={1}
               maxItems={15}
@@ -222,8 +289,8 @@ const CadastrarProjeto = () => {
 
             <RepeatableTextField
               control={form.control}
-              name="challenges"
-              label="Desafios"
+              name="translations.en.challenges"
+              label="Desafios (en)"
               placeholder="Ex: Desafio 1, Desafio 2"
               minItems={1}
               maxItems={15}
@@ -231,8 +298,26 @@ const CadastrarProjeto = () => {
 
             <RepeatableTextField
               control={form.control}
-              name="results"
-              label="Resultados"
+              name="translations.br.challenges"
+              label="Desafios (br)"
+              placeholder="Ex: Desafio 1, Desafio 2"
+              minItems={1}
+              maxItems={15}
+            />
+
+            <RepeatableTextField
+              control={form.control}
+              name="translations.en.results"
+              label="Resultados (en)"
+              placeholder="Ex: Resultado 1, Resultado 2"
+              minItems={1}
+              maxItems={15}
+            />
+
+            <RepeatableTextField
+              control={form.control}
+              name="translations.br.results"
+              label="Resultados (br)"
               placeholder="Ex: Resultado 1, Resultado 2"
               minItems={1}
               maxItems={15}
@@ -252,10 +337,27 @@ const CadastrarProjeto = () => {
 
             <FormField
               control={form.control}
-              name="client_description"
+              name="translations.en.client_description"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Descrição do cliente</FormLabel>
+                  <FormLabel>Descrição do cliente (en)</FormLabel>
+                  <FormControl>
+                    <Textarea
+                      placeholder="Digite a descrição do cliente..."
+                      {...field}
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+
+            <FormField
+              control={form.control}
+              name="translations.br.client_description"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Descrição do cliente (br)</FormLabel>
                   <FormControl>
                     <Textarea
                       placeholder="Digite a descrição do cliente..."
@@ -283,7 +385,7 @@ const CadastrarProjeto = () => {
                 <FormItem>
                   <FormLabel>logo do cliente</FormLabel>
                   {client_logo && (
-                    <div className="relative aspect-[1/1] w-full overflow-hidden rounded-xl bg-card mb-8">
+                    <div className="relative aspect-square w-full overflow-hidden rounded-xl bg-card mb-8">
                       <Image
                         src={URL.createObjectURL(client_logo)}
                         alt=""
@@ -314,7 +416,7 @@ const CadastrarProjeto = () => {
                 <FormItem>
                   <FormLabel>Imagem de Capa</FormLabel>
                   {cover && (
-                    <div className="relative aspect-[4/3] w-full overflow-hidden rounded-xl bg-card mb-8">
+                    <div className="relative aspect-4/3 w-full overflow-hidden rounded-xl bg-card mb-8">
                       <Image
                         src={cover && URL.createObjectURL(cover)}
                         alt=""

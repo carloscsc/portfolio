@@ -54,7 +54,7 @@ export async function store(
       cover: uploadedCover,
       gallery: uploadedGallery,
       client_logo: uploadedClientLogo,
-      slug: clearFileName(data.title),
+      slug: clearFileName(data.translations.en.title),
     };
 
     await connect();

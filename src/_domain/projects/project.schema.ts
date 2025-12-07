@@ -1,19 +1,34 @@
 import { z } from "zod";
 import { fileSchema } from "../shared/types";
 
-export const ProjectSchema = z.object({
-  _id: z.string(),
-  slug: z.string(),
+export const TranslationContentProjectSchema = z.object({
   title: z.string().min(1, "O título é obrigatório"),
   description: z
     .string()
     .min(10, "A descrição deve ter pelo menos 10 caracteres"),
-  client_name: z.string().min(1, "O nome do cliente é obrigatório"),
   client_description: z.string().optional(),
+  about_project: z.string().min(30, "A descrição do projeto é obrigatória"),
+  functionalities: z.array(z.string()).optional(),
+  challenges: z.array(z.string()).optional(),
+  results: z.array(z.string()).optional(),
+  duration: z.string().optional(),
+});
+export type TranslationContentProjectType = z.infer<
+  typeof TranslationContentProjectSchema
+>;
+
+export const TranslationSchema = z.object({
+  en: TranslationContentProjectSchema,
+  br: TranslationContentProjectSchema,
+});
+
+export const ProjectSchema = z.object({
+  _id: z.string(),
+  slug: z.string(),
+  client_name: z.string().min(1, "O nome do cliente é obrigatório"),
   client_location: z.string(),
   client_logo: z.string(),
   client_link: z.string().optional(),
-  duration: z.string().optional(),
   year: z
     .string()
     .optional()
@@ -27,13 +42,10 @@ export const ProjectSchema = z.object({
   demo_link: z.string().optional(),
   repo_link: z.string().optional(),
   cover: z.string(),
-  about_project: z.string().min(30, "A descrição do projeto é obrigatória"),
   technologies: z.array(z.string()).optional(),
-  functionalities: z.array(z.string()).optional(),
   gallery: z.array(z.string()).optional(),
-  challenges: z.array(z.string()).optional(),
-  results: z.array(z.string()).optional(),
   status: z.enum(["ativo", "inativo"]),
+  translations: TranslationSchema,
   createdAt: z.string(),
   updatedAt: z.string(),
 });

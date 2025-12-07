@@ -1,27 +1,37 @@
 import mongoose, { Model, Schema } from "mongoose";
-import { ProjectTypes } from "./project.schema";
+import { ProjectTypes, TranslationContentProjectType } from "./project.schema";
+
+const TranslationContentSchema = new Schema<TranslationContentProjectType>(
+  {
+    title: { type: String, required: true },
+    description: { type: String, required: true },
+    client_description: { type: String },
+    about_project: { type: String, required: true },
+    functionalities: { type: [String] },
+    challenges: { type: [String] },
+    results: { type: [String] },
+    duration: { type: String },
+  },
+  { _id: false }
+);
 
 const ProjectMongooseSchema = new Schema<ProjectTypes>(
   {
-    title: { type: String, required: true },
     slug: { type: String, required: true, unique: true },
-    description: { type: String, required: true },
     client_name: { type: String, required: true },
-    client_description: { type: String },
     client_location: { type: String },
     client_logo: { type: String, required: true },
     client_link: { type: String },
-    duration: { type: String },
     year: { type: String },
     demo_link: { type: String },
     repo_link: { type: String },
     cover: { type: String, required: true },
-    about_project: { type: String, required: true },
     technologies: { type: [String] },
-    functionalities: { type: [String] },
     gallery: { type: [String] },
-    challenges: { type: [String] },
-    results: { type: [String] },
+    translations: {
+      en: { type: TranslationContentSchema, require: true },
+      br: { type: TranslationContentSchema, require: true },
+    },
     status: { type: String, enum: ["ativo", "inativo"], default: "ativo" },
   },
   {

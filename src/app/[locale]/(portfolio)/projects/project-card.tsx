@@ -2,20 +2,20 @@
 import Image from "next/image";
 import { Link } from "@/i18n/navigation";
 import { useState } from "react";
-import { CardWrapper } from "./ui/card-wrapper";
-import { Button } from "./ui/button";
+import { CardWrapper } from "../../../../components/ui/card-wrapper";
+import { Button } from "../../../../components/ui/button";
 import { ImageIcon, ExternalLink } from "lucide-react";
-import { useResponsive } from "@/hooks/use-responsive";
-import { useQuery } from "@tanstack/react-query";
-import { ProjectTypes } from "@/_domain/projects/project.schema";
 import { getBlobURL } from "@/lib/utils";
-import { useTranslations } from "next-intl";
+import { ProjectTypes } from "@/_domain/projects/project.schema";
+import { useResponsive } from "@/hooks/use-responsive";
+import { useLocale, useTranslations } from "next-intl";
 
-function ProjectCard(data: ProjectTypes) {
+export function ProjectCard(data: ProjectTypes) {
   const [imageLoading, setImageLoading] = useState(true);
   const [imageError, setImageError] = useState(false);
   const { isMobile } = useResponsive();
   const t = useTranslations("ProjectsSection");
+  const locale = useLocale() as "en" | "br";
 
   const handleImageLoad = () => {
     setImageLoading(false);
@@ -26,12 +26,14 @@ function ProjectCard(data: ProjectTypes) {
     setImageError(true);
   };
 
+  const translation = data.translations[locale];
+
   return (
     <CardWrapper className="overflow-hidden group h-full flex flex-col hover:border-primary/40 transition-all duration-300">
       {/* Enhanced image container with loading states and link to details */}
       <Link
         href={`/projects/${data.slug}`}
-        aria-label={t("card.viewDetailsOf", { title: data.title })}
+        aria-label={t("card.viewDetailsOf", { title: translation.title })}
         className="block group/image"
       >
         <div className="aspect-4/3 relative   mb-4 bg-muted/20 rounded-lg overflow-hidden">
@@ -53,7 +55,7 @@ function ProjectCard(data: ProjectTypes) {
           ) : (
             <Image
               src={getBlobURL(data.cover) || "/placeholder.svg"}
-              alt={data.title}
+              alt={translation.title}
               fill
               sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
               className={`object-cover transition-all duration-300 ${
@@ -73,14 +75,14 @@ function ProjectCard(data: ProjectTypes) {
         <h3 className="text-lg font-semibold group-hover:text-primary transition-colors mb-2 line-clamp-2">
           <Link
             href={`/projects/${data.slug}`}
-            aria-label={t("card.viewDetailsOf", { title: data.title })}
+            aria-label={t("card.viewDetailsOf", { title: translation.title })}
             className="hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/40"
           >
-            {data.title}
+            {translation.title}
           </Link>
         </h3>
         <p className="text-gray-400 text-sm mb-4 grow line-clamp-3 leading-relaxed">
-          {data.description}
+          {translation.description}
         </p>
 
         {/* Enhanced button layout for mobile */}
@@ -102,49 +104,5 @@ function ProjectCard(data: ProjectTypes) {
         </div>
       </div>
     </CardWrapper>
-  );
-}
-
-export function Projects() {
-  const { isMobile } = useResponsive();
-  const t = useTranslations("ProjectsSection");
-
-  const { data } = useQuery({
-    queryKey: ["projetos"],
-    queryFn: async () => {
-      const request = await fetch(
-        `${process.env.NEXT_PUBLIC_BASE_URL}/api/project`
-      );
-      const data = await request.json();
-      return data as ProjectTypes[];
-    },
-  });
-
-  return (
-    <section className="py-16 scroll-mt-24" id="works">
-      <div className="text-center mb-12">
-        <h2 className="text-responsive-xl font-bold mb-4">
-          {t("heading")}
-        </h2>
-      </div>
-
-      {/* Enhanced responsive grid with better spacing */}
-      <div className="grid-responsive-projects gap-4 sm:gap-6 px-4 sm:px-0">
-        {data &&
-          data.map((project, index) => (
-            <div
-              key={project.slug}
-              className={`${
-                isMobile && index >= 3 ? "opacity-0 animate-fade-in" : ""
-              }`}
-              style={{
-                animationDelay: isMobile ? `${index * 100}ms` : "0ms",
-              }}
-            >
-              <ProjectCard {...project} />
-            </div>
-          ))}
-      </div>
-    </section>
   );
 }

@@ -53,9 +53,12 @@ const ProjectsList = () => {
                 //   <h2>{p.title}</h2>
                 // </Link>
                 <Item variant="muted" asChild key={p._id}>
-                  <Link href={`projects/${p.slug}/edit`} title={p.title}>
+                  <Link
+                    href={`projects/${p.slug}/edit`}
+                    title={p.translations.en.title}
+                  >
                     <ItemContent>
-                      <ItemTitle>{p.title}</ItemTitle>
+                      <ItemTitle>{p.translations.en.title}</ItemTitle>
                     </ItemContent>
                     <ItemActions>
                       <ChevronRightIcon className="size-4" />

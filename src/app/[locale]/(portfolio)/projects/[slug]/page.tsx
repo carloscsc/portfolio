@@ -19,7 +19,7 @@ import WhatsappIcon from "@/components/whatsapp.icon";
 
 import parse from "html-react-parser";
 import { ProjectSchema } from "@/_domain/projects/project.schema";
-import { getTranslations } from "next-intl/server";
+import { getLocale, getTranslations } from "next-intl/server";
 
 type Props = {
   params: Promise<{ slug: string }>;
@@ -27,6 +27,8 @@ type Props = {
 
 export default async function ProjectPage({ params }: Props) {
   const { slug } = await params;
+  const t = await getTranslations("ProjectDetailPage");
+  const locale = (await getLocale()) as "en" | "br";
 
   const request = await fetch(
     `${process.env.NEXT_PUBLIC_BASE_URL}/api/project/${slug}`
@@ -38,7 +40,7 @@ export default async function ProjectPage({ params }: Props) {
 
   const data = await request.json();
   const p = ProjectSchema.parse(data);
-  const t = await getTranslations("ProjectDetailPage");
+  const translate = p.translations[locale];
 
   return (
     <main className="min-h-screen text-white">
@@ -54,8 +56,12 @@ export default async function ProjectPage({ params }: Props) {
 
         {/* Header do Projeto */}
         <div className="mb-8">
-          <h1 className="text-3xl md:text-5xl font-bold mb-4">{p.title}</h1>
-          <p className="text-xl text-muted-foreground mb-6">{p.description}</p>
+          <h1 className="text-3xl md:text-5xl font-bold mb-4">
+            {translate.title}
+          </h1>
+          <p className="text-xl text-muted-foreground mb-6">
+            {translate.description}
+          </p>
 
           <div className="flex flex-wrap gap-4 mb-6">
             {p.demo_link && (
@@ -89,7 +95,7 @@ export default async function ProjectPage({ params }: Props) {
         <div className="relative aspect-4/3 w-full overflow-hidden rounded-xl bg-card mb-8">
           <Image
             src={getBlobURL(p.cover) || "/placeholder.svg"}
-            alt={p.title}
+            alt={translate.title}
             fill
             className="object-cover"
             sizes="(min-width: 768px) 768px, 100vw"
@@ -100,9 +106,11 @@ export default async function ProjectPage({ params }: Props) {
         {/* Informações do Projeto */}
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
           <div className="lg:col-span-2">
-            <h2 className="text-2xl font-bold mb-4">{t("sections.aboutProject")}</h2>
+            <h2 className="text-2xl font-bold mb-4">
+              {t("sections.aboutProject")}
+            </h2>
             <div className="prose prose-invert max-w-none space-y-4">
-              {parse(p.about_project)}
+              {parse(translate.about_project)}
             </div>
           </div>
 
@@ -125,9 +133,9 @@ export default async function ProjectPage({ params }: Props) {
                   </div>
                   <p>{p.client_name}</p>
                 </div>
-                {p.client_description && (
+                {translate.client_description && (
                   <p className="text-sm text-muted-foreground">
-                    {p.client_description}
+                    {translate.client_description}
                   </p>
                 )}
                 {p.client_location && (
@@ -153,22 +161,28 @@ export default async function ProjectPage({ params }: Props) {
             </div>
 
             {/* Detalhes do Projeto */}
-            {(p.duration || Number(p.year) > 0) && (
+            {(translate.duration || Number(p.year) > 0) && (
               <div className="bg-card rounded-lg p-6">
-                <h3 className="text-lg font-semibold mb-4">{t("sections.details")}</h3>
+                <h3 className="text-lg font-semibold mb-4">
+                  {t("sections.details")}
+                </h3>
 
                 <div className="space-y-3">
-                  {p.duration && (
+                  {translate.duration && (
                     <div className="flex items-center gap-2 text-sm">
                       <Clock className="h-4 w-4 text-primary" />
-                      <span className="text-muted-foreground">{t("labels.duration")}</span>
-                      <span>{p.duration}</span>
+                      <span className="text-muted-foreground">
+                        {t("labels.duration")}
+                      </span>
+                      <span>{translate.duration}</span>
                     </div>
                   )}
                   {p.year && (
                     <div className="flex items-center gap-2 text-sm">
                       <Calendar className="h-4 w-4 text-primary" />
-                      <span className="text-muted-foreground">{t("labels.year")}</span>
+                      <span className="text-muted-foreground">
+                        {t("labels.year")}
+                      </span>
                       <span>{p.year}</span>
                     </div>
                   )}
@@ -181,7 +195,9 @@ export default async function ProjectPage({ params }: Props) {
         {/* Tecnologias */}
         {p.technologies && p.technologies.length > 0 && (
           <div className="mt-8">
-            <h2 className="text-2xl font-bold mb-4">{t("sections.technologies")}</h2>
+            <h2 className="text-2xl font-bold mb-4">
+              {t("sections.technologies")}
+            </h2>
             <div className="flex flex-wrap gap-2">
               {p.technologies.map((tech) => (
                 <Badge
@@ -197,13 +213,13 @@ export default async function ProjectPage({ params }: Props) {
         )}
 
         {/* Funcionalidades */}
-        {p.functionalities && p.functionalities.length > 0 && (
+        {translate.functionalities && translate.functionalities.length > 0 && (
           <div className="mt-8">
             <h2 className="text-2xl font-bold mb-4">
               {t("sections.features")}
             </h2>
             <ul className="grid grid-cols-1 md:grid-cols-2 gap-3">
-              {p.functionalities.map((feature, i) => (
+              {translate.functionalities.map((feature, i) => (
                 <li key={i} className="flex items-start gap-3">
                   <div className="w-2 h-2 bg-primary rounded-full mt-2 shrink-0" />
                   <span className="text-muted-foreground">{feature}</span>
@@ -225,7 +241,7 @@ export default async function ProjectPage({ params }: Props) {
                 >
                   <Image
                     src={getBlobURL(image) || "/placeholder.svg"}
-                    alt={`${p.title} - ${t("gallery.imageAlt", { index: i + 1 })}`}
+                    alt={`${translate.title} - ${t("gallery.imageAlt", { index: i + 1 })}`}
                     fill
                     className="object-cover hover:scale-110 transition-transform duration-300"
                     sizes="(min-width: 1024px) 300px, (min-width: 768px) 350px, 100vw"
@@ -237,11 +253,13 @@ export default async function ProjectPage({ params }: Props) {
         )}
 
         {/* Desafios */}
-        {p.challenges && p.challenges.length > 0 && (
+        {translate.challenges && translate.challenges.length > 0 && (
           <div className="mt-8">
-            <h2 className="text-2xl font-bold mb-4">{t("sections.challenges")}</h2>
+            <h2 className="text-2xl font-bold mb-4">
+              {t("sections.challenges")}
+            </h2>
             <ul className="space-y-3">
-              {p.challenges.map((challenge, i) => (
+              {translate.challenges.map((challenge, i) => (
                 <li key={i} className="flex items-start gap-3">
                   <div className="w-2 h-2 bg-yellow-500 rounded-full mt-2 shrink-0" />
                   <span className="text-muted-foreground">{challenge}</span>
@@ -252,11 +270,11 @@ export default async function ProjectPage({ params }: Props) {
         )}
 
         {/* Resultados */}
-        {p.results && p.results.length > 0 && (
+        {translate.results && translate.results.length > 0 && (
           <div className="mt-8">
             <h2 className="text-2xl font-bold mb-4">{t("sections.results")}</h2>
             <ul className="space-y-3">
-              {p.results.map((result, i) => (
+              {translate.results.map((result, i) => (
                 <li key={i} className="flex items-start gap-3">
                   <div className="w-2 h-2 bg-green-500 rounded-full mt-2 shrink-0" />
                   <span className="text-muted-foreground">{result}</span>
@@ -268,12 +286,8 @@ export default async function ProjectPage({ params }: Props) {
 
         {/* CTA Final */}
         <div className="bg-card rounded-lg p-8 text-center mt-8">
-          <h3 className="text-xl font-bold mb-4">
-            {t("cta.heading")}
-          </h3>
-          <p className="text-muted-foreground mb-6">
-            {t("cta.description")}
-          </p>
+          <h3 className="text-xl font-bold mb-4">{t("cta.heading")}</h3>
+          <p className="text-muted-foreground mb-6">{t("cta.description")}</p>
           <Button
             size="lg"
             className="bg-[#27d366] hover:bg-[#28a71a]  text-white"

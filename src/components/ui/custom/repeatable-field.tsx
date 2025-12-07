@@ -15,8 +15,10 @@ import {
 import { cn } from "@/lib/utils";
 import { Plus, X } from "lucide-react";
 
-interface RepeatableStringFieldProps
-  extends Omit<React.ComponentProps<"input">, "name"> {
+interface RepeatableStringFieldProps extends Omit<
+  React.ComponentProps<"input">,
+  "name"
+> {
   name: string;
   control: Control<any>;
   label: string;
@@ -107,7 +109,9 @@ export function RepeatableTextField({
         {fields.length === 0 && (
           <div className="text-center py-8 text-muted-foreground">
             <p>Nenhum {label.toLowerCase().slice(0, -1)} adicionado</p>
-            <p className="text-sm">Clique em &quot;Adicionar&quot; para começar</p>
+            <p className="text-sm">
+              Clique em &quot;Adicionar&quot; para começar
+            </p>
           </div>
         )}
       </div>

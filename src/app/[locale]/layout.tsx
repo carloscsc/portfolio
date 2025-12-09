@@ -11,8 +11,9 @@ import "../globals.css";
 import { ThemeProvider } from "@/components/theme-provider";
 
 export const metadata: Metadata = {
-  title: "I'm Carlos S. Cantanzaro - Engenheiro de Software",
-  description: "Personal portfolio",
+  title: "I'm Carlos S. Cantanzaro - Full-Stack Developer",
+  description:
+    "I build the tools that help businesses scale fast: high-converting giveaway & promotion platforms, sharp landing pages, professional company websites, tailor-made CRMs, smart automations, seamless integrations… you name it. Whatever’s holding your growth back, I turn it into your next advantage.",
   icons: {
     icon: "/favicon.png",
   },
@@ -52,7 +53,7 @@ export default async function RootLayout({
       <body>
         <ThemeProvider
           attribute="class"
-          defaultTheme="dark"
+          defaultTheme="system"
           enableSystem
           disableTransitionOnChange
         >

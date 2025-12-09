@@ -10,7 +10,7 @@ import Contact from "@/components/contact";
 import { notFound } from "next/navigation";
 
 import parse from "html-react-parser";
-import { getBlobURL } from "@/lib/utils";
+import { getBlobURL, stripHtmlTags } from "@/lib/utils";
 import { Skills } from "@/components/skills";
 import { ProfileSchema } from "@/_domain/profile/profile.schema";
 import { getLocale, getTranslations } from "next-intl/server";
@@ -33,7 +33,7 @@ export async function generateMetadata(): Promise<Metadata> {
 
   return {
     title: `${t("greetings")} ${data?.name} | ${translate.title}`,
-    description: translate.description,
+    description: stripHtmlTags(translate.description),
 
     alternates: {
       canonical: "/",
@@ -46,7 +46,7 @@ export async function generateMetadata(): Promise<Metadata> {
     ...(ogImageUrl && {
       openGraph: {
         title: translate.title,
-        description: translate.description,
+        description: stripHtmlTags(translate.description),
         images: [
           { url: ogImageUrl, width: 1200, height: 630, alt: translate.title },
         ],
@@ -55,7 +55,7 @@ export async function generateMetadata(): Promise<Metadata> {
       twitter: {
         card: "summary_large_image",
         title: translate.title,
-        description: translate.description,
+        description: stripHtmlTags(translate.description),
         images: [ogImageUrl],
       },
     }),

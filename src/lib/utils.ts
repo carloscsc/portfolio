@@ -19,6 +19,13 @@ export function clearFileName(fileName: string): string {
 }
 
 /**
+ * remove HTML tags
+ */
+export function stripHtmlTags(html: string): string {
+  return html.replace(/<[^>]*>/g, "").trim();
+}
+
+/**
  * Validate data
  */
 export const isValidDate = (date: string): boolean => {

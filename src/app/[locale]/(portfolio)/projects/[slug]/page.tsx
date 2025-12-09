@@ -16,7 +16,7 @@ import {
   MessageSquareShare,
   Linkedin,
 } from "lucide-react";
-import { getBlobURL } from "@/lib/utils";
+import { getBlobURL, stripHtmlTags } from "@/lib/utils";
 
 import parse from "html-react-parser";
 import { getLocale, getTranslations } from "next-intl/server";
@@ -47,7 +47,7 @@ export async function generateMetadata(
 
   return {
     title: `${translate.title} | ${parentData.title?.absolute}`,
-    description: translate.description,
+    description: stripHtmlTags(translate.description),
 
     keywords: data.technologies,
 
@@ -62,7 +62,7 @@ export async function generateMetadata(
     ...(ogImageUrl && {
       openGraph: {
         title: translate.title,
-        description: translate.description,
+        description: stripHtmlTags(translate.description),
         images: [
           { url: ogImageUrl, width: 1200, height: 630, alt: translate.title },
         ],
@@ -71,7 +71,7 @@ export async function generateMetadata(
       twitter: {
         card: "summary_large_image",
         title: translate.title,
-        description: translate.description,
+        description: stripHtmlTags(translate.description),
         images: [ogImageUrl],
       },
     }),

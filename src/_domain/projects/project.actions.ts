@@ -12,6 +12,7 @@ import connect from "@/lib/db";
 import { upload } from "@/lib/r2-blob";
 import { clearFileName } from "@/lib/utils";
 import { revalidatePath } from "next/cache";
+import { cache } from "react";
 
 export async function store(
   ProjectData: StoreProjectTypes
@@ -222,3 +223,18 @@ export async function deleteProject(_id: string): Promise<ResponseType> {
     };
   }
 }
+
+// get cached projeto
+export const getAndCacheProject = cache(
+  async (slug: string): Promise<ProjectTypes | null> => {
+    const request = await fetch(
+      `${process.env.NEXT_PUBLIC_BASE_URL}/api/project/${slug}`
+    );
+
+    if (!request.ok) {
+      return null;
+    }
+
+    return await request.json();
+  }
+);

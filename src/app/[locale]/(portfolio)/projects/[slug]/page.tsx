@@ -14,33 +14,82 @@ import {
   User,
   MapPin,
   MessageSquareShare,
+  Linkedin,
 } from "lucide-react";
 import { getBlobURL } from "@/lib/utils";
 
 import parse from "html-react-parser";
-import { ProjectSchema } from "@/_domain/projects/project.schema";
 import { getLocale, getTranslations } from "next-intl/server";
+import { getAndCacheProject } from "@/_domain/projects/project.actions";
+import { Metadata, ResolvingMetadata } from "next";
 
 type Props = {
   params: Promise<{ slug: string }>;
 };
+
+export async function generateMetadata(
+  { params }: Props,
+  parent: ResolvingMetadata
+): Promise<Metadata> {
+  const parentData = await parent;
+
+  const { slug } = await params;
+  const locale = (await getLocale()) as "en" | "br";
+
+  const data = await getAndCacheProject(slug);
+
+  if (!data) {
+    notFound();
+  }
+
+  const translate = data.translations[locale];
+  const ogImageUrl = getBlobURL(data.cover);
+
+  return {
+    title: `${translate.title} | ${parentData.title?.absolute}`,
+    description: translate.description,
+
+    keywords: data.technologies,
+
+    alternates: {
+      canonical: `/projects/${slug}`,
+      languages: {
+        en: `/projects/${slug}`,
+        "pt-BR": `/br/projects/${slug}`,
+      },
+    },
+
+    ...(ogImageUrl && {
+      openGraph: {
+        title: translate.title,
+        description: translate.description,
+        images: [
+          { url: ogImageUrl, width: 1200, height: 630, alt: translate.title },
+        ],
+        locale: locale === "br" ? "pt_BR" : "en_US",
+      },
+      twitter: {
+        card: "summary_large_image",
+        title: translate.title,
+        description: translate.description,
+        images: [ogImageUrl],
+      },
+    }),
+  };
+}
 
 export default async function ProjectPage({ params }: Props) {
   const { slug } = await params;
   const t = await getTranslations("ProjectDetailPage");
   const locale = (await getLocale()) as "en" | "br";
 
-  const request = await fetch(
-    `${process.env.NEXT_PUBLIC_BASE_URL}/api/project/${slug}`
-  );
+  const data = await getAndCacheProject(slug);
 
-  if (!request.ok) {
+  if (!data) {
     notFound();
   }
 
-  const data = await request.json();
-  const p = ProjectSchema.parse(data);
-  const translate = p.translations[locale];
+  const translate = data.translations[locale];
 
   return (
     <main className="min-h-screen text-white">
@@ -62,13 +111,13 @@ export default async function ProjectPage({ params }: Props) {
           <p className="text-lg text-secondary mb-6">{translate.description}</p>
 
           <div className="flex flex-wrap gap-4 mb-6">
-            {p.demo_link && (
+            {data.demo_link && (
               <Button
                 asChild
                 className="rounded bg-highlight text-background hover:bg-secondary"
               >
                 <a
-                  href={p.demo_link}
+                  href={data.demo_link}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="flex items-center gap-2"
@@ -77,14 +126,14 @@ export default async function ProjectPage({ params }: Props) {
                 </a>
               </Button>
             )}
-            {p.repo_link && (
+            {data.repo_link && (
               <Button
                 variant="outline"
                 asChild
                 className="rounded bg-highlight text-background hover:bg-secondary"
               >
                 <a
-                  href={p.repo_link}
+                  href={data.repo_link}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="flex items-center gap-2"
@@ -99,7 +148,7 @@ export default async function ProjectPage({ params }: Props) {
         {/* Imagem Principal */}
         <div className="relative aspect-4/3 w-full overflow-hidden rounded-xl bg-card mb-8">
           <Image
-            src={getBlobURL(p.cover) || "/placeholder.svg"}
+            src={getBlobURL(data.cover) || "/placeholder.svg"}
             alt={translate.title}
             fill
             className="object-cover"
@@ -130,30 +179,30 @@ export default async function ProjectPage({ params }: Props) {
                 <div className="flex justify-start items-center gap-2">
                   <div className="relative w-8 h-8 ">
                     <Image
-                      src={getBlobURL(p.client_logo)}
-                      alt={p.client_name}
+                      src={getBlobURL(data.client_logo)}
+                      alt={data.client_name}
                       fill
                       className="object-fill object-center rounded"
                     ></Image>
                   </div>
-                  <p className="text-primary">{p.client_name}</p>
+                  <p className="text-primary">{data.client_name}</p>
                 </div>
                 {translate.client_description && (
                   <p className="text-sm text-muted-foreground">
                     {translate.client_description}
                   </p>
                 )}
-                {p.client_location && (
+                {data.client_location && (
                   <p className="text-sm text-muted-foreground flex items-center gap-1">
                     <MapPin className="h-3 w-3" />
-                    {p.client_location}
+                    {data.client_location}
                   </p>
                 )}
 
-                {p.client_link && (
+                {data.client_link && (
                   <Button className="w-full" asChild>
                     <a
-                      href={p.demo_link}
+                      href={data.demo_link}
                       target="_blank"
                       rel="noopener noreferrer"
                       className="flex items-center gap-2"
@@ -166,7 +215,7 @@ export default async function ProjectPage({ params }: Props) {
             </div>
 
             {/* Detalhes do Projeto */}
-            {(translate.duration || Number(p.year) > 0) && (
+            {(translate.duration || Number(data.year) > 0) && (
               <div className="bg-accent rounded-lg p-6">
                 <h3 className="text-lg text-primary mb-4">
                   {t("sections.details")}
@@ -182,11 +231,11 @@ export default async function ProjectPage({ params }: Props) {
                       <span className="text-primary">{translate.duration}</span>
                     </div>
                   )}
-                  {p.year && (
+                  {data.year && (
                     <div className="flex items-center gap-2 text-sm">
                       <Calendar className="h-4 w-4 text-secondary" />
                       <span className="text-secondary">{t("labels.year")}</span>
-                      <span className="text-primary">{p.year}</span>
+                      <span className="text-primary">{data.year}</span>
                     </div>
                   )}
                 </div>
@@ -196,13 +245,13 @@ export default async function ProjectPage({ params }: Props) {
         </div>
 
         {/* Tecnologias */}
-        {p.technologies && p.technologies.length > 0 && (
+        {data.technologies && data.technologies.length > 0 && (
           <div className="mt-8">
             <h2 className="text-2xl text-primary mb-4">
               {t("sections.technologies")}
             </h2>
             <div className="flex flex-wrap gap-2">
-              {p.technologies.map((tech) => (
+              {data.technologies.map((tech) => (
                 <Badge
                   key={tech}
                   variant="secondary"
@@ -233,13 +282,13 @@ export default async function ProjectPage({ params }: Props) {
         )}
 
         {/* Galeria */}
-        {p.gallery && p.gallery.length > 0 && (
+        {data.gallery && data.gallery.length > 0 && (
           <div className="mt-8">
             <h2 className="text-2xl text-primary mb-4">
               {t("sections.gallery")}
             </h2>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-              {p.gallery.map((image, i) => (
+              {data.gallery.map((image, i) => (
                 <div
                   key={i}
                   className="relative aspect-4/3 overflow-hidden rounded-lg bg-card"
@@ -300,18 +349,40 @@ export default async function ProjectPage({ params }: Props) {
             <p className="text-secondary max-w-2xl mx-auto text-responsive-md leading-relaxed px-4">
               {t("cta.description")}
             </p>
-            <Button
-              size="lg"
-              className="bg-highlight hover:bg-secondary  text-background p-8 rounded"
-              asChild
-            >
-              <a
-                href={`https://api.whatsapp.com/send?phone=5511989631661`}
-                className="text-responsive-lg"
+            <div className="flex flex-col md:flex-row gap-4 mb-8 relative items-center justify-center w-full">
+              <Button
+                size="lg"
+                className="bg-highlight text-background rounded hover:bg-secondary"
+                asChild
               >
-                <MessageSquareShare /> {t("cta.button")}
-              </a>
-            </Button>
+                <a href="https://www.linkedin.com/in/carlos-s-cantanzaro/">
+                  <Linkedin />
+                  Linkedin
+                </a>
+              </Button>
+
+              <Button
+                size="lg"
+                className="bg-highlight text-background rounded hover:bg-secondary"
+                asChild
+              >
+                <a href="https://github.com/carloscsc">
+                  <Github />
+                  Github
+                </a>
+              </Button>
+
+              <Button
+                size="lg"
+                className="bg-highlight text-background rounded hover:bg-secondary"
+                asChild
+              >
+                <a href={`https://api.whatsapp.com/send?phone=5511989631661`}>
+                  <MessageSquareShare />
+                  {t("cta.button")}
+                </a>
+              </Button>
+            </div>
           </div>
         </section>
       </article>

@@ -14,22 +14,64 @@ import { getBlobURL } from "@/lib/utils";
 import { Skills } from "@/components/skills";
 import { ProfileSchema } from "@/_domain/profile/profile.schema";
 import { getLocale, getTranslations } from "next-intl/server";
-import { MessageSquareShare } from "lucide-react";
+import { Github, Linkedin, MessageSquareShare } from "lucide-react";
+import { getAndCacheProfile } from "@/_domain/profile/profile.actions";
+import { Metadata } from "next";
+
+export async function generateMetadata(): Promise<Metadata> {
+  const t = await getTranslations("HomePage");
+  const locale = (await getLocale()) as "en" | "br";
+
+  const data = await getAndCacheProfile();
+
+  if (!data) {
+    notFound();
+  }
+
+  const translate = data.translations[locale];
+  const ogImageUrl = getBlobURL(data.cover);
+
+  return {
+    title: `${t("greetings")} ${data?.name} | ${translate.title}`,
+    description: translate.description,
+
+    alternates: {
+      canonical: "/",
+      languages: {
+        en: "/en",
+        "pt-BR": "/br",
+      },
+    },
+
+    ...(ogImageUrl && {
+      openGraph: {
+        title: translate.title,
+        description: translate.description,
+        images: [
+          { url: ogImageUrl, width: 1200, height: 630, alt: translate.title },
+        ],
+        locale: locale === "br" ? "pt_BR" : "en_US",
+      },
+      twitter: {
+        card: "summary_large_image",
+        title: translate.title,
+        description: translate.description,
+        images: [ogImageUrl],
+      },
+    }),
+  };
+}
 
 export default async function Home() {
   const t = await getTranslations("HomePage");
   const locale = (await getLocale()) as "en" | "br";
 
-  const request = await fetch(
-    `${process.env.NEXT_PUBLIC_BASE_URL}/api/profile`,
-    { next: { tags: ["profile"] } }
-  );
+  const data = await getAndCacheProfile();
 
-  if (!request.ok) {
+  if (!data) {
     return notFound();
   }
 
-  const data = await request.json();
   const profile = data ? ProfileSchema.parse(data) : null;
   const translation = profile?.translations?.[locale];
 
@@ -65,7 +107,30 @@ export default async function Home() {
               <div className="text-responsive-md text-secondary mb-8 max-w-2xl">
                 {parse(translation?.description || "")}
               </div>
+              {/* CONTATO - Alterar para puxar via banco de dados */}
               <div className="flex flex-col md:flex-row gap-4 mb-8 relative">
+                <Button
+                  size="lg"
+                  className="bg-highlight text-background rounded hover:bg-secondary"
+                  asChild
+                >
+                  <a href="https://www.linkedin.com/in/carlos-s-cantanzaro/">
+                    <Linkedin />
+                    Linkedin
+                  </a>
+                </Button>
+
+                <Button
+                  size="lg"
+                  className="bg-highlight text-background rounded hover:bg-secondary"
+                  asChild
+                >
+                  <a href="https://github.com/carloscsc">
+                    <Github />
+                    Github
+                  </a>
+                </Button>
+
                 <Button
                   size="lg"
                   className="bg-highlight text-background rounded hover:bg-secondary"

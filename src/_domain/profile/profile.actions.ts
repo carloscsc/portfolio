@@ -9,6 +9,7 @@ import {
 } from "./profile.schema";
 import { Profile } from "./profile.model";
 import { updateTag } from "next/cache";
+import { cache } from "react";
 
 export async function UpdateOrCreate(
   ProjectData: storeProfileTypes
@@ -92,3 +93,19 @@ export async function read(): Promise<ProfileTypes | null> {
     throw new Error("Erro ao buscar dados do perfil");
   }
 }
+
+// get cached projeto
+export const getAndCacheProfile = cache(
+  async (): Promise<ProfileTypes | null> => {
+    const request = await fetch(
+      `${process.env.NEXT_PUBLIC_BASE_URL}/api/profile`,
+      { next: { tags: ["profile"] } }
+    );
+
+    if (!request.ok) {
+      return null;
+    }
+
+    return await request.json();
+  }
+);

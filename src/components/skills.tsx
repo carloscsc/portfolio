@@ -66,21 +66,20 @@ export function Skills() {
 
   const skills = [
     { name: "React", percentage: 95 },
-    { name: "Next", percentage: 95 },
+    { name: "Next.js", percentage: 95 },
     { name: "TanStack", percentage: 60 },
     { name: "Vite", percentage: 90 },
     { name: "Hono", percentage: 75 },
     { name: "Node", percentage: 80 },
-    { name: "Bun", percentage: 60 },
     { name: "TypeScript", percentage: 80 },
     { name: "JavaScript", percentage: 95 },
     { name: "PHP", percentage: 90 },
     { name: "Tailwind CSS", percentage: 70 },
     { name: "Shadcn", percentage: 70 },
-
-    { name: "Mongo", percentage: 90 },
+    { name: "MongoDB", percentage: 90 },
     { name: "PostgreSQL", percentage: 90 },
     { name: "MySQL", percentage: 99 },
+    { name: "Redis", percentage: 80 },
   ];
 
   // Intersection Observer for animation trigger

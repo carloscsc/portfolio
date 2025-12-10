@@ -1,7 +1,8 @@
 "use client";
-import { Github, Linkedin, MessageSquareShare } from "lucide-react";
+import { MessageSquareShare } from "lucide-react";
 import { Button } from "./ui/button";
 import { useTranslations } from "next-intl";
+import { FaGithub, FaLinkedin } from "react-icons/fa";
 
 const Contact = ({ phone }: { phone: string }) => {
   const t = useTranslations("ContactSection");
@@ -21,7 +22,7 @@ const Contact = ({ phone }: { phone: string }) => {
             asChild
           >
             <a href="https://www.linkedin.com/in/carlos-s-cantanzaro/">
-              <Linkedin />
+              <FaLinkedin />
               Linkedin
             </a>
           </Button>
@@ -32,7 +33,7 @@ const Contact = ({ phone }: { phone: string }) => {
             asChild
           >
             <a href="https://github.com/carloscsc">
-              <Github />
+              <FaGithub />
               Github
             </a>
           </Button>

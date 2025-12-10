@@ -8,13 +8,11 @@ import { Navbar } from "@/components/navbar";
 import {
   ArrowLeft,
   ExternalLink,
-  Github,
   Calendar,
   Clock,
   User,
   MapPin,
   MessageSquareShare,
-  Linkedin,
 } from "lucide-react";
 import { getBlobURL, stripHtmlTags } from "@/lib/utils";
 
@@ -22,6 +20,7 @@ import parse from "html-react-parser";
 import { getLocale, getTranslations } from "next-intl/server";
 import { getAndCacheProject } from "@/_domain/projects/project.actions";
 import { Metadata, ResolvingMetadata } from "next";
+import { FaGithub, FaLinkedin } from "react-icons/fa";
 
 type Props = {
   params: Promise<{ slug: string }>;
@@ -138,7 +137,7 @@ export default async function ProjectPage({ params }: Props) {
                   rel="noopener noreferrer"
                   className="flex items-center gap-2"
                 >
-                  <Github size={16} /> {t("buttons.viewSourceCode")}
+                  <FaGithub size={16} /> {t("buttons.viewSourceCode")}
                 </a>
               </Button>
             )}
@@ -356,7 +355,7 @@ export default async function ProjectPage({ params }: Props) {
                 asChild
               >
                 <a href="https://www.linkedin.com/in/carlos-s-cantanzaro/">
-                  <Linkedin />
+                  <FaLinkedin />
                   Linkedin
                 </a>
               </Button>
@@ -367,7 +366,7 @@ export default async function ProjectPage({ params }: Props) {
                 asChild
               >
                 <a href="https://github.com/carloscsc">
-                  <Github />
+                  <FaGithub />
                   Github
                 </a>
               </Button>

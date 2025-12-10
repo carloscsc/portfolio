@@ -14,7 +14,8 @@ import { getBlobURL, stripHtmlTags } from "@/lib/utils";
 import { Skills } from "@/components/skills";
 import { ProfileSchema } from "@/_domain/profile/profile.schema";
 import { getLocale, getTranslations } from "next-intl/server";
-import { Github, Linkedin, MessageSquareShare } from "lucide-react";
+import { MessageSquareShare } from "lucide-react";
+import { FaGithub, FaLinkedin } from "react-icons/fa";
 import { getAndCacheProfile } from "@/_domain/profile/profile.actions";
 import { Metadata } from "next";
 
@@ -115,7 +116,7 @@ export default async function Home() {
                   asChild
                 >
                   <a href="https://www.linkedin.com/in/carlos-s-cantanzaro/">
-                    <Linkedin />
+                    <FaLinkedin />
                     Linkedin
                   </a>
                 </Button>
@@ -126,7 +127,7 @@ export default async function Home() {
                   asChild
                 >
                   <a href="https://github.com/carloscsc">
-                    <Github />
+                    <FaGithub />
                     Github
                   </a>
                 </Button>

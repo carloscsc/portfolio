@@ -29,11 +29,19 @@ const translationsSchema = z.object({
   br: translationContentSchema,
 });
 
+export const ContatoSchema = z.object({
+  linkedin: z.url().optional(),
+  github: z.url().optional(),
+  email: z.email().optional(),
+});
+export type ContatoType = z.infer<typeof ContatoSchema>;
+
 export const ProfileSchema = z.object({
   _id: z.string(),
   name: z.string().min(1, "O nome é obrigatório"),
   cover: z.string(),
   translations: translationsSchema,
+  contato: ContatoSchema.default({}).nullable(),
   createdAt: z.string(),
   updatedAt: z.string(),
 });
@@ -48,6 +56,25 @@ export const StoreProfileSchema = ProfileSchema.omit({
     _id: z.string().optional(),
     cover: fileSchema.optional(),
     _cover: z.string().optional(),
+    contato: z
+      .transform((val, ctx) => {
+        if (!val || val === "") return {};
+
+        if (typeof val === "string") {
+          try {
+            return JSON.parse(val);
+          } catch {
+            ctx.issues.push({
+              code: "custom",
+              message: "Invalid JSON format for social field",
+              input: val,
+            });
+            return z.NEVER;
+          }
+        }
+        return val;
+      })
+      .pipe(ContatoSchema.strict()),
   })
   .refine((data) => data.cover || data._cover, {
     message: "É necessário fornecer cover",

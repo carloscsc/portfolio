@@ -3,6 +3,7 @@ import {
   ProfileTypes,
   translationContentType,
   highlightType,
+  ContatoType,
 } from "./profile.schema";
 
 const HighlightSchema = new Schema<highlightType>(
@@ -25,6 +26,15 @@ const TranslationContentSchema = new Schema<translationContentType>(
   { _id: false }
 );
 
+const ContatoSchema = new Schema<ContatoType>(
+  {
+    linkedin: { type: String },
+    github: { type: String },
+    email: { type: String },
+  },
+  { _id: false }
+);
+
 const ProfileMongooseSchema = new Schema<ProfileTypes>(
   {
     name: { type: String, required: true },
@@ -33,6 +43,7 @@ const ProfileMongooseSchema = new Schema<ProfileTypes>(
       en: { type: TranslationContentSchema, require: true },
       br: { type: TranslationContentSchema, required: true },
     },
+    contato: { type: ContatoSchema },
   },
   {
     timestamps: true,

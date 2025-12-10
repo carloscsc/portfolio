@@ -32,7 +32,11 @@ const ProjectMongooseSchema = new Schema<ProjectTypes>(
       en: { type: TranslationContentSchema, require: true },
       br: { type: TranslationContentSchema, require: true },
     },
-    status: { type: String, enum: ["ativo", "inativo"], default: "ativo" },
+    status: {
+      type: String,
+      enum: ["ativo", "inativo"],
+      default: "ativo",
+    },
   },
   {
     timestamps: true,

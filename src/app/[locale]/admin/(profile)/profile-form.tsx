@@ -54,6 +54,11 @@ const ProfileForm = ({ data }: { data: ProfileTypes | null }) => {
           highlights: data?.translations?.br.highlights ?? [],
         },
       },
+      contato: {
+        linkedin: undefined,
+        github: undefined,
+        email: undefined,
+      },
       cover: undefined,
       _cover: data?.cover,
     },
@@ -197,6 +202,25 @@ const ProfileForm = ({ data }: { data: ProfileTypes | null }) => {
             </Card>
           </TabsContent>
         </Tabs>
+
+        <TextInput
+          control={form.control}
+          name="contato.linkedin"
+          label="Linkdin"
+          placeholder="Informe seu linkedIn"
+        />
+        <TextInput
+          control={form.control}
+          name="contato.github"
+          label="Github"
+          placeholder="Informe o github"
+        />
+        <TextInput
+          control={form.control}
+          name="contato.email"
+          label="E-mail"
+          placeholder="Informe seu e-mail"
+        />
 
         <FormField
           control={form.control}

@@ -1,4 +1,3 @@
-import { Button } from "@/components/ui/button";
 import { Stats } from "@/components/stats";
 import { Services } from "@/components/services";
 import { Projects } from "@/app/[locale]/(portfolio)/projects/projects-list";
@@ -123,7 +122,7 @@ export default async function Home() {
           <Services />
           <Projects />
           <Skills />
-          <Contact phone={translation?.phone || ""} />
+          <Contact />
         </div>
       </main>
     </>

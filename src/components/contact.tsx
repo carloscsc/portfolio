@@ -1,11 +1,8 @@
-"use client";
-import { MessageSquareShare } from "lucide-react";
-import { Button } from "./ui/button";
-import { useTranslations } from "next-intl";
-import { FaGithub, FaLinkedin } from "react-icons/fa";
+import { getTranslations } from "next-intl/server";
+import ContactLinks from "./ui/custom/contact-links";
 
-const Contact = ({ phone }: { phone: string }) => {
-  const t = useTranslations("ContactSection");
+const Contact = async () => {
+  const t = await getTranslations("ContactSection");
 
   return (
     <section className="py-16 scroll-mt-24" id="contact">
@@ -16,38 +13,7 @@ const Contact = ({ phone }: { phone: string }) => {
         </p>
 
         <div className="flex flex-col md:flex-row gap-4 mb-8 relative items-center justify-center w-full">
-          <Button
-            size="lg"
-            className="bg-highlight text-background rounded hover:bg-secondary"
-            asChild
-          >
-            <a href="https://www.linkedin.com/in/carlos-s-cantanzaro/">
-              <FaLinkedin />
-              Linkedin
-            </a>
-          </Button>
-
-          <Button
-            size="lg"
-            className="bg-highlight text-background rounded hover:bg-secondary"
-            asChild
-          >
-            <a href="https://github.com/carloscsc">
-              <FaGithub />
-              Github
-            </a>
-          </Button>
-
-          <Button
-            size="lg"
-            className="bg-highlight text-background rounded hover:bg-secondary"
-            asChild
-          >
-            <a href={`https://api.whatsapp.com/send?phone=55${phone}`}>
-              <MessageSquareShare />
-              {t("button")}
-            </a>
-          </Button>
+          <ContactLinks />
         </div>
       </div>
     </section>

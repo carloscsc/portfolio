@@ -12,7 +12,6 @@ import {
   Clock,
   User,
   MapPin,
-  MessageSquareShare,
 } from "lucide-react";
 import { getBlobURL, stripHtmlTags } from "@/lib/utils";
 
@@ -20,7 +19,8 @@ import parse from "html-react-parser";
 import { getLocale, getTranslations } from "next-intl/server";
 import { getAndCacheProject } from "@/_domain/projects/project.actions";
 import { Metadata, ResolvingMetadata } from "next";
-import { FaGithub, FaLinkedin } from "react-icons/fa";
+import { FaGithub } from "react-icons/fa";
+import ContactLinks from "@/components/ui/custom/contact-links";
 
 type Props = {
   params: Promise<{ slug: string }>;
@@ -349,38 +349,7 @@ export default async function ProjectPage({ params }: Props) {
               {t("cta.description")}
             </p>
             <div className="flex flex-col md:flex-row gap-4 mb-8 relative items-center justify-center w-full">
-              <Button
-                size="lg"
-                className="bg-highlight text-background rounded hover:bg-secondary"
-                asChild
-              >
-                <a href="https://www.linkedin.com/in/carlos-s-cantanzaro/">
-                  <FaLinkedin />
-                  Linkedin
-                </a>
-              </Button>
-
-              <Button
-                size="lg"
-                className="bg-highlight text-background rounded hover:bg-secondary"
-                asChild
-              >
-                <a href="https://github.com/carloscsc">
-                  <FaGithub />
-                  Github
-                </a>
-              </Button>
-
-              <Button
-                size="lg"
-                className="bg-highlight text-background rounded hover:bg-secondary"
-                asChild
-              >
-                <a href={`https://api.whatsapp.com/send?phone=5511989631661`}>
-                  <MessageSquareShare />
-                  {t("cta.button")}
-                </a>
-              </Button>
+              <ContactLinks />
             </div>
           </div>
         </section>

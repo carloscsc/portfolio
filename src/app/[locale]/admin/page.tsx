@@ -13,6 +13,7 @@ const AdminPage = async () => {
   }
 
   const data = await request.json();
+
   const profile = data ? ProfileSchema.parse(data) : null;
 
   return (

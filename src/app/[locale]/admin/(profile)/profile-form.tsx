@@ -55,9 +55,9 @@ const ProfileForm = ({ data }: { data: ProfileTypes | null }) => {
         },
       },
       contato: {
-        linkedin: undefined,
-        github: undefined,
-        email: undefined,
+        linkedin: data?.contato?.linkedin || undefined,
+        github: data?.contato?.github || undefined,
+        email: data?.contato?.email || undefined,
       },
       cover: undefined,
       _cover: data?.cover,

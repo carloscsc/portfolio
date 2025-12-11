@@ -115,7 +115,7 @@ export default async function Home() {
                   className="bg-highlight text-background rounded hover:bg-secondary"
                   asChild
                 >
-                  <a href="https://www.linkedin.com/in/carlos-s-cantanzaro/">
+                  <a href={data.contato?.linkedin}>
                     <FaLinkedin />
                     Linkedin
                   </a>
@@ -126,7 +126,7 @@ export default async function Home() {
                   className="bg-highlight text-background rounded hover:bg-secondary"
                   asChild
                 >
-                  <a href="https://github.com/carloscsc">
+                  <a href={data.contato?.github}>
                     <FaGithub />
                     Github
                   </a>

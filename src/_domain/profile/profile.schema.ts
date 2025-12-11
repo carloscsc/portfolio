@@ -41,7 +41,7 @@ export const ProfileSchema = z.object({
   name: z.string().min(1, "O nome é obrigatório"),
   cover: z.string(),
   translations: translationsSchema,
-  contato: ContatoSchema,
+  contato: ContatoSchema.optional(),
   createdAt: z.string(),
   updatedAt: z.string(),
 });

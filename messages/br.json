@@ -1,9 +1,9 @@
 {
   "HomePage": {
-    "greetings": "Olá, eu sou",
-    "cta": {
-      "scheduleConsultation": "Agende uma consultoria grátis!"
-    }
+    "greetings": "Olá, eu sou"
+  },
+  "ctt": {
+    "ltalk": "Vamos conversar?"
   },
   "Nav": {
     "service": "Serviços",

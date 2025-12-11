@@ -1,9 +1,9 @@
 {
   "HomePage": {
-    "greetings": "Hi, I'm",
-    "cta": {
-      "scheduleConsultation": "Let's talk!"
-    }
+    "greetings": "Hi, I'm"
+  },
+  "ctt": {
+    "ltalk": "Let's Talk"
   },
   "Nav": {
     "service": "Services",

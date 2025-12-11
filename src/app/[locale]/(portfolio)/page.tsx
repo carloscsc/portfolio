@@ -14,10 +14,11 @@ import { getBlobURL, stripHtmlTags } from "@/lib/utils";
 import { Skills } from "@/components/skills";
 import { ProfileSchema } from "@/_domain/profile/profile.schema";
 import { getLocale, getTranslations } from "next-intl/server";
-import { MessageSquareShare } from "lucide-react";
-import { FaGithub, FaLinkedin } from "react-icons/fa";
+
 import { getAndCacheProfile } from "@/_domain/profile/profile.actions";
 import { Metadata } from "next";
+
+import ContactLinks from "@/components/ui/custom/contact-links";
 
 export async function generateMetadata(): Promise<Metadata> {
   const t = await getTranslations("HomePage");
@@ -110,40 +111,7 @@ export default async function Home() {
               </div>
               {/* CONTATO - Alterar para puxar via banco de dados */}
               <div className="flex flex-col md:flex-row gap-4 mb-8 relative">
-                <Button
-                  size="lg"
-                  className="bg-highlight text-background rounded hover:bg-secondary"
-                  asChild
-                >
-                  <a href={data.contato?.linkedin}>
-                    <FaLinkedin />
-                    Linkedin
-                  </a>
-                </Button>
-
-                <Button
-                  size="lg"
-                  className="bg-highlight text-background rounded hover:bg-secondary"
-                  asChild
-                >
-                  <a href={data.contato?.github}>
-                    <FaGithub />
-                    Github
-                  </a>
-                </Button>
-
-                <Button
-                  size="lg"
-                  className="bg-highlight text-background rounded hover:bg-secondary"
-                  asChild
-                >
-                  <a
-                    href={`https://api.whatsapp.com/send?phone=55${translation?.phone}`}
-                  >
-                    <MessageSquareShare />
-                    {t("cta.scheduleConsultation")}
-                  </a>
-                </Button>
+                <ContactLinks />
               </div>
               <Stats itens={translation?.highlights || []} />
             </div>

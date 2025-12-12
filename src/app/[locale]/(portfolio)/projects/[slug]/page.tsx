@@ -21,7 +21,7 @@ import { getAndCacheProject } from "@/_domain/projects/project.actions";
 import { Metadata, ResolvingMetadata } from "next";
 import { FaGithub } from "react-icons/fa";
 
-import Contact from "@/components/contact";
+import Contact from "@/components/contact/contact";
 
 type Props = {
   params: Promise<{ slug: string }>;

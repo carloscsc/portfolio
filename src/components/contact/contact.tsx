@@ -4,8 +4,9 @@ import { MessageSquareShare } from "lucide-react";
 import { getLocale, getTranslations } from "next-intl/server";
 import { getAndCacheProfile } from "@/_domain/profile/profile.actions";
 import { notFound } from "next/navigation";
-import { Button } from "./ui/button";
+import { Button } from "../ui/button";
 import { cn } from "@/lib/utils";
+import { CttForm } from "./ctt-form";
 
 interface ContactProps extends React.HTMLAttributes<HTMLDivElement> {
   title?: string;
@@ -87,6 +88,8 @@ const Contact = async ({
           </div>
         </div>
       </div>
+
+      {!minimal && <CttForm />}
     </section>
   );
 };

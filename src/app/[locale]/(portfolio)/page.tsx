@@ -5,7 +5,7 @@ import { Projects } from "@/app/[locale]/(portfolio)/projects/projects-list";
 import Image from "next/image";
 import { Navbar } from "@/components/navbar";
 
-import Contact from "@/components/contact";
+import Contact from "@/components/contact/contact";
 import { notFound } from "next/navigation";
 
 import parse from "html-react-parser";

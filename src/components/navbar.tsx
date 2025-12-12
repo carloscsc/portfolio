@@ -1,6 +1,6 @@
 "use client";
 
-import { Link } from "@/i18n/navigation";
+import { Link, useRouter } from "@/i18n/navigation";
 import { usePathname } from "@/i18n/navigation";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { Menu, X } from "lucide-react";
@@ -11,6 +11,7 @@ import { ModeToggle } from "./ui/custom/theme-toggle";
 
 export function Navbar() {
   const pathname = usePathname();
+  const router = useRouter();
   const isHome = pathname === "/";
 
   const t = useTranslations("Nav");
@@ -76,11 +77,25 @@ export function Navbar() {
     };
   }, [computeActive]);
 
-  const getNavLinkHref = (sectionId: string) => {
-    if (isHome) {
-      return `#${sectionId}`;
+  // Generic smooth scroll handler for all sections
+  const handleSectionClick = (
+    e: React.MouseEvent<HTMLAnchorElement>,
+    sectionId: string
+  ) => {
+    e.preventDefault();
+    setIsOpen(false);
+
+    const section = document.getElementById(sectionId);
+
+    if (section) {
+      // Section exists on current page - scroll to it smoothly
+      section.scrollIntoView({
+        behavior: "smooth",
+        block: "start",
+      });
     } else {
-      return `/#${sectionId}`;
+      // Section doesn't exist - navigate to home with hash
+      router.push(`/#${sectionId}`);
     }
   };
 
@@ -108,41 +123,49 @@ export function Navbar() {
           <div className="hidden lg:flex items-center space-x-8">
             <LanguageSwitcher variant="desktop" />
 
-            <Link
-              href={getNavLinkHref("services")}
+            <a
+              href="#services"
               className={navLinkClasses("services")}
               aria-current={
                 isHome && active === "services" ? "location" : undefined
               }
+              onClick={(e) => handleSectionClick(e, "services")}
             >
               {t("service")}
-            </Link>
-            <Link
-              href={getNavLinkHref("works")}
+            </a>
+
+            <a
+              href="#works"
               className={navLinkClasses("works")}
               aria-current={
                 isHome && active === "works" ? "location" : undefined
               }
+              onClick={(e) => handleSectionClick(e, "works")}
             >
               {t("projects")}
-            </Link>
+            </a>
 
-            <Link
-              href={getNavLinkHref("skills")}
+            <a
+              href="#skills"
               className={navLinkClasses("skills")}
               aria-current={
                 isHome && active === "skills" ? "location" : undefined
               }
-              onClick={() => setIsOpen(false)}
+              onClick={(e) => handleSectionClick(e, "skills")}
             >
               {t("skills")}
-            </Link>
+            </a>
 
             <Button
               asChild
               className="rounded bg-highlight text-background hover:bg-secondary"
             >
-              <a href={getNavLinkHref("contact")}>{t("contact")}</a>
+              <a
+                href="#contact"
+                onClick={(e) => handleSectionClick(e, "contact")}
+              >
+                {t("contact")}
+              </a>
             </Button>
             <ModeToggle />
           </div>
@@ -165,43 +188,49 @@ export function Navbar() {
             <div className="flex flex-col space-y-4 px-2 pt-2 pb-4 bg-accent">
               <LanguageSwitcher variant="mobile" className="mb-2" />
 
-              <Link
-                href={getNavLinkHref("services")}
+              <a
+                href="#services"
                 className={navLinkClasses("services")}
                 aria-current={
                   isHome && active === "services" ? "location" : undefined
                 }
-                onClick={() => setIsOpen(false)}
+                onClick={(e) => handleSectionClick(e, "services")}
               >
                 {t("service")}
-              </Link>
-              <Link
-                href={getNavLinkHref("works")}
+              </a>
+
+              <a
+                href="#works"
                 className={navLinkClasses("works")}
                 aria-current={
                   isHome && active === "works" ? "location" : undefined
                 }
-                onClick={() => setIsOpen(false)}
+                onClick={(e) => handleSectionClick(e, "works")}
               >
                 {t("projects")}
-              </Link>
-              <Link
-                href={getNavLinkHref("skills")}
+              </a>
+
+              <a
+                href="#skills"
                 className={navLinkClasses("skills")}
                 aria-current={
                   isHome && active === "skills" ? "location" : undefined
                 }
-                onClick={() => setIsOpen(false)}
+                onClick={(e) => handleSectionClick(e, "skills")}
               >
                 {t("skills")}
-              </Link>
+              </a>
 
               <Button
                 className="w-full touch-target rounded bg-highlight text-background hover:bg-secondary"
                 asChild
-                onClick={() => setIsOpen(false)}
               >
-                <a href={getNavLinkHref("contact")}>{t("contact")}</a>
+                <a
+                  href="#contact"
+                  onClick={(e) => handleSectionClick(e, "contact")}
+                >
+                  {t("contact")}
+                </a>
               </Button>
 
               <div className="mx-auto">

@@ -5,6 +5,18 @@
   "ctt": {
     "ltalk": "Let's Talk"
   },
+  "validation": {
+    "required": "Required field",
+    "invalid_name": "Invalid name",
+    "invalid_email": "Invalid email",
+    "invalid_phone": "Invalid phone number",
+    "too_small": {
+      "string": "Minimum {minimum} characters"
+    },
+    "too_big": {
+      "string": "Maximum {maximum} characters"
+    }
+  },
   "Nav": {
     "service": "Services",
     "projects": "Projects",

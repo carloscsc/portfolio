@@ -19,7 +19,7 @@ export const phoneSchema = z
   .string()
   .transform((val) => val?.replace(/\D/g, ""))
   .refine((val) => val?.length === 11, {
-    message: "Informe um número de celular válido",
+    params: { format: "phone" },
   });
 
 export interface ResponseType {

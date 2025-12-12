@@ -5,6 +5,18 @@
   "ctt": {
     "ltalk": "Vamos conversar?"
   },
+  "validation": {
+    "required": "Campo obrigatório",
+    "invalid_name": "Nome inválido",
+    "invalid_email": "E-mail inválido",
+    "invalid_phone": "Número de celular inválido",
+    "too_small": {
+      "string": "Mínimo de {minimum} caracteres"
+    },
+    "too_big": {
+      "string": "Máximo de {maximum} caracteres"
+    }
+  },
   "Nav": {
     "service": "Serviços",
     "projects": "Projetos",

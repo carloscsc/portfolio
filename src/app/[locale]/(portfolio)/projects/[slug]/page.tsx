@@ -20,7 +20,8 @@ import { getLocale, getTranslations } from "next-intl/server";
 import { getAndCacheProject } from "@/_domain/projects/project.actions";
 import { Metadata, ResolvingMetadata } from "next";
 import { FaGithub } from "react-icons/fa";
-import ContactLinks from "@/components/ui/custom/contact-links";
+
+import Contact from "@/components/contact";
 
 type Props = {
   params: Promise<{ slug: string }>;
@@ -340,19 +341,11 @@ export default async function ProjectPage({ params }: Props) {
         )}
 
         {/* CTA Final */}
-        <section className="py-16 scroll-mt-24" id="contact">
-          <div className="text-center space-y-6">
-            <h3 className="text-responsive-xl mb-4 text-primary">
-              {t("cta.heading")}
-            </h3>
-            <p className="text-secondary max-w-2xl mx-auto text-responsive-md leading-relaxed px-4">
-              {t("cta.description")}
-            </p>
-            <div className="flex flex-col md:flex-row gap-4 mb-8 relative items-center justify-center w-full">
-              <ContactLinks />
-            </div>
-          </div>
-        </section>
+        <Contact
+          title={t("cta.heading")}
+          description={t("cta.description")}
+          id="contact"
+        />
       </article>
     </main>
   );

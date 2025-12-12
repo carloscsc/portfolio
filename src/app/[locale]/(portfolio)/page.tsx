@@ -17,8 +17,6 @@ import { getLocale, getTranslations } from "next-intl/server";
 import { getAndCacheProfile } from "@/_domain/profile/profile.actions";
 import { Metadata } from "next";
 
-import ContactLinks from "@/components/ui/custom/contact-links";
-
 export async function generateMetadata(): Promise<Metadata> {
   const t = await getTranslations("HomePage");
   const locale = (await getLocale()) as "en" | "br";
@@ -65,6 +63,8 @@ export async function generateMetadata(): Promise<Metadata> {
 
 export default async function Home() {
   const t = await getTranslations("HomePage");
+  const tcontact = await getTranslations("ContactSection");
+
   const locale = (await getLocale()) as "en" | "br";
 
   const data = await getAndCacheProfile();
@@ -110,7 +110,7 @@ export default async function Home() {
               </div>
               {/* CONTATO - Alterar para puxar via banco de dados */}
               <div className="flex flex-col md:flex-row gap-4 mb-8 relative">
-                <ContactLinks />
+                <Contact minimal={true} />
               </div>
               <Stats itens={translation?.highlights || []} />
             </div>
@@ -122,7 +122,11 @@ export default async function Home() {
           <Services />
           <Projects />
           <Skills />
-          <Contact />
+          <Contact
+            id="contact"
+            title={tcontact("heading")}
+            description={tcontact("description")}
+          />
         </div>
       </main>
     </>

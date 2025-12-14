@@ -43,7 +43,7 @@ export const CttForm = () => {
     <Form {...form}>
       <form
         onSubmit={form.handleSubmit(handleSubmit)}
-        className="space-y-8 mt-4 max-w-4xl mx-auto"
+        className="space-y-8 mt-4 max-w-4xl mx-auto px-4 md:px-0"
       >
         <TextInput
           control={form.control}

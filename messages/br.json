@@ -4,7 +4,7 @@
   },
   "ctt": {
     "ltalk": "Vamos conversar?",
-    "form_header": "Ou entre em contato pelo formulário abaixo",
+    "form_header": "Ou use o formulário abaixo",
     "form": {
       "name": "* Nome completo",
       "name_placeholder": "Informe seu nome completo",
@@ -14,7 +14,8 @@
       "phone_placeholder": "Informe seu telefone celular",
       "message": "Como posso te ajudar?",
       "message_placeholder": "Me conte como posso te ajudar em seus projetos",
-      "button": "Enviar Mensagem"
+      "button": "Enviar Mensagem",
+      "success_message": "Mensagem entregue com sucesso, em breve entrarei em contato"
     }
   },
   "validation": {

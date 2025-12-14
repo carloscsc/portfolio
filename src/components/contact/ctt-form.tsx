@@ -17,6 +17,7 @@ import { Spinner } from "../ui/shadcn-io/spinner";
 import { Button } from "../ui/button";
 import { useTranslations } from "next-intl";
 import { Textarea } from "../ui/textarea";
+import { toast } from "sonner";
 
 export const CttForm = () => {
   const t = useTranslations("ctt.form");
@@ -24,7 +25,6 @@ export const CttForm = () => {
     resolver: zodResolver(CttSchema),
     defaultValues: {
       name: "",
-      phone: "",
       email: "",
       message: "",
     },
@@ -34,6 +34,10 @@ export const CttForm = () => {
     mutationFn: async (data: CttType) => {
       //   const request = await UpdateOrCreate(data);
       await new Promise((resolve) => setTimeout(resolve, 3000));
+      toast.success(t("success_message"), {
+        position: "bottom-right",
+      });
+      form.reset();
     },
   });
 
@@ -57,14 +61,6 @@ export const CttForm = () => {
           name="email"
           label={t("email")}
           placeholder={t("email_placeholder")}
-        />
-
-        <TextInput
-          control={form.control}
-          name="phone"
-          label={t("phone")}
-          mask="99 99999-9999"
-          placeholder={t("phone_placeholder")}
         />
 
         <FormField

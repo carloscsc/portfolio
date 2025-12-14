@@ -18,7 +18,7 @@ export const fileSchema = z
 export const phoneSchema = z
   .string()
   .transform((val) => val?.replace(/\D/g, ""))
-  .refine((val) => val?.length === 11, {
+  .refine((val) => val?.length === 13, {
     params: { format: "phone" },
   });
 

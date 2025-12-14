@@ -79,7 +79,7 @@ const Contact = async ({
               asChild
             >
               <a
-                href={`https://api.whatsapp.com/send?phone=55${translation?.phone}`}
+                href={`https://api.whatsapp.com/send?phone=${translation?.phone}`}
               >
                 <MessageSquareShare />
                 {t("ltalk")}

@@ -25,7 +25,9 @@ const translationContentSchema = z.object({
 export type translationContentType = z.infer<typeof translationContentSchema>;
 
 const translationsSchema = z.object({
-  en: translationContentSchema,
+  en: translationContentSchema.omit({ phone: true }).extend({
+    phone: z.string().min(6, "telefone é obrigatório"),
+  }),
   br: translationContentSchema,
 });
 

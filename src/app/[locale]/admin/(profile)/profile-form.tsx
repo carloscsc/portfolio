@@ -121,8 +121,7 @@ const ProfileForm = ({ data }: { data: ProfileTypes | null }) => {
                   control={form.control}
                   name="translations.en.phone"
                   label="Phone"
-                  mask="99 99999-9999"
-                  placeholder="Enter phone number"
+                  placeholder="Enter whatsapp number with your country code"
                 />
 
                 <FormField
@@ -169,8 +168,8 @@ const ProfileForm = ({ data }: { data: ProfileTypes | null }) => {
                   control={form.control}
                   name="translations.br.phone"
                   label="Telefone"
-                  mask="99 99999-9999"
-                  placeholder="Informe o telefone"
+                  mask="55 99 99999-9999"
+                  placeholder="Informe seu whatsapp"
                 />
 
                 <FormField

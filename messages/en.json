@@ -4,7 +4,7 @@
   },
   "ctt": {
     "ltalk": "Let's Talk",
-    "form_header": "Or contact me using the form below.",
+    "form_header": "Or use the form below",
     "form": {
       "name": "* Full Name",
       "name_placeholder": "Enter your full name",
@@ -14,7 +14,8 @@
       "phone_placeholder": "Enter your cell phone",
       "message": "How can I help you?",
       "message_placeholder": "Tell me how I can help you with your projects.",
-      "button": "Send message"
+      "button": "Send message",
+      "success_message": "Message delivered successfully, I will contact you soon."
     }
   },
   "validation": {

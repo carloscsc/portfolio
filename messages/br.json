@@ -3,13 +3,25 @@
     "greetings": "Olá, eu sou"
   },
   "ctt": {
-    "ltalk": "Vamos conversar?"
+    "ltalk": "Vamos conversar?",
+    "form_header": "Ou entre em contato pelo formulário abaixo",
+    "form": {
+      "name": "* Nome completo",
+      "name_placeholder": "Informe seu nome completo",
+      "email": "* E-mail",
+      "email_placeholder": "Informe seu melhor e-mail",
+      "phone": "* Celular",
+      "phone_placeholder": "Informe seu telefone celular",
+      "message": "Como posso te ajudar?",
+      "message_placeholder": "Me conte como posso te ajudar em seus projetos",
+      "button": "Enviar Mensagem"
+    }
   },
   "validation": {
     "required": "Campo obrigatório",
-    "invalid_name": "Nome inválido",
-    "invalid_email": "E-mail inválido",
-    "invalid_phone": "Número de celular inválido",
+    "invalid_name": "Por favor, informe um nome válido",
+    "invalid_email": "Por favor, informe um e-mail válido",
+    "invalid_phone": "Por favor, informe um número de celular válido",
     "too_small": {
       "string": "Mínimo de {minimum} caracteres"
     },

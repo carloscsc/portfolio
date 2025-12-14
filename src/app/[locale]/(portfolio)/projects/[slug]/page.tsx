@@ -92,7 +92,7 @@ export default async function ProjectPage({ params }: Props) {
   const translate = data.translations[locale];
 
   return (
-    <main className="min-h-screen text-white">
+    <main className="min-h-screen">
       <Navbar />
       <article className="container mx-auto px-4 pt-28  max-w-4xl">
         <Link
@@ -339,14 +339,13 @@ export default async function ProjectPage({ params }: Props) {
             </ul>
           </div>
         )}
-
-        {/* CTA Final */}
-        <Contact
-          title={t("cta.heading")}
-          description={t("cta.description")}
-          id="contact"
-        />
       </article>
+      {/* CTA Final */}
+      <Contact
+        title={t("cta.heading")}
+        description={t("cta.description")}
+        id="contact"
+      />
     </main>
   );
 }

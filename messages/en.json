@@ -3,13 +3,25 @@
     "greetings": "Hi, I'm"
   },
   "ctt": {
-    "ltalk": "Let's Talk"
+    "ltalk": "Let's Talk",
+    "form_header": "Or contact me using the form below.",
+    "form": {
+      "name": "* Full Name",
+      "name_placeholder": "Enter your full name",
+      "email": "* E-mail",
+      "email_placeholder": "Enter your best e-mail",
+      "phone": "* Cell Phone",
+      "phone_placeholder": "Enter your cell phone",
+      "message": "How can I help you?",
+      "message_placeholder": "Tell me how I can help you with your projects.",
+      "button": "Send message"
+    }
   },
   "validation": {
     "required": "Required field",
-    "invalid_name": "Invalid name",
-    "invalid_email": "Invalid email",
-    "invalid_phone": "Invalid phone number",
+    "invalid_name": "Please provide a valid name",
+    "invalid_email": "Please provide a valid e-mail",
+    "invalid_phone": "Please provide a valid cell phone",
     "too_small": {
       "string": "Minimum {minimum} characters"
     },

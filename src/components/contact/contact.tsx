@@ -89,7 +89,14 @@ const Contact = async ({
         </div>
       </div>
 
-      {!minimal && <CttForm />}
+      {!minimal && (
+        <div>
+          <h2 className="text-secondary max-w-2xl mx-auto text-responsive-md leading-relaxed px-4 text-center">
+            {t("form_header")}
+          </h2>
+          <CttForm />
+        </div>
+      )}
     </section>
   );
 };

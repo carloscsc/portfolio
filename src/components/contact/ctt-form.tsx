@@ -12,12 +12,14 @@ import {
   FormMessage,
 } from "../ui/form";
 import TextInput from "../forms/TextInput";
-import { RichTextEditor } from "../ui/custom/rich-editor";
 import { useMutation } from "@tanstack/react-query";
 import { Spinner } from "../ui/shadcn-io/spinner";
 import { Button } from "../ui/button";
+import { useTranslations } from "next-intl";
+import { Textarea } from "../ui/textarea";
 
 export const CttForm = () => {
+  const t = useTranslations("ctt.form");
   const form = useForm({
     resolver: zodResolver(CttSchema),
     defaultValues: {
@@ -28,12 +30,10 @@ export const CttForm = () => {
     },
   });
 
-  console.log(form.formState.errors);
-
   const mutation = useMutation({
     mutationFn: async (data: CttType) => {
       //   const request = await UpdateOrCreate(data);
-      console.log(data);
+      await new Promise((resolve) => setTimeout(resolve, 3000));
     },
   });
 
@@ -43,28 +43,28 @@ export const CttForm = () => {
     <Form {...form}>
       <form
         onSubmit={form.handleSubmit(handleSubmit)}
-        className="space-y-8 mt-4"
+        className="space-y-8 mt-4 max-w-4xl mx-auto"
       >
         <TextInput
           control={form.control}
           name="name"
-          label="Name"
-          placeholder="Enter your name"
+          label={t("name")}
+          placeholder={t("name_placeholder")}
         />
 
         <TextInput
           control={form.control}
           name="email"
-          label="E-mail"
-          placeholder="Enter your e-mail"
+          label={t("email")}
+          placeholder={t("email_placeholder")}
         />
 
         <TextInput
           control={form.control}
           name="phone"
-          label="Phone"
+          label={t("phone")}
           mask="99 99999-9999"
-          placeholder="Informe o telefone"
+          placeholder={t("phone_placeholder")}
         />
 
         <FormField
@@ -72,12 +72,15 @@ export const CttForm = () => {
           name="message"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>message</FormLabel>
+              <FormLabel className="mb-4 inline-block">
+                {t("message")}
+              </FormLabel>
               <FormControl>
-                <RichTextEditor
-                  placeholder="Digite a descricao completa"
-                  value={field.value}
-                  onChange={field.onChange}
+                <Textarea
+                  {...field}
+                  rows={6}
+                  placeholder={t("message_placeholder")}
+                  className="rounded py-4 bg-toggle text-primary border-border focus-visible:ring-2 focus-visible:ring-highlight focus-visible:ring-offset-0"
                 />
               </FormControl>
               <FormMessage />
@@ -85,8 +88,13 @@ export const CttForm = () => {
           )}
         />
 
-        <Button type="submit" className="w-full" disabled={mutation.isPending}>
-          {mutation.isPending ? <Spinner /> : "Enviar"}
+        <Button
+          size="lg"
+          className="bg-highlight text-background rounded hover:bg-secondary w-full"
+          type="submit"
+          disabled={mutation.isPending}
+        >
+          {mutation.isPending ? <Spinner /> : t("button")}
         </Button>
       </form>
     </Form>

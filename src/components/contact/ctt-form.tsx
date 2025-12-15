@@ -18,6 +18,7 @@ import { Button } from "../ui/button";
 import { useTranslations } from "next-intl";
 import { Textarea } from "../ui/textarea";
 import { toast } from "sonner";
+import { sendContact } from "@/_domain/ctt/ctt.actions";
 
 export const CttForm = () => {
   const t = useTranslations("ctt.form");
@@ -33,7 +34,15 @@ export const CttForm = () => {
   const mutation = useMutation({
     mutationFn: async (data: CttType) => {
       //   const request = await UpdateOrCreate(data);
-      await new Promise((resolve) => setTimeout(resolve, 3000));
+      const ctt = await sendContact(data);
+
+      if (!ctt) {
+        toast.error(t("error_message"), {
+          position: "bottom-right",
+        });
+        return;
+      }
+
       toast.success(t("success_message"), {
         position: "bottom-right",
       });

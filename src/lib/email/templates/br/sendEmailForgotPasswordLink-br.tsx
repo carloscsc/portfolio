@@ -1,7 +1,7 @@
 import { render, Text, Button } from "@react-email/components";
 
-import { EmailLayout } from "./EmailLayout";
-import { sendEmail } from "./sender";
+import { EmailLayout } from "../EmailLayout";
+import { sendEmail } from "../../sender";
 
 interface TemplateProps {
   name: string;
@@ -12,25 +12,21 @@ const Template: React.FC<TemplateProps> = ({ name, token }) => {
   return (
     <EmailLayout>
       <Text>Olá, {name}</Text>
-      <Text>Você recebeu acesso administrativo ao nosso sistema</Text>
-      <Text>Para acessar sua conta, clique no link abaixo:</Text>
+      <Text>Você solicitou a redefinição de sua senha.</Text>
+      <Text>para continuar clique no botão abaixo e crie uma nova senha</Text>
       <Button
         href={token}
-        style={{
-          backgroundColor: "#0021b8",
-          color: "#ffffff",
-          padding: "10px",
-          borderRadius: "8px",
-        }}
+        className="p-4 text-center bg-highlight text-primary rounded w-full box-border"
       >
-        ACESSAR MINHA CONTA
+        Criar nova senha
       </Button>
+      <Text>Se você não fez esta solicitação, ignore este e-mail.</Text>
     </EmailLayout>
   );
 };
 
 // Função para enviar o e-mail
-export async function sendEmailAdminAccess(
+export async function sendEmailForgotPasswordLinkBR(
   email: string,
   props: TemplateProps
 ) {
@@ -40,7 +36,7 @@ export async function sendEmailAdminAccess(
   // Configura o Nodemailer
   await sendEmail({
     to: email,
-    subject: "Acesso de Administrador",
+    subject: "Redefinição de senha",
     html: emailHtml,
   });
 }

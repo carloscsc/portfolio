@@ -15,7 +15,8 @@
       "message": "How can I help you?",
       "message_placeholder": "Tell me how I can help you with your projects.",
       "button": "Send message",
-      "success_message": "Message delivered successfully, I will contact you soon."
+      "success_message": "Message delivered successfully, I will contact you soon",
+      "error_message": "Error sending message. Please check your details and try again"
     }
   },
   "validation": {

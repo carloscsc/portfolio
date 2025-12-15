@@ -15,7 +15,8 @@
       "message": "Como posso te ajudar?",
       "message_placeholder": "Me conte como posso te ajudar em seus projetos",
       "button": "Enviar Mensagem",
-      "success_message": "Mensagem entregue com sucesso, em breve entrarei em contato"
+      "success_message": "Mensagem entregue com sucesso, em breve entrarei em contato",
+      "error_message": "Erro ao enviar mensagem, verifique os dados e tente novamente"
     }
   },
   "validation": {

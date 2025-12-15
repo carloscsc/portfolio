@@ -20,7 +20,7 @@ export async function sendEmail({
   });
 
   const mailOptions = {
-    from: `"Metropolitana FM" <${process.env.SMTP_FROM}>`,
+    from: `"Carlos S. Cantanzaro" <${process.env.SMTP_FROM}>`,
     to,
     subject,
     html,

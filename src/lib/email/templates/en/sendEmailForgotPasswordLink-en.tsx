@@ -1,7 +1,7 @@
 import { render, Text, Button } from "@react-email/components";
 
-import { EmailLayout } from "./EmailLayout";
-import { sendEmail } from "./sender";
+import { EmailLayout } from "../EmailLayout";
+import { sendEmail } from "../../sender";
 
 interface TemplateProps {
   name: string;
@@ -11,27 +11,24 @@ interface TemplateProps {
 const Template: React.FC<TemplateProps> = ({ name, token }) => {
   return (
     <EmailLayout>
-      <Text>Olá, {name}</Text>
-      <Text>Vamos finalizar seu cadastro?</Text>
-      <Text>Para confirmar sua conta, clique no link abaixo</Text>
+      <Text>Hello, {name}</Text>
+      <Text>You requested to reset your password.</Text>
+      <Text>To continue, click the button below and create a new password</Text>
       <Button
         href={token}
-        style={{
-          backgroundColor: "#0021b8",
-          color: "#ffffff",
-          padding: "10px",
-          borderRadius: "8px",
-        }}
+        className="p-4 text-center bg-highlight text-primary rounded w-full box-border"
       >
-        Verificar minha conta
+        Create new password
       </Button>
-      <Text>Após verificar a conta, você pode fazer login.</Text>
+      <Text>
+        If you didn&rsquo;t make this request, please ignore this email.
+      </Text>
     </EmailLayout>
   );
 };
 
 // Função para enviar o e-mail
-export async function sendEmailVerifyAccount(
+export async function sendEmailForgotPasswordLinkEN(
   email: string,
   props: TemplateProps
 ) {
@@ -41,7 +38,7 @@ export async function sendEmailVerifyAccount(
   // Configura o Nodemailer
   await sendEmail({
     to: email,
-    subject: "Confirme sua Conta",
+    subject: "Password Reset",
     html: emailHtml,
   });
 }

@@ -13,7 +13,10 @@ import argon2 from "argon2";
 import { createSession, deleteSession, encrypt } from "@/lib/session";
 
 import { revalidatePath } from "next/cache";
-import { sendEmailForgotPasswordLink } from "@/lib/email";
+
+import { getLocale } from "next-intl/server";
+import { sendEmailForgotPasswordLinkEN } from "@/lib/email/templates/en/sendEmailForgotPasswordLink-en";
+import { sendEmailForgotPasswordLinkBR } from "@/lib/email/templates/br/sendEmailForgotPasswordLink-br";
 
 /**
  * LOGIN
@@ -123,7 +126,16 @@ export const authForgetpassAction = async (
     // cria a URL
     const tokenURL = `${process.env.NEXT_PUBLIC_BASE_URL}/auth/mudar-senha?token=${token}`;
 
-    await sendEmailForgotPasswordLink(lowerCaseEmail, {
+    const locale = await getLocale();
+
+    console.log(locale);
+
+    const sendEmail =
+      locale === "en"
+        ? sendEmailForgotPasswordLinkEN
+        : sendEmailForgotPasswordLinkBR;
+
+    await sendEmail(lowerCaseEmail, {
       name: "Usuário",
       token: tokenURL,
     });

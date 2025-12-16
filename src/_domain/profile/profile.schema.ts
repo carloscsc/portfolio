@@ -18,7 +18,7 @@ const translationContentSchema = z.object({
   description: z
     .string()
     .min(10, "A descrição deve ter pelo menos 10 caracteres")
-    .max(400, "A descrição não deve ter mais de 400 caracteres"),
+    .max(800, "A descrição não deve ter mais de 800 caracteres"),
   highlights: z.array(HighlightSchema).min(2, "Informe ao menos 2 Highlights"),
   phone: phoneSchema,
 });

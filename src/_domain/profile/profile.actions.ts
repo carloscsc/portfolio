@@ -97,8 +97,6 @@ export async function read(): Promise<ProfileTypes | null> {
 // get cached projeto
 export const getAndCacheProfile = cache(
   async (): Promise<ProfileTypes | null> => {
-    await new Promise((resolver) => setInterval(resolver, 3000));
-
     const request = await fetch(
       `${process.env.NEXT_PUBLIC_BASE_URL}/api/profile`,
       { next: { tags: ["profile"] } }

@@ -56,7 +56,7 @@ const TextInput = <T extends FieldValues>({
         }}
         placeholder={props?.placeholder}
         className={cn(
-          "flex h-10 w-full border border-border bg-toggle px-3 py-6 text-base file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-highlight disabled:cursor-not-allowed disabled:opacity-50 md:text-sm",
+          "flex h-10 w-full border border-border bg-accent px-3 py-6 text-base file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-highlight disabled:cursor-not-allowed disabled:opacity-50 md:text-sm",
           readOnly &&
             "bg-gray-100 ring-0 focus:ring-0 focus-visible:ring-0 focus:ring-offset-0 focus-visible:ring-offset-0 cursor-not-allowed",
           error &&

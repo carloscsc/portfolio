@@ -13,7 +13,7 @@ import { ThemeProvider } from "@/components/theme-provider";
 export const metadata: Metadata = {
   title: "I'm Carlos S. Cantanzaro - Full-Stack Developer",
   description:
-    "I build the tools that help businesses scale fast: high-converting giveaway & promotion platforms, sharp landing pages, professional company websites, tailor-made CRMs, smart automations, seamless integrations… you name it. Whatever’s holding your growth back, I turn it into your next advantage.",
+    "I build the tools that help businesses scale fast: high-converting giveaway & promotion platforms, sharp landing pages, professional company websites, tailor-made CRMs, smart automations, seamless integrations… you name it. Whatever's holding your growth back, I turn it into your next advantage.",
   icons: {
     icon: "/favicon.png",
   },
@@ -59,16 +59,20 @@ export default async function RootLayout({
         >
           <NextIntlClientProvider>
             <Analytics />
-            <Providers>{children}</Providers>
+            <Providers>
+              <div className="flex flex-col min-h-screen">
+                <div className="flex-1">{children}</div>
+                <footer className="bg-accent mt-20">
+                  <div className="container mx-auto px-4">
+                    <p className="mt-12 py-8 text-center text-secondary text-sm">
+                      C2 Media & Tech Lab © 2014 - {new Date().getFullYear()}
+                    </p>
+                  </div>
+                </footer>
+              </div>
+            </Providers>
             <Toaster richColors />
           </NextIntlClientProvider>
-          <footer className="bg-accent mt-20">
-            <div className="container mx-auto px-4">
-              <p className="mt-12 py-8 text-center text-secondary text-sm">
-                C2 Media & Tech Lab © 2014 - {new Date().getFullYear()}
-              </p>
-            </div>
-          </footer>
         </ThemeProvider>
       </body>
     </html>

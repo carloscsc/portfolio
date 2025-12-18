@@ -85,7 +85,7 @@ export const CttForm = () => {
                   {...field}
                   rows={6}
                   placeholder={t("message_placeholder")}
-                  className="rounded py-4 bg-toggle text-primary border-border focus-visible:ring-2 focus-visible:ring-highlight focus-visible:ring-offset-0"
+                  className="rounded py-4 bg-accent text-primary border-border focus-visible:ring-2 focus-visible:ring-highlight focus-visible:ring-offset-0"
                 />
               </FormControl>
               <FormMessage />

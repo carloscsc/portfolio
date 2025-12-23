@@ -14,7 +14,7 @@ const AdminPage = async () => {
 
   const data = await request.json();
 
-  const profile = data ? ProfileSchema.parse(data) : null;
+  const profile = data ? ProfileSchema.safeParse(data) : null;
 
   return (
     <div>
@@ -22,7 +22,7 @@ const AdminPage = async () => {
         <h2 className="text-center text-lg">Perfil Profissional</h2>
       </div>
       <div className="mt-4">
-        <ProfileForm data={profile} />
+        <ProfileForm data={profile?.data || null} />
       </div>
     </div>
   );

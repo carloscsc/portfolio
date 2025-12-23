@@ -5,6 +5,7 @@
   "ctt": {
     "ltalk": "Vamos conversar?",
     "form_header": "Ou use o formulário abaixo",
+    "cv": "Curriculo",
     "form": {
       "name": "* Nome completo",
       "name_placeholder": "Informe seu nome completo",
@@ -12,6 +13,7 @@
       "email_placeholder": "Informe seu melhor e-mail",
       "phone": "* Celular",
       "phone_placeholder": "Informe seu telefone celular",
+
       "message": "Como posso te ajudar?",
       "message_placeholder": "Me conte como posso te ajudar em seus projetos",
       "button": "Enviar Mensagem",

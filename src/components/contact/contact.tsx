@@ -1,11 +1,11 @@
 import { FaGithub, FaLinkedin } from "react-icons/fa";
 
-import { MessageSquareShare } from "lucide-react";
+import { Download, MessageSquareShare } from "lucide-react";
 import { getLocale, getTranslations } from "next-intl/server";
 import { getAndCacheProfile } from "@/_domain/profile/profile.actions";
 import { notFound } from "next/navigation";
 import { Button } from "../ui/button";
-import { cn } from "@/lib/utils";
+import { cn, getBlobURL } from "@/lib/utils";
 import { CttForm } from "./ctt-form";
 
 interface ContactProps extends React.HTMLAttributes<HTMLDivElement> {
@@ -73,18 +73,19 @@ const Contact = async ({
               </a>
             </Button>
 
-            <Button
-              size="lg"
-              className="bg-highlight text-background rounded hover:bg-secondary w-full"
-              asChild
-            >
-              <a
-                href={`https://api.whatsapp.com/send?phone=${translation?.phone}`}
+            {translation.cv && (
+              <Button
+                size="lg"
+                className="bg-background text-highlight border-highlight border-2 rounded  w-full"
+                variant="outline"
+                asChild
               >
-                <MessageSquareShare />
-                {t("ltalk")}
-              </a>
-            </Button>
+                <a href={getBlobURL(translation.cv)} target="_blank">
+                  <Download />
+                  {t("cv")}
+                </a>
+              </Button>
+            )}
           </div>
         </div>
       </div>

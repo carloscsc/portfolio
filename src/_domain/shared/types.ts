@@ -15,6 +15,15 @@ export const fileSchema = z
     { message: "Apenas imagens JPEG, PNG ou WebP são permitidas" }
   );
 
+export const DocFileSchema = z
+  .instanceof(File, { message: "Arquivo é obrigatório" })
+  .refine((file) => file.size <= 5 * 1024 * 1024, {
+    message: "Arquivo deve ter no máximo 5MB",
+  })
+  .refine((file) => ["application/pdf"].includes(file.type), {
+    message: "Apenas arquivos PDF são permitidos",
+  });
+
 export const phoneSchema = z
   .string()
   .transform((val) => val?.replace(/\D/g, ""))

@@ -73,8 +73,9 @@ export default async function Home() {
     return notFound();
   }
 
-  const profile = data ? ProfileSchema.parse(data) : null;
-  const translation = profile?.translations?.[locale];
+  const profile = data ? ProfileSchema.safeParse(data) : null;
+  const p = profile?.data;
+  const translation = p?.translations?.[locale];
 
   return (
     <>
@@ -89,7 +90,7 @@ export default async function Home() {
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-10 items-stretch">
             <div className="lg:col-span-5 relative rounded-2xl overflow-hidden min-h-[360px] lg:min-h-[520px]  lg:order-1">
               <Image
-                src={getBlobURL(profile?.cover ?? "")}
+                src={getBlobURL(p?.cover ?? "")}
                 alt="Profile"
                 fill
                 className="object-cover"

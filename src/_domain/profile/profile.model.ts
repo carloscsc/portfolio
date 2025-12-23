@@ -22,6 +22,7 @@ const TranslationContentSchema = new Schema<translationContentType>(
     description: { type: String, required: true },
     highlights: { type: [HighlightSchema], required: true },
     phone: { type: String, required: true },
+    cv: { type: String },
   },
   { _id: false }
 );

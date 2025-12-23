@@ -46,12 +46,16 @@ const ProfileForm = ({ data }: { data: ProfileTypes | null }) => {
           description: data?.translations?.en.description ?? "",
           phone: data?.translations?.en.phone ?? "",
           highlights: data?.translations?.en.highlights ?? [],
+          cv: undefined,
+          _cv: data?.translations?.en.cv ?? "",
         },
         br: {
           title: data?.translations?.br.title ?? "",
           description: data?.translations?.br.description ?? "",
           phone: data?.translations?.br.phone ?? "",
           highlights: data?.translations?.br.highlights ?? [],
+          cv: undefined,
+          _cv: data?.translations?.br.cv ?? "",
         },
       },
       contato: {
@@ -149,6 +153,36 @@ const ProfileForm = ({ data }: { data: ProfileTypes | null }) => {
                   minItems={2}
                   maxItems={4}
                 />
+
+                <FormField
+                  control={form.control}
+                  name="translations.en.cv"
+                  render={({
+                    field: { value: _value, onChange, ...fieldProps },
+                  }) => (
+                    <FormItem>
+                      <FormLabel>Curriculum</FormLabel>
+                      {form.getValues("translations.en._cv") && !_value && (
+                        <p className="text-sm text-muted-foreground">
+                          Atual:{" "}
+                          {form
+                            .getValues("translations.en._cv")
+                            ?.split("/")
+                            .pop()}
+                        </p>
+                      )}
+                      <FormControl>
+                        <Input
+                          type="file"
+                          accept="application/pdf,.pdf,.doc,.docx"
+                          onChange={(e) => onChange(e.target.files?.[0])}
+                          {...fieldProps}
+                        />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
               </CardContent>
             </Card>
           </TabsContent>
@@ -196,6 +230,35 @@ const ProfileForm = ({ data }: { data: ProfileTypes | null }) => {
                   label="Highlights"
                   minItems={2}
                   maxItems={4}
+                />
+                <FormField
+                  control={form.control}
+                  name="translations.br.cv"
+                  render={({
+                    field: { value: _value, onChange, ...fieldProps },
+                  }) => (
+                    <FormItem>
+                      <FormLabel>Curriculum</FormLabel>
+                      {form.getValues("translations.br._cv") && !_value && (
+                        <p className="text-sm text-muted-foreground">
+                          Atual:{" "}
+                          {form
+                            .getValues("translations.br._cv")
+                            ?.split("/")
+                            .pop()}
+                        </p>
+                      )}
+                      <FormControl>
+                        <Input
+                          type="file"
+                          accept="application/pdf,.pdf,.doc,.docx"
+                          onChange={(e) => onChange(e.target.files?.[0])}
+                          {...fieldProps}
+                        />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
                 />
               </CardContent>
             </Card>

@@ -28,11 +28,19 @@ export async function UpdateOrCreate(
   }
 
   const { _id, cover, _cover, ...data } = validate.data;
-  let uploadedCover;
+  let uploadedCover, uploadedEnCV, uploadedBrCv;
 
   try {
     if (cover) {
       uploadedCover = await upload("portfolio/profile", cover);
+    }
+
+    if (data.translations.en.cv) {
+      uploadedEnCV = await upload("portfolio/profile", data.translations.en.cv);
+    }
+
+    if (data.translations.br.cv) {
+      uploadedBrCv = await upload("portfolio/profile", data.translations.br.cv);
     }
 
     await connect();
@@ -45,6 +53,17 @@ export async function UpdateOrCreate(
         $set: {
           cover: uploadedCover || _cover,
           ...data,
+          translations: {
+            ...data.translations, // ← Precisa disso aqui
+            en: {
+              ...data.translations.en, // ← E aqui
+              cv: uploadedEnCV || data.translations.en._cv,
+            },
+            br: {
+              ...data.translations.br, // ← E aqui
+              cv: uploadedBrCv || data.translations.br._cv,
+            },
+          },
         },
         $setOnInsert: {},
       },

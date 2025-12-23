@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { fileSchema, phoneSchema } from "../shared/types";
+import { DocFileSchema, fileSchema, phoneSchema } from "../shared/types";
 
 const HighlightSchema = z.object({
   header: z
@@ -21,14 +21,31 @@ const translationContentSchema = z.object({
     .max(800, "A descrição não deve ter mais de 800 caracteres"),
   highlights: z.array(HighlightSchema).min(2, "Informe ao menos 2 Highlights"),
   phone: phoneSchema,
+  cv: z.string().optional(),
 });
 export type translationContentType = z.infer<typeof translationContentSchema>;
+
+// Translation CreateSchema
+const translationContentStoreSchema = translationContentSchema
+  .omit({ cv: true })
+  .extend({
+    cv: DocFileSchema.optional(),
+    _cv: z.string().optional(),
+  });
 
 const translationsSchema = z.object({
   en: translationContentSchema.omit({ phone: true }).extend({
     phone: z.string().min(6, "telefone é obrigatório"),
   }),
   br: translationContentSchema,
+});
+
+// Translation StoreSchema
+const translationsStoreSchema = z.object({
+  en: translationContentStoreSchema.omit({ phone: true }).extend({
+    phone: z.string().min(6, "telefone é obrigatório"),
+  }),
+  br: translationContentStoreSchema,
 });
 
 export const ContatoSchema = z.object({
@@ -53,11 +70,13 @@ export const StoreProfileSchema = ProfileSchema.omit({
   createdAt: true,
   updatedAt: true,
   cover: true,
+  translations: true,
 })
   .extend({
     _id: z.string().optional(),
     cover: fileSchema.optional(),
     _cover: z.string().optional(),
+    translations: translationsStoreSchema,
   })
   .refine((data) => data.cover || data._cover, {
     message: "É necessário fornecer cover",

@@ -4,6 +4,7 @@
   },
   "ctt": {
     "ltalk": "Let's Talk",
+    "cv": "Resume",
     "form_header": "Or use the form below",
     "form": {
       "name": "* Full Name",

@@ -1,6 +1,6 @@
 import { FaGithub, FaLinkedin } from "react-icons/fa";
 
-import { Download, MessageSquareShare } from "lucide-react";
+import { Download } from "lucide-react";
 import { getLocale, getTranslations } from "next-intl/server";
 import { getAndCacheProfile } from "@/_domain/profile/profile.actions";
 import { notFound } from "next/navigation";

@@ -2,7 +2,7 @@ import AuthLogin from "./form-login";
 
 const Login = async () => {
   return (
-    <div className="flex flex-col flex-wrap content-center justify-center w-full min-h-screen border">
+    <div className="flex flex-col flex-wrap content-center justify-center w-full min-h-screen">
       <AuthLogin />
     </div>
   );

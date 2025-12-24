@@ -75,7 +75,7 @@ const AuthLogin = ({ variant }: AuthLoginProps) => {
   return (
     <>
       <form onSubmit={handleSubmit(onSubmit)}>
-        <div className="space-y-4 border w-[400px] p-4 rounded-md">
+        <div className="space-y-4 w-[400px] p-4 rounded-md">
           <TextInput
             control={control}
             name="email"

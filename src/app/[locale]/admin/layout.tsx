@@ -7,6 +7,7 @@ import Logout from "./logout";
 import { SessionProvider } from "@/contexts/SessionContext";
 import { Button } from "@/components/ui/button";
 import { Link } from "@/i18n/navigation";
+import { ModeToggle } from "@/components/ui/custom/theme-toggle";
 
 export const metadata: Metadata = {
   title: "Admin - Portfolio",
@@ -20,12 +21,14 @@ export default function AdminLayout({
 }) {
   return (
     <SessionProvider>
-      <div className="bg-background">
-        <div className="flex justify-center items-center  mx-auto w-full max-w-4xl  p-5 flex-row md:flex gap-6">
+      <div className="bg-accent">
+        <div className="flex justify-center items-center mx-auto container p-5 flex-row md:flex gap-6">
           <h1 className="text-center text-4xl p-4 ps-0 font-mono">
             &lt;Admin /&gt;
           </h1>
-          <div className="ml-auto">
+          <div className="ml-auto flex items-center gap-2">
+            {/* <LanguageSwitcher variant="desktop" /> */}
+            <ModeToggle />
             <Button
               variant="ghost"
               size="icon"
@@ -42,9 +45,9 @@ export default function AdminLayout({
         </div>
       </div>
 
-      <div className="mx-auto w-full max-w-4xl  p-5 flex-row md:flex gap-6">
+      <div className="mx-auto container p-5 grid grid-cols-1 md:grid-cols-5 gap-6 bg-background">
         <SidebarLinks />
-        <div className="w-full">{children}</div>
+        <div className="col-span-4">{children}</div>
       </div>
     </SessionProvider>
   );

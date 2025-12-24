@@ -22,7 +22,7 @@ import {
 } from "@/components/ui/form";
 import { store } from "@/_domain/projects/project.actions";
 import { Input } from "@/components/ui/input";
-import TextInput from "@/components/ui/custom/TextInput";
+import TextInput from "@/components/forms/TextInput";
 import { RepeatableTextField } from "@/components/ui/custom/repeatable-field";
 import { Textarea } from "@/components/ui/textarea";
 import { Separator } from "@/components/ui/separator";

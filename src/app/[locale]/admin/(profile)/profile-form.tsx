@@ -10,7 +10,7 @@ import { Button } from "@/components/ui/button";
 import { FileUpload } from "@/components/ui/custom/file-upload";
 import { RepeatableHighlightField } from "@/components/ui/custom/repeatable-highlight-field";
 import { RichTextEditor } from "@/components/ui/custom/rich-editor";
-import TextInput from "@/components/ui/custom/TextInput";
+import TextInput from "@/components/forms/TextInput";
 import {
   Form,
   FormControl,
@@ -32,8 +32,15 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Card, CardContent } from "@/components/ui/card";
 import { BRFlag, USFlag } from "@/components/icons/flags";
 import { Input } from "@/components/ui/input";
+import { use } from "react";
 
-const ProfileForm = ({ data }: { data: ProfileTypes | null }) => {
+const ProfileForm = ({
+  profileData,
+}: {
+  profileData: Promise<ProfileTypes | null>;
+}) => {
+  const data = use(profileData);
+
   const queryClient = useQueryClient();
   const form = useForm<storeProfileTypes>({
     resolver: zodResolver(StoreProfileSchema),
@@ -113,7 +120,7 @@ const ProfileForm = ({ data }: { data: ProfileTypes | null }) => {
           {/* English Tab */}
           <TabsContent value="en">
             <Card>
-              <CardContent className="space-y-6 mt-5">
+              <CardContent className="space-y-6 p-6">
                 <TextInput
                   control={form.control}
                   name="translations.en.title"
@@ -190,7 +197,7 @@ const ProfileForm = ({ data }: { data: ProfileTypes | null }) => {
           {/* Portuguese Tab */}
           <TabsContent value="br">
             <Card>
-              <CardContent className="space-y-6 mt-5">
+              <CardContent className="space-y-6 p-6">
                 <TextInput
                   control={form.control}
                   name="translations.br.title"

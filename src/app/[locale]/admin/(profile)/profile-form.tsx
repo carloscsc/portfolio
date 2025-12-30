@@ -113,7 +113,7 @@ const ProfileForm = ({
             </TabsTrigger>
             <TabsTrigger value="br" className="flex items-center gap-2">
               <BRFlag className="w-5 h-5" />
-              Portugues
+              Portuguese
             </TabsTrigger>
           </TabsList>
 
@@ -170,7 +170,7 @@ const ProfileForm = ({
                     <FormItem>
                       <FormLabel>Curriculum</FormLabel>
                       {form.getValues("translations.en._cv") && !_value && (
-                        <p className="text-sm text-muted-foreground">
+                        <p className="text-sm text-secondary border border-accent p-4 mt-3">
                           Atual:{" "}
                           {form
                             .getValues("translations.en._cv")
@@ -184,6 +184,7 @@ const ProfileForm = ({
                           accept="application/pdf,.pdf,.doc,.docx"
                           onChange={(e) => onChange(e.target.files?.[0])}
                           {...fieldProps}
+                          className="flex justify-center items-center  pt-2 pl-2"
                         />
                       </FormControl>
                       <FormMessage />
@@ -247,7 +248,7 @@ const ProfileForm = ({
                     <FormItem>
                       <FormLabel>Curriculum</FormLabel>
                       {form.getValues("translations.br._cv") && !_value && (
-                        <p className="text-sm text-muted-foreground">
+                        <p className="text-sm text-secondary border border-accent p-4 mt-3">
                           Atual:{" "}
                           {form
                             .getValues("translations.br._cv")
@@ -261,6 +262,7 @@ const ProfileForm = ({
                           accept="application/pdf,.pdf,.doc,.docx"
                           onChange={(e) => onChange(e.target.files?.[0])}
                           {...fieldProps}
+                          className="flex justify-center items-center  pt-2 pl-2"
                         />
                       </FormControl>
                       <FormMessage />
@@ -297,7 +299,7 @@ const ProfileForm = ({
           render={({ field }) => (
             <FormItem>
               <FormLabel>Foto de perfil</FormLabel>
-              <div className="lg:col-span-5 relative rounded-2xl overflow-hidden min-h-[360px] lg:min-h-[520px]  lg:order-1 mt-3">
+              <div className="relative aspect-square w-full overflow-hidden rounded-xl bg-card mb-8">
                 <Image
                   src={
                     cover
@@ -308,7 +310,9 @@ const ProfileForm = ({
                   }
                   alt=""
                   fill
-                  className="object-cover"
+                  className="object-cover mt-2"
+                  sizes="(min-width: 768px) 768px, 100vw"
+                  priority
                 />
               </div>
               <FormControl>

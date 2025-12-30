@@ -61,7 +61,7 @@ export function RepeatableHighlightField({
         <FormDescription className="mb-4">{description}</FormDescription>
       )}
 
-      <div className="space-y-3 border-2 border-dashed rounded-md p-4">
+      <div className="space-y-3 border-2 border-border rounded-md p-4">
         {fields.map((field, index) => (
           <div key={field.id} className="flex gap-2 items-start">
             <FormField

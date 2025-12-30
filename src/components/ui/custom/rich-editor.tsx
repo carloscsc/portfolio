@@ -57,7 +57,7 @@ const MenuBar = ({ editor }: { editor: any }) => {
         onClick={() => editor.chain().focus().toggleItalic().run()}
         className={cn(
           "h-8 w-8 p-0",
-          editor.isActive("italic") ? "bg-muted" : ""
+          editor.isActive("italic") ? "bg-muted" : "",
         )}
       >
         <Italic className="h-4 w-4" />
@@ -70,7 +70,7 @@ const MenuBar = ({ editor }: { editor: any }) => {
         onClick={() => editor.chain().focus().toggleUnderline().run()}
         className={cn(
           "h-8 w-8 p-0",
-          editor.isActive("underline") ? "bg-muted" : ""
+          editor.isActive("underline") ? "bg-muted" : "",
         )}
       >
         <UnderlineIcon className="h-4 w-4" />
@@ -83,7 +83,7 @@ const MenuBar = ({ editor }: { editor: any }) => {
         onClick={() => editor.chain().focus().toggleStrike().run()}
         className={cn(
           "h-8 w-8 p-0",
-          editor.isActive("strike") ? "bg-muted" : ""
+          editor.isActive("strike") ? "bg-muted" : "",
         )}
       >
         <Strikethrough className="h-4 w-4" />
@@ -108,7 +108,7 @@ const MenuBar = ({ editor }: { editor: any }) => {
         onClick={() => editor.chain().focus().toggleHeading({ level: 1 }).run()}
         className={cn(
           "h-8 w-8 p-0",
-          editor.isActive("heading", { level: 1 }) ? "bg-muted" : ""
+          editor.isActive("heading", { level: 1 }) ? "bg-muted" : "",
         )}
       >
         <Heading1 className="h-4 w-4" />
@@ -121,7 +121,7 @@ const MenuBar = ({ editor }: { editor: any }) => {
         onClick={() => editor.chain().focus().toggleHeading({ level: 2 }).run()}
         className={cn(
           "h-8 w-8 p-0",
-          editor.isActive("heading", { level: 2 }) ? "bg-muted" : ""
+          editor.isActive("heading", { level: 2 }) ? "bg-muted" : "",
         )}
       >
         <Heading2 className="h-4 w-4" />
@@ -134,7 +134,7 @@ const MenuBar = ({ editor }: { editor: any }) => {
         onClick={() => editor.chain().focus().toggleHeading({ level: 3 }).run()}
         className={cn(
           "h-8 w-8 p-0",
-          editor.isActive("heading", { level: 3 }) ? "bg-muted" : ""
+          editor.isActive("heading", { level: 3 }) ? "bg-muted" : "",
         )}
       >
         <Heading3 className="h-4 w-4" />
@@ -149,7 +149,7 @@ const MenuBar = ({ editor }: { editor: any }) => {
         onClick={() => editor.chain().focus().toggleBulletList().run()}
         className={cn(
           "h-8 w-8 p-0",
-          editor.isActive("bulletList") ? "bg-muted" : ""
+          editor.isActive("bulletList") ? "bg-muted" : "",
         )}
       >
         <List className="h-4 w-4" />
@@ -162,7 +162,7 @@ const MenuBar = ({ editor }: { editor: any }) => {
         onClick={() => editor.chain().focus().toggleOrderedList().run()}
         className={cn(
           "h-8 w-8 p-0",
-          editor.isActive("orderedList") ? "bg-muted" : ""
+          editor.isActive("orderedList") ? "bg-muted" : "",
         )}
       >
         <ListOrdered className="h-4 w-4" />
@@ -175,7 +175,7 @@ const MenuBar = ({ editor }: { editor: any }) => {
         onClick={() => editor.chain().focus().toggleBlockquote().run()}
         className={cn(
           "h-8 w-8 p-0",
-          editor.isActive("blockquote") ? "bg-muted" : ""
+          editor.isActive("blockquote") ? "bg-muted" : "",
         )}
       >
         <Quote className="h-4 w-4" />
@@ -217,7 +217,7 @@ export const RichTextEditor = forwardRef<HTMLDivElement, RichTextEditorProps>(
       className,
       disabled = false,
     },
-    ref
+    ref,
   ) => {
     const editor = useEditor({
       extensions: [
@@ -253,9 +253,9 @@ export const RichTextEditor = forwardRef<HTMLDivElement, RichTextEditorProps>(
       <div
         ref={ref}
         className={cn(
-          "flex min-h-[200px] w-full rounded-md border border-input bg-background ring-offset-background focus-within:outline-none focus-within:ring-2 focus-within:ring-ring focus-within:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50",
+          "flex min-h-[200px] w-full rounded-md border border-border bg-accent focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-highlight disabled:cursor-not-allowed disabled:opacity-50",
           disabled && "opacity-50 cursor-not-allowed",
-          className
+          className,
         )}
       >
         <div className="flex flex-col w-full">
@@ -279,14 +279,14 @@ export const RichTextEditor = forwardRef<HTMLDivElement, RichTextEditorProps>(
                 "[&_.ProseMirror_s]:line-through",
                 "[&_.ProseMirror_code]:bg-muted [&_.ProseMirror_code]:px-1 [&_.ProseMirror_code]:rounded [&_.ProseMirror_code]:text-sm",
                 "[&_.ProseMirror_p.is-editor-empty:first-child::before]:content-[attr(data-placeholder)] [&_.ProseMirror_p.is-editor-empty:first-child::before]:text-muted-foreground [&_.ProseMirror_p.is-editor-empty:first-child::before]:float-left [&_.ProseMirror_p.is-editor-empty:first-child::before]:h-0 [&_.ProseMirror_p.is-editor-empty:first-child::before]:pointer-events-none",
-                disabled && "cursor-not-allowed"
+                disabled && "cursor-not-allowed",
               )}
             />
           </div>
         </div>
       </div>
     );
-  }
+  },
 );
 
 RichTextEditor.displayName = "RichTextEditor";

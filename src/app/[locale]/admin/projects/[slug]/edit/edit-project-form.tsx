@@ -143,7 +143,7 @@ const EditProjectForm = ({ data }: { data: ProjectTypes }) => {
 
   return (
     <>
-      <div className="w-full flex flex-row justify-between items-center border-b pb-2">
+      <div className="w-full flex flex-row justify-between items-center border-b border-border pb-2">
         <h2 className="text-center text-lg">Adicionar Projeto</h2>
         <ButtonGroup>
           <Button
@@ -371,7 +371,7 @@ const EditProjectForm = ({ data }: { data: ProjectTypes }) => {
           </div>
 
           {/* Cliente */}
-          <div className="border-dashed border-2 p-4 rounded-md space-y-6">
+          <div className="border-border border-2 p-4 rounded-md space-y-6">
             <h2>Dados do Cliente</h2>
             <Separator />
             <TextInput
@@ -454,7 +454,7 @@ const EditProjectForm = ({ data }: { data: ProjectTypes }) => {
             />
           </div>
 
-          <div className="border-dashed border-2 p-4 rounded-md space-y-6">
+          <div className="border-border border-2 p-4 rounded-lg space-y-6">
             <h2>Imagens</h2>
             {/* Cover */}
             <FormField

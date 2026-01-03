@@ -113,7 +113,7 @@ const CadastrarProjeto = () => {
 
   return (
     <>
-      <div className="w-full flex flex-row justify-between items-center border-b pb-4">
+      <div className="w-full flex flex-row justify-between items-center border-b border-border pb-4">
         <h2 className="text-center text-lg">Add a Project</h2>
 
         <Button
@@ -329,7 +329,7 @@ const CadastrarProjeto = () => {
           </div>
 
           {/* Cliente */}
-          <div className="border-dashed border-2 p-4 rounded-md space-y-6">
+          <div className="border-border border-2 p-4 rounded-md space-y-6">
             <h2>Dados do Cliente</h2>
             <Separator />
             <TextInput
@@ -410,7 +410,7 @@ const CadastrarProjeto = () => {
             />
           </div>
 
-          <div className="border-dashed border-2 p-4 rounded-md space-y-6">
+          <div className="border-border border-2 p-4 rounded-md space-y-6">
             <h2>Imagens</h2>
             {/* Cover */}
             <FormField

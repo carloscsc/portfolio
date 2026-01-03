@@ -18,7 +18,7 @@ const ProjectsList = () => {
     queryKey: ["projetos"],
     queryFn: async () => {
       const request = await fetch(
-        `${process.env.NEXT_PUBLIC_BASE_URL}/api/project`
+        `${process.env.NEXT_PUBLIC_BASE_URL}/api/project`,
       );
       const data = await request.json();
       return data as ProjectTypes[];
@@ -27,7 +27,7 @@ const ProjectsList = () => {
 
   return (
     <div>
-      <div className="w-full flex flex-row justify-between items-center border-b pb-4">
+      <div className="w-full flex flex-row justify-between items-center border-b border-border pb-4">
         <h2 className="text-center text-lg">Projetos</h2>
 
         <Button size="icon" asChild variant="outline">
@@ -52,7 +52,7 @@ const ProjectsList = () => {
                 // >
                 //   <h2>{p.title}</h2>
                 // </Link>
-                <Item variant="outline" className="rounded" asChild key={p._id}>
+                <Item variant="muted" className="rounded" asChild key={p._id}>
                   <Link
                     href={`projects/${p.slug}/edit`}
                     title={p.translations.en.title}

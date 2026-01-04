@@ -29,7 +29,7 @@ type Props = {
 
 export async function generateMetadata(
   { params }: Props,
-  parent: ResolvingMetadata
+  parent: ResolvingMetadata,
 ): Promise<Metadata> {
   const parentData = await parent;
 
@@ -245,20 +245,25 @@ export default async function ProjectPage({ params }: Props) {
         </div>
 
         {/* Tecnologias */}
-        {data.technologies && data.technologies.length > 0 && (
+        {data.techDetails && data.techDetails.length > 0 && (
           <div className="mt-8">
             <h2 className="text-2xl text-primary mb-4">
               {t("sections.technologies")}
             </h2>
             <div className="flex flex-wrap gap-2">
-              {data.technologies.map((tech) => (
-                <Badge
-                  key={tech}
-                  variant="secondary"
-                  className="bg-toggle text-secondary border-border"
+              {data.techDetails.map((tech) => (
+                <Link
+                  key={tech.value}
+                  href={`/tags/${tech.value}`}
+                  title={tech.label}
                 >
-                  {tech}
-                </Badge>
+                  <Badge
+                    variant="secondary"
+                    className="bg-toggle text-secondary border-border"
+                  >
+                    {tech.label}
+                  </Badge>
+                </Link>
               ))}
             </div>
           </div>

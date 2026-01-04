@@ -34,6 +34,7 @@ import Image from "next/image";
 import { toast } from "sonner";
 import { Spinner } from "@/components/ui/shadcn-io/spinner";
 import { useRouter } from "@/i18n/navigation";
+import SelectTechTags from "@/components/forms/tags-select";
 
 // TODO: apagar campos depois de enviar
 
@@ -265,13 +266,18 @@ const CadastrarProjeto = () => {
             />
             <Separator />
 
-            <RepeatableTextField
+            <FormField
               control={form.control}
               name="technologies"
-              label="Tecnologias"
-              placeholder="Ex: React, TypeScript, Node.js"
-              minItems={1}
-              maxItems={15}
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Tecnologias</FormLabel>
+                  <FormControl>
+                    <SelectTechTags field={field} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
             />
 
             <RepeatableTextField

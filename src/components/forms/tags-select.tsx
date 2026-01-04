@@ -78,7 +78,7 @@ export default SelectTechTags;
 
 const classNames: ClassNamesConfig<TechTagTypes, true> = {
   control: (state) =>
-    `flex w-full rounded border border-border bg-accent px-3 py-2 text-base mt-2${
+    `flex w-full rounded border border-border bg-accent px-3 py-2 text-base mt-2 ${
       state.isFocused ? "outline-hidden ring-2 ring-highlight" : ""
     }`,
   valueContainer: () => "flex flex-wrap gap-1",

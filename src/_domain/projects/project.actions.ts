@@ -201,7 +201,7 @@ export async function read() {
 
 // find by tag
 export async function findByTag(tag: string | null = null) {
-  await new Promise((resolver) => setTimeout(resolver, 3000));
+  // await new Promise((resolver) => setTimeout(resolver, 3000));
 
   try {
     await connect();

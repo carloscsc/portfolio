@@ -26,7 +26,7 @@ const MenuLink = ({
         className={cn(
           "p-2 mb-2 w-full rounded text-primary hover:bg-toggle flex justify-start items-center gap-2",
           "[&>svg]:w-4 [&>svg]:h-4",
-          isActive ? "bg-toggle" : ""
+          isActive ? "bg-toggle" : "",
         )}
       >
         {icon} {text}

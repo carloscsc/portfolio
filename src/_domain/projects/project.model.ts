@@ -12,7 +12,7 @@ const TranslationContentSchema = new Schema<TranslationContentProjectType>(
     results: { type: [String] },
     duration: { type: String },
   },
-  { _id: false }
+  { _id: false },
 );
 
 const ProjectMongooseSchema = new Schema<ProjectTypes>(
@@ -26,7 +26,7 @@ const ProjectMongooseSchema = new Schema<ProjectTypes>(
     demo_link: { type: String },
     repo_link: { type: String },
     cover: { type: String, required: true },
-    technologies: { type: [String] },
+    technologies: { type: [Schema.Types.ObjectId], ref: "TechTag" },
     gallery: { type: [String] },
     translations: {
       en: { type: TranslationContentSchema, require: true },
@@ -47,7 +47,7 @@ const ProjectMongooseSchema = new Schema<ProjectTypes>(
         return ret;
       },
     },
-  }
+  },
 );
 
 export const Project: Model<ProjectTypes> =

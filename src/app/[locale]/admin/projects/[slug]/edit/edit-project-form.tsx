@@ -44,6 +44,7 @@ import { useRouter } from "@/i18n/navigation";
 import { Spinner } from "@/components/ui/shadcn-io/spinner";
 
 import { toast } from "sonner";
+import SelectTechTags from "@/components/forms/tags-select";
 
 const EditProjectForm = ({ data }: { data: ProjectTypes }) => {
   const router = useRouter();
@@ -64,7 +65,7 @@ const EditProjectForm = ({ data }: { data: ProjectTypes }) => {
       cover: undefined,
       client_logo: undefined,
 
-      technologies: data.technologies,
+      technologies: ["121212"],
       gallery: [],
       _gallery: data.gallery || [],
       status: data.status || "ativo",
@@ -98,6 +99,8 @@ const EditProjectForm = ({ data }: { data: ProjectTypes }) => {
     "client_logo",
     "gallery",
   ]);
+
+  console.log(form.watch("technologies"));
 
   const onRemove = (imageToRemove: string) => {
     const newArray = _gallery.filter((image) => image !== imageToRemove);
@@ -307,13 +310,27 @@ const EditProjectForm = ({ data }: { data: ProjectTypes }) => {
             />
             <Separator />
 
-            <RepeatableTextField
+            {/* <RepeatableTextField
               control={form.control}
               name="technologies"
               label="Tecnologias"
               placeholder="Ex: React, TypeScript, Node.js"
               minItems={1}
               maxItems={15}
+            /> */}
+
+            <FormField
+              control={form.control}
+              name="technologies"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Tecnologias</FormLabel>
+                  <FormControl>
+                    <SelectTechTags field={field} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
             />
 
             <RepeatableTextField

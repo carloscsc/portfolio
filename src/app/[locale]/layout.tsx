@@ -50,7 +50,7 @@ export default async function RootLayout({
       className={`${jetbrainsMono.variable} ${openSans.variable} antialiased`}
       suppressHydrationWarning
     >
-      <body>
+      <body suppressHydrationWarning>
         <ThemeProvider
           attribute="class"
           defaultTheme="system"

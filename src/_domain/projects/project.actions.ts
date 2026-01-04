@@ -167,7 +167,12 @@ export async function update(data: UpdateProjectTypes): Promise<ResponseType> {
 export async function read() {
   try {
     await connect();
-    const projects = await Project.find().select("-__v").lean();
+    const projects = await Project.find()
+      .populate("techDetails")
+      .select("-__v")
+      .lean({ virtuals: true });
+
+    console.log(projects);
 
     return projects.map((project) => ({
       ...project,
@@ -187,10 +192,13 @@ export async function findOne(slug: string): Promise<ProjectTypes | null> {
     const request = await Project.findOne({
       slug,
     })
+      .populate("techDetails")
       .select("-__v")
-      .lean();
+      .lean({ virtuals: true });
 
     if (!request) return null;
+
+    console.log(request);
 
     const { _id, ...project } = request;
 

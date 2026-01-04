@@ -9,7 +9,7 @@ const CadastrarProjeto = async ({
   const { slug } = await params;
 
   const request = await fetch(
-    `${process.env.NEXT_PUBLIC_BASE_URL}/api/project/${slug}`
+    `${process.env.NEXT_PUBLIC_BASE_URL}/api/project/${slug}`,
   );
 
   if (!request.ok) {

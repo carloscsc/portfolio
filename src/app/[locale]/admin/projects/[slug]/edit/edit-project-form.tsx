@@ -65,7 +65,7 @@ const EditProjectForm = ({ data }: { data: ProjectTypes }) => {
       cover: undefined,
       client_logo: undefined,
 
-      technologies: ["121212"],
+      technologies: data.technologies,
       gallery: [],
       _gallery: data.gallery || [],
       status: data.status || "ativo",

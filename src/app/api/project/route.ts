@@ -5,6 +5,8 @@ import { NextResponse } from "next/server";
 export async function GET(): Promise<NextResponse<ProjectTypes[] | null>> {
   const project = await read();
 
+  console.log(project);
+
   if (!project) {
     return NextResponse.json(null);
   }

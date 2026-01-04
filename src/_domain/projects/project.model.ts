@@ -1,5 +1,6 @@
 import mongoose, { Model, Schema } from "mongoose";
 import { ProjectTypes, TranslationContentProjectType } from "./project.schema";
+import "../stack/stack.model";
 
 const TranslationContentSchema = new Schema<TranslationContentProjectType>(
   {
@@ -26,7 +27,7 @@ const ProjectMongooseSchema = new Schema<ProjectTypes>(
     demo_link: { type: String },
     repo_link: { type: String },
     cover: { type: String, required: true },
-    technologies: { type: [Schema.Types.ObjectId], ref: "TechTag" },
+    technologies: [{ type: String }],
     gallery: { type: [String] },
     translations: {
       en: { type: TranslationContentSchema, require: true },
@@ -40,15 +41,18 @@ const ProjectMongooseSchema = new Schema<ProjectTypes>(
   },
   {
     timestamps: true,
-    toJSON: {
-      transform: function (doc, ret: any) {
-        ret._id = ret._id.toString();
-        delete ret.__v;
-        return ret;
-      },
-    },
+    toJSON: { virtuals: true },
+    toObject: { virtuals: true },
   },
 );
+
+ProjectMongooseSchema.virtual("techDetails", {
+  ref: "TechTag",
+  localField: "technologies",
+  foreignField: "value",
+  justOne: false,
+  options: { select: "-_id label value" },
+});
 
 export const Project: Model<ProjectTypes> =
   mongoose.models.Project ||

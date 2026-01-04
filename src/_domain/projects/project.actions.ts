@@ -10,12 +10,12 @@ import {
 import { Project } from "./project.model";
 import connect from "@/lib/db";
 import { upload } from "@/lib/r2-blob";
-import { clearFileName } from "@/lib/utils";
+import { slugfy } from "@/lib/utils";
 import { revalidatePath } from "next/cache";
 import { cache } from "react";
 
 export async function store(
-  ProjectData: StoreProjectTypes
+  ProjectData: StoreProjectTypes,
 ): Promise<ResponseType> {
   const validate = StoreProjectSchema.safeParse(ProjectData);
 
@@ -40,10 +40,10 @@ export async function store(
     // upload gallery
     if (gallery && gallery.length > 1) {
       const galleryUploadQueue = await Promise.all(
-        gallery.map((image) => upload("portfolio/projects", image))
+        gallery.map((image) => upload("portfolio/projects", image)),
       );
       galleryUploadQueue.forEach((imagem) =>
-        uploadedGallery.push(imagem as string)
+        uploadedGallery.push(imagem as string),
       );
     }
 
@@ -55,7 +55,7 @@ export async function store(
       cover: uploadedCover,
       gallery: uploadedGallery,
       client_logo: uploadedClientLogo,
-      slug: clearFileName(data.translations.en.title),
+      slug: slugfy(data.translations.en.title),
     };
 
     await connect();
@@ -110,10 +110,10 @@ export async function update(data: UpdateProjectTypes): Promise<ResponseType> {
   // upload gallery
   if (gallery && gallery.length > 0) {
     const galleryUploadQueue = await Promise.all(
-      gallery.map((image) => upload("portfolio/projects", image))
+      gallery.map((image) => upload("portfolio/projects", image)),
     );
     galleryUploadQueue.forEach((imagem) =>
-      uploadedGallery.push(imagem as string)
+      uploadedGallery.push(imagem as string),
     );
   }
   const newGallery = [...uploadedGallery, ...(_gallery || [])];
@@ -228,7 +228,7 @@ export async function deleteProject(_id: string): Promise<ResponseType> {
 export const getAndCacheProject = cache(
   async (slug: string): Promise<ProjectTypes | null> => {
     const request = await fetch(
-      `${process.env.NEXT_PUBLIC_BASE_URL}/api/project/${slug}`
+      `${process.env.NEXT_PUBLIC_BASE_URL}/api/project/${slug}`,
     );
 
     if (!request.ok) {
@@ -236,5 +236,5 @@ export const getAndCacheProject = cache(
     }
 
     return await request.json();
-  }
+  },
 );

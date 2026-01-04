@@ -3,8 +3,8 @@ import { TechTagTypes } from "./stack.schema";
 
 const TechTagMongooseSchema = new Schema<TechTagTypes>(
   {
-    name: { type: String, required: true },
-    slug: { type: String, required: true },
+    label: { type: String, required: true, index: true },
+    value: { type: String, required: true, index: { unique: true } },
     // description_en: { type: String, required: true },
     // description_br: { type: String, required: true },
     // cover: { type: String, required: true },
@@ -22,5 +22,5 @@ const TechTagMongooseSchema = new Schema<TechTagTypes>(
 );
 
 export const TechTag: Model<TechTagTypes> =
-  mongoose.models.TechTags ||
+  mongoose.models.TechTag ||
   mongoose.model<TechTagTypes>("TechTag", TechTagMongooseSchema);

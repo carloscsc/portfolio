@@ -1,5 +1,5 @@
 import { S3Client, PutObjectCommand } from "@aws-sdk/client-s3";
-import { clearFileName } from "@/lib/utils";
+import { slugfy } from "@/lib/utils";
 
 const s3Client = new S3Client({
   region: "auto",
@@ -12,7 +12,7 @@ const s3Client = new S3Client({
 
 export async function upload(
   folder: string,
-  file: File
+  file: File,
 ): Promise<string | boolean> {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [_, nanoseconds] = process.hrtime();
@@ -21,7 +21,7 @@ export async function upload(
   try {
     // rename
     const fileNameParts = file.name.split(".");
-    const fileName = clearFileName(fileNameParts.slice(0, -1).join("-"));
+    const fileName = slugfy(fileNameParts.slice(0, -1).join("-"));
     const newFileName = `${fileName}-${nanoPart}`;
     const fileExtension = fileNameParts[fileNameParts.length - 1];
 

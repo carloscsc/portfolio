@@ -1,5 +1,6 @@
 import { z } from "zod";
 import { fileSchema } from "../shared/types";
+import { TechTagsSchema } from "../stack/stack.schema";
 
 export const TranslationContentProjectSchema = z.object({
   title: z.string().min(1, "O título é obrigatório"),
@@ -37,7 +38,7 @@ export const ProjectSchema = z.object({
         if (!val) return true;
         return Number(val) > 2000;
       },
-      { error: "Data precisa ser superir a 2000" }
+      { error: "Data precisa ser superir a 2000" },
     ),
   demo_link: z.string().optional(),
   repo_link: z.string().optional(),
@@ -46,6 +47,7 @@ export const ProjectSchema = z.object({
   gallery: z.array(z.string()).optional(),
   status: z.enum(["ativo", "inativo"]),
   translations: TranslationSchema,
+  techDetails: z.array(TechTagsSchema).optional(),
   createdAt: z.string(),
   updatedAt: z.string(),
 });

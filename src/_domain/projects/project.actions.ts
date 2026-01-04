@@ -199,6 +199,47 @@ export async function read() {
   }
 }
 
+// find by tag
+export async function findByTag(tag: string | null = null) {
+  await new Promise((resolver) => setTimeout(resolver, 3000));
+
+  try {
+    await connect();
+    const results = await Project.aggregate([
+      {
+        $match: { technologies: tag },
+      },
+      {
+        $sort: { updatedAt: -1 },
+      },
+      {
+        $lookup: {
+          from: "techtags",
+          localField: "technologies",
+          foreignField: "value",
+          as: "techDetails",
+          pipeline: [{ $project: { _id: 0, label: 1, value: 1 } }],
+        },
+      },
+      {
+        $addFields: {
+          _id: { $toString: "$_id" },
+        },
+      },
+      {
+        $unset: ["__v", "createdAt", "updatedAt"],
+      },
+    ]);
+
+    if (!results || results.length === 0) return null;
+
+    return results;
+  } catch (e) {
+    console.log(e);
+    throw new Error("Erro ao buscar dados dos projetos");
+  }
+}
+
 export async function findOne(slug: string): Promise<ProjectTypes | null> {
   if (!slug) return null;
 

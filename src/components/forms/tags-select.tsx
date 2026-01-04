@@ -5,6 +5,7 @@ import type { ClassNamesConfig } from "react-select";
 import { createTags, getAllTags } from "@/_domain/stack/actions.stack";
 import { toast } from "sonner";
 import { TechTagTypes } from "@/_domain/stack/stack.schema";
+import { useMemo } from "react";
 
 type SelectTechTagsProps = {
   field: ControllerRenderProps<FieldValues, any>;
@@ -35,21 +36,27 @@ const SelectTechTags = ({ field }: SelectTechTagsProps) => {
     onSuccess: (tag) => {
       if (!tag) return;
 
-      const current = field.value || [];
-      field.onChange([...current, tag.value]);
-
       queryClient.setQueryData(["tags"], (old: TechTagTypes[] | undefined) => {
         if (!old) return [tag];
-
         const exists = old.some((t) => t.value === tag.value);
         if (exists) return old;
-
         return [...old, tag];
       });
+
+      const current = field.value || [];
+      field.onChange([...current, tag.value]);
     },
   });
 
   const handleTagCreation = (label: string) => mutation.mutate(label);
+
+  const selectedTags = useMemo(() => {
+    if (!field.value || !data) return [];
+
+    return field.value
+      .map((val: string) => data.find((tag: TechTagTypes) => tag.value === val))
+      .filter((tag: TechTagTypes) => tag !== undefined);
+  }, [field.value, data]);
 
   return (
     <CreatableSelect
@@ -57,9 +64,8 @@ const SelectTechTags = ({ field }: SelectTechTagsProps) => {
       options={data}
       isDisabled={isFetching}
       isLoading={isFetching}
-      autoFocus={true}
       onCreateOption={(value) => handleTagCreation(value)}
-      value={data && data.filter((tag) => field.value?.includes(tag.value))}
+      value={selectedTags}
       onChange={(selected) => {
         field.onChange(selected ? selected.map((s) => s.value) : []);
       }}
@@ -70,7 +76,6 @@ const SelectTechTags = ({ field }: SelectTechTagsProps) => {
 };
 export default SelectTechTags;
 
-// Style
 const classNames: ClassNamesConfig<TechTagTypes, true> = {
   control: (state) =>
     `flex w-full rounded border border-border bg-accent px-3 py-2 text-base mt-2${

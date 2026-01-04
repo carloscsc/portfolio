@@ -167,17 +167,32 @@ export async function update(data: UpdateProjectTypes): Promise<ResponseType> {
 export async function read() {
   try {
     await connect();
-    const projects = await Project.find()
-      .populate("techDetails")
-      .select("-__v")
-      .lean({ virtuals: true });
+    const results = await Project.aggregate([
+      {
+        $sort: { updatedAt: -1 },
+      },
+      {
+        $lookup: {
+          from: "techtags",
+          localField: "technologies",
+          foreignField: "value",
+          as: "techDetails",
+          pipeline: [{ $project: { _id: 0, label: 1, value: 1 } }],
+        },
+      },
+      {
+        $addFields: {
+          _id: { $toString: "$_id" },
+        },
+      },
+      {
+        $unset: ["__v", "createdAt", "updatedAt"],
+      },
+    ]);
 
-    console.log(projects);
+    if (!results || results.length === 0) return null;
 
-    return projects.map((project) => ({
-      ...project,
-      _id: project._id.toString(),
-    }));
+    return results;
   } catch (e) {
     console.log(e);
     throw new Error("Erro ao buscar dados dos projetos");
@@ -189,23 +204,31 @@ export async function findOne(slug: string): Promise<ProjectTypes | null> {
 
   try {
     await connect();
-    const request = await Project.findOne({
-      slug,
-    })
-      .populate("techDetails")
-      .select("-__v")
-      .lean({ virtuals: true });
+    const results = await Project.aggregate([
+      {
+        $match: { slug },
+      },
+      {
+        $lookup: {
+          from: "techtags",
+          localField: "technologies",
+          foreignField: "value",
+          as: "techDetails",
+          pipeline: [{ $project: { _id: 0, label: 1, value: 1 } }],
+        },
+      },
+      {
+        $addFields: {
+          _id: { $toString: "$_id" },
+        },
+      },
+      {
+        $unset: ["__v", "createdAt", "updatedAt"],
+      },
+    ]);
 
-    if (!request) return null;
-
-    console.log(request);
-
-    const { _id, ...project } = request;
-
-    return {
-      _id: _id.toString(),
-      ...project,
-    };
+    if (!results || results.length === 0) return null;
+    return results[0];
   } catch (error) {
     console.log(error);
     return null;

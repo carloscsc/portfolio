@@ -41,18 +41,8 @@ const ProjectMongooseSchema = new Schema<ProjectTypes>(
   },
   {
     timestamps: true,
-    toJSON: { virtuals: true },
-    toObject: { virtuals: true },
   },
 );
-
-ProjectMongooseSchema.virtual("techDetails", {
-  ref: "TechTag",
-  localField: "technologies",
-  foreignField: "value",
-  justOne: false,
-  options: { select: "-_id label value" },
-});
 
 export const Project: Model<ProjectTypes> =
   mongoose.models.Project ||

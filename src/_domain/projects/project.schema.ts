@@ -44,11 +44,12 @@ export const ProjectSchema = z.object({
   repo_link: z.string().optional(),
   cover: z.string(),
   technologies: z.array(z.string()).optional(),
-  category: z.string(),
+  category: z.string().optional(),
+  _category: z.array(z.string()),
   gallery: z.array(z.string()).optional(),
   status: z.enum(["ativo", "inativo"]),
   translations: TranslationSchema,
-  techDetails: z.array(TagSchema).optional(),
+  tags: z.array(TagSchema).optional(),
   createdAt: z.string(),
   updatedAt: z.string(),
 });
@@ -61,6 +62,7 @@ export const StoreProjectSchema = ProjectSchema.omit({
   cover: true,
   gallery: true,
   client_logo: true,
+  _category: true,
 }).extend({
   cover: fileSchema,
   client_logo: fileSchema,
@@ -72,6 +74,7 @@ export const UpdateProjectSchema = ProjectSchema.partial()
     cover: true,
     gallery: true,
     client_logo: true,
+    _category: true,
   })
   .extend({
     cover: fileSchema.optional(),

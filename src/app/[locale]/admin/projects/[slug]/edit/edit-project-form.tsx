@@ -53,6 +53,8 @@ const EditProjectForm = ({ data }: { data: ProjectTypes }) => {
 
   const queryClient = useQueryClient();
 
+  console.log(data);
+
   const form = useForm<UpdateProjectTypes>({
     resolver: zodResolver(UpdateProjectSchema),
     defaultValues: {

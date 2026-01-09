@@ -70,7 +70,7 @@ const TagRender = ({ data, promiseSlug }: tagPagePromise) => {
   const tags = use(data);
   const { slug } = use(promiseSlug);
 
-  const tag = tags[0].techDetails?.find((tag) => tag.value === slug);
+  const tag = tags[0].tags?.find((tag) => tag.value === slug);
 
   return (
     <>

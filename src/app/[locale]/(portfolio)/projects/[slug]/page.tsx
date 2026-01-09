@@ -245,13 +245,13 @@ export default async function ProjectPage({ params }: Props) {
         </div>
 
         {/* Tecnologias */}
-        {data.techDetails && data.techDetails.length > 0 && (
+        {data.tags && data.tags.length > 0 && (
           <div className="mt-8">
             <h2 className="text-2xl text-primary mb-4">
               {t("sections.technologies")}
             </h2>
             <div className="flex flex-wrap gap-2">
-              {data.techDetails.map((tech) => (
+              {data.tags.map((tech) => (
                 <Link
                   key={tech.value}
                   href={`/tags/${tech.value}`}

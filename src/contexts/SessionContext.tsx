@@ -18,7 +18,7 @@ interface SessionContextProps {
 }
 
 const SessionContext = createContext<SessionContextProps | undefined>(
-  undefined
+  undefined,
 );
 
 export const useSession = () => {
@@ -37,7 +37,7 @@ export const SessionProvider = ({ children }: { children: ReactNode }) => {
     retry: false,
     queryFn: async (): Promise<ResponseType | null> => {
       const request = await fetch(
-        `${process.env.NEXT_PUBLIC_BASE_URL}/api/user`
+        `${process.env.NEXT_PUBLIC_BASE_URL}/api/user`,
       );
       return await request.json();
     },
@@ -65,7 +65,7 @@ export const SessionProvider = ({ children }: { children: ReactNode }) => {
       }}
     >
       {isLoading ? (
-        <div className="flex justify-center items-center h-screen w-screen border">
+        <div className="flex justify-center items-center h-screen w-screen">
           <div className="text-2xl font-bold  flex items-center gap-2">
             <Loader2 className="animate-spin" /> Aguarde
             <span className="animate-bounce duration-600">.</span>

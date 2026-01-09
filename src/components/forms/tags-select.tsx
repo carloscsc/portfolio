@@ -2,9 +2,9 @@ import { useMutation, useQueryClient, useQuery } from "@tanstack/react-query";
 import { ControllerRenderProps, FieldValues } from "react-hook-form";
 import CreatableSelect from "react-select/creatable";
 import type { ClassNamesConfig } from "react-select";
-import { createTags, getAllTags } from "@/_domain/stack/actions.stack";
+import { createTags, getAllTags } from "@/_domain/archive/archive.actions";
 import { toast } from "sonner";
-import { TechTagTypes } from "@/_domain/stack/stack.schema";
+import { TagType } from "@/_domain/archive/archive.schema";
 import { useMemo } from "react";
 
 type SelectTechTagsProps = {
@@ -36,7 +36,7 @@ const SelectTechTags = ({ field }: SelectTechTagsProps) => {
     onSuccess: (tag) => {
       if (!tag) return;
 
-      queryClient.setQueryData(["tags"], (old: TechTagTypes[] | undefined) => {
+      queryClient.setQueryData(["tags"], (old: TagType[] | undefined) => {
         if (!old) return [tag];
         const exists = old.some((t) => t.value === tag.value);
         if (exists) return old;
@@ -54,8 +54,8 @@ const SelectTechTags = ({ field }: SelectTechTagsProps) => {
     if (!field.value || !data) return [];
 
     return field.value
-      .map((val: string) => data.find((tag: TechTagTypes) => tag.value === val))
-      .filter((tag: TechTagTypes) => tag !== undefined);
+      .map((val: string) => data.find((tag: TagType) => tag.value === val))
+      .filter((tag: TagType) => tag !== undefined);
   }, [field.value, data]);
 
   return (
@@ -76,7 +76,7 @@ const SelectTechTags = ({ field }: SelectTechTagsProps) => {
 };
 export default SelectTechTags;
 
-const classNames: ClassNamesConfig<TechTagTypes, true> = {
+const classNames: ClassNamesConfig<TagType, true> = {
   control: (state) =>
     `flex w-full rounded border border-border bg-accent px-3 py-2 text-base mt-2 ${
       state.isFocused ? "outline-hidden ring-2 ring-highlight" : ""

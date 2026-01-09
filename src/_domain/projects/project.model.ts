@@ -1,6 +1,6 @@
 import mongoose, { Model, Schema } from "mongoose";
 import { ProjectTypes, TranslationContentProjectType } from "./project.schema";
-import "../stack/stack.model";
+import "../archive/archive.models";
 
 const TranslationContentSchema = new Schema<TranslationContentProjectType>(
   {

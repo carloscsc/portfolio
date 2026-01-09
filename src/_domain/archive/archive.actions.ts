@@ -1,15 +1,15 @@
 "use server";
 import connect from "@/lib/db";
-import { TechTag } from "./stack.model";
+import { Tag } from "./archive.models";
 import { slugfy } from "@/lib/utils";
 import { MongoServerError } from "mongodb";
-import { TechTagStoreResponseType, TechTagTypes } from "./stack.schema";
+import { TagStoreResponseType, TagType } from "./archive.schema";
 
 // get all tags
-export const getAllTags = async (): Promise<TechTagTypes[] | []> => {
+export const getAllTags = async (): Promise<TagType[] | []> => {
   await connect();
 
-  const tags = await TechTag.find().lean().select("-_id value label");
+  const tags = await Tag.find().lean().select("-_id value label");
 
   return tags;
 };
@@ -17,11 +17,11 @@ export const getAllTags = async (): Promise<TechTagTypes[] | []> => {
 //  create a new tag
 export const createTags = async (
   label: string,
-): Promise<TechTagStoreResponseType> => {
+): Promise<TagStoreResponseType> => {
   try {
     await connect();
 
-    const tag = new TechTag({
+    const tag = new Tag({
       label: label,
       value: slugfy(label),
     });

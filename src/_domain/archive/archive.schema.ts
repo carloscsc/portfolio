@@ -1,7 +1,7 @@
 import { z } from "zod";
 
 // Schema
-export const TechTagsSchema = z.object({
+export const TagSchema = z.object({
   _id: z.string().optional(),
   label: z.string(),
   value: z.string(),
@@ -9,9 +9,9 @@ export const TechTagsSchema = z.object({
   updatedAt: z.string().optional(),
 });
 
-export type TechTagTypes = z.infer<typeof TechTagsSchema>;
+export type TagType = z.infer<typeof TagSchema>;
 
-export type TechTagStoreResponseType = {
-  tag?: TechTagTypes;
+export type TagStoreResponseType = {
+  tag?: TagType;
   error?: string;
 };

@@ -1,7 +1,7 @@
 import mongoose, { Model, Schema } from "mongoose";
-import { TechTagTypes } from "./stack.schema";
+import { TagType } from "./archive.schema";
 
-const TechTagMongooseSchema = new Schema<TechTagTypes>(
+const TagMongooseSchema = new Schema<TagType>(
   {
     label: { type: String, required: true, index: true },
     value: { type: String, required: true, index: { unique: true } },
@@ -21,6 +21,5 @@ const TechTagMongooseSchema = new Schema<TechTagTypes>(
   },
 );
 
-export const TechTag: Model<TechTagTypes> =
-  mongoose.models.TechTag ||
-  mongoose.model<TechTagTypes>("TechTag", TechTagMongooseSchema);
+export const Tag: Model<TagType> =
+  mongoose.models.Tag || mongoose.model<TagType>("Tag", TagMongooseSchema);

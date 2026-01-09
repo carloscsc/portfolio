@@ -1,6 +1,6 @@
 import { z } from "zod";
 import { fileSchema } from "../shared/types";
-import { TechTagsSchema } from "../stack/stack.schema";
+import { TagSchema } from "../archive/archive.schema";
 
 export const TranslationContentProjectSchema = z.object({
   title: z.string().min(1, "O título é obrigatório"),
@@ -47,7 +47,7 @@ export const ProjectSchema = z.object({
   gallery: z.array(z.string()).optional(),
   status: z.enum(["ativo", "inativo"]),
   translations: TranslationSchema,
-  techDetails: z.array(TechTagsSchema).optional(),
+  techDetails: z.array(TagSchema).optional(),
   createdAt: z.string(),
   updatedAt: z.string(),
 });

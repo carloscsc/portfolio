@@ -35,6 +35,7 @@ import { toast } from "sonner";
 import { Spinner } from "@/components/ui/shadcn-io/spinner";
 import { useRouter } from "@/i18n/navigation";
 import SelectTechTags from "@/components/forms/tags-select";
+import SelectCategory from "@/components/forms/categ-select";
 
 // TODO: apagar campos depois de enviar
 
@@ -56,6 +57,7 @@ const CadastrarProjeto = () => {
       cover: undefined,
       client_logo: undefined,
       technologies: [],
+      category: "",
       gallery: [],
       status: "ativo",
       translations: {
@@ -265,6 +267,20 @@ const CadastrarProjeto = () => {
               placeholder="Informe o link..."
             />
             <Separator />
+
+            <FormField
+              control={form.control}
+              name="category"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Category</FormLabel>
+                  <FormControl>
+                    <SelectCategory field={field} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
 
             <FormField
               control={form.control}

@@ -45,6 +45,7 @@ import { Spinner } from "@/components/ui/shadcn-io/spinner";
 
 import { toast } from "sonner";
 import SelectTechTags from "@/components/forms/tags-select";
+import SelectCategory from "@/components/forms/categ-select";
 
 const EditProjectForm = ({ data }: { data: ProjectTypes }) => {
   const router = useRouter();
@@ -64,7 +65,7 @@ const EditProjectForm = ({ data }: { data: ProjectTypes }) => {
       repo_link: data.repo_link,
       cover: undefined,
       client_logo: undefined,
-
+      category: data.category,
       technologies: data.technologies,
       gallery: [],
       _gallery: data.gallery || [],
@@ -318,6 +319,20 @@ const EditProjectForm = ({ data }: { data: ProjectTypes }) => {
               minItems={1}
               maxItems={15}
             /> */}
+
+            <FormField
+              control={form.control}
+              name="category"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Category</FormLabel>
+                  <FormControl>
+                    <SelectCategory field={field} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
 
             <FormField
               control={form.control}

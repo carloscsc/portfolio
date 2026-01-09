@@ -44,6 +44,7 @@ export const ProjectSchema = z.object({
   repo_link: z.string().optional(),
   cover: z.string(),
   technologies: z.array(z.string()).optional(),
+  category: z.string(),
   gallery: z.array(z.string()).optional(),
   status: z.enum(["ativo", "inativo"]),
   translations: TranslationSchema,

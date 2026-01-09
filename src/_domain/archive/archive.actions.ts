@@ -1,9 +1,14 @@
 "use server";
 import connect from "@/lib/db";
-import { Tag } from "./archive.models";
+import { Category, Tag } from "./archive.models";
 import { slugfy } from "@/lib/utils";
 import { MongoServerError } from "mongodb";
-import { TagStoreResponseType, TagType } from "./archive.schema";
+import {
+  CategStoreResponseType,
+  CategType,
+  TagStoreResponseType,
+  TagType,
+} from "./archive.schema";
 
 // get all tags
 export const getAllTags = async (): Promise<TagType[] | []> => {
@@ -43,6 +48,52 @@ export const createTags = async (
 
     return {
       error: "Error attempting to create a new tag",
+    };
+  }
+};
+
+/**
+ * categories
+ */
+
+// get all tags
+export const getAllCategories = async (): Promise<CategType[] | []> => {
+  await connect();
+
+  const categ = await Category.find().lean().select("-_id value label");
+
+  return categ;
+};
+
+//  create a new tag
+export const createCategory = async (
+  label: string,
+): Promise<CategStoreResponseType> => {
+  try {
+    await connect();
+
+    const category = new Category({
+      label: label,
+      value: slugfy(label),
+    });
+
+    const newCateg = (await category.save()).toJSON();
+
+    return {
+      category: {
+        label: newCateg.label,
+        value: newCateg.value,
+      },
+    };
+  } catch (error) {
+    if (error instanceof MongoServerError && error.code === 11000) {
+      return {
+        error: "This category has already been registered",
+      };
+    }
+
+    return {
+      error: "Error attempting to create a new category",
     };
   }
 };

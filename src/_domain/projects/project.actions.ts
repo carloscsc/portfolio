@@ -258,6 +258,56 @@ export async function findByTag(tag: string | null = null) {
   }
 }
 
+// Find By Category
+export async function findByCategory(tag: string | null = null) {
+  // await new Promise((resolver) => setTimeout(resolver, 3000));
+
+  try {
+    await connect();
+    const results = await Project.aggregate([
+      {
+        $match: { category: tag },
+      },
+      {
+        $sort: { updatedAt: -1 },
+      },
+      {
+        $lookup: {
+          from: "tags",
+          localField: "technologies",
+          foreignField: "value",
+          as: "tags",
+          pipeline: [{ $project: { _id: 0, label: 1, value: 1 } }],
+        },
+      },
+      {
+        $lookup: {
+          from: "categories",
+          localField: "category",
+          foreignField: "value",
+          as: "_category",
+          pipeline: [{ $project: { _id: 0, label: 1, value: 1 } }],
+        },
+      },
+      {
+        $addFields: {
+          _id: { $toString: "$_id" },
+        },
+      },
+      {
+        $unset: ["__v", "createdAt", "updatedAt"],
+      },
+    ]);
+
+    if (!results || results.length === 0) return null;
+
+    return results;
+  } catch (e) {
+    console.log(e);
+    throw new Error("Erro ao buscar dados dos projetos");
+  }
+}
+
 export async function findOne(slug: string): Promise<ProjectTypes | null> {
   if (!slug) return null;
 

@@ -79,7 +79,7 @@ export function ProjectCard(data: ProjectTypes) {
             onClick={(e) => {
               e.preventDefault();
               e.stopPropagation();
-              router.push(`category/${categ.value}`);
+              router.push(`/category/${categ.value}`);
             }}
           >
             {categ.label}

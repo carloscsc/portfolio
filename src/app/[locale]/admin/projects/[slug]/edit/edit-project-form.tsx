@@ -65,7 +65,7 @@ const EditProjectForm = ({ data }: { data: ProjectTypes }) => {
       repo_link: data.repo_link,
       cover: undefined,
       client_logo: undefined,
-      category: data.category,
+      category: data.category || [],
       technologies: data.technologies,
       gallery: [],
       _gallery: data.gallery || [],
@@ -95,11 +95,18 @@ const EditProjectForm = ({ data }: { data: ProjectTypes }) => {
     },
   });
 
-  const [cover, client_logo, gallery] = form.watch([
+  const [cover, client_logo, gallery, technologies, categ] = form.watch([
     "cover",
     "client_logo",
     "gallery",
+    "technologies",
+    "category",
   ]);
+
+  console.log(technologies);
+  console.log(categ);
+
+  console.log(form.formState.errors);
 
   const onRemove = (imageToRemove: string) => {
     const newArray = _gallery.filter((image) => image !== imageToRemove);

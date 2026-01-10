@@ -28,7 +28,7 @@ const ProjectMongooseSchema = new Schema<ProjectTypes>(
     repo_link: { type: String },
     cover: { type: String, required: true },
     technologies: [{ type: String }],
-    category: { type: String, required: true },
+    category: { type: [String], required: true },
     gallery: { type: [String] },
     translations: {
       en: { type: TranslationContentSchema, require: true },

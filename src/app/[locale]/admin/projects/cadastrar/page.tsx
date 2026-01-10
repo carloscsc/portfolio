@@ -57,7 +57,7 @@ const CadastrarProjeto = () => {
       cover: undefined,
       client_logo: undefined,
       technologies: [],
-      category: "",
+      category: [],
       gallery: [],
       status: "ativo",
       translations: {

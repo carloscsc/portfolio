@@ -10,7 +10,6 @@ import { ProjectTypes } from "@/_domain/projects/project.schema";
 import { useResponsive } from "@/hooks/use-responsive";
 import { useLocale, useTranslations } from "next-intl";
 import { Badge } from "@/components/ui/badge";
-import { useRouter } from "next/navigation";
 
 export function ProjectCard(data: ProjectTypes) {
   const [imageLoading, setImageLoading] = useState(true);
@@ -18,7 +17,6 @@ export function ProjectCard(data: ProjectTypes) {
   const { isMobile } = useResponsive();
   const t = useTranslations("ProjectsSection");
   const locale = useLocale() as "en" | "br";
-  const router = useRouter();
 
   const handleImageLoad = () => {
     setImageLoading(false);
@@ -31,7 +29,7 @@ export function ProjectCard(data: ProjectTypes) {
 
   const translation = data.translations[locale];
 
-  const categ = data._category[0];
+  const categs = data?._category;
 
   return (
     <CardWrapper className="bg-accent overflow-hidden group h-full flex flex-col hover:border-primary transition-all duration-300">
@@ -72,23 +70,22 @@ export function ProjectCard(data: ProjectTypes) {
               loading="lazy"
             />
           )}
-
-          <Badge
-            className="absolute top-2 left-2"
-            variant={"default"}
-            onClick={(e) => {
-              e.preventDefault();
-              e.stopPropagation();
-              router.push(`/category/${categ.value}`);
-            }}
-          >
-            {categ.label}
-          </Badge>
         </div>
       </Link>
 
       {/* Content container with flex-grow for equal height cards */}
       <div className="grow flex flex-col">
+        <div className="mb-2 flex gap-2">
+          {categs?.map((categ) => (
+            <Link
+              key={categ.value}
+              href={`/category/${categ.value}`}
+              title={categ.label}
+            >
+              <Badge variant={"default"}>{categ.label}</Badge>
+            </Link>
+          ))}
+        </div>
         <h3 className="text-lg font-semibold group-hover:text-primary transition-colors mb-2 line-clamp-2">
           <Link
             href={`/projects/${data.slug}`}
@@ -98,7 +95,8 @@ export function ProjectCard(data: ProjectTypes) {
             {translation.title}
           </Link>
         </h3>
-        <p className="text-secondary text-sm mb-4 grow line-clamp-3 leading-relaxed">
+
+        <p className="text-secondary text-sm mb-2 grow line-clamp-3 leading-relaxed">
           {translation.description}
         </p>
 

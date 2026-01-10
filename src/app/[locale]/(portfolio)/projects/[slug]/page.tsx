@@ -91,9 +91,7 @@ export default async function ProjectPage({ params }: Props) {
 
   const translate = data.translations[locale];
 
-  const categ = data._category[0];
-
-  console.log(categ);
+  const categs = data?._category;
 
   return (
     <main className="min-h-screen">
@@ -109,11 +107,17 @@ export default async function ProjectPage({ params }: Props) {
 
         {/* Header do Projeto */}
         <div className="mb-8">
-          <Link href={`/category/${categ.value}`} title={categ.label}>
-            <Badge className="mb-4" variant={"default"}>
-              {categ.label}
-            </Badge>
-          </Link>
+          <div className="mb-2 flex gap-2">
+            {categs?.map((categ) => (
+              <Link
+                key={categ.value}
+                href={`/category/${categ.value}`}
+                title={categ.label}
+              >
+                <Badge variant={"default"}>{categ.label}</Badge>
+              </Link>
+            ))}
+          </div>
 
           <h1 className="text-3xl md:text-5xl text-primary mb-4">
             {translate.title}

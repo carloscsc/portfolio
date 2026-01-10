@@ -7,14 +7,14 @@ import {
   getAllCategories,
 } from "@/_domain/archive/archive.actions";
 import { toast } from "sonner";
-import { TagType } from "@/_domain/archive/archive.schema";
+import { CategType, TagType } from "@/_domain/archive/archive.schema";
 import { useMemo } from "react";
 
-type SelectCategoryProps = {
+type SelectTechTagsProps = {
   field: ControllerRenderProps<FieldValues, any>;
 };
 
-const SelectCategory = ({ field }: SelectCategoryProps) => {
+const SelectCategory = ({ field }: SelectTechTagsProps) => {
   const queryClient = useQueryClient();
 
   const { data, isFetching } = useQuery({
@@ -22,51 +22,59 @@ const SelectCategory = ({ field }: SelectCategoryProps) => {
     queryFn: async () => await getAllCategories(),
   });
 
-  const mutation = useMutation({
-    mutationFn: async (label: string) => {
-      const newCategory = await createCategory(label);
+  console.log(data);
 
-      if (newCategory.error) {
-        toast.error(newCategory.error, {
+  const mutation = useMutation({
+    mutationFn: async (category: string) => {
+      const newCateg = await createCategory(category);
+
+      if (newCateg.error) {
+        toast.error(newCateg.error, {
           position: "bottom-center",
         });
         return null;
       }
 
-      return newCategory.category;
+      return newCateg.category;
     },
 
-    onSuccess: (tag) => {
-      if (!tag) return;
+    onSuccess: (categ) => {
+      if (!categ) return;
 
-      queryClient.setQueryData(["category"], (old: TagType[] | undefined) => {
-        if (!old) return [tag];
-        const exists = old.some((t) => t.value === tag.value);
+      queryClient.setQueryData(["category"], (old: CategType[] | undefined) => {
+        if (!old) return [categ];
+        const exists = old.some((t) => t.value === categ.value);
         if (exists) return old;
-        return [...old, tag];
+        return [...old, categ];
       });
 
-      field.onChange(tag.value);
+      const current = field.value || [];
+      field.onChange([...current, categ.value]);
     },
   });
 
   const handleTagCreation = (label: string) => mutation.mutate(label);
 
-  const selectedCategory = useMemo(() => {
-    if (!field.value || !data) return null;
+  const selectedCateg = useMemo(() => {
+    if (!field.value || !data) return [];
 
-    return data.find((category: TagType) => category.value === field.value);
+    return field.value
+      .map((val: string) =>
+        data.find((categ: CategType) => categ.value === val),
+      )
+      .filter((tag: TagType) => tag !== undefined);
   }, [field.value, data]);
 
   return (
     <CreatableSelect
+      isMulti
       options={data}
       isDisabled={isFetching}
       isLoading={isFetching}
       onCreateOption={(value) => handleTagCreation(value)}
-      value={selectedCategory}
+      value={selectedCateg}
       onChange={(selected) => {
-        field.onChange(selected ? selected.value : null);
+        field.onChange(selected ? selected.map((s) => s.value) : []);
       }}
       classNames={classNames}
       unstyled={true}
@@ -75,7 +83,7 @@ const SelectCategory = ({ field }: SelectCategoryProps) => {
 };
 export default SelectCategory;
 
-const classNames: ClassNamesConfig<TagType, false> = {
+const classNames: ClassNamesConfig<TagType, true> = {
   control: (state) =>
     `flex w-full rounded border border-border bg-accent px-3 py-2 text-base mt-2 ${
       state.isFocused ? "outline-hidden ring-2 ring-highlight" : ""
@@ -91,6 +99,11 @@ const classNames: ClassNamesConfig<TagType, false> = {
           ? "bg-background"
           : ""
     }`,
+  multiValue: () =>
+    "inline-flex items-center rounded bg-highlight text-background px-2 py-0.5 text-xs",
+  multiValueLabel: () => "text-background",
+  multiValueRemove: () =>
+    "ml-1 rounded-sm hover:bg-destructive hover:text-destructive-foreground",
   placeholder: () => "text-secondary",
   input: () => "text-primary",
   noOptionsMessage: () => "py-6 text-center text-sm text-secondary",

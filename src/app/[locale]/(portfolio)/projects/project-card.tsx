@@ -9,6 +9,8 @@ import { getBlobURL } from "@/lib/utils";
 import { ProjectTypes } from "@/_domain/projects/project.schema";
 import { useResponsive } from "@/hooks/use-responsive";
 import { useLocale, useTranslations } from "next-intl";
+import { Badge } from "@/components/ui/badge";
+import { useRouter } from "next/navigation";
 
 export function ProjectCard(data: ProjectTypes) {
   const [imageLoading, setImageLoading] = useState(true);
@@ -16,6 +18,7 @@ export function ProjectCard(data: ProjectTypes) {
   const { isMobile } = useResponsive();
   const t = useTranslations("ProjectsSection");
   const locale = useLocale() as "en" | "br";
+  const router = useRouter();
 
   const handleImageLoad = () => {
     setImageLoading(false);
@@ -28,6 +31,8 @@ export function ProjectCard(data: ProjectTypes) {
 
   const translation = data.translations[locale];
 
+  const categ = data._category[0];
+
   return (
     <CardWrapper className="bg-accent overflow-hidden group h-full flex flex-col hover:border-primary transition-all duration-300">
       {/* Enhanced image container with loading states and link to details */}
@@ -36,7 +41,7 @@ export function ProjectCard(data: ProjectTypes) {
         aria-label={t("card.viewDetailsOf", { title: translation.title })}
         className="block group/image"
       >
-        <div className="aspect-4/3 relative   mb-4 bg-muted/20 rounded overflow-hidden">
+        <div className="aspect-4/3 relative  mb-4 bg-muted/20 rounded overflow-hidden">
           {imageLoading && (
             <div className="absolute inset-0 flex items-center justify-center animate-pulse">
               <ImageIcon className="h-8 w-8 text-muted-foreground/50" />
@@ -67,6 +72,18 @@ export function ProjectCard(data: ProjectTypes) {
               loading="lazy"
             />
           )}
+
+          <Badge
+            className="absolute top-2 left-2"
+            variant={"default"}
+            onClick={(e) => {
+              e.preventDefault();
+              e.stopPropagation();
+              router.push(`category/${categ.value}`);
+            }}
+          >
+            {categ.label}
+          </Badge>
         </div>
       </Link>
 

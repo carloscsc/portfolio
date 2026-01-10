@@ -14,7 +14,7 @@ export function Projects() {
     queryKey: ["projetos"],
     queryFn: async () => {
       const request = await fetch(
-        `${process.env.NEXT_PUBLIC_BASE_URL}/api/project`
+        `${process.env.NEXT_PUBLIC_BASE_URL}/api/project`,
       );
       const data = await request.json();
       return data as ProjectTypes[];

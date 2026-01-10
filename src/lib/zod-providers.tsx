@@ -16,8 +16,6 @@ export function ZodProvider({ children }: { children: React.ReactNode }) {
       const localeError = locale === "br" ? z.locales.pt() : z.locales.en();
 
       const customError = (iss: any) => {
-        console.log("🚨 ZOD ERROR:", JSON.stringify(iss, null, 2));
-
         switch (iss.code) {
           case "invalid_type":
             if (iss.received === "undefined") {

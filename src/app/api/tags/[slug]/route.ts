@@ -4,7 +4,7 @@ import { NextRequest, NextResponse } from "next/server";
 
 export async function GET(
   _req: NextRequest,
-  ctx: RouteContext<"/api/project/tags/[slug]">,
+  ctx: RouteContext<"/api/tags/[slug]">,
 ): Promise<NextResponse<ProjectTypes[] | null>> {
   const { slug } = await ctx.params;
 

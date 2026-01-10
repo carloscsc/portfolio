@@ -53,8 +53,6 @@ const EditProjectForm = ({ data }: { data: ProjectTypes }) => {
 
   const queryClient = useQueryClient();
 
-  console.log(data);
-
   const form = useForm<UpdateProjectTypes>({
     resolver: zodResolver(UpdateProjectSchema),
     defaultValues: {
@@ -102,8 +100,6 @@ const EditProjectForm = ({ data }: { data: ProjectTypes }) => {
     "client_logo",
     "gallery",
   ]);
-
-  console.log(form.watch("technologies"));
 
   const onRemove = (imageToRemove: string) => {
     const newArray = _gallery.filter((image) => image !== imageToRemove);

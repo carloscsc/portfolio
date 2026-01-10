@@ -22,7 +22,7 @@ import { sendEmailForgotPasswordLinkBR } from "@/lib/email/templates/br/sendEmai
  * LOGIN
  */
 export const authLoginAction = async (
-  data: authLoginType
+  data: authLoginType,
 ): Promise<ResponseType | void> => {
   const validate = AuthLoginSchema.safeParse(data);
 
@@ -88,7 +88,7 @@ export const authLoginAction = async (
  * FORGET PASS
  */
 export const authForgetpassAction = async (
-  data: authForgetPassFormType
+  data: authForgetPassFormType,
 ): Promise<ResponseType | void> => {
   const validate = AuthForgetPassFormSchema.safeParse(data);
 
@@ -127,8 +127,6 @@ export const authForgetpassAction = async (
     const tokenURL = `${process.env.NEXT_PUBLIC_BASE_URL}/auth/mudar-senha?token=${token}`;
 
     const locale = await getLocale();
-
-    console.log(locale);
 
     const sendEmail =
       locale === "en"

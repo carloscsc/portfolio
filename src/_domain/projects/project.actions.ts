@@ -176,7 +176,7 @@ export async function read() {
           from: "categories",
           localField: "category",
           foreignField: "value",
-          as: "category",
+          as: "_category",
           pipeline: [{ $project: { _id: 0, label: 1, value: 1 } }],
         },
       },
@@ -200,8 +200,6 @@ export async function read() {
     ]);
 
     if (!results || results.length === 0) return null;
-
-    console.log(results);
 
     return results;
   } catch (e) {
@@ -229,6 +227,15 @@ export async function findByTag(tag: string | null = null) {
           localField: "technologies",
           foreignField: "value",
           as: "tags",
+          pipeline: [{ $project: { _id: 0, label: 1, value: 1 } }],
+        },
+      },
+      {
+        $lookup: {
+          from: "categories",
+          localField: "category",
+          foreignField: "value",
+          as: "_category",
           pipeline: [{ $project: { _id: 0, label: 1, value: 1 } }],
         },
       },
@@ -290,10 +297,8 @@ export async function findOne(slug: string): Promise<ProjectTypes | null> {
 
     if (!results || results.length === 0) return null;
 
-    console.log(results[0]);
     return results[0];
-  } catch (error) {
-    console.log(error);
+  } catch {
     return null;
   }
 }

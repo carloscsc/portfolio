@@ -15,7 +15,7 @@ type tagProps = {
 const TagPage = ({ params }: tagProps) => {
   const tagPromise = params.then(async ({ slug }) => {
     const request = await fetch(
-      `${process.env.NEXT_PUBLIC_BASE_URL}/api/project/tags/${slug}`,
+      `${process.env.NEXT_PUBLIC_BASE_URL}/api/tags/${slug}`,
     );
 
     const response = await request.json();

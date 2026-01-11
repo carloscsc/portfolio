@@ -48,14 +48,10 @@ const CadastrarProjeto = () => {
   const form = useForm<StoreProjectTypes>({
     resolver: zodResolver(StoreProjectSchema),
     defaultValues: {
-      client_name: "",
-      client_location: "",
-      client_link: "",
       year: String(new Date().getFullYear()),
       demo_link: "",
       repo_link: "",
       cover: undefined,
-      client_logo: undefined,
       technologies: [],
       category: [],
       gallery: [],
@@ -64,7 +60,7 @@ const CadastrarProjeto = () => {
         en: {
           title: "",
           description: "",
-          client_description: "",
+
           about_project: "",
           functionalities: [],
           challenges: [],
@@ -74,7 +70,7 @@ const CadastrarProjeto = () => {
         br: {
           title: "",
           description: "",
-          client_description: "",
+
           about_project: "",
           functionalities: [],
           challenges: [],
@@ -85,11 +81,7 @@ const CadastrarProjeto = () => {
     },
   });
 
-  const [cover, client_logo, gallery] = form.watch([
-    "cover",
-    "client_logo",
-    "gallery",
-  ]);
+  const [cover, gallery] = form.watch(["cover", "gallery"]);
 
   const mutation = useMutation({
     mutationFn: async (data: StoreProjectTypes) => {
@@ -347,88 +339,6 @@ const CadastrarProjeto = () => {
               placeholder="Ex: Resultado 1, Resultado 2"
               minItems={1}
               maxItems={15}
-            />
-          </div>
-
-          {/* Cliente */}
-          <div className="border-border border-2 p-4 rounded-md space-y-6">
-            <h2>Dados do Cliente</h2>
-            <Separator />
-            <TextInput
-              control={form.control}
-              name="client_name"
-              label="Nome do cliente"
-              placeholder="Digite o nome do cliente..."
-            />
-
-            <FormField
-              control={form.control}
-              name="translations.en.client_description"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Descrição do cliente (en)</FormLabel>
-                  <FormControl>
-                    <Textarea
-                      placeholder="Digite a descrição do cliente..."
-                      {...field}
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-
-            <FormField
-              control={form.control}
-              name="translations.br.client_description"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Descrição do cliente (br)</FormLabel>
-                  <FormControl>
-                    <Textarea
-                      placeholder="Digite a descrição do cliente..."
-                      {...field}
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-
-            <TextInput
-              control={form.control}
-              name="client_location"
-              label="Localização do cliente"
-              placeholder="Digite a localização do cliente..."
-            />
-
-            <h2>Logo do Cliente</h2>
-            {/* Cover */}
-            <FormField
-              control={form.control}
-              name="client_logo"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>logo do cliente</FormLabel>
-                  {client_logo && (
-                    <div className="relative aspect-square w-full overflow-hidden rounded-xl bg-card mb-8">
-                      <Image
-                        src={URL.createObjectURL(client_logo)}
-                        alt=""
-                        fill
-                        className="object-cover"
-                        sizes="(min-width: 768px) 768px, 100vw"
-                        priority
-                      />
-                    </div>
-                  )}
-
-                  <FormControl>
-                    <FileUpload accept="image/*" {...field} />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
             />
           </div>
 

@@ -7,7 +7,6 @@ export const TranslationContentProjectSchema = z.object({
   description: z
     .string()
     .min(10, "A descrição deve ter pelo menos 10 caracteres"),
-  client_description: z.string().optional(),
   about_project: z.string().min(30, "A descrição do projeto é obrigatória"),
   functionalities: z.array(z.string()).optional(),
   challenges: z.array(z.string()).optional(),
@@ -26,10 +25,6 @@ export const TranslationSchema = z.object({
 export const ProjectSchema = z.object({
   _id: z.string(),
   slug: z.string(),
-  client_name: z.string().min(1, "O nome do cliente é obrigatório"),
-  client_location: z.string(),
-  client_logo: z.string(),
-  client_link: z.string().optional(),
   year: z
     .string()
     .optional()
@@ -61,10 +56,8 @@ export const StoreProjectSchema = ProjectSchema.omit({
   updatedAt: true,
   cover: true,
   gallery: true,
-  client_logo: true,
 }).extend({
   cover: fileSchema,
-  client_logo: fileSchema,
   gallery: z.array(fileSchema).optional(),
 });
 
@@ -72,11 +65,9 @@ export const UpdateProjectSchema = ProjectSchema.partial()
   .omit({
     cover: true,
     gallery: true,
-    client_logo: true,
   })
   .extend({
     cover: fileSchema.optional(),
-    client_logo: fileSchema.optional(),
     gallery: z.array(fileSchema).optional(),
     _gallery: z.array(z.string()).optional(),
   });

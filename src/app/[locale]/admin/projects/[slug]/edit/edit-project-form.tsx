@@ -57,14 +57,10 @@ const EditProjectForm = ({ data }: { data: ProjectTypes }) => {
     resolver: zodResolver(UpdateProjectSchema),
     defaultValues: {
       _id: data._id,
-      client_name: data.client_name,
-      client_location: data.client_location,
-      client_link: data.client_link,
       year: data.year || "",
       demo_link: data.demo_link,
       repo_link: data.repo_link,
       cover: undefined,
-      client_logo: undefined,
       category: data.category || [],
       technologies: data.technologies,
       gallery: [],
@@ -74,7 +70,6 @@ const EditProjectForm = ({ data }: { data: ProjectTypes }) => {
         en: {
           title: data.translations.en.title,
           description: data.translations.en.description,
-          client_description: data.translations.en.client_description,
           about_project: data.translations.en.about_project,
           functionalities: data.translations.en.functionalities,
           challenges: data.translations.en.challenges,
@@ -84,7 +79,6 @@ const EditProjectForm = ({ data }: { data: ProjectTypes }) => {
         br: {
           title: data.translations.br.title,
           description: data.translations.br.description,
-          client_description: data.translations.br.client_description,
           about_project: data.translations.br.about_project,
           functionalities: data.translations.br.functionalities,
           challenges: data.translations.br.challenges,
@@ -95,9 +89,8 @@ const EditProjectForm = ({ data }: { data: ProjectTypes }) => {
     },
   });
 
-  const [cover, client_logo, gallery, technologies, categ] = form.watch([
+  const [cover, gallery, technologies, categ] = form.watch([
     "cover",
-    "client_logo",
     "gallery",
     "technologies",
     "category",
@@ -407,92 +400,7 @@ const EditProjectForm = ({ data }: { data: ProjectTypes }) => {
             />
           </div>
 
-          {/* Cliente */}
-          <div className="border-border border-2 p-4 rounded-md space-y-6">
-            <h2>Dados do Cliente</h2>
-            <Separator />
-            <TextInput
-              control={form.control}
-              name="client_name"
-              label="Nome do cliente"
-              placeholder="Digite o nome do cliente..."
-            />
-
-            <FormField
-              control={form.control}
-              name="translations.en.client_description"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Descrição do cliente (en)</FormLabel>
-                  <FormControl>
-                    <Textarea
-                      placeholder="Digite a descrição do cliente..."
-                      {...field}
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-
-            <FormField
-              control={form.control}
-              name="translations.br.client_description"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Descrição do cliente (br)</FormLabel>
-                  <FormControl>
-                    <Textarea
-                      placeholder="Digite a descrição do cliente..."
-                      {...field}
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-
-            <TextInput
-              control={form.control}
-              name="client_location"
-              label="Localização do cliente"
-              placeholder="Digite a localização do cliente..."
-            />
-
-            {/* Cover */}
-
-            <FormField
-              control={form.control}
-              name="client_logo"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>logo do cliente</FormLabel>
-
-                  <div className="relative aspect-square w-full overflow-hidden rounded-xl bg-card mb-8">
-                    <Image
-                      src={
-                        client_logo
-                          ? URL.createObjectURL(client_logo)
-                          : getBlobURL(data?.client_logo as string)
-                      }
-                      alt={data?.client_name || ""}
-                      fill
-                      className="object-cover"
-                      sizes="(min-width: 768px) 768px, 100vw"
-                      priority
-                    />
-                  </div>
-                  <FormControl>
-                    <FileUpload accept="image/*" {...field} />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-          </div>
-
           <div className="border-border border-2 p-4 rounded-lg space-y-6">
-            <h2>Imagens</h2>
             {/* Cover */}
             <FormField
               control={form.control}
@@ -508,7 +416,7 @@ const EditProjectForm = ({ data }: { data: ProjectTypes }) => {
                           ? URL.createObjectURL(cover)
                           : getBlobURL(data?.cover as string)
                       }
-                      alt={data?.client_name || ""}
+                      alt="image"
                       fill
                       className="object-cover"
                       sizes="(min-width: 768px) 768px, 100vw"

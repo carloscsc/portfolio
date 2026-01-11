@@ -30,7 +30,7 @@ export async function store(
     };
   }
 
-  const { cover, client_logo, gallery, ...data } = validate.data;
+  const { cover, gallery, ...data } = validate.data;
   const uploadedGallery: string[] = [];
 
   try {
@@ -47,14 +47,11 @@ export async function store(
       );
     }
 
-    const uploadedClientLogo = await upload("portfolio/projects", client_logo);
-
     //build the projectObject
     const formattedProjectData = {
       ...data,
       cover: uploadedCover,
       gallery: uploadedGallery,
-      client_logo: uploadedClientLogo,
       slug: slugfy(data.translations.en.title),
     };
 
@@ -92,19 +89,13 @@ export async function update(data: UpdateProjectTypes): Promise<ResponseType> {
     };
   }
 
-  const { _id, _gallery, gallery, cover, client_logo, ...rest } = validate.data;
+  const { _id, _gallery, gallery, cover, ...rest } = validate.data;
   const uploadedGallery: string[] = [];
   let uploadedCover = null;
-  let uploadedClientLogo = null;
 
   // update cover
   if (cover) {
     uploadedCover = await upload("portfolio/projects", cover);
-  }
-
-  // update logo
-  if (client_logo) {
-    uploadedClientLogo = await upload("portfolio/projects", client_logo);
   }
 
   // upload gallery
@@ -135,7 +126,6 @@ export async function update(data: UpdateProjectTypes): Promise<ResponseType> {
       ...rest,
       gallery: newGallery,
       cover: uploadedCover || project.cover,
-      client_logo: uploadedClientLogo || project.client_logo,
     };
 
     // monta o dado

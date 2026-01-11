@@ -6,7 +6,6 @@ const TranslationContentSchema = new Schema<TranslationContentProjectType>(
   {
     title: { type: String, required: true },
     description: { type: String, required: true },
-    client_description: { type: String },
     about_project: { type: String, required: true },
     functionalities: { type: [String] },
     challenges: { type: [String] },
@@ -19,10 +18,6 @@ const TranslationContentSchema = new Schema<TranslationContentProjectType>(
 const ProjectMongooseSchema = new Schema<ProjectTypes>(
   {
     slug: { type: String, required: true, unique: true },
-    client_name: { type: String, required: true },
-    client_location: { type: String },
-    client_logo: { type: String, required: true },
-    client_link: { type: String },
     year: { type: String },
     demo_link: { type: String },
     repo_link: { type: String },

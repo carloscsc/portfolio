@@ -24,7 +24,6 @@ const CollaboratorSchema = new Schema<CollaboratorType>(
     role: { type: String, required: true },
     name: { type: String, required: true },
     website: { type: String },
-    linkedin: { type: String },
   },
   { _id: false },
 );

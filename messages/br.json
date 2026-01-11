@@ -111,6 +111,8 @@
     "sections": {
       "aboutProject": "Sobre o Projeto",
       "client": "Cliente",
+      "agency": "Agência",
+      "collaborators": "Colaboradores",
       "details": "Detalhes",
       "technologies": "Tecnologias Utilizadas",
       "features": "Principais Funcionalidades",
@@ -138,6 +140,10 @@
       "advanced": "habilidades avançadas",
       "intermediate": "intermediárias+"
     }
+  },
+  "ClientPage": {
+    "heading": "Projetos",
+    "visitWebsite": "Visitar Website"
   },
   "ContactSection": {
     "heading": "Vamos Conversar!",

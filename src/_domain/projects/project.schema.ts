@@ -27,7 +27,6 @@ export const CollaboratorSchema = z.object({
   role: z.string().min(1, "Role is required"),
   name: z.string().min(1, "Name is required"),
   website: z.string().optional(),
-  linkedin: z.string().optional(),
 });
 export type CollaboratorType = z.infer<typeof CollaboratorSchema>;
 

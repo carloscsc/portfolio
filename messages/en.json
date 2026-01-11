@@ -110,6 +110,8 @@
     "sections": {
       "aboutProject": "About This Project",
       "client": "Client",
+      "agency": "Agency",
+      "collaborators": "Collaborators",
       "details": "Details",
       "technologies": "Built With",
       "features": "Key Features",
@@ -137,6 +139,10 @@
       "advanced": "advanced",
       "intermediate": "intermediate+"
     }
+  },
+  "ClientPage": {
+    "heading": "Projects",
+    "visitWebsite": "Visit Website"
   },
   "ContactSection": {
     "heading": "Let's Work Together!",

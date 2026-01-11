@@ -37,7 +37,6 @@ export function CollaboratorsInput({
       role: "",
       name: "",
       website: "",
-      linkedin: "",
     });
   };
 
@@ -108,39 +107,21 @@ export function CollaboratorsInput({
                   </FormItem>
                 )}
               />
-
-              <FormField
-                control={control}
-                name={`${name}.${index}.website`}
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Website</FormLabel>
-                    <FormControl>
-                      <Input {...field} type="url" placeholder="https://..." />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-
-              <FormField
-                control={control}
-                name={`${name}.${index}.linkedin`}
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>LinkedIn</FormLabel>
-                    <FormControl>
-                      <Input
-                        {...field}
-                        type="url"
-                        placeholder="https://linkedin.com/in/..."
-                      />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
             </div>
+
+            <FormField
+              control={control}
+              name={`${name}.${index}.website`}
+              render={({ field }) => (
+                <FormItem className="mt-3">
+                  <FormLabel>Link</FormLabel>
+                  <FormControl>
+                    <Input {...field} type="url" placeholder="https://..." />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
           </div>
         ))}
 

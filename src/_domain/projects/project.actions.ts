@@ -388,6 +388,86 @@ export async function findByCategory(tag: string | null = null) {
   }
 }
 
+// Find By Client (or Agency)
+export async function findByClient(clientSlug: string | null = null) {
+  try {
+    await connect();
+    const results = await Project.aggregate([
+      {
+        $match: {
+          $or: [{ client_id: clientSlug }, { agency_id: clientSlug }],
+        },
+      },
+      {
+        $sort: { updatedAt: -1 },
+      },
+      {
+        $lookup: {
+          from: "tags",
+          localField: "technologies",
+          foreignField: "value",
+          as: "tags",
+          pipeline: [{ $project: { _id: 0, label: 1, value: 1 } }],
+        },
+      },
+      {
+        $lookup: {
+          from: "categories",
+          localField: "category",
+          foreignField: "value",
+          as: "_category",
+          pipeline: [{ $project: { _id: 0, label: 1, value: 1 } }],
+        },
+      },
+      {
+        $lookup: {
+          from: "clients",
+          localField: "client_id",
+          foreignField: "slug",
+          as: "_client",
+        },
+      },
+      {
+        $unwind: {
+          path: "$_client",
+          preserveNullAndEmptyArrays: true,
+        },
+      },
+      {
+        $lookup: {
+          from: "clients",
+          localField: "agency_id",
+          foreignField: "slug",
+          as: "_agency",
+        },
+      },
+      {
+        $unwind: {
+          path: "$_agency",
+          preserveNullAndEmptyArrays: true,
+        },
+      },
+      {
+        $addFields: {
+          _id: { $toString: "$_id" },
+          "_client._id": { $toString: "$_client._id" },
+          "_agency._id": { $toString: "$_agency._id" },
+        },
+      },
+      {
+        $unset: ["__v", "createdAt", "updatedAt"],
+      },
+    ]);
+
+    if (!results || results.length === 0) return null;
+
+    return results;
+  } catch (e) {
+    console.log(e);
+    throw new Error("Erro ao buscar dados dos projetos");
+  }
+}
+
 export async function findOne(slug: string): Promise<ProjectTypes | null> {
   if (!slug) return null;
 

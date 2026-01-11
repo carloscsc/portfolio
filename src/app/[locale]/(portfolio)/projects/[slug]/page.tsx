@@ -10,7 +10,6 @@ import {
   ExternalLink,
   Calendar,
   Clock,
-  User,
   MapPin,
 } from "lucide-react";
 import { getBlobURL, stripHtmlTags } from "@/lib/utils";
@@ -184,50 +183,101 @@ export default async function ProjectPage({ params }: Props) {
           </div>
 
           <div className="space-y-6">
-            {/* Informações do Cliente */}
-            <div className="bg-accent rounded p-6 space-y-4">
-              <h3 className="text-lg text-primary mb-4 flex items-center gap-2">
-                <User className="h-5 w-5 text-primary" />
-                {t("sections.client")}
-              </h3>
-              <div className="space-y-2">
-                <div className="flex justify-start items-center gap-2">
-                  <div className="relative w-8 h-8 ">
-                    <Image
-                      src={getBlobURL(data.client_logo)}
-                      alt={data.client_name}
-                      fill
-                      className="object-fill object-center rounded"
-                    ></Image>
-                  </div>
-                  <p className="text-primary">{data.client_name}</p>
-                </div>
-                {translate.client_description && (
-                  <p className="text-sm text-muted-foreground">
-                    {translate.client_description}
-                  </p>
-                )}
-                {data.client_location && (
-                  <p className="text-sm text-muted-foreground flex items-center gap-1">
-                    <MapPin className="h-3 w-3" />
-                    {data.client_location}
-                  </p>
+            {/* Agency & Client */}
+            {(data._agency?.slug || data._client?.slug) && (
+              <div className="bg-accent rounded p-6 space-y-4">
+                {data._agency?.slug && (
+                  <>
+                    <div>
+                      <h3 className="text-sm text-muted-foreground mb-2">
+                        {t("sections.agency")}
+                      </h3>
+                      <Link
+                        href={`/client/${data._agency.slug}`}
+                        className="flex items-center gap-2 hover:opacity-80 transition-opacity"
+                      >
+                        <div className="relative w-8 h-8">
+                          <Image
+                            src={getBlobURL(data._agency.client_logo)}
+                            alt={data._agency.client_name}
+                            fill
+                            className="object-fill object-center rounded"
+                          />
+                        </div>
+                        <p className="text-primary font-medium hover:underline">
+                          {data._agency.client_name}
+                        </p>
+                      </Link>
+                    </div>
+                    {data._client?.slug && (
+                      <div className="border-t border-border pt-4" />
+                    )}
+                  </>
                 )}
 
-                {data.client_link && (
-                  <Button className="w-full" asChild>
-                    <a
-                      href={data.demo_link}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="flex items-center gap-2"
+                {data._client?.slug && (
+                  <div>
+                    <h3 className="text-sm text-muted-foreground mb-2">
+                      {t("sections.client")}
+                    </h3>
+                    <Link
+                      href={`/client/${data._client.slug}`}
+                      className="flex items-center gap-2 hover:opacity-80 transition-opacity"
                     >
-                      <ExternalLink size={16} /> {t("buttons.access")}
-                    </a>
-                  </Button>
+                      <div className="relative w-8 h-8">
+                        <Image
+                          src={getBlobURL(data._client.client_logo)}
+                          alt={data._client.client_name}
+                          fill
+                          className="object-fill object-center rounded"
+                        />
+                      </div>
+                      <p className="text-primary font-medium hover:underline">
+                        {data._client.client_name}
+                      </p>
+                    </Link>
+                  </div>
                 )}
               </div>
-            </div>
+            )}
+
+            {/* Collaborators */}
+            {data.collaborators && data.collaborators.length > 0 && (
+              <div className="bg-accent rounded p-6 space-y-4">
+                <h3 className="text-lg text-primary mb-4">
+                  {t("sections.collaborators")}
+                </h3>
+                <div className="space-y-3">
+                  {data.collaborators.map((collab, index) => {
+                    const link = collab.website;
+                    return (
+                      <div
+                        key={index}
+                        className="space-y-1 pb-3 border-b border-border last:border-0 last:pb-0"
+                      >
+                        {link ? (
+                          <a
+                            href={link}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="text-sm font-medium text-primary hover:underline"
+                          >
+                            {collab.name}
+                          </a>
+                        ) : (
+                          <p className="text-sm font-medium text-primary">
+                            {collab.name}
+                          </p>
+                        )}
+                        <p className="text-xs text-muted-foreground">
+                          {collab.role}
+                        </p>
+                      </div>
+                    );
+                  })}
+                </div>
+              </div>
+            )}
 
             {/* Detalhes do Projeto */}
             {(translate.duration || Number(data.year) > 0) && (

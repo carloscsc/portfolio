@@ -5,7 +5,7 @@ import { notFound } from "next/navigation";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Navbar } from "@/components/navbar";
-import { ArrowLeft, ExternalLink, Calendar, Clock, MapPin } from "lucide-react";
+import { ArrowLeft, ExternalLink, Calendar, Clock } from "lucide-react";
 import { getBlobURL, stripHtmlTags } from "@/lib/utils";
 
 import parse from "html-react-parser";
@@ -89,7 +89,7 @@ export default async function ProjectPage({ params }: Props) {
   return (
     <main className="min-h-screen">
       <Navbar />
-      <article className="container mx-auto px-4 pt-28  max-w-4xl">
+      <article className="container mx-auto px-4 pt-28  max-w-6xl">
         <Link
           href="/#works"
           className="inline-flex items-center gap-2 text-secondary hover:text-primary transition-colors mb-6"
@@ -151,18 +151,18 @@ export default async function ProjectPage({ params }: Props) {
               </Button>
             )}
           </div>
-        </div>
 
-        {/* Imagem Principal */}
-        <div className="relative aspect-4/3 w-full overflow-hidden rounded-xl bg-card mb-8">
-          <Image
-            src={getBlobURL(data.cover) || "/placeholder.svg"}
-            alt={translate.title}
-            fill
-            className="object-cover"
-            sizes="(min-width: 768px) 768px, 100vw"
-            priority
-          />
+          {/* Imagem Principal */}
+          <div className="relative aspect-4/3 w-full overflow-hidden rounded-xl bg-card mb-8">
+            <Image
+              src={getBlobURL(data.cover) || "/placeholder.svg"}
+              alt={translate.title}
+              fill
+              className="object-cover"
+              sizes="(min-width: 768px) 768px, 100vw"
+              priority
+            />
+          </div>
         </div>
 
         {/* Informações do Projeto */}
@@ -345,31 +345,6 @@ export default async function ProjectPage({ params }: Props) {
           </div>
         )}
 
-        {/* Galeria */}
-        {data.gallery && data.gallery.length > 0 && (
-          <div className="mt-8">
-            <h2 className="text-2xl text-primary mb-4">
-              {t("sections.gallery")}
-            </h2>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-              {data.gallery.map((image, i) => (
-                <div
-                  key={i}
-                  className="relative aspect-4/3 overflow-hidden rounded-lg bg-card"
-                >
-                  <Image
-                    src={getBlobURL(image) || "/placeholder.svg"}
-                    alt={`${translate.title} - ${t("gallery.imageAlt", { index: i + 1 })}`}
-                    fill
-                    className="object-cover hover:scale-110 transition-transform duration-300"
-                    sizes="(min-width: 1024px) 300px, (min-width: 768px) 350px, 100vw"
-                  />
-                </div>
-              ))}
-            </div>
-          </div>
-        )}
-
         {/* Desafios */}
         {translate.challenges && translate.challenges.length > 0 && (
           <div className="mt-8">
@@ -401,6 +376,31 @@ export default async function ProjectPage({ params }: Props) {
                 </li>
               ))}
             </ul>
+          </div>
+        )}
+
+        {/* Galeria */}
+        {data.gallery && data.gallery.length > 0 && (
+          <div className="mt-8">
+            <h2 className="text-2xl text-primary mb-4">
+              {t("sections.gallery")}
+            </h2>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+              {data.gallery.map((image, i) => (
+                <div
+                  key={i}
+                  className="relative aspect-4/3 overflow-hidden rounded-lg bg-card"
+                >
+                  <Image
+                    src={getBlobURL(image) || "/placeholder.svg"}
+                    alt={`${translate.title} - ${t("gallery.imageAlt", { index: i + 1 })}`}
+                    fill
+                    className="object-cover hover:scale-110 transition-transform duration-300"
+                    sizes="(min-width: 1024px) 300px, (min-width: 768px) 350px, 100vw"
+                  />
+                </div>
+              ))}
+            </div>
           </div>
         )}
       </article>

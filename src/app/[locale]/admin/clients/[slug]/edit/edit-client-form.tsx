@@ -21,10 +21,7 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 
-import {
-  ButtonGroup,
-  ButtonGroupSeparator,
-} from "@/components/ui/button-group";
+import { ButtonGroup } from "@/components/ui/button-group";
 
 import TextInput from "@/components/forms/TextInput";
 import { Textarea } from "@/components/ui/textarea";

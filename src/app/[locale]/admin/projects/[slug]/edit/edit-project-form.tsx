@@ -46,6 +46,7 @@ import { Spinner } from "@/components/ui/shadcn-io/spinner";
 import { toast } from "sonner";
 import SelectTechTags from "@/components/forms/tags-select";
 import SelectCategory from "@/components/forms/categ-select";
+import SelectClient from "@/components/forms/client-select";
 
 const EditProjectForm = ({ data }: { data: ProjectTypes }) => {
   const router = useRouter();
@@ -63,6 +64,7 @@ const EditProjectForm = ({ data }: { data: ProjectTypes }) => {
       cover: undefined,
       category: data.category || [],
       technologies: data.technologies,
+      client_id: data.client_id || "",
       gallery: [],
       _gallery: data.gallery || [],
       status: data.status || "ativo",
@@ -307,6 +309,22 @@ const EditProjectForm = ({ data }: { data: ProjectTypes }) => {
               label="Link do repositório"
               placeholder="Informe o link..."
             />
+            <Separator />
+
+            <FormField
+              control={form.control}
+              name="client_id"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Cliente</FormLabel>
+                  <FormControl>
+                    <SelectClient field={field} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+
             <Separator />
 
             {/* <RepeatableTextField

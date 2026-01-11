@@ -25,6 +25,7 @@ const ProjectMongooseSchema = new Schema<ProjectTypes>(
     technologies: [{ type: String }],
     category: { type: [String], required: true },
     gallery: { type: [String] },
+    client_id: { type: String },
     translations: {
       en: { type: TranslationContentSchema, require: true },
       br: { type: TranslationContentSchema, require: true },

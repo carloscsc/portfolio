@@ -1,6 +1,7 @@
 import { z } from "zod";
 import { fileSchema } from "../shared/types";
 import { CategSchema, TagSchema } from "../archive/archive.schema";
+import { ClientSchema } from "../clients/clients.schema";
 
 export const TranslationContentProjectSchema = z.object({
   title: z.string().min(1, "O título é obrigatório"),
@@ -45,6 +46,8 @@ export const ProjectSchema = z.object({
   category: z.array(z.string()),
   _category: z.array(CategSchema).optional(),
   tags: z.array(TagSchema).optional(),
+  client_id: z.string().optional(),
+  _client: ClientSchema.optional(),
   createdAt: z.string(),
   updatedAt: z.string(),
 });

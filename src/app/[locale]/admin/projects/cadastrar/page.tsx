@@ -36,6 +36,7 @@ import { Spinner } from "@/components/ui/shadcn-io/spinner";
 import { useRouter } from "@/i18n/navigation";
 import SelectTechTags from "@/components/forms/tags-select";
 import SelectCategory from "@/components/forms/categ-select";
+import SelectClient from "@/components/forms/client-select";
 
 // TODO: apagar campos depois de enviar
 
@@ -258,6 +259,22 @@ const CadastrarProjeto = () => {
               label="Link do repositório"
               placeholder="Informe o link..."
             />
+            <Separator />
+
+            <FormField
+              control={form.control}
+              name="client_id"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Cliente</FormLabel>
+                  <FormControl>
+                    <SelectClient field={field} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+
             <Separator />
 
             <FormField

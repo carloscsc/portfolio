@@ -180,8 +180,23 @@ export async function read() {
         },
       },
       {
+        $lookup: {
+          from: "clients",
+          localField: "client_id",
+          foreignField: "slug",
+          as: "_client",
+        },
+      },
+      {
+        $unwind: {
+          path: "$_client",
+          preserveNullAndEmptyArrays: true,
+        },
+      },
+      {
         $addFields: {
           _id: { $toString: "$_id" },
+          "_client._id": { $toString: "$_client._id" },
         },
       },
       {
@@ -230,8 +245,23 @@ export async function findByTag(tag: string | null = null) {
         },
       },
       {
+        $lookup: {
+          from: "clients",
+          localField: "client_id",
+          foreignField: "slug",
+          as: "_client",
+        },
+      },
+      {
+        $unwind: {
+          path: "$_client",
+          preserveNullAndEmptyArrays: true,
+        },
+      },
+      {
         $addFields: {
           _id: { $toString: "$_id" },
+          "_client._id": { $toString: "$_client._id" },
         },
       },
       {
@@ -280,8 +310,23 @@ export async function findByCategory(tag: string | null = null) {
         },
       },
       {
+        $lookup: {
+          from: "clients",
+          localField: "client_id",
+          foreignField: "slug",
+          as: "_client",
+        },
+      },
+      {
+        $unwind: {
+          path: "$_client",
+          preserveNullAndEmptyArrays: true,
+        },
+      },
+      {
         $addFields: {
           _id: { $toString: "$_id" },
+          "_client._id": { $toString: "$_client._id" },
         },
       },
       {
@@ -326,8 +371,23 @@ export async function findOne(slug: string): Promise<ProjectTypes | null> {
         },
       },
       {
+        $lookup: {
+          from: "clients",
+          localField: "client_id",
+          foreignField: "slug",
+          as: "_client",
+        },
+      },
+      {
+        $unwind: {
+          path: "$_client",
+          preserveNullAndEmptyArrays: true,
+        },
+      },
+      {
         $addFields: {
           _id: { $toString: "$_id" },
+          "_client._id": { $toString: "$_client._id" },
         },
       },
       {

@@ -190,3 +190,22 @@ export async function deleteClient(_id: string): Promise<ResponseType> {
     };
   }
 }
+
+export const getAllClients = async () => {
+  try {
+    await connect();
+
+    const clients = await Client.find()
+      .lean()
+      .select("slug client_name")
+      .sort({ client_name: 1 });
+
+    return clients.map((c) => ({
+      label: c.client_name,
+      value: c.slug,
+    }));
+  } catch (error) {
+    console.log(error);
+    return [];
+  }
+};

@@ -5,13 +5,7 @@ import { notFound } from "next/navigation";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Navbar } from "@/components/navbar";
-import {
-  ArrowLeft,
-  ExternalLink,
-  Calendar,
-  Clock,
-  MapPin,
-} from "lucide-react";
+import { ArrowLeft, ExternalLink, Calendar, Clock, MapPin } from "lucide-react";
 import { getBlobURL, stripHtmlTags } from "@/lib/utils";
 
 import parse from "html-react-parser";

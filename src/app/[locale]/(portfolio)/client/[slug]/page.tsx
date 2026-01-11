@@ -7,9 +7,8 @@ import { Suspense, use } from "react";
 import { ProjectCard } from "../../projects/project-card";
 import Image from "next/image";
 import { getBlobURL } from "@/lib/utils";
-import { MapPin, ExternalLink } from "lucide-react";
-import { Button } from "@/components/ui/button";
-import { useTranslations } from "next-intl";
+import { MapPin } from "lucide-react";
+import { useTranslations, useLocale } from "next-intl";
 
 type ClientPageProps = {
   params: Promise<{
@@ -76,14 +75,20 @@ type ClientPageData = {
 
 const ClientRender = ({ data }: ClientPageData) => {
   const t = useTranslations("ClientPage");
+  const locale = useLocale() as "en" | "br";
   const { client, projects } = use(data);
+
+  const description =
+    locale === "en" ? client.client_description : client.client_description_br;
 
   return (
     <>
-      <div className="max-w-3xl mx-auto mb-12">
-        <div className="bg-accent rounded-lg p-8 space-y-6">
-          <div className="flex items-start gap-6">
-            <div className="relative w-20 h-20 shrink-0">
+      {/* Client Info - Top */}
+      <div className="mb-12">
+        <div className="bg-accent rounded-lg p-8">
+          <div className="grid grid-cols-[auto_1fr] gap-6 items-start">
+            {/* Left Column: Logo */}
+            <div className="relative w-24 h-24">
               <Image
                 src={getBlobURL(client.client_logo)}
                 alt={client.client_name}
@@ -92,50 +97,52 @@ const ClientRender = ({ data }: ClientPageData) => {
               />
             </div>
 
-            <div className="flex-1 space-y-3">
-              <h1 className="text-3xl md:text-4xl text-primary font-bold">
-                {client.client_name}
-              </h1>
-
+            {/* Right Column: Title + Location + Description */}
+            <div className="space-y-3">
+              {client.client_link ? (
+                <a
+                  href={client.client_link}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-3xl font-bold text-primary hover:underline inline-block"
+                >
+                  {client.client_name}
+                </a>
+              ) : (
+                <h1 className="text-3xl font-bold text-primary">
+                  {client.client_name}
+                </h1>
+              )}
               {client.client_location && (
-                <p className="text-secondary flex items-center gap-2">
+                <p className="text-sm text-secondary flex items-center gap-2">
                   <MapPin className="h-4 w-4" />
                   {client.client_location}
                 </p>
               )}
-
-              {client.client_link && (
-                <Button asChild className="mt-4">
-                  <a
-                    href={client.client_link}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="flex items-center gap-2"
-                  >
-                    <ExternalLink size={16} /> {t("visitWebsite")}
-                  </a>
-                </Button>
+              {description && (
+                <p className="text-sm text-secondary leading-relaxed">
+                  {description}
+                </p>
               )}
             </div>
           </div>
         </div>
       </div>
 
-      <div className="text-center mb-8">
-        <h2 className="text-2xl text-primary">
+      {/* Projects */}
+      <div>
+        <h2 className="text-2xl text-primary mb-6">
           {t("heading")} ({projects.length})
         </h2>
-      </div>
-
-      <div className="grid-responsive-projects gap-4 sm:gap-6 px-4 sm:px-0">
-        {projects.map((project) => (
-          <div key={project.slug}>
-            <ProjectCard {...project} />
-          </div>
-        ))}
+        <div className="grid-responsive-projects gap-4 sm:gap-6">
+          {projects.map((project) => (
+            <div key={project.slug}>
+              <ProjectCard {...project} />
+            </div>
+          ))}
+        </div>
       </div>
     </>
   );
 };
-
 export default ClientPage;

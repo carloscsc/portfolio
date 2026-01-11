@@ -1,5 +1,6 @@
 {
   "$schema": "https://biomejs.dev/schemas/2.3.11/schema.json",
+
   "vcs": {
     "enabled": true,
     "clientKind": "git",
@@ -42,11 +43,17 @@
       "react": "recommended"
     }
   },
+
   "assist": {
     "actions": {
       "source": {
         "organizeImports": "on"
       }
+    }
+  },
+  "css": {
+    "parser": {
+      "tailwindDirectives": true
     }
   }
 }

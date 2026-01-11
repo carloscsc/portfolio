@@ -6,6 +6,9 @@
     "ltalk": "Vamos conversar?",
     "form_header": "Ou use o formulário abaixo",
     "cv": "Curriculo",
+    "heading": "Vamos Conversar!",
+    "description": "Tem um projeto em mente ou quer discutir oportunidades?",
+    "button": "Agende uma consultoria grátis!",
     "form": {
       "name": "* Nome completo",
       "name_placeholder": "Informe seu nome completo",
@@ -144,10 +147,5 @@
   "ClientPage": {
     "heading": "Projetos",
     "visitWebsite": "Visitar Website"
-  },
-  "ContactSection": {
-    "heading": "Vamos Conversar!",
-    "description": "Tem um projeto em mente ou quer discutir oportunidades?",
-    "button": "Agende uma consultoria grátis!"
   }
 }

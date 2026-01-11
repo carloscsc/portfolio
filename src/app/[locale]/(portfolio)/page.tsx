@@ -62,11 +62,13 @@ export default function Home() {
       <Hero />
       <Projects />
 
+      <Contact />
+
       {/*  */}
       {/* <Services />
       
       <Skills />
-      <Contact /> */}
+    */}
 
       <Footer />
     </main>

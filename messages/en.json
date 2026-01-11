@@ -6,6 +6,9 @@
     "ltalk": "Let's Talk",
     "cv": "Resume",
     "form_header": "Or use the form below",
+    "heading": "Let's Work Together!",
+    "description": "Got a project in mind? Let's make it happen.",
+    "button": "Let's talk!",
     "form": {
       "name": "* Full Name",
       "name_placeholder": "Enter your full name",
@@ -143,10 +146,5 @@
   "ClientPage": {
     "heading": "Projects",
     "visitWebsite": "Visit Website"
-  },
-  "ContactSection": {
-    "heading": "Let's Work Together!",
-    "description": "Got a project in mind? Let's make it happen.",
-    "button": "Let's talk!"
   }
 }

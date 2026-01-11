@@ -170,3 +170,23 @@ export async function findOne(slug: string) {
     return null;
   }
 }
+
+export async function deleteClient(_id: string): Promise<ResponseType> {
+  try {
+    await connect();
+
+    await Client.findByIdAndDelete({ _id });
+
+    return {
+      isSuccess: true,
+    };
+  } catch (error) {
+    console.log(error);
+    return {
+      message: {
+        type: "error",
+        content: "Erro ao excluir cliente",
+      },
+    };
+  }
+}

@@ -1,7 +1,7 @@
 "use client";
 
 import { cn } from "@/lib/utils";
-import { BriefcaseIcon, PenSquareIcon } from "lucide-react";
+import { BriefcaseIcon, PenSquareIcon, UserCircle } from "lucide-react";
 import { Link } from "@/i18n/navigation";
 import { usePathname } from "@/i18n/navigation";
 import { ReactNode } from "react";
@@ -45,6 +45,7 @@ const sidebarLinks = () => {
           icon={<BriefcaseIcon />}
           text="Projects"
         />
+        <MenuLink href="/admin/clients" icon={<UserCircle />} text="Clients" />
       </ul>
     </nav>
   );

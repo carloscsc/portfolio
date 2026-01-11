@@ -5,7 +5,7 @@ export const ClientSchema = z.object({
   _id: z.string(),
   slug: z.string(),
   client_name: z.string().min(1, "O nome do cliente é obrigatório"),
-  client_location: z.string(),
+  client_location: z.string().min(2),
   client_logo: z.string(),
   client_link: z.string().optional(),
   client_description: z.string().optional(),

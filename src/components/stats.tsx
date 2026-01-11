@@ -1,7 +1,7 @@
 "use client";
-import { useState, useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
+import { useReducedMotion, useResponsive } from "@/hooks/use-responsive";
 import { cn } from "@/lib/utils";
-import { useResponsive, useReducedMotion } from "@/hooks/use-responsive";
 
 interface StatProps {
   header: string;
@@ -28,7 +28,7 @@ function StatItem({ header, text, index, isVisible }: StatProps) {
 
   return (
     <div
-      className={`text-center p-4 rounded bg-accent border border-border transition-all duration-500  ${
+      className={`text-center p-4 rounded bg-accent  transition-all duration-500  ${
         isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
       }`}
       style={{

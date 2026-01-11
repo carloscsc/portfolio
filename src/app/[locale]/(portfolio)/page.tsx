@@ -1,15 +1,15 @@
-import { Services } from "@/components/services";
-import { Projects } from "@/app/[locale]/(portfolio)/projects/projects-list";
-import { Navbar } from "@/components/navbar";
-import Contact from "@/components/contact/contact";
+import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { getBlobURL, stripHtmlTags } from "@/lib/utils";
-import { Skills } from "@/components/skills";
 import { getLocale, getTranslations } from "next-intl/server";
 import { getAndCacheProfile } from "@/_domain/profile/profile.actions";
-import { Metadata } from "next";
-import Hero from "@/components/hero";
+import Projects from "@/app/[locale]/(portfolio)/projects/projects-list";
+import Contact from "@/components/contact/contact";
 import Footer from "@/components/footer";
+import Hero from "@/components/hero";
+import { Navbar } from "@/components/navbar";
+import { Services } from "@/components/services";
+import { Skills } from "@/components/skills";
+import { getBlobURL, stripHtmlTags } from "@/lib/utils";
 
 export async function generateMetadata(): Promise<Metadata> {
   const t = await getTranslations("HomePage");

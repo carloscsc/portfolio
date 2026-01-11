@@ -6,9 +6,5 @@ interface CardWrapperProps {
 }
 
 export function CardWrapper({ children, className = "" }: CardWrapperProps) {
-  return (
-    <div className={`p-6 border border-border rounded ${className}`}>
-      {children}
-    </div>
-  );
+  return <div className={`p-6  rounded ${className}`}>{children}</div>;
 }

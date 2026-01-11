@@ -1,15 +1,15 @@
 "use client";
+import { ExternalLink, ImageIcon } from "lucide-react";
 import Image from "next/image";
-import { Link } from "@/i18n/navigation";
-import { useState } from "react";
-import { CardWrapper } from "../../../../components/ui/card-wrapper";
-import { Button } from "../../../../components/ui/button";
-import { ImageIcon, ExternalLink } from "lucide-react";
-import { getBlobURL } from "@/lib/utils";
-import { ProjectTypes } from "@/_domain/projects/project.schema";
-import { useResponsive } from "@/hooks/use-responsive";
 import { useLocale, useTranslations } from "next-intl";
+import { useState } from "react";
+import type { ProjectTypes } from "@/_domain/projects/project.schema";
 import { Badge } from "@/components/ui/badge";
+import { useResponsive } from "@/hooks/use-responsive";
+import { Link } from "@/i18n/navigation";
+import { getBlobURL } from "@/lib/utils";
+import { Button } from "../../../../components/ui/button";
+import { CardWrapper } from "../../../../components/ui/card-wrapper";
 
 export function ProjectCard(data: ProjectTypes) {
   const [imageLoading, setImageLoading] = useState(true);
@@ -32,7 +32,7 @@ export function ProjectCard(data: ProjectTypes) {
   const categs = data?._category;
 
   return (
-    <CardWrapper className="bg-accent overflow-hidden group h-full flex flex-col hover:border-primary transition-all duration-300">
+    <CardWrapper className="bg-accent overflow-hidden group h-full flex flex-col hover:border-primary transition-all duration-300 hover:ring-2 hover:ring-highlight">
       {/* Enhanced image container with loading states and link to details */}
       <Link
         href={`/projects/${data.slug}`}

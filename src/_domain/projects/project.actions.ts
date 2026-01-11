@@ -564,6 +564,22 @@ export async function deleteProject(_id: string): Promise<ResponseType> {
 }
 
 // get cached projeto
+export const getAllCachedProjects = cache(
+  async (): Promise<ProjectTypes[] | null> => {
+    // await new Promise((resolver) => setInterval(resolver, 4000));
+    const request = await fetch(
+      `${process.env.NEXT_PUBLIC_BASE_URL}/api/project`,
+    );
+
+    if (!request.ok) {
+      return null;
+    }
+
+    return await request.json();
+  },
+);
+
+// get cached projeto
 export const getAndCacheProject = cache(
   async (slug: string): Promise<ProjectTypes | null> => {
     const request = await fetch(

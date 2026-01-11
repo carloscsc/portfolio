@@ -118,7 +118,7 @@ export async function read(): Promise<ProfileTypes | null> {
 // get cached profile
 export const getAndCacheProfile = cache(
   async (): Promise<ProfileTypes | null> => {
-    await new Promise((resolver) => setInterval(resolver, 2500));
+    // await new Promise((resolver) => setInterval(resolver, 2500));
     const request = await fetch(
       `${process.env.NEXT_PUBLIC_BASE_URL}/api/profile`,
       { next: { tags: ["profile"] } },

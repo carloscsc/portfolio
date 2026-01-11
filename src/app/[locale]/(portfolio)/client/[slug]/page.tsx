@@ -1,7 +1,6 @@
 import { ProjectTypes } from "@/_domain/projects/project.schema";
 import { ClientType } from "@/_domain/clients/clients.schema";
 import { Navbar } from "@/components/navbar";
-import { Skeleton } from "@/components/ui/skeleton";
 import { notFound } from "next/navigation";
 import { Suspense, use } from "react";
 import { ProjectCard } from "../../projects/project-card";
@@ -44,22 +43,7 @@ const ClientPage = ({ params }: ClientPageProps) => {
       <section className="responsive-container spacing-responsive-lg">
         <div className="container mx-auto px-4">
           <section className="py-16 scroll-mt-24" id="works">
-            <Suspense
-              fallback={
-                <>
-                  <div className="text-center mb-12">
-                    <Skeleton className="w-[400px] h-10 mx-auto" />
-                  </div>
-                  <div className="grid-responsive-projects gap-4 sm:gap-6 px-4 sm:px-0 p-6">
-                    {Array(9)
-                      .fill(null)
-                      .map((_, index) => (
-                        <Skeleton key={index} className="w-[full] h-[400px]" />
-                      ))}
-                  </div>
-                </>
-              }
-            >
+            <Suspense>
               <ClientRender data={clientPromise} />
             </Suspense>
           </section>

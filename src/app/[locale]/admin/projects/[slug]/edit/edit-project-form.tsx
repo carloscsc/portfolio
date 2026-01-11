@@ -47,6 +47,8 @@ import { toast } from "sonner";
 import SelectTechTags from "@/components/forms/tags-select";
 import SelectCategory from "@/components/forms/categ-select";
 import SelectClient from "@/components/forms/client-select";
+import SelectAgency from "@/components/forms/agency-select";
+import { CollaboratorsInput } from "@/components/ui/custom/collaborators-input";
 
 const EditProjectForm = ({ data }: { data: ProjectTypes }) => {
   const router = useRouter();
@@ -65,6 +67,8 @@ const EditProjectForm = ({ data }: { data: ProjectTypes }) => {
       category: data.category || [],
       technologies: data.technologies,
       client_id: data.client_id || "",
+      agency_id: data.agency_id || "",
+      collaborators: data.collaborators || [],
       gallery: [],
       _gallery: data.gallery || [],
       status: data.status || "ativo",
@@ -323,6 +327,28 @@ const EditProjectForm = ({ data }: { data: ProjectTypes }) => {
                   <FormMessage />
                 </FormItem>
               )}
+            />
+
+            <FormField
+              control={form.control}
+              name="agency_id"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Agência</FormLabel>
+                  <FormControl>
+                    <SelectAgency field={field} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+
+            <Separator />
+
+            <CollaboratorsInput
+              control={form.control}
+              name="collaborators"
+              label="Collaborators"
             />
 
             <Separator />

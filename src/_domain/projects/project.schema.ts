@@ -23,6 +23,14 @@ export const TranslationSchema = z.object({
   br: TranslationContentProjectSchema,
 });
 
+export const CollaboratorSchema = z.object({
+  role: z.string().min(1, "Role is required"),
+  name: z.string().min(1, "Name is required"),
+  website: z.string().optional(),
+  linkedin: z.string().optional(),
+});
+export type CollaboratorType = z.infer<typeof CollaboratorSchema>;
+
 export const ProjectSchema = z.object({
   _id: z.string(),
   slug: z.string(),
@@ -40,6 +48,9 @@ export const ProjectSchema = z.object({
   repo_link: z.string().optional(),
   cover: z.string(),
   gallery: z.array(z.string()).optional(),
+  agency_id: z.string().optional(),
+  _agency: ClientSchema.optional(),
+  collaborators: z.array(CollaboratorSchema).optional(),
   status: z.enum(["ativo", "inativo"]),
   translations: TranslationSchema,
   technologies: z.array(z.string()).optional(),

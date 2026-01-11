@@ -5,7 +5,7 @@ const ClientMongooseSchema = new Schema<ClientType>(
   {
     slug: { type: String, required: true, unique: true },
     client_name: { type: String, required: true },
-    client_location: { type: String, required: true },
+    client_location: { type: String },
     client_logo: { type: String, required: true },
     client_link: { type: String },
     client_description: { type: String },

@@ -194,9 +194,24 @@ export async function read() {
         },
       },
       {
+        $lookup: {
+          from: "clients",
+          localField: "agency_id",
+          foreignField: "slug",
+          as: "_agency",
+        },
+      },
+      {
+        $unwind: {
+          path: "$_agency",
+          preserveNullAndEmptyArrays: true,
+        },
+      },
+      {
         $addFields: {
           _id: { $toString: "$_id" },
           "_client._id": { $toString: "$_client._id" },
+          "_agency._id": { $toString: "$_agency._id" },
         },
       },
       {
@@ -259,9 +274,24 @@ export async function findByTag(tag: string | null = null) {
         },
       },
       {
+        $lookup: {
+          from: "clients",
+          localField: "agency_id",
+          foreignField: "slug",
+          as: "_agency",
+        },
+      },
+      {
+        $unwind: {
+          path: "$_agency",
+          preserveNullAndEmptyArrays: true,
+        },
+      },
+      {
         $addFields: {
           _id: { $toString: "$_id" },
           "_client._id": { $toString: "$_client._id" },
+          "_agency._id": { $toString: "$_agency._id" },
         },
       },
       {
@@ -324,9 +354,24 @@ export async function findByCategory(tag: string | null = null) {
         },
       },
       {
+        $lookup: {
+          from: "clients",
+          localField: "agency_id",
+          foreignField: "slug",
+          as: "_agency",
+        },
+      },
+      {
+        $unwind: {
+          path: "$_agency",
+          preserveNullAndEmptyArrays: true,
+        },
+      },
+      {
         $addFields: {
           _id: { $toString: "$_id" },
           "_client._id": { $toString: "$_client._id" },
+          "_agency._id": { $toString: "$_agency._id" },
         },
       },
       {
@@ -385,9 +430,24 @@ export async function findOne(slug: string): Promise<ProjectTypes | null> {
         },
       },
       {
+        $lookup: {
+          from: "clients",
+          localField: "agency_id",
+          foreignField: "slug",
+          as: "_agency",
+        },
+      },
+      {
+        $unwind: {
+          path: "$_agency",
+          preserveNullAndEmptyArrays: true,
+        },
+      },
+      {
         $addFields: {
           _id: { $toString: "$_id" },
           "_client._id": { $toString: "$_client._id" },
+          "_agency._id": { $toString: "$_agency._id" },
         },
       },
       {

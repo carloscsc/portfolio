@@ -37,6 +37,8 @@ import { useRouter } from "@/i18n/navigation";
 import SelectTechTags from "@/components/forms/tags-select";
 import SelectCategory from "@/components/forms/categ-select";
 import SelectClient from "@/components/forms/client-select";
+import SelectAgency from "@/components/forms/agency-select";
+import { CollaboratorsInput } from "@/components/ui/custom/collaborators-input";
 
 // TODO: apagar campos depois de enviar
 
@@ -56,6 +58,9 @@ const CadastrarProjeto = () => {
       technologies: [],
       category: [],
       gallery: [],
+      client_id: "",
+      agency_id: "",
+      collaborators: [],
       status: "ativo",
       translations: {
         en: {
@@ -273,6 +278,28 @@ const CadastrarProjeto = () => {
                   <FormMessage />
                 </FormItem>
               )}
+            />
+
+            <FormField
+              control={form.control}
+              name="agency_id"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Agência</FormLabel>
+                  <FormControl>
+                    <SelectAgency field={field} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+
+            <Separator />
+
+            <CollaboratorsInput
+              control={form.control}
+              name="collaborators"
+              label="Collaborators"
             />
 
             <Separator />

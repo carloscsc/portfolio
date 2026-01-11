@@ -1,5 +1,9 @@
 import mongoose, { Model, Schema } from "mongoose";
-import { ProjectTypes, TranslationContentProjectType } from "./project.schema";
+import {
+  ProjectTypes,
+  TranslationContentProjectType,
+  CollaboratorType,
+} from "./project.schema";
 import "../archive/archive.models";
 
 const TranslationContentSchema = new Schema<TranslationContentProjectType>(
@@ -15,8 +19,21 @@ const TranslationContentSchema = new Schema<TranslationContentProjectType>(
   { _id: false },
 );
 
+const CollaboratorSchema = new Schema<CollaboratorType>(
+  {
+    role: { type: String, required: true },
+    name: { type: String, required: true },
+    website: { type: String },
+    linkedin: { type: String },
+  },
+  { _id: false },
+);
+
 const ProjectMongooseSchema = new Schema<ProjectTypes>(
   {
+    agency_id: { type: String },
+    collaborators: { type: [CollaboratorSchema] },
+
     slug: { type: String, required: true, unique: true },
     year: { type: String },
     demo_link: { type: String },

@@ -1,5 +1,5 @@
 "use client";
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, Suspense } from "react";
 import { useResponsive, useReducedMotion } from "@/hooks/use-responsive";
 import { useTranslations } from "next-intl";
 
@@ -93,7 +93,7 @@ export function Skills() {
       {
         threshold: 0.2,
         rootMargin: "0px 0px -100px 0px",
-      }
+      },
     );
 
     const element = sectionRef.current;
@@ -109,32 +109,34 @@ export function Skills() {
   }, []);
 
   return (
-    <section ref={sectionRef} className="py-16 scroll-mt-24" id="skills">
-      <div className="text-center mb-12">
-        <h2 className="text-responsive-xl  mb-4">{t("heading")}</h2>
-        <p className="text-primary max-w-2xl mx-auto text-responsive-base leading-relaxed px-4">
-          {t("description")}
-        </p>
-      </div>
+    <Suspense>
+      <section ref={sectionRef} className="py-16 scroll-mt-24" id="skills">
+        <div className="text-center mb-12">
+          <h2 className="text-responsive-xl  mb-4">{t("heading")}</h2>
+          <p className="text-primary max-w-2xl mx-auto text-responsive-base leading-relaxed px-4">
+            {t("description")}
+          </p>
+        </div>
 
-      {/* Enhanced responsive grid for skills */}
-      <div
-        className={`grid gap-6 px-4 sm:px-0 ${
-          isMobile
-            ? "grid-cols-1 sm:grid-cols-2"
-            : "grid-cols-1 md:grid-cols-2 lg:grid-cols-3"
-        }`}
-      >
-        {skills.map((skill, index) => (
-          <SkillItem
-            key={skill.name}
-            name={skill.name}
-            percentage={skill.percentage}
-            index={index}
-            isVisible={isVisible}
-          />
-        ))}
-      </div>
-    </section>
+        {/* Enhanced responsive grid for skills */}
+        <div
+          className={`grid gap-6 px-4 sm:px-0 ${
+            isMobile
+              ? "grid-cols-1 sm:grid-cols-2"
+              : "grid-cols-1 md:grid-cols-2 lg:grid-cols-3"
+          }`}
+        >
+          {skills.map((skill, index) => (
+            <SkillItem
+              key={skill.name}
+              name={skill.name}
+              percentage={skill.percentage}
+              index={index}
+              isVisible={isVisible}
+            />
+          ))}
+        </div>
+      </section>
+    </Suspense>
   );
 }

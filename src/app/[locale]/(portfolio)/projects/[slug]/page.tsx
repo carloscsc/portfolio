@@ -405,11 +405,7 @@ export default async function ProjectPage({ params }: Props) {
         )}
       </article>
       {/* CTA Final */}
-      <Contact
-        title={t("cta.heading")}
-        description={t("cta.description")}
-        id="contact"
-      />
+      <Contact id="contact" />
     </main>
   );
 }

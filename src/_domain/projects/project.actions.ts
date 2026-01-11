@@ -1,18 +1,18 @@
 "use server";
-import { ResponseType } from "@/_domain/shared/types";
-import {
-  StoreProjectTypes,
-  StoreProjectSchema,
-  ProjectTypes,
-  UpdateProjectTypes,
-  UpdateProjectSchema,
-} from "../projects/project.schema";
-import { Project } from "./project.model";
+import { revalidatePath } from "next/cache";
+import { cache } from "react";
+import type { ResponseType } from "@/_domain/shared/types";
 import connect from "@/lib/db";
 import { upload } from "@/lib/r2-blob";
 import { slugfy } from "@/lib/utils";
-import { revalidatePath } from "next/cache";
-import { cache } from "react";
+import {
+  type ProjectTypes,
+  StoreProjectSchema,
+  type StoreProjectTypes,
+  UpdateProjectSchema,
+  type UpdateProjectTypes,
+} from "../projects/project.schema";
+import { Project } from "./project.model";
 
 export async function store(
   ProjectData: StoreProjectTypes,
@@ -42,9 +42,9 @@ export async function store(
       const galleryUploadQueue = await Promise.all(
         gallery.map((image) => upload("portfolio/projects", image)),
       );
-      galleryUploadQueue.forEach((imagem) =>
-        uploadedGallery.push(imagem as string),
-      );
+      galleryUploadQueue.forEach((imagem) => {
+        uploadedGallery.push(imagem as string);
+      });
     }
 
     //build the projectObject
@@ -103,9 +103,9 @@ export async function update(data: UpdateProjectTypes): Promise<ResponseType> {
     const galleryUploadQueue = await Promise.all(
       gallery.map((image) => upload("portfolio/projects", image)),
     );
-    galleryUploadQueue.forEach((imagem) =>
-      uploadedGallery.push(imagem as string),
-    );
+    galleryUploadQueue.forEach((imagem) => {
+      uploadedGallery.push(imagem as string);
+    });
   }
   const newGallery = [...uploadedGallery, ...(_gallery || [])];
 

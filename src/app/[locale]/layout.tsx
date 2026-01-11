@@ -60,15 +60,8 @@ export default async function RootLayout({
           <NextIntlClientProvider>
             <Analytics />
             <Providers>
-              <div className="flex flex-col min-h-screen">
+              <div className="flex flex-col min-h-screen bg-background">
                 <div className="flex-1">{children}</div>
-                <footer className="bg-accent mt-20">
-                  <div className="container mx-auto px-4">
-                    <p className="mt-12 py-8 text-center text-secondary text-sm">
-                      C2 Media & Tech Lab © 2014 - {new Date().getFullYear()}
-                    </p>
-                  </div>
-                </footer>
               </div>
             </Providers>
             <Toaster richColors />

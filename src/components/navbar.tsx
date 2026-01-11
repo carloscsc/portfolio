@@ -21,7 +21,7 @@ export function Navbar() {
 
   const sectionIds = useMemo(
     () => ["home", "services", "works", "skills", "blog", "contact"],
-    []
+    [],
   );
   const ticking = useRef(false);
 
@@ -80,7 +80,7 @@ export function Navbar() {
   // Generic smooth scroll handler for all sections
   const handleSectionClick = (
     e: React.MouseEvent<HTMLAnchorElement>,
-    sectionId: string
+    sectionId: string,
   ) => {
     e.preventDefault();
     setIsOpen(false);

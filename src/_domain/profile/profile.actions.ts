@@ -1,18 +1,18 @@
 "use server";
-import { ResponseType } from "@/_domain/shared/types";
-import connect from "@/lib/db";
-import { upload } from "@/lib/r2-blob";
-import {
-  ProfileTypes,
-  StoreProfileSchema,
-  storeProfileTypes,
-} from "./profile.schema";
-import { Profile } from "./profile.model";
 import { updateTag } from "next/cache";
 import { cache } from "react";
+import type { ResponseType } from "@/_domain/shared/types";
+import connect from "@/lib/db";
+import { upload } from "@/lib/r2-blob";
+import { Profile } from "./profile.model";
+import {
+  type ProfileTypes,
+  StoreProfileSchema,
+  type storeProfileTypes,
+} from "./profile.schema";
 
 export async function UpdateOrCreate(
-  ProjectData: storeProfileTypes
+  ProjectData: storeProfileTypes,
 ): Promise<ResponseType> {
   const validate = StoreProfileSchema.safeParse(ProjectData);
 
@@ -28,7 +28,9 @@ export async function UpdateOrCreate(
   }
 
   const { _id, cover, _cover, ...data } = validate.data;
-  let uploadedCover, uploadedEnCV, uploadedBrCv;
+  let uploadedCover: string | boolean = false,
+    uploadedEnCV: string | boolean = false,
+    uploadedBrCv: string | boolean = false;
 
   try {
     if (cover) {
@@ -71,7 +73,7 @@ export async function UpdateOrCreate(
         upsert: true,
         new: true,
         runValidators: true,
-      }
+      },
     );
 
     // Cache
@@ -113,12 +115,13 @@ export async function read(): Promise<ProfileTypes | null> {
   }
 }
 
-// get cached projeto
+// get cached profile
 export const getAndCacheProfile = cache(
   async (): Promise<ProfileTypes | null> => {
+    // await new Promise((resolver) => setTimeout(resolver, 3000));
     const request = await fetch(
       `${process.env.NEXT_PUBLIC_BASE_URL}/api/profile`,
-      { next: { tags: ["profile"] } }
+      { next: { tags: ["profile"] } },
     );
 
     if (!request.ok) {
@@ -126,5 +129,5 @@ export const getAndCacheProfile = cache(
     }
 
     return await request.json();
-  }
+  },
 );

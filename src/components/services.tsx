@@ -1,6 +1,12 @@
 "use client";
 
-import React, { useEffect, useMemo, useState, useCallback } from "react";
+import React, {
+  useEffect,
+  useMemo,
+  useState,
+  useCallback,
+  Suspense,
+} from "react";
 import Autoplay from "embla-carousel-autoplay";
 import { useTranslations } from "next-intl";
 import {
@@ -107,7 +113,7 @@ export function Services() {
         stopOnMouseEnter: true,
         rootNode: (emblaRoot) => emblaRoot?.parentElement,
       }),
-    []
+    [],
   );
 
   const onSelect = useCallback((embla?: CarouselApi) => {
@@ -145,66 +151,69 @@ export function Services() {
   }, [api, onSelect, autoplay]);
 
   return (
-    <section className="py-16 scroll-mt-24" id="services">
-      <div className="text-center mb-12 px-4">
-        <h2 className="text-3xl mb-4 text-primary">{t("heading")}</h2>
-        <p className="text-secondary max-w-2xl mx-auto text-balance">
-          {t("description.intro")} <strong>{t("description.highlight")}</strong>
-          {t("description.outro")}
-        </p>
-      </div>
+    <Suspense>
+      <section className="py-16 scroll-mt-24" id="services">
+        <div className="text-center mb-12 px-4">
+          <h2 className="text-3xl mb-4 text-primary">{t("heading")}</h2>
+          <p className="text-secondary max-w-2xl mx-auto text-balance">
+            {t("description.intro")}{" "}
+            <strong>{t("description.highlight")}</strong>
+            {t("description.outro")}
+          </p>
+        </div>
 
-      <div className="relative">
-        <Carousel
-          opts={{
-            align: "start",
-            loop: true,
-            duration: 28,
-          }}
-          plugins={[autoplay]}
-          setApi={(embla) => setApi(embla)}
-          className="px-2"
-        >
-          <CarouselContent>
-            {services.map((service, index) => (
-              <CarouselItem
-                key={index}
-                className="md:basis-1/2 lg:basis-1/3 xl:basis-1/4"
-              >
-                <ServiceCard {...service} />
-              </CarouselItem>
-            ))}
-          </CarouselContent>
+        <div className="relative">
+          <Carousel
+            opts={{
+              align: "start",
+              loop: true,
+              duration: 28,
+            }}
+            plugins={[autoplay]}
+            setApi={(embla) => setApi(embla)}
+            className="px-2"
+          >
+            <CarouselContent>
+              {services.map((service, index) => (
+                <CarouselItem
+                  key={index}
+                  className="md:basis-1/2 lg:basis-1/3 xl:basis-1/4"
+                >
+                  <ServiceCard {...service} />
+                </CarouselItem>
+              ))}
+            </CarouselContent>
 
-          <div className="flex gap-3 justify-center mt-8">
-            <CarouselPrevious className="-left-2 md:-left-10 text-secondary" />
-            <CarouselNext className="-right-2 md:-right-10 text-secondary" />
-          </div>
-        </Carousel>
+            <div className="flex gap-3 justify-center mt-8">
+              <CarouselPrevious className="-left-2 md:-left-10 text-secondary" />
+              <CarouselNext className="-right-2 md:-right-10 text-secondary" />
+            </div>
+          </Carousel>
 
-        {/* Bullets */}
-        {scrollSnaps.length > 1 && (
-          <div className="mt-6 flex items-center justify-center gap-2">
-            {scrollSnaps.map((_, i) => {
-              const isActive = i === selectedIndex;
-              return (
-                <button
-                  key={i}
-                  aria-label={t("carousel.goToSlide", { index: i + 1 })}
-                  aria-current={isActive}
-                  onClick={() => api?.scrollTo(i)}
-                  className={cn(
-                    "h-2.5 rounded-full transition-all",
-                    isActive
-                      ? "w-6 bg-primary"
-                      : "w-2.5 bg-border hover:bg-secondary"
-                  )}
-                />
-              );
-            })}
-          </div>
-        )}
-      </div>
-    </section>
+          {/* Bullets */}
+          {scrollSnaps.length > 1 && (
+            <div className="mt-6 flex items-center justify-center gap-2">
+              {scrollSnaps.map((_, i) => {
+                const isActive = i === selectedIndex;
+                return (
+                  <button
+                    key={i}
+                    aria-label={t("carousel.goToSlide", { index: i + 1 })}
+                    aria-current={isActive}
+                    onClick={() => api?.scrollTo(i)}
+                    className={cn(
+                      "h-2.5 rounded-full transition-all",
+                      isActive
+                        ? "w-6 bg-primary"
+                        : "w-2.5 bg-border hover:bg-secondary",
+                    )}
+                  />
+                );
+              })}
+            </div>
+          )}
+        </div>
+      </section>
+    </Suspense>
   );
 }

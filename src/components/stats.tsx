@@ -28,7 +28,7 @@ function StatItem({ header, text, index, isVisible }: StatProps) {
 
   return (
     <div
-      className={`text-center p-4 rounded bg-accent border border-border transition-all duration-500 hover:border-primary ${
+      className={`text-center p-4 rounded bg-accent border border-border transition-all duration-500  ${
         isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
       }`}
       style={{
@@ -75,7 +75,7 @@ export function Stats({
       {
         threshold: 0.3,
         rootMargin: "0px 0px -50px 0px",
-      }
+      },
     );
 
     const currentRef = sectionRef.current;
@@ -97,7 +97,7 @@ export function Stats({
         `grid gap-4 sm:gap-2 px-4 sm:px-0 ${
           isMobile ? "grid-cols-2" : "grid-cols-2 md:grid-cols-2"
         }`,
-        className
+        className,
       )}
     >
       {itens.map((stat, index) => (

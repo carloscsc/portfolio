@@ -1,7 +1,4 @@
 {
-  "editor.formatOnSave": true,
-  "editor.defaultFormatter": "esbenp.prettier-vscode",
-  "biome.enabled": false,
   "files.associations": {
     "*.css": "tailwindcss"
   }

@@ -15,44 +15,6 @@
       "command": "npx",
       "args": ["-y", "@modelcontextprotocol/server-sequential-thinking"]
     },
-    "wallaby": {
-      "autoApprove": [
-        "wallaby_runtimeValues",
-        "wallaby_runtimeValuesByTest",
-        "wallaby_coveredLinesForFile",
-        "wallaby_coveredLinesForTest",
-        "wallaby_updateTestSnapshots",
-        "wallaby_updateFileSnapshots",
-        "wallaby_updateProjectSnapshots",
-        "wallaby_failingTests",
-        "wallaby_allTests",
-        "wallaby_failingTestsForFile",
-        "wallaby_allTestsForFile",
-        "wallaby_failingTestsForFileAndLine",
-        "wallaby_allTestsForFileAndLine",
-        "wallaby_testById"
-      ],
-      "timeout": 60,
-      "type": "stdio",
-      "command": "node",
-      "args": ["/Users/Carlos/.wallaby/mcp/"]
-    },
-    "console-ninja": {
-      "autoApprove": [
-        "runtime-errors",
-        "runtime-logs",
-        "runtime-logs-by-location",
-        "runtime-logs-and-errors"
-      ],
-      "timeout": 60,
-      "type": "stdio",
-      "command": "node",
-      "args": ["/Users/Carlos/.console-ninja/mcp/"]
-    },
-    "shadcn": {
-      "command": "npx",
-      "args": ["shadcn@latest", "mcp"]
-    },
     "next-devtools": {
       "command": "npx",
       "args": ["-y", "next-devtools-mcp@latest"]

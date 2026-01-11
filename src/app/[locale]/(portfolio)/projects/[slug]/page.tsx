@@ -1,20 +1,19 @@
+import parse from "html-react-parser";
+import { ArrowLeft, Calendar, Clock, ExternalLink } from "lucide-react";
+import type { Metadata, ResolvingMetadata } from "next";
 import Image from "next/image";
-import { Link } from "@/i18n/navigation";
 import { notFound } from "next/navigation";
-
+import { getLocale, getTranslations } from "next-intl/server";
+import { FaGithub } from "react-icons/fa";
+import { getAndCacheProject } from "@/_domain/projects/project.actions";
+import type { ProjectTypes } from "@/_domain/projects/project.schema";
+import Contact from "@/components/contact/contact";
+import Footer from "@/components/footer";
+import { Navbar } from "@/components/navbar";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { Navbar } from "@/components/navbar";
-import { ArrowLeft, ExternalLink, Calendar, Clock } from "lucide-react";
-import { getBlobURL, stripHtmlTags } from "@/lib/utils";
-
-import parse from "html-react-parser";
-import { getLocale, getTranslations } from "next-intl/server";
-import { getAndCacheProject } from "@/_domain/projects/project.actions";
-import { Metadata, ResolvingMetadata } from "next";
-import { FaGithub } from "react-icons/fa";
-
-import Contact from "@/components/contact/contact";
+import { Link } from "@/i18n/navigation";
+import { cn, getBlobURL, stripHtmlTags } from "@/lib/utils";
 
 type Props = {
   params: Promise<{ slug: string }>;
@@ -84,8 +83,6 @@ export default async function ProjectPage({ params }: Props) {
 
   const translate = data.translations[locale];
 
-  const categs = data?._category;
-
   return (
     <main className="min-h-screen">
       <Navbar />
@@ -100,18 +97,6 @@ export default async function ProjectPage({ params }: Props) {
 
         {/* Header do Projeto */}
         <div className="mb-8">
-          <div className="mb-2 flex gap-2">
-            {categs?.map((categ) => (
-              <Link
-                key={categ.value}
-                href={`/category/${categ.value}`}
-                title={categ.label}
-              >
-                <Badge variant={"default"}>{categ.label}</Badge>
-              </Link>
-            ))}
-          </div>
-
           <h1 className="text-3xl md:text-5xl text-primary mb-4">
             {translate.title}
           </h1>
@@ -174,193 +159,46 @@ export default async function ProjectPage({ params }: Props) {
             <div className="prose max-w-none space-y-4 text-secondary">
               {parse(translate.about_project)}
             </div>
-          </div>
 
-          <div className="space-y-6">
-            {/* Agency & Client */}
-            {(data._agency?.slug || data._client?.slug) && (
-              <div className="bg-accent rounded p-6 space-y-4">
-                {data._agency?.slug && (
-                  <>
-                    <div>
-                      <h3 className="text-sm text-muted-foreground mb-2">
-                        {t("sections.agency")}
-                      </h3>
-                      <Link
-                        href={`/client/${data._agency.slug}`}
-                        className="flex items-center gap-2 hover:opacity-80 transition-opacity"
-                      >
-                        <div className="relative w-8 h-8">
-                          <Image
-                            src={getBlobURL(data._agency.client_logo)}
-                            alt={data._agency.client_name}
-                            fill
-                            className="object-fill object-center rounded"
-                          />
-                        </div>
-                        <p className="text-primary font-medium hover:underline">
-                          {data._agency.client_name}
-                        </p>
-                      </Link>
-                    </div>
-                    {data._client?.slug && (
-                      <div className="border-t border-border pt-4" />
-                    )}
-                  </>
-                )}
-
-                {data._client?.slug && (
-                  <div>
-                    <h3 className="text-sm text-muted-foreground mb-2">
-                      {t("sections.client")}
-                    </h3>
-                    <Link
-                      href={`/client/${data._client.slug}`}
-                      className="flex items-center gap-2 hover:opacity-80 transition-opacity"
-                    >
-                      <div className="relative w-8 h-8">
-                        <Image
-                          src={getBlobURL(data._client.client_logo)}
-                          alt={data._client.client_name}
-                          fill
-                          className="object-fill object-center rounded"
-                        />
-                      </div>
-                      <p className="text-primary font-medium hover:underline">
-                        {data._client.client_name}
-                      </p>
-                    </Link>
-                  </div>
-                )}
-              </div>
-            )}
-
-            {/* Collaborators */}
-            {data.collaborators && data.collaborators.length > 0 && (
-              <div className="bg-accent rounded p-6 space-y-4">
-                <h3 className="text-lg text-primary mb-4">
-                  {t("sections.collaborators")}
-                </h3>
-                <div className="space-y-3">
-                  {data.collaborators.map((collab, index) => {
-                    const link = collab.website;
-                    return (
-                      <div
-                        key={index}
-                        className="space-y-1 pb-3 border-b border-border last:border-0 last:pb-0"
-                      >
-                        {link ? (
-                          <a
-                            href={link}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="text-sm font-medium text-primary hover:underline"
-                          >
-                            {collab.name}
-                          </a>
-                        ) : (
-                          <p className="text-sm font-medium text-primary">
-                            {collab.name}
-                          </p>
-                        )}
-                        <p className="text-xs text-muted-foreground">
-                          {collab.role}
-                        </p>
-                      </div>
-                    );
-                  })}
+            {/* Funcionalidades */}
+            {translate.functionalities &&
+              translate.functionalities.length > 0 && (
+                <div className="mt-8">
+                  <h2 className="text-2xl text-primary mb-4">
+                    {t("sections.features")}
+                  </h2>
+                  <ul className="flex flex-col gap-3">
+                    {translate.functionalities.map((feature, i) => (
+                      <li key={i} className="flex items-start gap-3">
+                        <div className="w-2 h-2 bg-secondary rounded-full mt-2 shrink-0" />
+                        <span className="text-secondary">{feature}</span>
+                      </li>
+                    ))}
+                  </ul>
                 </div>
-              </div>
-            )}
+              )}
 
-            {/* Detalhes do Projeto */}
-            {(translate.duration || Number(data.year) > 0) && (
-              <div className="bg-accent rounded-lg p-6">
-                <h3 className="text-lg text-primary mb-4">
-                  {t("sections.details")}
-                </h3>
-
-                <div className="space-y-3">
-                  {translate.duration && (
-                    <div className="flex items-center gap-2 text-sm">
-                      <Clock className="h-4 w-4 text-secondary" />
-                      <span className="text-secondary">
-                        {t("labels.duration")}
-                      </span>
-                      <span className="text-primary">{translate.duration}</span>
-                    </div>
-                  )}
-                  {data.year && (
-                    <div className="flex items-center gap-2 text-sm">
-                      <Calendar className="h-4 w-4 text-secondary" />
-                      <span className="text-secondary">{t("labels.year")}</span>
-                      <span className="text-primary">{data.year}</span>
-                    </div>
-                  )}
-                </div>
+            {/* Desafios */}
+            {translate.challenges && translate.challenges.length > 0 && (
+              <div className="mt-8">
+                <h2 className="text-2xl text-primary mb-4">
+                  {t("sections.challenges")}
+                </h2>
+                <ul className="flex flex-col gap-3">
+                  {translate.challenges.map((challenge, i) => (
+                    <li key={i} className="flex items-start gap-3">
+                      <div className="w-2 h-2 bg-secondary rounded-full mt-2 shrink-0" />
+                      <span className="text-secondary">{challenge}</span>
+                    </li>
+                  ))}
+                </ul>
               </div>
             )}
           </div>
+
+          {/* Sidebar */}
+          <ProjectSiderbar data={data} />
         </div>
-
-        {/* Tecnologias */}
-        {data.tags && data.tags.length > 0 && (
-          <div className="mt-8">
-            <h2 className="text-2xl text-primary mb-4">
-              {t("sections.technologies")}
-            </h2>
-            <div className="flex flex-wrap gap-2">
-              {data.tags.map((tech) => (
-                <Link
-                  key={tech.value}
-                  href={`/tags/${tech.value}`}
-                  title={tech.label}
-                >
-                  <Badge
-                    variant="secondary"
-                    className="bg-toggle text-secondary border-border"
-                  >
-                    {tech.label}
-                  </Badge>
-                </Link>
-              ))}
-            </div>
-          </div>
-        )}
-
-        {/* Funcionalidades */}
-        {translate.functionalities && translate.functionalities.length > 0 && (
-          <div className="mt-8">
-            <h2 className="text-2xl text-primary mb-4">
-              {t("sections.features")}
-            </h2>
-            <ul className="grid grid-cols-1 md:grid-cols-2 gap-3">
-              {translate.functionalities.map((feature, i) => (
-                <li key={i} className="flex items-start gap-3">
-                  <div className="w-2 h-2 bg-secondary rounded-full mt-2 shrink-0" />
-                  <span className="text-secondary">{feature}</span>
-                </li>
-              ))}
-            </ul>
-          </div>
-        )}
-
-        {/* Desafios */}
-        {translate.challenges && translate.challenges.length > 0 && (
-          <div className="mt-8">
-            <h2 className="text-2xl text-primary mb-4">
-              {t("sections.challenges")}
-            </h2>
-            <ul className="space-y-3">
-              {translate.challenges.map((challenge, i) => (
-                <li key={i} className="flex items-start gap-3">
-                  <div className="w-2 h-2 bg-secondary rounded-full mt-2 shrink-0" />
-                  <span className="text-secondary">{challenge}</span>
-                </li>
-              ))}
-            </ul>
-          </div>
-        )}
 
         {/* Resultados */}
         {translate.results && translate.results.length > 0 && (
@@ -378,6 +216,8 @@ export default async function ProjectPage({ params }: Props) {
             </ul>
           </div>
         )}
+
+        <ProjectSiderbar data={data} mobile={true} />
 
         {/* Galeria */}
         {data.gallery && data.gallery.length > 0 && (
@@ -404,8 +244,195 @@ export default async function ProjectPage({ params }: Props) {
           </div>
         )}
       </article>
-      {/* CTA Final */}
+
       <Contact id="contact" />
+      <Footer />
     </main>
   );
 }
+
+const ProjectSiderbar = async ({
+  data,
+  mobile = false,
+}: {
+  data: ProjectTypes;
+  mobile?: boolean;
+}) => {
+  const t = await getTranslations("ProjectDetailPage");
+  const locale = (await getLocale()) as "en" | "br";
+  const translate = data.translations[locale];
+
+  return (
+    <div
+      className={cn("space-y-6", mobile ? "md:hidden mt-8" : "hidden md:block")}
+    >
+      {/* Agency & Client */}
+      {(data._agency?.slug || data._client?.slug) && (
+        <div className="bg-accent rounded p-6 space-y-4">
+          {data._agency?.slug && (
+            <>
+              <div>
+                <h3 className="text-sm text-muted-foreground mb-2">
+                  {t("sections.agency")}
+                </h3>
+                <Link
+                  href={`/client/${data._agency.slug}`}
+                  className="flex items-center gap-2 hover:opacity-80 transition-opacity"
+                >
+                  <div className="relative w-8 h-8">
+                    <Image
+                      src={getBlobURL(data._agency.client_logo)}
+                      alt={data._agency.client_name}
+                      fill
+                      className="object-fill object-center rounded"
+                    />
+                  </div>
+                  <p className="text-primary font-medium hover:underline">
+                    {data._agency.client_name}
+                  </p>
+                </Link>
+              </div>
+              {data._client?.slug && (
+                <div className="border-t border-border pt-4" />
+              )}
+            </>
+          )}
+
+          {data._client?.slug && (
+            <div>
+              <h3 className="text-sm text-muted-foreground mb-2">
+                {t("sections.client")}
+              </h3>
+              <Link
+                href={`/client/${data._client.slug}`}
+                className="flex items-center gap-2 hover:opacity-80 transition-opacity"
+              >
+                <div className="relative w-8 h-8">
+                  <Image
+                    src={getBlobURL(data._client.client_logo)}
+                    alt={data._client.client_name}
+                    fill
+                    className="object-fill object-center rounded"
+                  />
+                </div>
+                <p className="text-primary font-medium hover:underline">
+                  {data._client.client_name}
+                </p>
+              </Link>
+            </div>
+          )}
+        </div>
+      )}
+
+      {/* Detalhes do Projeto */}
+      {(translate.duration || Number(data.year) > 0) && (
+        <div className="bg-accent rounded-lg p-6">
+          <h3 className="text-lg text-primary mb-4">{t("sections.details")}</h3>
+
+          <div className="space-y-3">
+            {translate.duration && (
+              <div className="flex items-center gap-2 text-sm">
+                <Clock className="h-4 w-4 text-secondary" />
+                <span className="text-secondary">{t("labels.duration")}</span>
+                <span className="text-primary">{translate.duration}</span>
+              </div>
+            )}
+            {data.year && (
+              <div className="flex items-center gap-2 text-sm">
+                <Calendar className="h-4 w-4 text-secondary" />
+                <span className="text-secondary">{t("labels.year")}</span>
+                <span className="text-primary">{data.year}</span>
+              </div>
+            )}
+          </div>
+        </div>
+      )}
+
+      {/* Category */}
+      {data?._category && data?._category?.length > 0 && (
+        <div className="bg-accent rounded-lg p-6">
+          <h2 className="text-2xl text-primary mb-4">
+            {t("sections.category")}
+          </h2>
+          <div className="flex flex-wrap gap-2">
+            {data._category.map((tech) => (
+              <Link
+                key={tech.value}
+                href={`/category/${tech.value}`}
+                title={tech.label}
+              >
+                <Badge
+                  variant="default"
+                  className="bg-highlight text-background"
+                >
+                  {tech.label}
+                </Badge>
+              </Link>
+            ))}
+          </div>
+        </div>
+      )}
+
+      {/* Tecnologias */}
+      {data.tags && data.tags.length > 0 && (
+        <div className="bg-accent rounded-lg p-6">
+          <h2 className="text-2xl text-primary mb-4">
+            {t("sections.technologies")}
+          </h2>
+          <div className="flex flex-wrap gap-2">
+            {data.tags.map((tech) => (
+              <Link
+                key={tech.value}
+                href={`/tags/${tech.value}`}
+                title={tech.label}
+              >
+                <Badge
+                  variant="secondary"
+                  className="bg-transparent text-highlight border-highlight"
+                >
+                  {tech.label}
+                </Badge>
+              </Link>
+            ))}
+          </div>
+        </div>
+      )}
+
+      {/* Collaborators */}
+      {data.collaborators && data.collaborators.length > 0 && (
+        <div className="bg-accent rounded p-6 space-y-4">
+          <h3 className="text-lg text-primary mb-4">
+            {t("sections.collaborators")}
+          </h3>
+          <div className="space-y-3">
+            {data.collaborators.map((collab, index) => {
+              const link = collab.website;
+              return (
+                <div
+                  key={index}
+                  className="space-y-1 pb-3 border-b border-border last:border-0 last:pb-0"
+                >
+                  {link ? (
+                    <a
+                      href={link}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-sm font-medium text-primary hover:underline"
+                    >
+                      {collab.name}
+                    </a>
+                  ) : (
+                    <p className="text-sm font-medium text-primary">
+                      {collab.name}
+                    </p>
+                  )}
+                  <p className="text-xs text-muted-foreground">{collab.role}</p>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      )}
+    </div>
+  );
+};

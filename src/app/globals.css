@@ -42,3 +42,15 @@
     --destructive-foreground: #1f1513;
   }
 }
+
+@layer base {
+  strong,
+  .dark strong,
+  .prose strong,
+  .prose p > strong,
+  .dark .prose strong,
+  .dark .prose p > strong {
+    color: var(--highlight) !important;
+    font-weight: 900;
+  }
+}

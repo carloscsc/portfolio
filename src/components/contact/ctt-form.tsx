@@ -1,8 +1,14 @@
 "use client";
 
-import { CttSchema, CttType } from "@/_domain/ctt/ctt.schema";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useMutation } from "@tanstack/react-query";
+import { useTranslations } from "next-intl";
 import { useForm } from "react-hook-form";
+import { toast } from "sonner";
+import { sendContact } from "@/_domain/ctt/ctt.actions";
+import { CttSchema, type CttType } from "@/_domain/ctt/ctt.schema";
+import TextInput from "../forms/TextInput";
+import { Button } from "../ui/button";
 import {
   Form,
   FormControl,
@@ -11,14 +17,8 @@ import {
   FormLabel,
   FormMessage,
 } from "../ui/form";
-import TextInput from "../forms/TextInput";
-import { useMutation } from "@tanstack/react-query";
 import { Spinner } from "../ui/shadcn-io/spinner";
-import { Button } from "../ui/button";
-import { useTranslations } from "next-intl";
 import { Textarea } from "../ui/textarea";
-import { toast } from "sonner";
-import { sendContact } from "@/_domain/ctt/ctt.actions";
 
 export const CttForm = () => {
   const t = useTranslations("ctt.form");

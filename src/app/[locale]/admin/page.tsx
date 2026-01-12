@@ -1,6 +1,6 @@
+import { Suspense } from "react";
 import { getAndCacheProfile } from "@/_domain/profile/profile.actions";
 import ProfileForm from "./(profile)/profile-form";
-import { Suspense } from "react";
 
 const AdminPage = async () => {
   const data = getAndCacheProfile();

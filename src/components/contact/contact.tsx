@@ -77,7 +77,8 @@ const CttRender = ({
     <section
       className={cn(
         "animate-in fade-in duration-500",
-        !minimal && "py-16 scroll-mt-24",
+        !minimal &&
+          "py-16 scroll-mt-24 container mx-auto pt-24 px-4 md:px-0 xl:px-4  ",
       )}
       id={!minimal ? "contact" : ""}
     >

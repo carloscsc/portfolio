@@ -84,9 +84,9 @@ export default async function ProjectPage({ params }: Props) {
   const translate = data.translations[locale];
 
   return (
-    <main className="min-h-screen animate-in fade-in duration-500">
+    <main className="min-h-screen ">
       <Navbar />
-      <article className="container mx-auto px-4 pt-28  max-w-6xl">
+      <article className="container mx-auto pt-24 px-4 md:px-0 xl:px-4 xl:max-w-5xl animate-in fade-in duration-500">
         <Link
           href="/#works"
           className="inline-flex items-center gap-2 text-secondary hover:text-primary transition-colors mb-6"

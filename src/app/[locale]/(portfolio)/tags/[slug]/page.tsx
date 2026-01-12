@@ -1,5 +1,4 @@
 import { notFound } from "next/navigation";
-import { useTranslations } from "next-intl";
 import { Suspense, use } from "react";
 import type { ProjectTypes } from "@/_domain/projects/project.schema";
 import Footer from "@/components/footer";
@@ -65,7 +64,6 @@ type tagPagePromise = {
 };
 
 const TagRender = ({ data, promiseSlug }: tagPagePromise) => {
-  const t = useTranslations("ProjectsSection");
   const tags = use(data);
   const { slug } = use(promiseSlug);
 
@@ -74,9 +72,7 @@ const TagRender = ({ data, promiseSlug }: tagPagePromise) => {
   return (
     <>
       <div className="text-center mb-12">
-        <h2 className="text-3xl mb-4 text-primary">
-          {t("heading")} in {tag?.label}
-        </h2>
+        <h2 className="text-3xl mb-4 text-primary">{tag?.label}</h2>
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 px-4 sm:px-0">

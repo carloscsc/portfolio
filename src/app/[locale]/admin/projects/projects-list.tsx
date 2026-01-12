@@ -1,17 +1,16 @@
 "use client";
 
+import { useQuery } from "@tanstack/react-query";
+import { ChevronRightIcon, Plus } from "lucide-react";
+import type { ProjectTypes } from "@/_domain/projects/project.schema";
+import { Button } from "@/components/ui/button";
 import {
   Item,
   ItemActions,
   ItemContent,
   ItemTitle,
 } from "@/components/ui/item";
-
-import { ProjectTypes } from "@/_domain/projects/project.schema";
-import { Button } from "@/components/ui/button";
-import { useQuery } from "@tanstack/react-query";
 import { Link } from "@/i18n/navigation";
-import { ChevronRightIcon, Plus } from "lucide-react";
 
 const ProjectsList = () => {
   const { data, isLoading } = useQuery({

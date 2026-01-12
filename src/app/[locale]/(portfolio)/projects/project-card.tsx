@@ -4,7 +4,7 @@ import Image from "next/image";
 import { useLocale, useTranslations } from "next-intl";
 import { useState } from "react";
 import type { ProjectTypes } from "@/_domain/projects/project.schema";
-import { Badge } from "@/components/ui/badge";
+
 import { useResponsive } from "@/hooks/use-responsive";
 import { Link } from "@/i18n/navigation";
 import { getBlobURL } from "@/lib/utils";
@@ -28,8 +28,6 @@ export function ProjectCard(data: ProjectTypes) {
   };
 
   const translation = data.translations[locale];
-
-  const categs = data?._category;
 
   return (
     <CardWrapper className="bg-accent overflow-hidden group h-full flex flex-col hover:border-primary transition-all duration-300 hover:ring-2 hover:ring-highlight">
@@ -75,7 +73,7 @@ export function ProjectCard(data: ProjectTypes) {
 
       {/* Content container with flex-grow for equal height cards */}
       <div className="grow flex flex-col">
-        <div className="mb-2 flex gap-2">
+        {/* <div className="mb-2 flex gap-2">
           {categs?.map((categ) => (
             <Link
               key={categ.value}
@@ -85,7 +83,7 @@ export function ProjectCard(data: ProjectTypes) {
               <Badge variant={"default"}>{categ.label}</Badge>
             </Link>
           ))}
-        </div>
+        </div> */}
         <h3 className="text-lg font-semibold group-hover:text-primary transition-colors mb-2 line-clamp-2">
           <Link
             href={`/projects/${data.slug}`}

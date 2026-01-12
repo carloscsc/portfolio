@@ -1,8 +1,11 @@
-import { ProjectTypes } from "@/_domain/projects/project.schema";
-import { Navbar } from "@/components/navbar";
 import { notFound } from "next/navigation";
 import { Suspense, use } from "react";
+import type { ProjectTypes } from "@/_domain/projects/project.schema";
+import Footer from "@/components/footer";
+import { Navbar } from "@/components/navbar";
+import { Skeleton } from "@/components/ui/skeleton";
 import { ProjectCard } from "../../projects/project-card";
+
 // import { useTranslations } from "next-intl";
 
 type CategoryPageProps = {
@@ -27,18 +30,30 @@ const CategoryPage = ({ params }: CategoryPageProps) => {
   });
 
   return (
-    <main className="min-h-screen">
+    <>
       <Navbar />
-      <section className="responsive-container spacing-responsive-lg">
-        <div className="container mx-auto px-4">
-          <section className="py-16 scroll-mt-24" id="works">
-            <Suspense>
-              <CategoryPageRender data={categoryPromise} promiseSlug={params} />
-            </Suspense>
-          </section>
-        </div>
-      </section>
-    </main>
+      <main className="container min-h-screen mx-auto pt-24 px-4 md:px-0 xl:px-4 animate-in fade-in duration-500">
+        <Suspense
+          fallback={
+            <>
+              <Skeleton className="w-84 h-8 mx-auto mb-8" />
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 px-4 sm:px-0">
+                {Array(9)
+                  .fill(null)
+                  .map((_, index) => (
+                    <div key={index}>
+                      <Skeleton className="w-full h-[400px]" />
+                    </div>
+                  ))}
+              </div>
+            </>
+          }
+        >
+          <CategoryPageRender data={categoryPromise} promiseSlug={params} />
+        </Suspense>
+      </main>
+      <Footer />
+    </>
   );
 };
 
@@ -63,13 +78,12 @@ const CategoryPageRender = ({ data, promiseSlug }: tagPagePromise) => {
         <h2 className="text-3xl mb-4 text-primary">{categName?.label}</h2>
       </div>
 
-      <div className="grid-responsive-projects gap-4 sm:gap-6 px-4 sm:px-0">
-        {posts &&
-          posts.map((project) => (
-            <div key={project.slug}>
-              <ProjectCard {...project} />
-            </div>
-          ))}
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 px-4 sm:px-0">
+        {posts?.map((project) => (
+          <div key={project.slug}>
+            <ProjectCard {...project} />
+          </div>
+        ))}
       </div>
     </>
   );

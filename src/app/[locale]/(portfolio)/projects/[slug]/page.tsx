@@ -84,7 +84,7 @@ export default async function ProjectPage({ params }: Props) {
   const translate = data.translations[locale];
 
   return (
-    <main className="min-h-screen">
+    <main className="min-h-screen animate-in fade-in duration-500">
       <Navbar />
       <article className="container mx-auto px-4 pt-28  max-w-6xl">
         <Link
@@ -388,7 +388,7 @@ const ProjectSiderbar = async ({
               >
                 <Badge
                   variant="secondary"
-                  className="bg-transparent text-highlight border-highlight"
+                  className="bg-transparent text-highlight border-highlight hover:bg-highlight hover:text-background"
                 >
                   {tech.label}
                 </Badge>

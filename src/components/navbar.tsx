@@ -121,7 +121,7 @@ export function Navbar() {
           {/* Desktop Navigation */}
           <div className="hidden lg:flex items-center space-x-8">
             <LanguageSwitcher variant="desktop" />
-
+            {/* 
             <a
               href="#services"
               className={navLinkClasses("services")}
@@ -131,7 +131,7 @@ export function Navbar() {
               onClick={(e) => handleSectionClick(e, "services")}
             >
               {t("service")}
-            </a>
+            </a> */}
 
             <a
               href="#works"
@@ -144,7 +144,7 @@ export function Navbar() {
               {t("projects")}
             </a>
 
-            <a
+            {/* <a
               href="#skills"
               className={navLinkClasses("skills")}
               aria-current={
@@ -153,7 +153,7 @@ export function Navbar() {
               onClick={(e) => handleSectionClick(e, "skills")}
             >
               {t("skills")}
-            </a>
+            </a> */}
 
             <Button
               asChild
@@ -187,7 +187,7 @@ export function Navbar() {
             <div className="flex flex-col space-y-4 px-2 pt-2 pb-4 bg-accent">
               <LanguageSwitcher variant="mobile" className="mb-2" />
 
-              <a
+              {/* <a
                 href="#services"
                 className={navLinkClasses("services")}
                 aria-current={
@@ -196,7 +196,7 @@ export function Navbar() {
                 onClick={(e) => handleSectionClick(e, "services")}
               >
                 {t("service")}
-              </a>
+              </a> */}
 
               <a
                 href="#works"
@@ -209,7 +209,7 @@ export function Navbar() {
                 {t("projects")}
               </a>
 
-              <a
+              {/* <a
                 href="#skills"
                 className={navLinkClasses("skills")}
                 aria-current={
@@ -218,7 +218,7 @@ export function Navbar() {
                 onClick={(e) => handleSectionClick(e, "skills")}
               >
                 {t("skills")}
-              </a>
+              </a> */}
 
               <Button
                 className="w-full touch-target rounded bg-highlight text-background hover:bg-secondary"

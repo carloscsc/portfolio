@@ -95,9 +95,9 @@ const HeroRender = ({
         </div>
 
         <div className="lg:col-span-7 flex flex-col justify-center order-1 lg:order-2">
-          <h1 className="text-responsive-xl mb-4 mobile-text">
+          <h1 className="text-3xl mb-4 text-primary">
             {t("greetings")} {profile?.name}
-            <span className="block text-secondary mt-2 text-responsive-sm">
+            <span className="block text-secondary mt-2 text-xl">
               {translation?.title}
             </span>
           </h1>

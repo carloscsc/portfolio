@@ -107,7 +107,7 @@ const EditProjectForm = ({ data }: { data: ProjectTypes }) => {
 
   const onRemoveGalery = (index: number) => {
     if (gallery) {
-      const newArray = gallery.filter((image, _) => _ !== index);
+      const newArray = gallery.filter((_image, _) => _ !== index);
       form.setValue("gallery", newArray);
     }
   };
@@ -547,9 +547,7 @@ const EditProjectForm = ({ data }: { data: ProjectTypes }) => {
               {deleteMutation.isPending ? (
                 <Spinner />
               ) : (
-                <>
-                  <Trash className="w-4 h-4" />
-                </>
+                <Trash className="w-4 h-4" />
               )}
             </Button>
           </div>

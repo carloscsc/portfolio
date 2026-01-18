@@ -139,8 +139,6 @@ export async function read(): Promise<ProfileTypes | null> {
       return null;
     }
 
-    console.log(results[0]);
-
     return results[0] as ProfileTypes;
   } catch (e) {
     console.error("Error fetching profile:", e);

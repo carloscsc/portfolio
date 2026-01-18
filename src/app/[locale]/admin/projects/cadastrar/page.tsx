@@ -103,7 +103,7 @@ const CadastrarProjeto = () => {
 
   const onRemoveGalery = (index: number) => {
     if (gallery) {
-      const newArray = gallery.filter((image, _) => _ !== index);
+      const newArray = gallery.filter((_image, _) => _ !== index);
       form.setValue("gallery", newArray);
     }
   };

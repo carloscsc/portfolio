@@ -1,18 +1,18 @@
 "use client";
 
-import * as React from "react";
-import { useFieldArray, Control } from "react-hook-form";
+import { Plus, X } from "lucide-react";
+
+import { type Control, useFieldArray } from "react-hook-form";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
 import {
+  FormControl,
   FormField,
   FormItem,
   FormLabel,
-  FormControl,
   FormMessage,
 } from "@/components/ui/form";
+import { Input } from "@/components/ui/input";
 import { cn } from "@/lib/utils";
-import { Plus, X } from "lucide-react";
 
 interface CollaboratorsInputProps {
   name: string;

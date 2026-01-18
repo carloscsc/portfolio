@@ -3,7 +3,7 @@ import type {
   ContatoType,
   highlightType,
   ProfileTypes,
-  techStackType,
+  techStackStoreType,
   translationContentType,
 } from "./profile.schema";
 
@@ -38,7 +38,7 @@ const ContatoSchema = new Schema<ContatoType>(
 );
 
 /** skills */
-const techStack = new Schema<techStackType>(
+const techStack = new Schema<techStackStoreType>(
   {
     name: { type: String, required: true },
     technologies: [{ type: String, required: true }],

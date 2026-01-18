@@ -1,4 +1,5 @@
 import { z } from "zod";
+import { TagSchema } from "../archive/archive.schema";
 import { DocFileSchema, fileSchema, phoneSchema } from "../shared/types";
 
 const HighlightSchema = z.object({
@@ -55,12 +56,26 @@ export const ContatoSchema = z.object({
 });
 export type ContatoType = z.infer<typeof ContatoSchema>;
 
+const TechStackSchema = z.object({
+  name: z.string().min(3),
+  technologies: z.array(TagSchema).min(1),
+});
+export type techStackType = z.infer<typeof TechStackSchema>;
+
+const TechStackStoreSchema = z.object({
+  name: z.string().min(3),
+  technologies: z.array(z.string()).min(1),
+});
+export type techStackStoreType = z.infer<typeof TechStackStoreSchema>;
+
 export const ProfileSchema = z.object({
   _id: z.string(),
   name: z.string().min(1, "O nome é obrigatório"),
   cover: z.string(),
   translations: translationsSchema,
   contato: ContatoSchema.optional(),
+  skills: z.array(TechStackStoreSchema).min(1),
+  _skills: z.array(TechStackSchema).min(1),
   createdAt: z.string(),
   updatedAt: z.string(),
 });
@@ -86,23 +101,3 @@ export const StoreProfileSchema = ProfileSchema.omit({
 /** Types */
 export type ProfileTypes = z.infer<typeof ProfileSchema>;
 export type storeProfileTypes = z.infer<typeof StoreProfileSchema>;
-
-// contato: z
-//   .transform((val, ctx) => {
-//     if (!val || val === "") return {};
-
-//     if (typeof val === "string") {
-//       try {
-//         return JSON.parse(val);
-//       } catch {
-//         ctx.issues.push({
-//           code: "custom",
-//           message: "Invalid JSON format for social field",
-//           input: val,
-//         });
-//         return z.NEVER;
-//       }
-//     }
-//     return val;
-//   })
-//   .pipe(ContatoSchema.strict()),

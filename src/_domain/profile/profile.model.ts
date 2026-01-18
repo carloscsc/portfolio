@@ -1,9 +1,10 @@
-import mongoose, { Model, Schema } from "mongoose";
-import {
-  ProfileTypes,
-  translationContentType,
-  highlightType,
+import mongoose, { type Model, Schema } from "mongoose";
+import type {
   ContatoType,
+  highlightType,
+  ProfileTypes,
+  techStackType,
+  translationContentType,
 } from "./profile.schema";
 
 const HighlightSchema = new Schema<highlightType>(
@@ -13,7 +14,7 @@ const HighlightSchema = new Schema<highlightType>(
   },
   {
     _id: false,
-  }
+  },
 );
 
 const TranslationContentSchema = new Schema<translationContentType>(
@@ -24,7 +25,7 @@ const TranslationContentSchema = new Schema<translationContentType>(
     phone: { type: String, required: true },
     cv: { type: String },
   },
-  { _id: false }
+  { _id: false },
 );
 
 const ContatoSchema = new Schema<ContatoType>(
@@ -33,7 +34,16 @@ const ContatoSchema = new Schema<ContatoType>(
     github: { type: String },
     email: { type: String },
   },
-  { _id: false }
+  { _id: false },
+);
+
+/** skills */
+const techStack = new Schema<techStackType>(
+  {
+    name: { type: String, required: true },
+    technologies: [{ type: String, required: true }],
+  },
+  { _id: false },
 );
 
 const ProfileMongooseSchema = new Schema<ProfileTypes>(
@@ -45,17 +55,18 @@ const ProfileMongooseSchema = new Schema<ProfileTypes>(
       br: { type: TranslationContentSchema, required: true },
     },
     contato: { type: ContatoSchema },
+    skills: [techStack],
   },
   {
     timestamps: true,
     toJSON: {
-      transform: function (doc, ret: any) {
+      transform: (_doc, ret: any) => {
         ret._id = ret._id.toString();
         delete ret.__v;
         return ret;
       },
     },
-  }
+  },
 );
 
 export const Profile: Model<ProfileTypes> =

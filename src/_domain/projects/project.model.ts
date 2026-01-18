@@ -1,8 +1,8 @@
-import mongoose, { Model, Schema } from "mongoose";
-import {
+import mongoose, { type Model, Schema } from "mongoose";
+import type {
+  CollaboratorType,
   ProjectTypes,
   TranslationContentProjectType,
-  CollaboratorType,
 } from "./project.schema";
 import "../archive/archive.models";
 

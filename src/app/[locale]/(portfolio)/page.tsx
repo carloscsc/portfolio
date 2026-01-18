@@ -7,6 +7,7 @@ import Contact from "@/components/contact/contact";
 import Footer from "@/components/footer";
 import Hero from "@/components/hero";
 import { Navbar } from "@/components/navbar";
+import Skills from "@/components/skills";
 import { getBlobURL, stripHtmlTags } from "@/lib/utils";
 
 export async function generateMetadata(): Promise<Metadata> {
@@ -59,6 +60,7 @@ export default function Home() {
       <Navbar />
       <Hero />
       <Projects />
+      <Skills />
       <Contact />
       <Footer />
     </main>

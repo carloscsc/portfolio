@@ -55,7 +55,7 @@ const ProfileMongooseSchema = new Schema<ProfileTypes>(
       br: { type: TranslationContentSchema, required: true },
     },
     contato: { type: ContatoSchema },
-    skills: [techStack],
+    _skills: [techStack],
   },
   {
     timestamps: true,

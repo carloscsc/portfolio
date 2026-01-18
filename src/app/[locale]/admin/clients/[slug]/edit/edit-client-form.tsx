@@ -1,17 +1,21 @@
 "use client";
 
-import { Button } from "@/components/ui/button";
-import { ArrowLeftFromLineIcon, Trash } from "lucide-react";
-import { Link } from "@/i18n/navigation";
-
-import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { ArrowLeftFromLineIcon, Trash } from "lucide-react";
+import Image from "next/image";
+import { useForm } from "react-hook-form";
+import { toast } from "sonner";
+import { deleteClient, update } from "@/_domain/clients/client.actions";
 import {
-  ClientType,
+  type ClientType,
   UpdateClientSchema,
-  UpdateClientType,
+  type UpdateClientType,
 } from "@/_domain/clients/clients.schema";
+import { FileUpload } from "@/components/forms/file-upload";
+import TextInput from "@/components/forms/TextInput";
+import { Button } from "@/components/ui/button";
+import { ButtonGroup } from "@/components/ui/button-group";
 import {
   Form,
   FormControl,
@@ -20,23 +24,11 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
-
-import { ButtonGroup } from "@/components/ui/button-group";
-
-import TextInput from "@/components/forms/TextInput";
-import { Textarea } from "@/components/ui/textarea";
 import { Separator } from "@/components/ui/separator";
-import { FileUpload } from "@/components/ui/custom/file-upload";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
-
-import Image from "next/image";
-import { getBlobURL } from "@/lib/utils";
-import { deleteClient, update } from "@/_domain/clients/client.actions";
-import { useRouter } from "@/i18n/navigation";
-
 import { Spinner } from "@/components/ui/shadcn-io/spinner";
-
-import { toast } from "sonner";
+import { Textarea } from "@/components/ui/textarea";
+import { Link, useRouter } from "@/i18n/navigation";
+import { getBlobURL } from "@/lib/utils";
 
 const EditClientForm = ({ data }: { data: ClientType }) => {
   const router = useRouter();

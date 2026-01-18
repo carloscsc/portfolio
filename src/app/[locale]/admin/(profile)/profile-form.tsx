@@ -1,16 +1,25 @@
 "use client";
 
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import Image from "next/image";
+import { use } from "react";
+import { useForm } from "react-hook-form";
+import { toast } from "sonner";
 import { UpdateOrCreate } from "@/_domain/profile/profile.actions";
 import {
-  ProfileTypes,
+  type ProfileTypes,
   StoreProfileSchema,
-  storeProfileTypes,
+  type storeProfileTypes,
 } from "@/_domain/profile/profile.schema";
-import { Button } from "@/components/ui/button";
-import { FileUpload } from "@/components/ui/custom/file-upload";
-import { RepeatableHighlightField } from "@/components/ui/custom/repeatable-highlight-field";
-import { RichTextEditor } from "@/components/ui/custom/rich-editor";
+import { FileUpload } from "@/components/forms/file-upload";
+import { RepeatableHighlightField } from "@/components/forms/repeatable-highlight-field";
+import StackField from "@/components/forms/repeatable-stack-field";
+import { RichTextEditor } from "@/components/forms/rich-editor";
 import TextInput from "@/components/forms/TextInput";
+import { BRFlag, USFlag } from "@/components/icons/flags";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent } from "@/components/ui/card";
 import {
   Form,
   FormControl,
@@ -19,20 +28,10 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
-import { Spinner } from "@/components/ui/shadcn-io/spinner";
-
-import { getBlobURL } from "@/lib/utils";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
-import Image from "next/image";
-import { useForm } from "react-hook-form";
-import { toast } from "sonner";
-
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Card, CardContent } from "@/components/ui/card";
-import { BRFlag, USFlag } from "@/components/icons/flags";
 import { Input } from "@/components/ui/input";
-import { use } from "react";
+import { Spinner } from "@/components/ui/shadcn-io/spinner";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { getBlobURL } from "@/lib/utils";
 
 const ProfileForm = ({
   profileData,
@@ -70,6 +69,7 @@ const ProfileForm = ({
         github: data?.contato?.github || undefined,
         email: data?.contato?.email || undefined,
       },
+      _skills: data?._skills ?? [],
       cover: undefined,
       _cover: data?.cover,
     },
@@ -293,13 +293,14 @@ const ProfileForm = ({
           placeholder="Informe seu e-mail"
         />
 
+        <StackField control={form.control} name="_skills" />
+
         <FormField
           control={form.control}
           name="cover"
           render={({ field }) => (
-            <FormItem>
-              <FormLabel>Foto de perfil</FormLabel>
-              <div className="relative aspect-square w-full overflow-hidden rounded-xl bg-card mb-8">
+            <FormItem className="grid grid-cols-6 gap-6 border border-border rounded-md p-4">
+              <div className="relative aspect-square h-full overflow-hidden rounded-xl bg-card col-span-1">
                 <Image
                   src={
                     cover
@@ -310,12 +311,12 @@ const ProfileForm = ({
                   }
                   alt=""
                   fill
-                  className="object-cover mt-2"
+                  className="object-cover"
                   sizes="(min-width: 768px) 768px, 100vw"
                   priority
                 />
               </div>
-              <FormControl>
+              <FormControl className="col-span-5">
                 <FileUpload accept="image/*" {...field} />
               </FormControl>
               <FormMessage />

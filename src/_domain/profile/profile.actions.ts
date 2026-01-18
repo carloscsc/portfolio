@@ -98,17 +98,50 @@ export async function read(): Promise<ProfileTypes | null> {
   try {
     await connect();
 
-    const profile = await Profile.findOne().select("-__v").lean();
+    const results = await Profile.aggregate([
+      { $limit: 1 },
+      {
+        $lookup: {
+          from: "tags",
+          localField: "_skills.technologies",
+          foreignField: "value",
+          as: "_allTags",
+          pipeline: [{ $project: { _id: 0, label: 1, value: 1 } }],
+        },
+      },
+      {
+        $addFields: {
+          _id: { $toString: "$_id" },
+          skills: {
+            $map: {
+              input: "$_skills",
+              as: "skill",
+              in: {
+                name: "$$skill.name",
+                technologies: {
+                  $filter: {
+                    input: "$_allTags",
+                    as: "tag",
+                    cond: { $in: ["$$tag.value", "$$skill.technologies"] },
+                  },
+                },
+              },
+            },
+          },
+        },
+      },
+      {
+        $unset: ["_allTags", "__v"],
+      },
+    ]);
 
-    if (!profile) {
+    if (!results || results.length === 0) {
       return null;
     }
 
-    // Serialize ObjectId and Dates for client components
-    return {
-      ...profile,
-      _id: profile._id.toString(),
-    } as ProfileTypes;
+    console.log(results[0]);
+
+    return results[0] as ProfileTypes;
   } catch (e) {
     console.error("Error fetching profile:", e);
     throw new Error("Erro ao buscar dados do perfil");

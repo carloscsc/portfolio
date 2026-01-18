@@ -1,19 +1,18 @@
 "use client";
 
-import * as React from "react";
-import { useFieldArray, Control, useFormContext } from "react-hook-form";
+import { Plus, X } from "lucide-react";
+import { type Control, useFieldArray, useFormContext } from "react-hook-form";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
 import {
+  FormControl,
+  FormDescription,
   FormField,
   FormItem,
   FormLabel,
-  FormControl,
   FormMessage,
-  FormDescription,
 } from "@/components/ui/form";
+import { Input } from "@/components/ui/input";
 import { cn } from "@/lib/utils";
-import { Plus, X } from "lucide-react";
 
 interface RepeatableHighlightFieldProps {
   control: Control<any>;

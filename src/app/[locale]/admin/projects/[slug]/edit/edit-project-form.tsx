@@ -1,17 +1,32 @@
 "use client";
 
-import { Button } from "@/components/ui/button";
-import { ArrowLeftFromLineIcon, ExternalLink, Trash, X } from "lucide-react";
-import { Link } from "@/i18n/navigation";
-
-import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { ArrowLeftFromLineIcon, ExternalLink, Trash, X } from "lucide-react";
+import Image from "next/image";
+import { useState } from "react";
+import { useForm } from "react-hook-form";
+import { toast } from "sonner";
+import { deleteProject, update } from "@/_domain/projects/project.actions";
 import {
-  ProjectTypes,
+  type ProjectTypes,
   UpdateProjectSchema,
-  UpdateProjectTypes,
+  type UpdateProjectTypes,
 } from "@/_domain/projects/project.schema";
+import SelectAgency from "@/components/forms/agency-select";
+import SelectCategory from "@/components/forms/categ-select";
+import SelectClient from "@/components/forms/client-select";
+import { CollaboratorsInput } from "@/components/forms/collaborators-input";
+import { FileUpload } from "@/components/forms/file-upload";
+import { RepeatableTextField } from "@/components/forms/repeatable-field";
+import { RichTextEditor } from "@/components/forms/rich-editor";
+import TextInput from "@/components/forms/TextInput";
+import SelectTechTags from "@/components/forms/tags-select";
+import { Button } from "@/components/ui/button";
+import {
+  ButtonGroup,
+  ButtonGroupSeparator,
+} from "@/components/ui/button-group";
 import {
   Form,
   FormControl,
@@ -20,35 +35,12 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
-
-import {
-  ButtonGroup,
-  ButtonGroupSeparator,
-} from "@/components/ui/button-group";
-
 import { Input } from "@/components/ui/input";
-import TextInput from "@/components/forms/TextInput";
-import { RepeatableTextField } from "@/components/ui/custom/repeatable-field";
-import { Textarea } from "@/components/ui/textarea";
 import { Separator } from "@/components/ui/separator";
-import { FileUpload } from "@/components/ui/custom/file-upload";
-import { RichTextEditor } from "@/components/ui/custom/rich-editor";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
-
-import { useState } from "react";
-import Image from "next/image";
-import { getBlobURL } from "@/lib/utils";
-import { deleteProject, update } from "@/_domain/projects/project.actions";
-import { useRouter } from "@/i18n/navigation";
-
 import { Spinner } from "@/components/ui/shadcn-io/spinner";
-
-import { toast } from "sonner";
-import SelectTechTags from "@/components/forms/tags-select";
-import SelectCategory from "@/components/forms/categ-select";
-import SelectClient from "@/components/forms/client-select";
-import SelectAgency from "@/components/forms/agency-select";
-import { CollaboratorsInput } from "@/components/ui/custom/collaborators-input";
+import { Textarea } from "@/components/ui/textarea";
+import { Link, useRouter } from "@/i18n/navigation";
+import { getBlobURL } from "@/lib/utils";
 
 const EditProjectForm = ({ data }: { data: ProjectTypes }) => {
   const router = useRouter();

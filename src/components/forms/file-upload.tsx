@@ -1,10 +1,10 @@
 // src/components/ui/file-upload.tsx
 "use client";
 
-import * as React from "react";
-import { cn } from "@/lib/utils";
-import { Button } from "@/components/ui/button";
 import { Upload } from "lucide-react";
+import * as React from "react";
+import { Button } from "@/components/ui/button";
+import { cn } from "@/lib/utils";
 
 interface FileUploadProps {
   value?: File | File[];
@@ -24,7 +24,7 @@ const FileUpload = React.forwardRef<HTMLInputElement, FileUploadProps>(
       multiple = false,
       disabled = false,
     },
-    ref
+    ref,
   ) => {
     const [dragOver, setDragOver] = React.useState(false);
     const inputRef = React.useRef<HTMLInputElement>(null);
@@ -51,51 +51,55 @@ const FileUpload = React.forwardRef<HTMLInputElement, FileUploadProps>(
       handleFileChange(e.dataTransfer.files);
     };
 
-    // Sync com input real quando necessário
     React.useImperativeHandle(ref, () => inputRef.current!);
 
     return (
       <div className={cn("space-y-4", className)}>
         <input
           ref={inputRef}
+          id="file-upload-input"
           type="file"
           accept={accept}
           multiple={multiple}
           disabled={disabled}
-          className="hidden"
+          className="sr-only"
           onChange={(e) => handleFileChange(e.target.files)}
         />
 
-        <div
+        <label
+          htmlFor="file-upload-input"
           onDragOver={(e) => {
             e.preventDefault();
-            setDragOver(true);
+            if (!disabled) setDragOver(true);
           }}
           onDragLeave={(e) => {
             e.preventDefault();
             setDragOver(false);
           }}
           onDrop={handleDrop}
-          onClick={() => !disabled && inputRef.current?.click()}
           className={cn(
-            "border-2 border-dashed rounded-lg p-6 text-center cursor-pointer transition-colors",
-            dragOver
-              ? "border-primary bg-primary/5"
-              : "border-muted-foreground/25 hover:border-muted-foreground/50",
-            disabled && "opacity-50 cursor-not-allowed"
+            "border border-border border-dashed rounded-lg p-6 text-center cursor-pointer  block",
+            dragOver && !disabled && "bg-accent/50",
+            disabled && "opacity-50 cursor-not-allowed pointer-events-none",
           )}
         >
           <Upload className="mx-auto h-8 w-8 text-muted-foreground mb-2" />
           <p className="text-sm text-muted-foreground mb-2">
             Clique ou arraste {multiple ? "arquivos" : "um arquivo"} aqui
           </p>
-          <Button type="button" variant="outline" size="sm" disabled={disabled}>
+          <Button
+            type="button"
+            variant="outline"
+            size="sm"
+            disabled={disabled}
+            tabIndex={-1}
+          >
             Selecionar {multiple ? "Arquivos" : "Arquivo"}
           </Button>
-        </div>
+        </label>
       </div>
     );
-  }
+  },
 );
 
 FileUpload.displayName = "FileUpload";

@@ -74,8 +74,8 @@ export const ProfileSchema = z.object({
   cover: z.string(),
   translations: translationsSchema,
   contato: ContatoSchema.optional(),
-  skills: z.array(TechStackStoreSchema).min(1),
-  _skills: z.array(TechStackSchema).min(1),
+  _skills: z.array(TechStackStoreSchema).min(1),
+  skills: z.array(TechStackSchema).min(1),
   createdAt: z.string(),
   updatedAt: z.string(),
 });
@@ -86,6 +86,7 @@ export const StoreProfileSchema = ProfileSchema.omit({
   updatedAt: true,
   cover: true,
   translations: true,
+  skills: true,
 })
   .extend({
     _id: z.string().optional(),

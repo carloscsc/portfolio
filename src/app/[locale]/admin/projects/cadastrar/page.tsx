@@ -1,17 +1,27 @@
 // TODO: change regular inputs for TextField
 
 "use client";
-import { Button } from "@/components/ui/button";
-import { ArrowLeftFromLineIcon, X } from "lucide-react";
-import { Link } from "@/i18n/navigation";
-
-import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { ArrowLeftFromLineIcon, X } from "lucide-react";
+import Image from "next/image";
+import { useForm } from "react-hook-form";
+import { toast } from "sonner";
+import { store } from "@/_domain/projects/project.actions";
 import {
   StoreProjectSchema,
-  StoreProjectTypes,
+  type StoreProjectTypes,
 } from "@/_domain/projects/project.schema";
+import SelectAgency from "@/components/forms/agency-select";
+import SelectCategory from "@/components/forms/categ-select";
+import SelectClient from "@/components/forms/client-select";
+import { CollaboratorsInput } from "@/components/forms/collaborators-input";
+import { FileUpload } from "@/components/forms/file-upload";
+import { RepeatableTextField } from "@/components/forms/repeatable-field";
+import { RichTextEditor } from "@/components/forms/rich-editor";
+import TextInput from "@/components/forms/TextInput";
+import SelectTechTags from "@/components/forms/tags-select";
+import { Button } from "@/components/ui/button";
 import {
   Form,
   FormControl,
@@ -20,25 +30,11 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
-import { store } from "@/_domain/projects/project.actions";
 import { Input } from "@/components/ui/input";
-import TextInput from "@/components/forms/TextInput";
-import { RepeatableTextField } from "@/components/ui/custom/repeatable-field";
-import { Textarea } from "@/components/ui/textarea";
 import { Separator } from "@/components/ui/separator";
-import { FileUpload } from "@/components/ui/custom/file-upload";
-import { RichTextEditor } from "@/components/ui/custom/rich-editor";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
-
-import Image from "next/image";
-import { toast } from "sonner";
 import { Spinner } from "@/components/ui/shadcn-io/spinner";
-import { useRouter } from "@/i18n/navigation";
-import SelectTechTags from "@/components/forms/tags-select";
-import SelectCategory from "@/components/forms/categ-select";
-import SelectClient from "@/components/forms/client-select";
-import SelectAgency from "@/components/forms/agency-select";
-import { CollaboratorsInput } from "@/components/ui/custom/collaborators-input";
+import { Textarea } from "@/components/ui/textarea";
+import { Link, useRouter } from "@/i18n/navigation";
 
 // TODO: apagar campos depois de enviar
 

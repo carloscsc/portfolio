@@ -1,11 +1,11 @@
-import { useMutation, useQueryClient, useQuery } from "@tanstack/react-query";
-import { ControllerRenderProps, FieldValues } from "react-hook-form";
-import CreatableSelect from "react-select/creatable";
-import type { ClassNamesConfig } from "react-select";
-import { createTags, getAllTags } from "@/_domain/archive/archive.actions";
-import { toast } from "sonner";
-import { TagType } from "@/_domain/archive/archive.schema";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useMemo } from "react";
+import type { ControllerRenderProps, FieldValues } from "react-hook-form";
+import type { ClassNamesConfig } from "react-select";
+import CreatableSelect from "react-select/creatable";
+import { toast } from "sonner";
+import { createTags, getAllTags } from "@/_domain/archive/archive.actions";
+import type { TagType } from "@/_domain/archive/archive.schema";
 
 type SelectTechTagsProps = {
   field: ControllerRenderProps<FieldValues, any>;
@@ -78,7 +78,7 @@ export default SelectTechTags;
 
 const classNames: ClassNamesConfig<TagType, true> = {
   control: (state) =>
-    `flex w-full rounded border border-border bg-accent px-3 py-2 text-base mt-2 ${
+    `flex w-full rounded border border-border bg-accent px-3 py-2 text-base  ${
       state.isFocused ? "outline-hidden ring-2 ring-highlight" : ""
     }`,
   valueContainer: () => "flex flex-wrap gap-1",
@@ -98,6 +98,6 @@ const classNames: ClassNamesConfig<TagType, true> = {
   multiValueRemove: () =>
     "ml-1 rounded-sm hover:bg-destructive hover:text-destructive-foreground",
   placeholder: () => "text-secondary",
-  input: () => "text-primary",
+  input: () => "text-primary ",
   noOptionsMessage: () => "py-6 text-center text-sm text-secondary",
 };

@@ -138,14 +138,16 @@
   },
   "SkillsSection": {
     "heading": "What I Bring to the Table",
-    "description": "Years of building for the web. Here's what I'm great at.",
-    "summary": {
-      "advanced": "advanced",
-      "intermediate": "intermediate+"
-    }
+    "description": "Over 14 years developing web systems have helped me gain experience across multiple areas of technology. In this section you can explore some of my projects, organized by skill."
   },
   "ClientPage": {
     "heading": "Projects",
     "visitWebsite": "Visit Website"
+  },
+  "TagPage": {
+    "noProjects": {
+      "heading": "No projects yet",
+      "description": "No projects registered for this skill yet. Soon you'll see new projects here."
+    }
   }
 }

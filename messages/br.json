@@ -139,14 +139,16 @@
   },
   "SkillsSection": {
     "heading": "Principais Habilidades",
-    "description": "Desenvolvi minha expertise ao longo dos anos em desenvolvimento web. Aqui está uma visão geral das minhas competências técnicas e níveis de proficiência.",
-    "summary": {
-      "advanced": "habilidades avançadas",
-      "intermediate": "intermediárias+"
-    }
+    "description": "Mais de 14 anos desenvolvendo sistemas para web me ajudaram a acumular experiência em diversas áreas da tecnologia. Nesta seção você pode explorar alguns dos meus projetos, organizados por competência."
   },
   "ClientPage": {
     "heading": "Projetos",
     "visitWebsite": "Visitar Website"
+  },
+  "TagPage": {
+    "noProjects": {
+      "heading": "Nenhum projeto ainda",
+      "description": "Nenhum projeto cadastrado para esta habilidade ainda. Em breve você verá novos projetos por aqui."
+    }
   }
 }

@@ -3,6 +3,7 @@ import { useTranslations } from "next-intl";
 import { Suspense, use } from "react";
 import { getAndCacheProfile } from "@/_domain/profile/profile.actions";
 import { Badge } from "./ui/badge";
+import { Skeleton } from "./ui/skeleton";
 
 const Skills = () => {
   const profileData = getAndCacheProfile();
@@ -11,47 +12,65 @@ const Skills = () => {
   return (
     <section
       className="container mx-auto pt-24 px-4 md:px-0 xl:px-4 animate-in fade-in duration-500"
-      id="works"
+      id="skills"
     >
       <div className="text-center mb-12">
         <h2 className="text-3xl mb-4 text-primary">{t("heading")}</h2>
+        <p className="text-secondary max-w-2xl mx-auto text-responsive-md leading-relaxed px-4">
+          {t("description")}
+        </p>
       </div>
-      <Suspense fallback={<div>Loading skills...</div>}>
+      <Suspense fallback={<SkillsSkeleton />}>
         <RenderSkills profilePromise={profileData} />
       </Suspense>
     </section>
   );
 };
 
+const SkillsSkeleton = () => (
+  <div className="max-w-4xl mx-auto space-y-4">
+    {Array(4)
+      .fill(null)
+      .map((_, index) => (
+        <Skeleton key={index} className="w-full h-10" />
+      ))}
+  </div>
+);
+
 type SkillsRenderProps = {
   profilePromise: ReturnType<typeof getAndCacheProfile>;
 };
+
 const RenderSkills = ({ profilePromise }: SkillsRenderProps) => {
   const profile = use(profilePromise);
   const skills = profile?.skills || [];
 
   return (
-    <div>
+    <div className="max-w-4xl mx-auto space-y-4">
       {skills.map((skill) => (
         <div
           key={skill.name}
-          className="mb-4 transition-all duration-300 ease-in-out"
+          className="flex items-baseline flex-wrap gap-2 p-4 bg-accent rounded transition-all duration-300"
         >
-          <span className="text-3xl mb-4 text-primary">{skill.name}</span>:{" "}
-          {skill.technologies.map((tech) => (
-            <Link
-              key={tech.value}
-              href={`/tags/${tech.value}`}
-              title={tech.label}
-            >
-              <Badge
-                variant="secondary"
-                className="bg-transparent text-highlight border-highlight hover:bg-highlight hover:text-background ml-2"
+          <span className="text-base font-semibold text-primary shrink-0">
+            {skill.name}:
+          </span>
+          <div className="flex flex-wrap gap-2">
+            {skill.technologies.map((tech) => (
+              <Link
+                key={tech.value}
+                href={`/tags/${tech.value}`}
+                title={tech.label}
               >
-                {tech.label}
-              </Badge>
-            </Link>
-          ))}
+                <Badge
+                  variant="secondary"
+                  className="bg-transparent text-highlight border-highlight hover:bg-highlight hover:text-background"
+                >
+                  {tech.label}
+                </Badge>
+              </Link>
+            ))}
+          </div>
         </div>
       ))}
     </div>

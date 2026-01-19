@@ -1,10 +1,10 @@
-import { notFound } from "next/navigation";
 import { Suspense, use } from "react";
 import type { ProjectTypes } from "@/_domain/projects/project.schema";
 import Footer from "@/components/footer";
 import { Navbar } from "@/components/navbar";
 import { Skeleton } from "@/components/ui/skeleton";
 import { ProjectCard } from "../../projects/project-card";
+import { getTranslations } from "next-intl/server";
 
 type tagProps = {
   params: Promise<{
@@ -20,11 +20,7 @@ const TagPage = ({ params }: tagProps) => {
 
     const response = await request.json();
 
-    if (!response) {
-      notFound();
-    }
-
-    return response;
+    return response || [];
   });
 
   return (
@@ -63,9 +59,31 @@ type tagPagePromise = {
   }>;
 };
 
+const EmptyState = async ({ slug }: { slug: string }) => {
+  const t = await getTranslations("TagPage");
+
+  return (
+    <div className="flex flex-col items-center justify-center py-16 text-center">
+      <div className="text-center mb-12">
+        <h2 className="text-3xl mb-4 text-primary capitalize">{slug.replace(/-/g, " ")}</h2>
+      </div>
+      <h3 className="text-2xl font-semibold text-primary mb-4">
+        {t("noProjects.heading")}
+      </h3>
+      <p className="text-muted-foreground max-w-md">
+        {t("noProjects.description")}
+      </p>
+    </div>
+  );
+};
+
 const TagRender = ({ data, promiseSlug }: tagPagePromise) => {
   const tags = use(data);
   const { slug } = use(promiseSlug);
+
+  if (!tags || tags.length === 0) {
+    return <EmptyState slug={slug} />;
+  }
 
   const tag = tags[0].tags?.find((tag) => tag.value === slug);
 

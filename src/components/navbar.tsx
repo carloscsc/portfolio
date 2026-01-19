@@ -77,11 +77,7 @@ export function Navbar() {
   }, [computeActive]);
 
   // Generic smooth scroll handler for all sections
-  const handleSectionClick = (
-    e: React.MouseEvent<HTMLAnchorElement>,
-    sectionId: string,
-  ) => {
-    e.preventDefault();
+  const handleSectionClick = (sectionId: string) => {
     setIsOpen(false);
 
     const section = document.getElementById(sectionId);
@@ -133,38 +129,33 @@ export function Navbar() {
               {t("service")}
             </a> */}
 
-            <a
-              href="#works"
+            <button
+              type="button"
               className={navLinkClasses("works")}
               aria-current={
                 isHome && active === "works" ? "location" : undefined
               }
-              onClick={(e) => handleSectionClick(e, "works")}
+              onClick={() => handleSectionClick("works")}
             >
               {t("projects")}
-            </a>
+            </button>
 
-            {/* <a
-              href="#skills"
+            <button
+              type="button"
               className={navLinkClasses("skills")}
               aria-current={
                 isHome && active === "skills" ? "location" : undefined
               }
-              onClick={(e) => handleSectionClick(e, "skills")}
+              onClick={() => handleSectionClick("skills")}
             >
               {t("skills")}
-            </a> */}
+            </button>
 
             <Button
-              asChild
               className="rounded bg-highlight text-background hover:bg-secondary"
+              onClick={() => handleSectionClick("contact")}
             >
-              <a
-                href="#contact"
-                onClick={(e) => handleSectionClick(e, "contact")}
-              >
-                {t("contact")}
-              </a>
+              {t("contact")}
             </Button>
             <ModeToggle />
           </div>
@@ -172,6 +163,7 @@ export function Navbar() {
           {/* Mobile Navigation */}
           <div className="lg:hidden">
             <button
+              type="button"
               onClick={() => setIsOpen(!isOpen)}
               className="text-primary p-2"
               aria-label="Toggle menu"
@@ -198,38 +190,33 @@ export function Navbar() {
                 {t("service")}
               </a> */}
 
-              <a
-                href="#works"
+              <button
+                type="button"
                 className={navLinkClasses("works")}
                 aria-current={
                   isHome && active === "works" ? "location" : undefined
                 }
-                onClick={(e) => handleSectionClick(e, "works")}
+                onClick={() => handleSectionClick("works")}
               >
                 {t("projects")}
-              </a>
+              </button>
 
-              {/* <a
-                href="#skills"
+              <button
+                type="button"
                 className={navLinkClasses("skills")}
                 aria-current={
                   isHome && active === "skills" ? "location" : undefined
                 }
-                onClick={(e) => handleSectionClick(e, "skills")}
+                onClick={() => handleSectionClick("skills")}
               >
                 {t("skills")}
-              </a> */}
+              </button>
 
               <Button
                 className="w-full touch-target rounded bg-highlight text-background hover:bg-secondary"
-                asChild
+                onClick={() => handleSectionClick("contact")}
               >
-                <a
-                  href="#contact"
-                  onClick={(e) => handleSectionClick(e, "contact")}
-                >
-                  {t("contact")}
-                </a>
+                {t("contact")}
               </Button>
 
               <div className="mx-auto">

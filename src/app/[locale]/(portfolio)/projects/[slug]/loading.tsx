@@ -6,7 +6,7 @@ export default function Loading() {
   return (
     <div>
       <Navbar />
-      <div className="container max-w-6xl min-h-screen mx-auto pt-28 px-4 md:px-0 xl:px-4 space-y-6">
+      <div className="container max-w-7xl min-h-screen mx-auto pt-28 px-4 space-y-6">
         <Skeleton className="w-32 h-6" />
         <Skeleton className="w-[80%] h-12" />
         <Skeleton className="w-full h-6" />

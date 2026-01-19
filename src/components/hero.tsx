@@ -16,7 +16,7 @@ export const Hero = () => {
   return (
     <Suspense
       fallback={
-        <div className="container mx-auto pt-24 px-4 md:px-0 xl:px-4 animate-in fade-in duration-500">
+        <div className="container max-w-7xl mx-auto pt-24 px-4 animate-in fade-in duration-500">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-10 items-stretch">
             <div className="lg:col-span-5 relative rounded-2xl overflow-hidden min-h-[360px] lg:min-h-[520px] lg:order-1">
               <Skeleton className="w-full h-[360px] lg:h-[520px] aspect-square rounded" />
@@ -80,7 +80,7 @@ const HeroRender = ({
   return (
     <section
       id="home"
-      className="container mx-auto pt-24 px-4 md:px-0 xl:px-4 animate-in fade-in duration-500"
+      className="container max-w-7xl mx-auto pt-24 px-4 animate-in fade-in duration-500"
     >
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-10 items-stretch">
         <div className="lg:col-span-5 relative rounded-2xl overflow-hidden min-h-[360px] lg:min-h-[520px]  lg:order-1">

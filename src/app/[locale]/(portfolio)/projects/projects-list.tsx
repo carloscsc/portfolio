@@ -10,7 +10,7 @@ export default function Projects() {
 
   return (
     <section
-      className="container mx-auto pt-24 px-4 md:px-0 xl:px-4 animate-in fade-in duration-500"
+      className="container max-w-7xl mx-auto pt-24 px-4 animate-in fade-in duration-500"
       id="works"
     >
       <div className="text-center mb-12">

@@ -1,10 +1,10 @@
+import { getTranslations } from "next-intl/server";
 import { Suspense, use } from "react";
 import type { ProjectTypes } from "@/_domain/projects/project.schema";
 import Footer from "@/components/footer";
 import { Navbar } from "@/components/navbar";
 import { Skeleton } from "@/components/ui/skeleton";
 import { ProjectCard } from "../../projects/project-card";
-import { getTranslations } from "next-intl/server";
 
 type tagProps = {
   params: Promise<{
@@ -27,7 +27,7 @@ const TagPage = ({ params }: tagProps) => {
     <>
       <Navbar />
 
-      <main className="container min-h-screen mx-auto pt-24 px-4 md:px-0 xl:px-4 animate-in fade-in duration-500">
+      <main className="container max-w-7xl min-h-screen mx-auto pt-24 px-4 animate-in fade-in duration-500">
         <Suspense
           fallback={
             <>
@@ -65,7 +65,9 @@ const EmptyState = async ({ slug }: { slug: string }) => {
   return (
     <div className="flex flex-col items-center justify-center py-16 text-center">
       <div className="text-center mb-12">
-        <h2 className="text-3xl mb-4 text-primary capitalize">{slug.replace(/-/g, " ")}</h2>
+        <h2 className="text-3xl mb-4 text-primary capitalize">
+          {slug.replace(/-/g, " ")}
+        </h2>
       </div>
       <h3 className="text-2xl font-semibold text-primary mb-4">
         {t("noProjects.heading")}

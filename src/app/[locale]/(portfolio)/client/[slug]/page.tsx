@@ -42,7 +42,7 @@ const ClientPage = ({ params }: ClientPageProps) => {
   return (
     <>
       <Navbar />
-      <main className="container min-h-screen mx-auto pt-24 px-4 md:px-0 xl:px-4 animate-in fade-in duration-500">
+      <main className="container max-w-7xl min-h-screen mx-auto pt-24 px-4 md:px-0 xl:px-4 animate-in fade-in duration-500">
         <Suspense
           fallback={
             <>

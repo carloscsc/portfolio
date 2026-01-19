@@ -86,7 +86,7 @@ export default async function ProjectPage({ params }: Props) {
   return (
     <main className="min-h-screen ">
       <Navbar />
-      <article className="container mx-auto pt-24 px-4 md:px-0 xl:px-4 xl:max-w-5xl animate-in fade-in duration-500">
+      <article className="container max-w-7xl mx-auto pt-24 px-4 animate-in fade-in duration-500">
         <Link
           href="/#works"
           className="inline-flex items-center gap-2 text-secondary hover:text-primary transition-colors mb-6"
